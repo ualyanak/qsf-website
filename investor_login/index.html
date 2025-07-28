@@ -1,1 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investor Login – Quantum Strategy Fund</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure Investor Portal – Quantum Strategy Fund">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f5f8fc;
+      color: #2c3e50;
+    }
+    header {
+      background: linear-gradient(to right, #dbe9f6 0%, #ffffff 50%, #dbe9f6 100%);
+      padding: 2em 1em 1em;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.4em;
+      color: #1e2e4e;
+    }
+    nav {
+      text-align: center;
+      margin-top: 1em;
+    }
+    nav a {
+      margin: 0.5em 1em;
+      text-decoration: none;
+      color: #1e2e4e;
+      font-weight: bold;
+      background-color: #dbe9f6;
+      padding: 0.5em 1.2em;
+      border-radius: 6px;
+      border: 1px solid #b3cde7;
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      background-color: #c7dcf3;
+      color: #0c1f3c;
+    }
+    section {
+      max-width: 400px;
+      margin: 3em auto;
+      background: #ffffff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      color: #1e2e4e;
+      margin-bottom: 1em;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 0.5em 0 0.2em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    input[type="text"], input[type="password"] {
+      padding: 0.6em;
+      border-radius: 6px;
+      border: 1px solid #b3cde7;
+      margin-bottom: 1em;
+    }
+    input[type="submit"] {
+      background-color: #1e2e4e;
+      color: white;
+      border: none;
+      padding: 0.8em;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #274570;
+    }
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Investor Login</h1>
+    <nav>
+      <a href="../index.html">← Return to Homepage</a>
+    </nav>
+  </header>
+
+  <section>
+    <h2>Secure Access</h2>
+    <form action="login_handler.html" method="post">
+      <label for="username">Username or Email</label>
+      <input type="text" id="username" name="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" name="password" required>
+
+      <input type="submit" value="Login">
+    </form>
+  </section>
+
+  <footer>
+    &copy; 2025 Quantum Strategy Fund. All rights reserved.
+  </footer>
+
+</body>
+</html>
 
