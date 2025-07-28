@@ -14,33 +14,10 @@
       color: #3a3a3a;
     }
     header {
-  background: linear-gradient(to right, #d4af37 0%, #ffffff 50%, #d4af37 100%);
-padding: 0.5em;
-text-align: center;
-}
-
+      background: linear-gradient(to right, #d4af37 0%, #ffffff 50%, #d4af37 100%);
+      padding: 1.5em 1em 0.5em;
+      text-align: center;
     }
-    nav a {
-  margin: 0 1em;
-  text-decoration: none;
-  color: #6e4f0e;
-  font-weight: bold;
-  padding: 0.5em 1em;
-  border-radius: 8px;
-  transition: all 0.2s ease;
-}
-
-nav a:hover {
-  background-color: #fef4dc;
-  border: 2px solid #d4af37;
-  color: #3a3a3a;
-}
-
-nav a:active {
-  background-color: #ecdca7;
-  border: 2px solid #b88a00;
-  color: #000;
-}
     header h1 {
       margin: 0;
       font-size: 2.8em;
@@ -62,6 +39,19 @@ nav a:active {
       text-decoration: none;
       color: #6e4f0e;
       font-weight: bold;
+      padding: 0.5em 1em;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      background-color: #fef4dc;
+      border: 2px solid #d4af37;
+      color: #3a3a3a;
+    }
+    nav a:active {
+      background-color: #ecdca7;
+      border: 2px solid #b88a00;
+      color: #000;
     }
     section {
       padding: 3em 1em;
@@ -70,6 +60,7 @@ nav a:active {
     }
     h2 {
       color: #b88a00;
+      margin-bottom: 0.5em;
     }
     .cta {
       text-align: center;
@@ -83,6 +74,13 @@ nav a:active {
       font-weight: bold;
       border-radius: 8px;
     }
+    .highlight {
+      background: #fff3ce;
+      border-left: 4px solid #d4af37;
+      padding: 1em;
+      margin: 2em 0;
+      border-radius: 6px;
+    }
     footer {
       text-align: center;
       padding: 2em;
@@ -93,49 +91,66 @@ nav a:active {
   </style>
 </head>
 <body>
+
   <header>
-    <img src="logo3.png" alt="Quantum Strategy Fund Logo" style="height: 250px; margin-bottom: -1em;">
+    <img src="logo3.png" alt="Quantum Strategy Fund Logo" style="height: 200px; margin-bottom: -1em;">
     <h1>Quantum Strategy Fund</h1>
     <p>Where Quantum Computing Meets Asset Management</p>
+    <div class="cta">
+      <a href="investor_login">Investor Login</a>
+    </div>
   </header>
 
-  <!-- index.html -->
-<nav>
-  <a href="mission">Mission</a>
-  <a href="learn">Learn</a>
-  <a href="performance">Performance Tracker</a>
-  <a href="investorlogin">Investor Login</a>
-  <a href="#contact">Contact</a>
-</nav>
-<section>
-  <h2>Welcome to Quantum Strategy Fund</h2>
-  <p>Precision Capital. Quantum-Driven Returns.</p>
-</section>
+  <nav>
+    <a href="#mission">Mission</a>
+    <a href="#strategy">Learn</a>
+    <a href="#performance">Performance</a>
+    <a href="#team">Team</a>
+    <a href="#join">Join</a>
+    <a href="#contact">Contact</a>
+  </nav>
 
-  <section id="Mission">
+  <section id="mission">
     <h2>Our Mission</h2>
     <p>To deliver superior, data-driven financial performance by harnessing the predictive edge of quantum technology and modern financial engineering. We are committed to precision, integrity, and breakthrough capital strategy.</p>
   </section>
 
-  <section id="Learn">
+  <section id="strategy">
     <h2>Our Strategy</h2>
     <p>We deploy sophisticated models that merge volatility arbitrage, asymmetrical risk, and quantum-enhanced insights. Our hybrid approach blends short-term tactical trading with long-horizon thematic growth exposure.</p>
   </section>
 
-  <section id="Performance">
+  <section id="performance">
+    <h2>Performance Preview</h2>
+    <div class="highlight">
+      <p><strong>3-Year Cumulative Return:</strong> +5809.97%</p>
+      <p><strong>Volatility Strategy Sharpe Ratio:</strong> 3.6</p>
+      <p><strong>Drawdown:</strong> -7.2% max</p>
+    </div>
+    <p>While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
+  </section>
+
+  <section id="team">
     <h2>Our Team</h2>
     <p>Founded by visionary physicists and financial strategists, Quantum Strategy Fund unites deep technical expertise with market-tested discipline. Every decision is grounded in analytics and aligned with long-term value creation.</p>
   </section>
 
-  <section id="contact" class="cta">
+  <section id="join">
+    <h2>Join Our Investor Network</h2>
+    <p>Get exclusive insights, research briefings, and early access to investment opportunities.</p>
+    <div class="cta">
+      <a href="mailto:info@quantumstrategyfund.com?subject=Investor Access">Request Access</a>
+    </div>
+  </section>
+
+  <section id="contact">
     <h2>Contact Us</h2>
-    <a href="mailto:info@quantumstrategyfund.com">info@quantumstrategyfund.com</a>
+    <p>Email us at: <a href="mailto:info@quantumstrategyfund.com">info@quantumstrategyfund.com</a></p>
   </section>
 
   <footer>
     &copy; 2025 Quantum Strategy Fund. All rights reserved.
   </footer>
-</body>
-</html>
+
 </body>
 </html>
