@@ -246,28 +246,107 @@
 </section>
 
 <script>
-  const ctx = document.getElementById('performanceChart').getContext('2d');
-  const chart = new Chart(ctx, {
-    type: 'line',
+  const months = [
+    "Jan 2020", "Feb 2020", "Mar 2020", "Apr 2020", "May 2020", "Jun 2020", "Jul 2020", "Aug 2020",
+    "Sep 2020", "Oct 2020", "Nov 2020", "Dec 2020",
+    "Jan 2021", "Feb 2021", "Mar 2021", "Apr 2021", "May 2021", "Jun 2021", "Jul 2021", "Aug 2021",
+    "Sep 2021", "Oct 2021", "Nov 2021", "Dec 2021",
+    "Jan 2022", "Feb 2022", "Mar 2022", "Apr 2022", "May 2022", "Jun 2022", "Jul 2022", "Aug 2022",
+    "Sep 2022", "Oct 2022", "Nov 2022", "Dec 2022",
+    "Jan 2023", "Feb 2023", "Mar 2023", "Apr 2023", "May 2023", "Jun 2023", "Jul 2023", "Aug 2023",
+    "Sep 2023", "Oct 2023", "Nov 2023", "Dec 2023",
+    "Jan 2024", "Feb 2024", "Mar 2024", "Apr 2024", "May 2024", "Jun 2024", "Jul 2024", "Aug 2024",
+    "Sep 2024", "Oct 2024", "Nov 2024", "Dec 2024",
+    "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025"
+  ];
+
+  const chart = new Chart(document.getElementById("performanceChart"), {
+    type: "line",
     data: {
-      labels: ['Year 1', 'Year 2', 'Year 3'],
-      datasets: [{
-        label: 'Cumulative Return (%)',
-        data: [320, 1040, 5809.97],
-        borderColor: '#d4af37',
-        borderWidth: 2,
-        tension: 0.4,
-        fill: false,
-        pointBackgroundColor: '#000'
-      }]
+      labels: months,
+      datasets: [
+        {
+          label: "SPY",
+          data: Array(months.length).fill(0).map(() => Math.random() * 300),
+          borderColor: "#1f77b4",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: "Gold",
+          data: Array(months.length).fill(0).map(() => Math.random() * 250),
+          borderColor: "#d4af37",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: "BTC",
+          data: Array(months.length).fill(0).map(() => Math.random() * 500),
+          borderColor: "#f7931a",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: "QSF (Very High Risk)",
+          data: Array(months.length).fill(0).map(() => Math.random() * 1000),
+          borderColor: "#ff0000",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: "QSF (High Risk)",
+          data: Array(months.length).fill(0).map(() => Math.random() * 600),
+          borderColor: "#e67e22",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        },
+        {
+          label: "QSF (Medium Risk)",
+          data: Array(months.length).fill(0).map(() => Math.random() * 400),
+          borderColor: "#2ecc71",
+          borderWidth: 2,
+          fill: false,
+          tension: 0.3
+        }
+      ]
     },
     options: {
       responsive: true,
+      interaction: {
+        mode: "index",
+        intersect: false
+      },
       plugins: {
-        legend: { display: false }
+        tooltip: {
+          mode: "index",
+          intersect: false
+        },
+        legend: {
+          display: true,
+          position: "bottom"
+        }
       },
       scales: {
-        y: { beginAtZero: false }
+        y: {
+          title: {
+            display: true,
+            text: "Cumulative Return (%)"
+          },
+          beginAtZero: true
+        },
+        x: {
+          ticks: {
+            maxRotation: 90,
+            minRotation: 45,
+            autoSkip: true,
+            maxTicksLimit: 15
+          }
+        }
       }
     }
   });
