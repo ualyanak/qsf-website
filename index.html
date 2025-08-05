@@ -186,15 +186,93 @@
       all with one goal: to make you as much money as the market allows.</p>
   </section>
 
-  <section id="performance">
-    <h2>Performance Tracker</h2>
-    <div class="highlight">
+  <!-- Add in your <head> if using chart -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+  #performance {
+    margin-top: 2em;
+  }
+
+  .tracker-container {
+    background-color: #fff5cc;
+    padding: 1em;
+    border-radius: 10px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 #d4af37;
+    transition: box-shadow 0.3s;
+  }
+
+  .tracker-container:hover {
+    box-shadow: 3px 3px 10px #d4af37;
+  }
+
+  .tracker-details {
+    display: none;
+    margin-top: 1em;
+    font-size: 1em;
+    color: #333;
+  }
+
+  .tracker-container.open .tracker-details {
+    display: block;
+  }
+
+  canvas {
+    margin-top: 1em;
+    max-width: 100%;
+  }
+
+  @media (max-width: 600px) {
+    .tracker-container {
+      font-size: 1em;
+    }
+  }
+</style>
+
+<section id="performance">
+  <h2>Performance Tracker</h2>
+
+  <div class="tracker-container" onclick="this.classList.toggle('open')">
+    <div class="tracker-details">
       <p><strong>3-Year Cumulative Return:</strong> +5809.97%</p>
       <p><strong>Volatility Strategy Sharpe Ratio:</strong> 3.6</p>
       <p><strong>Drawdown:</strong> -7.2% max</p>
     </div>
-    <p>While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
-  </section>
+    <canvas id="performanceChart"></canvas>
+  </div>
+
+  <p style="margin-top: 1em;">While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
+</section>
+
+<script>
+  const ctx = document.getElementById('performanceChart').getContext('2d');
+  const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: ['Year 1', 'Year 2', 'Year 3'],
+      datasets: [{
+        label: 'Cumulative Return (%)',
+        data: [320, 1040, 5809.97],
+        borderColor: '#d4af37',
+        borderWidth: 2,
+        tension: 0.4,
+        fill: false,
+        pointBackgroundColor: '#000'
+      }]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: { display: false }
+      },
+      scales: {
+        y: { beginAtZero: false }
+      }
+    }
+  });
+</script>
+
 
   <section id="join">
     <h2>Join Our Investor Network</h2>
