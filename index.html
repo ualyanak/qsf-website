@@ -293,8 +293,13 @@ canvas {
     </div>
   </div>
 
+  <!-- LOG SCALE TOGGLE BUTTON -->
+  <button onclick="toggleLogScale()" style="margin-top: 1em;">Toggle Log Scale</button>
+
   <p style="margin-top: 1em;">While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
 </section>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 <script>
   const months = [
@@ -311,7 +316,9 @@ canvas {
     "Jan 2025", "Feb 2025", "Mar 2025", "Apr 2025", "May 2025", "Jun 2025", "Jul 2025", "Aug 2025"
   ];
 
-  const chart = new Chart(document.getElementById("performanceChart"), {
+  let chart; // make chart accessible outside
+
+  chart = new Chart(document.getElementById("performanceChart"), {
     type: "line",
     data: {
       labels: months,
@@ -402,6 +409,7 @@ canvas {
         }
       ]
     },
+    ,
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -421,6 +429,7 @@ canvas {
       },
       scales: {
         y: {
+          type: "linear", // start in linear mode
           title: {
             display: true,
             text: "Cumulative Return (%)"
@@ -438,6 +447,13 @@ canvas {
       }
     }
   });
+
+  // Toggle between linear and logarithmic y-scale
+  function toggleLogScale() {
+    const currentType = chart.options.scales.y.type;
+    chart.options.scales.y.type = currentType === 'linear' ? 'logarithmic' : 'linear';
+    chart.update();
+  }
 </script>
 
 
