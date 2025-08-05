@@ -293,8 +293,22 @@ canvas {
     </div>
   </div>
 
+
   <!-- LOG SCALE TOGGLE BUTTON -->
-  <button onclick="toggleLogScale()" style="margin-top: 1em;">Toggle Log Scale</button>
+<button id="logToggleBtn" onclick="toggleLogScale()" style="
+  margin-top: 1em;
+  background-color: #d4af37;
+  color: #000;
+  border: none;
+  padding: 10px 20px;
+  font-weight: bold;
+  border-radius: 6px;
+  font-size: 1em;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+">
+  Switch to Log Scale
+</button>
 
   <p style="margin-top: 1em;">While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
 </section>
@@ -450,10 +464,19 @@ canvas {
 
   // Toggle between linear and logarithmic y-scale
   function toggleLogScale() {
-    const currentType = chart.options.scales.y.type;
-    chart.options.scales.y.type = currentType === 'linear' ? 'logarithmic' : 'linear';
-    chart.update();
+  const yScale = chart.options.scales.y;
+  const button = document.getElementById("logToggleBtn");
+
+  if (yScale.type === 'linear') {
+    yScale.type = 'logarithmic';
+    button.textContent = 'Switch to Regular Scale';
+  } else {
+    yScale.type = 'linear';
+    button.textContent = 'Switch to Log Scale';
   }
+
+  chart.update();
+}
 </script>
 
 
