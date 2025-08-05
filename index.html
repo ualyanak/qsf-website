@@ -218,14 +218,63 @@
     display: block;
   }
 
-  canvas {
-    margin-top: 1em;
-    max-width: 100%;
-  }
+  .tracker-container {
+  background-color: #fff5cc;
+  padding: 1em;
+  border-radius: 10px;
+  box-shadow: 3px 3px 0 #d4af37;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
 
   @media (max-width: 600px) {
     .tracker-container {
       font-size: 1em;
+    }
+  }
+</style>
+
+<style>
+  .tracker-container {
+    background-color: #fff5cc;
+    padding: 1em;
+    border-radius: 10px;
+    box-shadow: 3px 3px 0 #d4af37;
+    overflow-x: auto;
+    max-width: 100%;
+  }
+
+  .tracker-details {
+    margin-bottom: 1em;
+  }
+
+  .chart-wrapper {
+    width: 100%;
+    height: 400px;
+    position: relative;
+  }
+
+  canvas {
+    display: block;
+    width: 100% !important;
+    height: 100% !important;
+  }
+
+  @media (max-width: 600px) {
+    .tracker-container {
+      padding: 0.75em;
+    }
+
+    .chart-wrapper {
+      height: 300px;
     }
   }
 </style>
@@ -239,7 +288,9 @@
       <p><strong>Volatility Strategy Sharpe Ratio:</strong> 3.6</p>
       <p><strong>Drawdown:</strong> -7.2% max</p>
     </div>
-    <canvas id="performanceChart"></canvas>
+    <div class="chart-wrapper">
+      <canvas id="performanceChart"></canvas>
+    </div>
   </div>
 
   <p style="margin-top: 1em;">While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.</p>
@@ -317,6 +368,7 @@
     },
     options: {
       responsive: true,
+      maintainAspectRatio: false,
       interaction: {
         mode: "index",
         intersect: false
@@ -351,6 +403,7 @@
     }
   });
 </script>
+
 
 
   <section id="join">
