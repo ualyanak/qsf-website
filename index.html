@@ -353,7 +353,6 @@ Chart.register({
     ctx.setLineDash([5, 5]);
     ctx.lineWidth = 2;
     ctx.textAlign = 'left';
-    ctx.font = '16px Garamond';
 
     for (const line of lines) {
       const index = chart.data.labels.indexOf(line.label);
@@ -366,6 +365,7 @@ Chart.register({
       ctx.strokeStyle = line.color;
       ctx.moveTo(xPos, top);
       ctx.lineTo(xPos, bottom);
+      ctx.font = `${line.fontSize}px Garamond`;
       ctx.stroke();
 
       // Draw label
