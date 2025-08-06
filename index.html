@@ -309,6 +309,7 @@ canvas {
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
 
 <script>
   const months = [
@@ -451,6 +452,31 @@ canvas {
         intersect: false
       },
       plugins: {
+    tooltip: { /* your tooltip config */ },
+    legend: { /* your legend config */ },
+    annotation: {
+      annotations: {
+        qsfSplitLine: {
+          type: 'line',
+          scaleID: 'x',
+          value: 'Aug 2023',
+          borderColor: 'rgba(200, 0, 0, 0.7)',
+          borderWidth: 2,
+          borderDash: [6, 6],
+          label: {
+            content: 'QSF Medium–High Risk Split',
+            enabled: true,
+            position: 'start',
+            backgroundColor: 'rgba(200, 0, 0, 0.1)',
+            color: '#c00',
+            font: {
+              weight: 'bold'
+            }
+          }
+        }
+      }
+    }
+  },
   tooltip: {
     mode: "index",
     intersect: false,
