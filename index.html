@@ -154,7 +154,7 @@
     <a href="#contact">Become an Investor</a>
   </nav>
 
-  
+
    <section id="story">
   <h2>Our Story</h2>
  <p>
@@ -284,9 +284,9 @@ canvas {
 
   <div class="tracker-container">
     <div class="chart-wrapper">
-      <canvas id="performanceChart"></canvas>
-    </div>
-  </div>
+  <canvas id="performanceChart"></canvas>
+</div>
+</div>
 
 
   <!-- LOG SCALE TOGGLE BUTTON -->
@@ -309,7 +309,6 @@ canvas {
 </section>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-annotation@1.4.0"></script>
 
 <script>
   const months = [
@@ -395,7 +394,7 @@ canvas {
   hidden: true
 },
 
-        
+
 
         {
           label: "QSF (Extreme Risk)",
@@ -443,7 +442,7 @@ canvas {
         }
       ]
     },
-    
+
     options: {
       responsive: true,
       maintainAspectRatio: false,
@@ -451,7 +450,7 @@ canvas {
         mode: "index",
         intersect: false
       },
-      plugins:
+      plugins: {
   tooltip: {
     mode: "index",
     intersect: false,
@@ -508,7 +507,7 @@ canvas {
   chart.update();
 }
 </script>
-  
+
 
 
 
