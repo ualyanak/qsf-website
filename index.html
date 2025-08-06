@@ -345,7 +345,7 @@ Chart.register({
         color: "#e67e22",         // orange
         yOffset: isMobile ? 10 : -2,
         fontSize: isMobile ? 12 : 16,
-        xShift: isMobile ? -12 : -200
+        xShift: isMobile ? -122 : -200
       }
     ];
 
@@ -370,7 +370,7 @@ Chart.register({
 
       // Draw label
       ctx.fillStyle = line.color;
-      ctx.fillText(line.text, xPos - 200, top + line.yOffset);
+      ctx.fillText(line.text, xPos +line.xShift, top + line.yOffset);
     }
 
     ctx.restore();
