@@ -504,9 +504,23 @@ canvas {
     yScale.type = 'linear';
     button.textContent = 'Switch to Log Scale';
   }
+    function toggleDataset(label) {
+  const dataset = chart.data.datasets.find(d => d.label === label);
+  if (dataset) {
+    dataset.hidden = !dataset.hidden;
+    chart.update();
+  }
+}
+
 
   chart.update();
 }
+  <div id="compareButtons" style="margin-top: 1em;">
+  <label><input type="checkbox" onchange="toggleDataset('SPY')" checked> Compare with SPY</label>
+  <label><input type="checkbox" onchange="toggleDataset('Gold')" checked> Compare with Gold</label>
+  <label><input type="checkbox" onchange="toggleDataset('BTC')" checked> Compare with BTC</label>
+  <label><input type="checkbox" onchange="toggleDataset('Risk-Free Interest')" checked> Compare with Risk-Free</label>
+</div>
 </script>
 
 
