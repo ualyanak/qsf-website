@@ -450,15 +450,25 @@ canvas {
         intersect: false
       },
       plugins: {
-        tooltip: {
-          mode: "index",
-          intersect: false
-        },
-        legend: {
-          display: true,
-          position: "bottom"
+  tooltip: {
+    mode: "index",
+    intersect: false,
+    callbacks: {
+      label: function(context) {
+        let label = context.dataset.label || '';
+        if (label) label += ': ';
+        if (context.parsed.y !== null) {
+          label += context.parsed.y.toFixed(2);
         }
-      },
+        return label;
+      }
+    }
+  },
+  legend: {
+    display: true,
+    position: "bottom"
+  }
+},
       scales: {
         y: {
           type: "linear", // start in linear mode
