@@ -329,19 +329,25 @@ Chart.register({
   id: 'drawMultipleVerticalLines',
   beforeDatasetsDraw(chart, args, pluginOptions) {
     const { ctx, chartArea: { top, bottom }, scales: { x } } = chart;
-
+    const isMobile = chart.width < 600;
     const lines = [
       {
         label: "Aug 2023",
         text: "QSF Medium–High Risk Split",
         color: "#d4af37",         // gold
-        yOffset: -2
+        yOffset: -2,
+        yOffset: isMobile ? 20 : 15,
+        fontSize: isMobile ? 11 : 16,
+        xShift: isMobile ? -100 : -200
       },
       {
         label: "Dec 2024",
         text: "QSF High–Extreme Risk Split",
         color: "#e67e22",         // orange
-        yOffset: -2
+        yOffset: -2,
+        yOffset: isMobile ? 40 : 40,
+        fontSize: isMobile ? 11 : 16,
+        xShift: isMobile ? -100 : -200
       }
     ];
 
