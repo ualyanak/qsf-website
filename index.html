@@ -349,8 +349,7 @@ canvas {
           borderColor: "#1f77b4",
           borderWidth: 2,
           fill: false,
-          tension: 0.3,
-  hidden: true
+          tension: 0.3
         },
         {
           label: "Gold",
@@ -364,8 +363,7 @@ canvas {
           borderColor: "#d4af37",
           borderWidth: 2,
           fill: false,
-          tension: 0.3,
-  hidden: true
+          tension: 0.3
         },
         {
           label: "BTC",
@@ -380,8 +378,7 @@ canvas {
           borderColor: "#f7931a",
           borderWidth: 2,
           fill: false,
-          tension: 0.3,
-  hidden: true
+          tension: 0.3
         },
         {
   label: "Risk-Free Interest",
@@ -395,8 +392,7 @@ canvas {
   borderColor: "#1f4e79",  // deep navy blue
   borderWidth: 2,
   fill: false,
-  tension: 0.3,
-  hidden: true
+  tension: 0.3
 },
 
         
@@ -497,7 +493,7 @@ canvas {
   });
 
   // Toggle between linear and logarithmic y-scale
-function toggleLogScale() {
+  function toggleLogScale() {
   const yScale = chart.options.scales.y;
   const button = document.getElementById("logToggleBtn");
 
@@ -511,7 +507,7 @@ function toggleLogScale() {
 
   chart.update();
 }
-
+</script>
   
 
 
