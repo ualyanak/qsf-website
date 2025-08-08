@@ -233,7 +233,20 @@
   <footer>
     &copy; 2025 Quantum Strategy Fund. All rights reserved.
   </footer>
+<script>
+  // Prevent Safari/Chrome from restoring scroll on first load
+  if ('scrollRestoration' in history) {
+    history.scrollRestoration = 'manual';
+  }
 
+  // On first paint, jump to the very top unless there's an anchor in the URL
+  window.addEventListener('load', () => {
+    if (!location.hash) {
+      // delay one tick so layout/sticky header settle
+      setTimeout(() => window.scrollTo(0, 0), 0);
+    }
+  });
+</script>
   <!-- Chart.js (load once, defer) -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
