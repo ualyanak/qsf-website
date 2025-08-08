@@ -79,6 +79,10 @@ html, body {
     /* Sections */
     main section { padding: 3em 1em; max-width: 1000px; margin: 0 auto; }
     h2 { color: #b88a00; margin: 0 0 .5em; font-size: 1.75rem; }
+    /* Works for desktop + mobile */
+main section[id] {
+  scroll-margin-top: 80px; /* adjust to match your sticky nav height */
+}
 
     /* Highlight box (mobile-only note) */
     .highlight {
