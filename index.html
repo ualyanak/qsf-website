@@ -20,6 +20,10 @@
       --bg:#fff8f0;
       --muted:#555;
     }
+    /* Prevent iOS/Safari scroll anchoring jump */
+html, body {
+  overflow-anchor: none;
+}
 
     /* Base */
     * { box-sizing: border-box; }
@@ -234,17 +238,25 @@
     &copy; 2025 Quantum Strategy Fund. All rights reserved.
   </footer>
 <script>
-  // Prevent Safari/Chrome from restoring scroll on first load
-  if ('scrollRestoration' in history) {
-    history.scrollRestoration = 'manual';
+  // Don't restore previous scroll automatically
+  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+
+  function resetTop() {
+    if (!location.hash) window.scrollTo(0, 0);
   }
 
-  // On first paint, jump to the very top unless there's an anchor in the URL
+  // Fresh load
   window.addEventListener('load', () => {
-    if (!location.hash) {
-      // delay one tick so layout/sticky header settle
-      setTimeout(() => window.scrollTo(0, 0), 0);
-    }
+    // Run a few times to beat iOS bar resize/layout shifts
+    requestAnimationFrame(resetTop);
+    setTimeout(resetTop, 0);
+    setTimeout(resetTop, 150);
+    setTimeout(resetTop, 400);
+  });
+
+  // When Safari brings the page back from bfcache
+  window.addEventListener('pageshow', (e) => {
+    if (e.persisted && !location.hash) resetTop();
   });
 </script>
   <!-- Chart.js (load once, defer) -->
