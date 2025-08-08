@@ -76,11 +76,19 @@
     main section { padding: 3em 1em; max-width: 1000px; margin: 0 auto; }
     h2 { color: #b88a00; margin: 0 0 .5em; font-size: 1.75rem; }
 
-    /* Highlight box (optional) */
+    /* Highlight box (mobile-only note) */
     .highlight {
       background: #fff3ce; border-left: 4px solid var(--gold);
       padding: 1em; margin: 1.25em 0; border-radius: 6px;
     }
+    .mobile-only { display: none; }
+    @media (max-width: 768px) {
+      .mobile-only { display: block; }
+    }
+
+    /* Notes accordion */
+    .chart-notes summary { cursor: pointer; font-weight: 600; }
+    .chart-notes ul { margin: .6rem 0 0 1.2rem; }
 
     /* Performance tracker */
     #performance { margin-top: 2em; }
@@ -107,8 +115,7 @@
 
     /* Responsive */
     @media (max-width: 768px) {
-      .logo { height: 140px;
-  margin: 0 auto 0.2rem;}
+      .logo { height: 140px; margin: 0 auto 0.2rem; }
       header h1 { font-size: 1.9rem; }
       header p { font-size: 1rem; }
       nav { padding: .75em .5em; }
@@ -156,10 +163,9 @@
       <p>
         Over the past five years, that framework has delivered results. Our fund has achieved strong performance by applying quantum-native models to signal detection, portfolio optimization, and risk analysis. View our <a href="#performance">performance tracker</a> for the 5-year cumulative return for each tier.
       </p>
-    </p>
-      The High Risk tier came to fruition in August 2023, and the Extreme Risk tier became available to investors in December 2024. We are constantly improving our models and actively testing new methods to meet the needs of investors with diverse interests and risk profiles.
       </p>
-      
+        The High Risk tier came to fruition in August 2023, and the Extreme Risk tier became available to investors in December 2024. We are constantly improving our models and actively testing new methods to meet the needs of investors with diverse interests and risk profiles.
+      </p>
     </section>
 
     <section id="why_quantum">
@@ -173,10 +179,24 @@
     </section>
 
     <section id="performance">
-      <div class="highlight">
-        For best results, turn phone sideways. Explain what the plot means, explain log, etc
+      <!-- Mobile-only tip -->
+      <div class="highlight mobile-only">
+        For best results, rotate your phone (landscape).
       </div>
+      
+      
+
       <h2>Performance Tracker</h2>
+       <!-- How to read the chart -->
+      <details id="chart-notes" class="chart-notes">
+        <summary>How to read this chart</summary>
+        <ul>
+          <li><strong>Cumulative return</strong> shows total % gain since Jan 2020 (not annualized).</li>
+          <li>Use the buttons to <strong>show/hide</strong> different assets or strategy tiers for comparison.</li>
+          <li><strong>Log scale</strong> makes large differences comparable; switch back to Regular for absolute spacing.</li>
+          <li>Dashed vertical lines mark when new risk tiers launched (Aug 2023, Dec 2024).</li>
+        </ul>
+      </details>
       <div class="tracker-container">
         <div class="chart-wrapper">
           <canvas id="performanceChart"></canvas>
@@ -187,6 +207,8 @@
         <button id="logToggleBtn" class="btn" type="button" onclick="toggleLogScale()">Switch to Log Scale</button>
         <span style="align-self:center; font-size:.9rem; color:#666;">Tip: click legend items to show/hide series.</span>
       </div>
+
+     
 
       <p style="margin-top: 1em;">
         While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.
@@ -248,35 +270,59 @@
       "Jan 2025","Feb 2025","Mar 2025","Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025"
     ];
 
-    const verticalLines = {
-      id: 'verticalLines',
-      beforeDatasetsDraw(chart){
-        const { ctx, chartArea:{ top, bottom, left, right }, scales:{ x } } = chart;
-        const isMobile = chart.width < 600;
-        const lines = [
-          { label:"Aug 2023", text: isMobile ? "Risk Split" : "QSF Medium–High Risk Split", color:"#d4af37", y: isMobile ? 12 : 16 },
-          { label:"Dec 2024", text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split", color:"#e67e22", y: isMobile ? 28 : 36 }
-        ];
-        ctx.save();
-        ctx.setLineDash([5,5]);
-        ctx.lineWidth = 2;
-        ctx.textBaseline = 'top';
-        ctx.font = (isMobile?12:16) + "px Garamond";
-        for(const L of lines){
-          const i = chart.data.labels.indexOf(L.label);
-          if(i < 0) continue;
-          const xPos = x.getPixelForValue(i);
-          // line
-          ctx.strokeStyle = L.color;
-          ctx.beginPath(); ctx.moveTo(xPos, top); ctx.lineTo(xPos, bottom); ctx.stroke();
-          // label (clamped)
-          const w = ctx.measureText(L.text).width;
-          const tx = Math.min(Math.max(xPos + 6, left + 6), right - w - 6);
-          ctx.fillStyle = L.color; ctx.fillText(L.text, tx, top + L.y);
-        }
-        ctx.restore();
+   const verticalLines = {
+  id: 'verticalLines',
+  beforeDatasetsDraw(chart){
+    const { ctx, chartArea:{ top, bottom, left, right }, scales:{ x } } = chart;
+    const isMobile = chart.width < 600;
+
+    const lines = [
+      { 
+        label: "Aug 2023",
+        text: isMobile ? "Risk Split" : "QSF Medium–High Risk Split",
+        color: "#d4af37",
+        y: isMobile ? 12 : 16,   // vertical offset
+        x: isMobile ? -52  : -200    // horizontal offset
+      },
+      { 
+        label: "Dec 2024",
+        text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split",
+        color: "#e67e22",
+        y: isMobile ? 28 : 36,   // vertical offset
+        x: isMobile ? -52 : -200 // horizontal offset
       }
-    };
+    ];
+
+    ctx.save();
+    ctx.setLineDash([5,5]);
+    ctx.lineWidth = 2;
+    ctx.textBaseline = 'top';
+    ctx.font = (isMobile ? 12 : 16) + "px Garamond";
+
+    for (const L of lines) {
+      const i = chart.data.labels.indexOf(L.label);
+      if (i < 0) continue;
+
+      const xPos = x.getPixelForValue(i);
+
+      // draw vertical line
+      ctx.strokeStyle = L.color;
+      ctx.beginPath();
+      ctx.moveTo(xPos, top);
+      ctx.lineTo(xPos, bottom);
+      ctx.stroke();
+
+      // label (with your manual offsets, clamped inside chart area)
+      const w = ctx.measureText(L.text).width;
+      const tx = Math.min(Math.max(xPos + L.x, left + 6), right - w - 6);
+      ctx.fillStyle = L.color;
+      ctx.fillText(L.text, tx, top + L.y);
+    }
+
+    ctx.restore();
+  }
+};
+
 
     const datasets = [
       // QSF series first (visible)
@@ -345,7 +391,7 @@
             title: { display: true, text: "Cumulative Return (%)" }
           },
           x: {
-            ticks: { autoSkip: true, maxRotation: 45, minRotation: 0, maxTicksLimit: 14 }
+            ticks: { autoSkip: true, maxRotation: 45, minRotation: 0, maxTicksLimit: 14 } // will be overridden by callback below
           }
         }
       }
@@ -360,8 +406,47 @@
       chart.update();
     }
     window.toggleLogScale = toggleLogScale;
+
+    // --- Dynamic X-axis label density + padding to avoid collisions ---
+    let dynamicSkip = 1;
+
+    function updateChartForSize() {
+      const w = chart.width;
+
+      if (w < 420) {
+        dynamicSkip = 6; // show every 6th label
+        chart.options.scales.x.ticks.maxRotation = 60;
+        chart.options.scales.x.ticks.minRotation = 40;
+        chart.options.scales.x.ticks.autoSkipPadding = 16;
+        chart.options.layout = { padding: { bottom: 28, left: 8, right: 8, top: 8 } };
+      } else if (w < 800) {
+        dynamicSkip = 3;
+        chart.options.scales.x.ticks.maxRotation = 30;
+        chart.options.scales.x.ticks.minRotation = 0;
+        chart.options.scales.x.ticks.autoSkipPadding = 12;
+        chart.options.layout = { padding: { bottom: 20, left: 8, right: 8, top: 8 } };
+      } else {
+        dynamicSkip = 1; // dense on desktop
+        chart.options.scales.x.ticks.maxRotation = 0;
+        chart.options.scales.x.ticks.minRotation = 0;
+        chart.options.scales.x.ticks.autoSkipPadding = 8;
+        chart.options.layout = { padding: { bottom: 14, left: 8, right: 8, top: 8 } };
+      }
+
+      chart.update('none');
+    }
+
+    // Overwrite tick callback to thin labels based on dynamicSkip
+    chart.options.scales.x.ticks.callback = (value, index) => {
+      return (index % dynamicSkip === 0) ? chart.data.labels[index] : '';
+    };
+
+    // Keep label density correct on canvas resize
+    const ro = new ResizeObserver(() => updateChartForSize());
+    ro.observe(chart.canvas);
+
+    // Initial tune
+    updateChartForSize();
   </script>
 </body>
 </html>
-
-
