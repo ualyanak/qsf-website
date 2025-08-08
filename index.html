@@ -310,7 +310,7 @@ html, body {
       },
       { 
         label: "Dec 2024",
-        text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split",
+        text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Splity",
         color: "#e67e22",
         y: isMobile ? 28 : 36,   // vertical offset
         x: isMobile ? -52 : -200 // horizontal offset
@@ -432,45 +432,11 @@ html, body {
     window.toggleLogScale = toggleLogScale;
 
     // --- Dynamic X-axis label density + padding to avoid collisions ---
-    let dynamicSkip = 1;
+    let dynamicSkip = 0;
 
-    function updateChartForSize() {
-      const w = chart.width;
-
-      if (w < 420) {
-        dynamicSkip = 6; // show every 6th label
-        chart.options.scales.x.ticks.maxRotation = 60;
-        chart.options.scales.x.ticks.minRotation = 40;
-        chart.options.scales.x.ticks.autoSkipPadding = 16;
-        chart.options.layout = { padding: { bottom: 28, left: 8, right: 8, top: 8 } };
-      } else if (w < 800) {
-        dynamicSkip = 3;
-        chart.options.scales.x.ticks.maxRotation = 30;
-        chart.options.scales.x.ticks.minRotation = 0;
-        chart.options.scales.x.ticks.autoSkipPadding = 12;
-        chart.options.layout = { padding: { bottom: 20, left: 8, right: 8, top: 8 } };
-      } else {
-        dynamicSkip = 1; // dense on desktop
-        chart.options.scales.x.ticks.maxRotation = 0;
-        chart.options.scales.x.ticks.minRotation = 0;
-        chart.options.scales.x.ticks.autoSkipPadding = 8;
-        chart.options.layout = { padding: { bottom: 14, left: 8, right: 8, top: 8 } };
-      }
-
-      chart.update('none');
-    }
-
-    // Overwrite tick callback to thin labels based on dynamicSkip
-    chart.options.scales.x.ticks.callback = (value, index) => {
-      return (index % dynamicSkip === 0) ? chart.data.labels[index] : '';
-    };
-
-    // Keep label density correct on canvas resize
-    const ro = new ResizeObserver(() => updateChartForSize());
-    ro.observe(chart.canvas);
-
-    // Initial tune
-    updateChartForSize();
+   function updateChartForSize() {
+  // intentionally left blank
+}
   </script>
 </body>
 </html>
