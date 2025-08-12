@@ -400,6 +400,11 @@ main section[id] {
       plugins: [verticalLines],
       data: { labels: months, datasets },
       options: {
+        elements: {
+    point: {
+      radius: 0
+    }
+  },
         responsive: true,
         maintainAspectRatio: false,
         interaction: { mode: "index", intersect: false },
