@@ -3,290 +3,299 @@
 <head>
   <meta charset="UTF-8" />
   <title>Quantum Strategy Fund</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="description" content="Quantum-native models for medium-term asset pricing. View strategy, performance, and tiers." />
-  <link rel="icon" type="image/png" href="logo3.png" />
+  <meta name="robots" content="index,follow" />
+  <meta name="theme-color" content="#d4af37" />
+
+  <!-- Open Graph / Twitter -->
   <link rel="canonical" href="https://quantumstrategyfund.com/" />
   <meta property="og:title" content="Quantum Strategy Fund" />
   <meta property="og:description" content="Quantum-native models for medium-term asset pricing. View strategy, performance, and tiers." />
   <meta property="og:image" content="https://quantumstrategyfund.com/og.png" />
+  <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
+
+  <link rel="icon" type="image/png" href="/logo3.png" />
 
   <style>
     :root{
       --gold:#d4af37;
-      --gold-dark:#8a6d1f;
-      --ink:#222;
+      --gold-700:#8a6d1f;
+      --ink:#1f1f1f;
+      --ink-2:#4a4a4a;
       --bg:#fff8f0;
-      --muted:#555;
+      --bg-elev:#ffffff;
+      --muted:#6b6b6b;
+      --ring: 0 0 0 3px rgba(212,175,55,.35);
+      --radius: 12px;
+      --wrap: 1120px;
     }
-    /* Prevent iOS/Safari scroll anchoring jump */
-html, body {
-  overflow-anchor: none;
-}
+
+    @media (prefers-color-scheme: dark) {
+      :root{
+        --bg:#111111;
+        --bg-elev:#151515;
+        --ink:#f2f2f2;
+        --ink-2:#c7c7c7;
+        --muted:#9d9d9d;
+      }
+    }
 
     /* Base */
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 88px; }
     body {
       margin: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
-      background-color: var(--bg);
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      background: var(--bg);
       color: var(--ink);
-      line-height: 1.55;
+      line-height: 1.6;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
     }
-    a { color: var(--gold-dark); text-decoration: none; }
+    a { color: var(--gold-700); text-decoration: none; }
     a:hover { text-decoration: underline; }
-    a:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
+    a:focus-visible { outline: none; box-shadow: var(--ring); border-radius: 8px; }
 
-    /* Skip link for a11y */
-    .skip-link {
-      position: absolute; left: -999px; top: auto;
-      background:#000; color:#fff; padding:.5rem .75rem; border-radius:.25rem;
-    }
-    .skip-link:focus { left: 1rem; top: 1rem; z-index: 9999; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding: 0 20px; }
 
-    /* Header */
-    header {
-      background: linear-gradient(to right, var(--gold) 0%, #ffffff 50%, var(--gold) 100%);
-      padding: 1.5em 1em .75em;
-      text-align: center;
-    }
-    .logo { height: 200px; max-width: 60vw; object-fit: contain; display: block; margin: 0 auto .5rem; }
-    header h1 { margin: 0; font-size: 2.6rem; color: #222; }
-    header p { font-size: 1.15rem; color: var(--gold-dark); margin-top: .4rem; }
-    .cta { text-align: center; margin-top: 1rem; }
-    .btn {
-      display:inline-block; background: var(--gold); color:#111; padding:.75em 1.6em;
-      font-weight: 700; border-radius: 8px; text-decoration:none; border: 1px solid #b88a00;
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
+    /* Skip link */
+    .skip-link { position:absolute; left:-999px; top:auto; background:#000; color:#fff; padding:.5rem .75rem; border-radius:.25rem; z-index:9999; }
+    .skip-link:focus { left: 1rem; top: 1rem; }
 
-    /* Nav */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: #fff; text-align: center; padding: .85em;
+    /* Header / Hero */
+    header.site-header {
+      background: linear-gradient(90deg, var(--gold) 0%, #ffffff 50%, var(--gold) 100%);
+      border-bottom: 1px solid rgba(0,0,0,.06);
+    }
+    .brand { text-align:center; padding: 24px 0 10px; }
+    .brand .logo { height: 160px; width:auto; object-fit: contain; display:block; margin: 0 auto; }
+    .brand h1 { margin: 6px 0 4px; font-size: clamp(1.8rem, 3.2vw, 2.6rem); letter-spacing:.2px; color:#222; }
+    .brand p { margin: 0; color: var(--gold-700); font-weight: 600; }
+
+    /* Sticky Nav */
+    nav.primary {
+      position: sticky; top: 0; z-index: 50; backdrop-filter: saturate(120%) blur(6px);
+      background: color-mix(in oklab, var(--bg-elev) 88%, white 12%);
       border-bottom: 2px solid var(--gold);
     }
-    nav a {
-      display:inline-block; margin: 0 .5em; padding: .45em .9em; font-weight: 700;
-      border-radius: 8px; color: var(--gold-dark); text-decoration: none; transition: all .15s ease;
-    }
-    nav a:hover { background: #fff9e6; border: 2px solid var(--gold); color: #3a3a3a; }
-    nav a.active { background: #fff3ce; border: 2px solid var(--gold); }
+    .nav-inner { display:flex; gap: 8px; align-items:center; justify-content:center; padding: 12px 0; }
+    .nav-inner a { display:inline-block; padding: .5rem .9rem; font-weight:700; border-radius: 10px; color: var(--gold-700); border: 1px solid transparent; transition: .15s ease; }
+    .nav-inner a:hover { background:#fff9e6; border-color: var(--gold); color:#2c2c2c; text-decoration:none; }
+    .nav-inner a.active { background:#fff3ce; border-color: var(--gold); }
 
     /* Sections */
-    main section { padding: 3em 1em; max-width: 1000px; margin: 0 auto; }
-    h2 { color: #b88a00; margin: 0 0 .5em; font-size: 1.75rem; }
-    /* Works for desktop + mobile */
-main section[id] {
-  scroll-margin-top: 80px; /* adjust to match your sticky nav height */
-}
+    main section { padding: 64px 0; }
+    h2 { font-size: clamp(1.4rem, 2.2vw, 1.9rem); color: var(--gold-700); margin: 0 0 12px; letter-spacing:.2px; }
+    p { margin: 0 0 14px; color: var(--ink-2); }
 
-    /* Highlight box (mobile-only note) */
-    .highlight {
-      background: #fff3ce; border-left: 4px solid var(--gold);
-      padding: 1em; margin: 1.25em 0; border-radius: 6px;
-    }
-    .mobile-only { display: none; }
-    @media (max-width: 768px) {
-      .mobile-only { display: block; }
+    .card {
+      background: var(--bg-elev);
+      border: 1px solid rgba(0,0,0,.06);
+      border-radius: var(--radius);
+      box-shadow: 0 6px 24px rgba(0,0,0,.06);
+      padding: 18px 18px;
     }
 
-    /* Notes accordion */
-    .chart-notes summary { cursor: pointer; font-weight: 600; }
-    .chart-notes ul { margin: .6rem 0 0 1.2rem; }
+    /* Buttons */
+    .btn { display:inline-flex; align-items:center; gap:8px; background: var(--gold); color:#111; padding:.75rem 1.25rem; font-weight:700; border-radius: 10px; border:1px solid #b88a00; transition: transform .12s ease, box-shadow .12s ease; }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 20px rgba(0,0,0,.12); text-decoration:none; }
+    .btn:active { transform: translateY(0); }
 
-    /* Performance tracker */
-    #performance { margin-top: 2em; }
-    .tracker-container {
-      background-color: #fff5cc;
-      padding: 1em;
-      border-radius: 10px;
-      box-shadow: 3px 3px 0 var(--gold);
-      overflow-x: auto;
-      max-width: 100%;
-      transition: box-shadow .25s ease;
-    }
-    .tracker-container:hover { box-shadow: 3px 3px 12px var(--gold); }
-    .chart-wrapper { width: 100%; height: 420px; position: relative; }
-    canvas { display: block; width: 100% !important; height: 100% !important; }
-    .toolbar { margin-top: .75rem; display:flex; gap:.5rem; flex-wrap: wrap; }
-    .toolbar .btn { background: var(--gold); border-color: #b88a00; }
+    /* Story grid */
+    .story-grid { display:grid; grid-template-columns: 1.2fr .8fr; gap: 28px; align-items:start; }
+    .story-aside { position: sticky; top: 112px; }
+    .tiers { display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap: 12px; margin-top: 12px; }
+    .tier { padding: 12px; border-radius: 10px; border:1px solid rgba(0,0,0,.06); background: color-mix(in srgb, var(--bg-elev) 90%, #fff3ce 10%); }
+    .tier strong { color:#222; }
+
+    /* Performance */
+    .chart-wrap { height: 440px; position: relative; }
+    .chart-tools { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top: 10px; }
+    .note { background:#fff3ce; border-left: 4px solid var(--gold); padding:12px 14px; border-radius: 10px; }
+
+    /* Join / Contact */
+    .cta-center { text-align:center; }
 
     /* Footer */
-    footer {
-      text-align: center; padding: 2em 1em; background: #f7efe0; font-size: .95em; color: var(--muted);
-    }
-    .disclaimer { font-size: .85em; color:#6b6b6b; margin-top:.5rem; }
+    footer { border-top: 1px solid rgba(0,0,0,.08); background: color-mix(in oklab, var(--bg-elev) 94%, #d4af37 6%); }
+    .foot { padding: 28px 0; font-size: .95rem; color: var(--muted); text-align:center; }
+    .disclaimer { font-size:.85rem; color:var(--muted); margin-top: 12px; }
 
     /* Responsive */
-    @media (max-width: 768px) {
-      .logo { height: 140px; margin: 0 auto 0.2rem; }
-      header h1 { font-size: 1.9rem; }
-      header p { font-size: 1rem; }
-      nav { padding: .75em .5em; }
-      margin: 0 auto .5rem;
-      nav a { margin: .35em .35em; }
-      main section { padding: 2em 1em; }
-      .chart-wrapper { height: 320px; }
-      .btn { width: auto; }
-    }
+    @media (max-width: 960px){ .story-grid { grid-template-columns: 1fr; } .story-aside { position: static; } }
+    @media (max-width: 720px){ .brand .logo { height: 120px; } .chart-wrap{ height: 340px; } .tiers{ grid-template-columns: 1fr; } }
+
+    /* Reduced motion */
+    @media (prefers-reduced-motion: reduce) { * { scroll-behavior: auto; animation: none !important; transition: none !important; } }
   </style>
 </head>
 <body>
-
   <a class="skip-link" href="#story">Skip to content</a>
 
-  <header>
-    <img src="logo3.png" alt="Quantum Strategy Fund logo" class="logo" width="400" height="400" />
-    <h1>Quantum Strategy Fund</h1>
-    <p>Where Quantum Computing Meets Asset Management</p>
-    <div class="cta">
-      <a class="btn" href="investor_login" aria-label="Investor login">Investor Login</a>
+  <header class="site-header">
+    <div class="wrap brand">
+      <img class="logo" src="/logo3.png" alt="Quantum Strategy Fund logo" width="400" height="400" />
+      <h1>Quantum Strategy Fund</h1>
+      <p>Where Quantum Computing Meets Asset Management</p>
+      <p style="margin-top:10px"><a class="btn" href="/investor_login" aria-label="Investor login">Investor Login</a></p>
     </div>
   </header>
 
-  <nav aria-label="Primary">
-    <a href="#story">Our Story</a>
-    <a href="#why_quantum">Why Quantum?</a>
-    <a href="#performance">Performance</a>
-    <a href="#join">Newsletter</a>
-    <a href="#contact">Become an Investor</a>
+  <nav class="primary" aria-label="Primary">
+    <div class="wrap nav-inner">
+      <a href="#story">Our Story</a>
+      <a href="#why_quantum">Why Quantum?</a>
+      <a href="#performance">Performance</a>
+      <a href="#join">Newsletter</a>
+      <a href="#contact">Become an Investor</a>
+    </div>
   </nav>
 
   <main id="main">
     <section id="story">
-      <h2>Our Story</h2>
-      <p>
-        Quantum Strategy Fund was founded by a team of physicists and mathematicians at the height of the 2020 pandemic. We recognized that medium-term market behavior often defies explanation by classical models, and is best suited for quantum mechanics. Short-term price action is typically driven by high-frequency trading algorithms, while long-term trends tend to follow macroeconomic forces. But neither of these frameworks effectively captures the medium-term dynamics, which are heavily influenced by retail investor behavior. We developed a new framework grounded in quantum mechanics, designed specifically to navigate and predict medium-term asset pricing.
-      </p>
-      <p>In order to meet the needs of different investors, we developed three distinct tiers:</p>
-      <ul>
-        <li><strong>Medium Risk</strong> — For stabler growth with controlled drawdowns</li>
-        <li><strong>High Risk</strong> — For aggressive growth with active rebalancing</li>
-        <li><strong>Extreme Risk</strong> — Designed for maximum returns</li>
-      </ul>
-      <p>
-        Over the past five years, that framework has delivered results. Our fund has achieved strong performance by applying quantum-native models to signal detection, portfolio optimization, and risk analysis. View our <a href="#performance">performance tracker</a> for the 5-year cumulative return for each tier.
-      </p>
-      </p>
-        The <strong>High Risk</strong> tier came to fruition in August 2023, and the <strong>Extreme Risk</strong> tier became available to investors in December 2024. We are constantly improving our models and actively testing new methods to meet the needs of investors with diverse interests and risk profiles.
-      </p>
+      <div class="wrap story-grid">
+        <div>
+          <h2>Our Story</h2>
+          <div class="card">
+            <p>Quantum Strategy Fund was founded by a team of physicists and mathematicians at the height of the 2020 pandemic. Medium‑term market behavior often escapes classical models. Short‑term moves are dominated by high‑frequency trading, while long‑term trends follow macroeconomics. Neither captures the messy, behavioral dynamics of the middle. We built a framework grounded in quantum mechanics to model uncertainty, interaction, and signal extraction in that regime.</p>
+            <p>Over the past five years, this framework has driven performance across multiple strategies. We apply quantum‑native ideas to signal detection, portfolio optimization, and risk control. Explore our <a href="#performance">performance tracker</a> for a view of cumulative returns.</p>
+          </div>
+
+          <div class="tiers">
+            <div class="tier"><strong>Medium Risk</strong><br/>Built for stable compounding with controlled drawdowns.</div>
+            <div class="tier"><strong>High Risk</strong><br/>Targets aggressive growth with active rebalancing.</div>
+            <div class="tier"><strong>Extreme Risk</strong><br/>Designed for maximum return potential.</div>
+          </div>
+        </div>
+        <aside class="story-aside">
+          <div class="card">
+            <h3 style="margin:0 0 6px; color:var(--gold-700)">Milestones</h3>
+            <ul style="margin:0; padding-left:18px; color:var(--ink-2)">
+              <li><strong>Aug 2023:</strong> High Risk tier launch</li>
+              <li><strong>Dec 2024:</strong> Extreme Risk tier launch</li>
+              <li>Ongoing: model upgrades, robust testing, and risk controls</li>
+            </ul>
+          </div>
+        </aside>
+      </div>
     </section>
 
     <section id="why_quantum">
-      <h2>Why Quantum?</h2>
-      <p>
-        Any retail investor knows it's near impossible to time the market, and even experienced professionals often struggle to stay ahead.
-        Classical financial models rely on assumptions that oversimplify complex and rapidly evolving dynamics, often overlooking retail sentiment and the nuances of human decision-making.
-        Quantum methods offer a fundamentally new way to model uncertainty, correlation, and behavioral risk. Built on a different framework,
-        quantum algorithms can uncover structure and predictive signals that classical systems miss. At Quantum Strategy Fund, we design, test, and apply these tools to enhance prediction, adapt in real time, and extract high-value signals.
-      </p>
+      <div class="wrap">
+        <h2>Why Quantum?</h2>
+        <div class="card">
+          <p>Timing markets is hard. Classical finance relies on assumptions that simplify reality and underweight retail behavior and path‑dependent feedback. Quantum methods provide a complementary toolkit: they encode uncertainty, correlation, and adaptation differently. That lets us search for predictive structure in noisy environments, update beliefs continuously, and size risk in a way that reflects how information arrives.</p>
+        </div>
+      </div>
     </section>
 
     <section id="performance">
-    
-      
+      <div class="wrap">
+        <h2>Performance Tracker</h2>
+        <details class="note" style="margin-bottom:12px">
+          <summary><strong>How to read these charts</strong></summary>
+          <ul style="margin:.6rem 0 0 1.1rem">
+            <li><strong>Cumulative return</strong> is total % gain since Jan 2020 (not annualized).</li>
+            <li><strong>Max drawdown</strong> is the worst peak‑to‑trough decline from the running high. Closer to 0% is better.</li>
+            <li><strong>Rolling 6‑month Sharpe</strong> uses monthly returns (rf≈0) to show recent risk‑adjusted performance.</li>
+            <li>Click legend items to show/hide series. Use the button to switch linear/log scale where applicable.</li>
+            <li>Dashed vertical lines mark tier launches (Aug 2023 and Dec 2024).</li>
+          </ul>
+        </details>
 
-      <h2>Performance Tracker</h2>
-      
-       <!-- How to read the chart -->
-      <details id="chart-notes" class="chart-notes">
-        <summary>How to read this chart</summary>
-        <ul>
-          <li><strong>Cumulative return</strong> shows total % gain since Jan 2020 (not annualized).</li>
-          <li>Use the buttons to <strong>show/hide</strong> different assets or strategy tiers for comparison.</li>
-          <li><strong>Log scale</strong> makes large differences comparable; switch back to Regular for absolute spacing.</li>
-          <li>Dashed vertical lines mark when new risk tiers launched (Aug 2023, Dec 2024).</li>
-        </ul>
-      </details>
-      
-      
-      <div class="tracker-container">
-        <div class="chart-wrapper">
-          <canvas id="performanceChart"></canvas>
+        <!-- Cumulative -->
+        <div class="card" style="margin-bottom:16px">
+          <div class="chart-wrap">
+            <canvas id="performanceChart" aria-label="Cumulative performance" role="img"></canvas>
+          </div>
+          <div class="chart-tools">
+            <button id="logToggleBtn" class="btn" type="button">Switch to Log Scale</button>
+          </div>
+        </div>
+
+        <!-- Max Drawdown -->
+        <div class="card" style="margin-bottom:16px">
+          <h3 style="margin:0 0 10px; color:var(--gold-700)">Max Drawdown</h3>
+          <div class="chart-wrap" style="height:360px">
+            <canvas id="drawdownChart" aria-label="Max drawdown chart" role="img"></canvas>
+          </div>
+        </div>
+
+        <!-- Rolling 6M Sharpe -->
+        <div class="card">
+          <h3 style="margin:0 0 10px; color:var(--gold-700)">Rolling 6‑Month Sharpe (monthly)</h3>
+          <div class="chart-wrap" style="height:360px">
+            <canvas id="sharpeChart" aria-label="Rolling Sharpe chart" role="img"></canvas>
+          </div>
+        </div>
+
+        <p class="disclaimer">Past performance does not guarantee future results. Results may include hypothetical or backtested data for illustration.</p>
+      </div>
+    </section>
+
+    <section id="other-charts">
+      <div class="wrap">
+        <h2>Additional Market Context</h2>
+        <div class="card" style="margin-bottom: 20px;">
+          <h3 style="margin-top:0; color:var(--gold-700)">Volatility Index (VIX)</h3>
+          <div class="chart-wrap" style="height:360px;">
+            <canvas id="vixChart" aria-label="VIX chart" role="img"></canvas>
+          </div>
+        </div>
+        <div class="card">
+          <h3 style="margin-top:0; color:var(--gold-700)">Correlation (Key Assets)</h3>
+          <p style="margin-top:0; color:var(--muted)">Correlation of monthly returns versus <em>QSF (High Risk)</em>.</p>
+          <div class="chart-wrap" style="height:500px;">
+            <canvas id="correlationChart" aria-label="Correlation bars" role="img"></canvas>
+          </div>
         </div>
       </div>
-
-      <div class="highlight mobile-only">
-        For best results, <strong>rotate your phone</strong>.
-      </div>
-      <div class="toolbar">
-        <button id="logToggleBtn" class="btn" type="button" onclick="toggleLogScale()">Switch to Log Scale</button>
-        <span style="align-self:center; font-size:.9rem; color:#666;">Tip: click legend items to show/hide series.</span>
-      </div>
-
-     
-
-      <p style="margin-top: 1em;">
-        While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.
-      </p>
     </section>
 
     <section id="join">
-      <h2>Join Our Investor Network</h2>
-      <p>Get exclusive insights, research briefings, and early access to investment opportunities.</p>
-      <div class="cta">
-        <a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Access" aria-label="Request investor access via email">Request Access</a>
+      <div class="wrap cta-center">
+        <h2>Join Our Investor Network</h2>
+        <p>Get exclusive insights, research briefings, and early access to opportunities.</p>
+        <p><a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Access" aria-label="Request investor access via email">Request Access</a></p>
       </div>
     </section>
 
-    <section id="contact" class="cta">
-      <h2>Contact Us</h2>
-      <p>Ready to take the next step?</p>
-      <a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Inquiry" aria-label="Become an investor by email">Become an Investor</a>
-      <p class="disclaimer">Investing involves risk, including loss of principal. The performance shown may include hypothetical/backtested results and is for illustrative purposes only.</p>
+    <section id="contact">
+      <div class="wrap cta-center">
+        <h2>Contact Us</h2>
+        <p>Ready to take the next step?</p>
+        <p><a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Inquiry" aria-label="Become an investor by email">Become an Investor</a></p>
+        <p class="disclaimer">Investing involves risk, including loss of principal.</p>
+      </div>
     </section>
   </main>
 
   <footer>
-    &copy; 2025 Quantum Strategy Fund. All rights reserved.
+    <div class="wrap foot">© 2025 Quantum Strategy Fund. All rights reserved.</div>
   </footer>
-<script>
-  // Don't restore previous scroll automatically
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  function resetTop() {
-    if (!location.hash) window.scrollTo(0, 0);
-  }
-
-  // Fresh load
-  window.addEventListener('load', () => {
-    // Run a few times to beat iOS bar resize/layout shifts
-    requestAnimationFrame(resetTop);
-    setTimeout(resetTop, 0);
-    setTimeout(resetTop, 150);
-    setTimeout(resetTop, 400);
-  });
-
-  // When Safari brings the page back from bfcache
-  window.addEventListener('pageshow', (e) => {
-    if (e.persisted && !location.hash) resetTop();
-  });
-</script>
-  <!-- Chart.js (load once, defer) -->
+  <!-- Chart.js -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
-    // ---- Active nav highlighting via IntersectionObserver ----
+    // --- Active nav highlight ---
     (function(){
-      const links = Array.from(document.querySelectorAll('nav a'));
+      const links = [...document.querySelectorAll('.nav-inner a')];
       const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          const id = entry.target.id;
-          if(entry.isIntersecting){
+      const obs = new IntersectionObserver((entries)=>{
+        entries.forEach(e=>{
+          const id = e.target.id;
+          if(e.isIntersecting){
             links.forEach(l => l.classList.remove('active'));
-            const link = map.get(id);
-            if(link) link.classList.add('active');
+            const link = map.get(id); if(link) link.classList.add('active');
           }
         });
       }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
-      document.querySelectorAll('main section[id]').forEach(sec => observer.observe(sec));
+      document.querySelectorAll('main section[id]').forEach(sec => obs.observe(sec));
     })();
 
-    // ---- Chart data & plugin ----
+    // --- Labels ---
     const months = [
       "Jan 2020","Feb 2020","Mar 2020","Apr 2020","May 2020","Jun 2020","Jul 2020","Aug 2020",
       "Sep 2020","Oct 2020","Nov 2020","Dec 2020",
@@ -301,149 +310,164 @@ main section[id] {
       "Jan 2025","Feb 2025","Mar 2025","Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025"
     ];
 
-   const verticalLines = {
-  id: 'verticalLines',
-  beforeDatasetsDraw(chart){
-    const { ctx, chartArea:{ top, bottom, left, right }, scales:{ x } } = chart;
-    const isMobile = chart.width < 600;
-
-    const lines = [
-      { 
-        label: "Aug 2023",
-        text: isMobile ? "Risk Split" : "QSF Medium–High Risk Split",
-        color: "#d4af37",
-        y: isMobile ? 12 : 16,   // vertical offset
-        x: isMobile ? -52  : -200    // horizontal offset
-      },
-      { 
-        label: "Dec 2024",
-        text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split",
-        color: "#e67e22",
-        y: isMobile ? 28 : 36,   // vertical offset
-        x: isMobile ? -52 : -200 // horizontal offset
+    // --- Vertical line plugin for tier launches (uses the local chart instance, not a global) ---
+    const verticalLines = {
+      id: 'verticalLines',
+      beforeDatasetsDraw(c){
+        const { ctx, chartArea:{ top, bottom, left, right }, scales:{ x } } = c;
+        const isMobile = c.width < 640;
+        const lines = [
+          { label: "Aug 2023", text: isMobile ? "Risk Split" : "QSF Medium–High Risk Split", color: "#d4af37", y: isMobile ? 10 : 16, xShift: isMobile ? -40 : -160 },
+          { label: "Dec 2024", text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split", color: "#e67e22", y: isMobile ? 28 : 36, xShift: isMobile ? -40 : -160 }
+        ];
+        ctx.save();
+        ctx.setLineDash([5,5]);
+        ctx.lineWidth = 2;
+        ctx.textBaseline = 'top';
+        ctx.font = (isMobile ? 12 : 14) + "px system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif";
+        for (const L of lines) {
+          const i = c.data.labels.indexOf(L.label);
+          if (i < 0) continue;
+          const xPos = x.getPixelForValue(i);
+          ctx.strokeStyle = L.color; ctx.beginPath(); ctx.moveTo(xPos, top); ctx.lineTo(xPos, bottom); ctx.stroke();
+          const w = ctx.measureText(L.text).width;
+          const tx = Math.min(Math.max(xPos + L.xShift, left + 6), right - w - 6);
+          ctx.fillStyle = L.color; ctx.fillText(L.text, tx, top + L.y);
+        }
+        ctx.restore();
       }
-    ];
+    };
 
-    ctx.save();
-    ctx.setLineDash([5,5]);
-    ctx.lineWidth = 2;
-    ctx.textBaseline = 'top';
-    ctx.font = (isMobile ? 12 : 16) + "px Garamond";
-
-    for (const L of lines) {
-      const i = chart.data.labels.indexOf(L.label);
-      if (i < 0) continue;
-
-      const xPos = x.getPixelForValue(i);
-
-      // draw vertical line
-      ctx.strokeStyle = L.color;
-      ctx.beginPath();
-      ctx.moveTo(xPos, top);
-      ctx.lineTo(xPos, bottom);
-      ctx.stroke();
-
-      // label (with your manual offsets, clamped inside chart area)
-      const w = ctx.measureText(L.text).width;
-      const tx = Math.min(Math.max(xPos + L.x, left + 6), right - w - 6);
-      ctx.fillStyle = L.color;
-      ctx.fillText(L.text, tx, top + L.y);
-    }
-
-    ctx.restore();
-  }
-};
-
-
+    // --- Datasets (same as before) ---
     const datasets = [
-      // QSF series first (visible)
-      {
-        label: "QSF (Extreme Risk)",
-        data: [0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,888.45,3260.49,5401.22,3504.32,5913.23,8322.45,7036.88,8057.54],
-        borderColor: "#ff0000", borderWidth: 2, fill: false, tension: 0.3
-      },
-      {
-        label: "QSF (High Risk)",
-        data: [0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,1088.45,1560.34,2201.27,1904.62,2313.56,2622.45,2036.88,2123.54],
-        borderColor: "#e67e22", borderWidth: 2, fill: false, tension: 0.3
-      },
-      {
-        label: "QSF (Medium Risk)",
-        data: [0.00,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,158.95,149.12,197.87,211.63,151.89,160.89,170.4,180.34,179.67,181.91,190.58,186.65,175.96,187.38,189.32,198.02,175.02,193.67,291.72,301.08,311.6,310.33,322.34,334.48],
-        borderColor: "#2ecc71", borderWidth: 2, fill: false, tension: 0.3
-      },
-      // Benchmarks (hidden by default)
-      {
-        label: "SPY",
-        data: [0.00,-0.04,-7.97,-19.46,-9.23,-4.89,-3.21,2.51,9.64,5.54,2.91,14.10,18.34,17.12,20.40,25.84,32.48,33.34,35.91,39.27,43.34,36.65,46.29,45.10,51.78,43.80,39.56,44.84,32.13,32.42,21.49,32.68,27.23,15.51,24.84,31.80,24.23,32.07,28.77,33.47,35.61,36.27,45.08,49.85,47.33,40.38,37.33,49.90,56.73,59.26,67.52,73.10,66.04,74.47,80.59,82.77,87.09,90.96,89.35,100.55,95.74,101.01,98.45,87.35,85.76,97.03,107.62,112.37],
-        borderColor: "#1f77b4", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "Gold",
-        data: [0.00,4.41,6.54,7.11,12.75,13.73,16.84,28.14,27.85,23.49,23.57,13.73,22.42,18.82,12.10,9.65,14.23,24.20,14.72,17.42,17.34,12.83,15.29,14.14,17.42,16.93,23.22,25.67,22.42,17.60,15.94,13.00,9.00,4.66,3.11,11.36,15.29,22.51,14.99,26.41,26.84,26.15,21.99,25.12,23.88,17.09,26.73,29.72,30.27,28.77,29.10,41.44,44.61,47.85,47.59,55.20,59.17,66.61,74.37,67.27,64.65,77.03,80.75,96.62,105.58,105.66,107.27,105.79],
-        borderColor: "#d4af37", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "BTC",
-        data: [0.00,30.01,19.23,-13.38,-10.51,20.48,32.44,26.60,58.01,62.27,49.82,90.11,170.17,306.14,366.43,542.56,719.36,708.34,407.94,374.97,486.94,549.88,505.40,751.33,690.52,540.91,433.82,499.31,531.53,422.38,340.81,176.88,223.43,178.17,169.43,184.27,138.12,129.40,220.88,221.07,294.99,305.67,277.61,322.67,305.50,259.69,273.98,481.00,529.81,588.24,582.81,754.00,879.73,735.15,839.18,779.62,886.41,712.31,883.74,861.51,1239.17,1195.64,1319.33,1195.14,1051.45,1215.00,1349.28,1387.84,1504.94],
-        borderColor: "#f7931a", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "Risk-Free Interest",
-        data: [0.00,0.12,0.25,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.40,0.42,0.44,0.51,0.57,0.70,0.89,1.08,1.33,1.59,1.91,2.23,2.59,2.97,3.36,3.75,4.16,4.59,5.02,5.46,5.91,6.36,6.82,7.29,7.77,8.25,8.73,9.21,9.69,10.19,10.68,11.18,11.69,12.19,12.69,13.09,13.38,13.78,14.19,14.59,15.00],
-        borderColor: "#1f4e79", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      }
+      { label:"QSF (Extreme Risk)", borderColor:"#ff0000", data:[0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,888.45,3260.49,5401.22,3504.32,5913.23,8322.45,7036.88,8057.54], fill:false, tension:.3 },
+      { label:"QSF (High Risk)", borderColor:"#e67e22", data:[0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,1088.45,1560.34,2201.27,1904.62,2313.56,2622.45,2036.88,2123.54], fill:false, tension:.3 },
+      { label:"QSF (Medium Risk)", borderColor:"#2ecc71", data:[0.00,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,158.95,149.12,197.87,211.63,151.89,160.89,170.4,180.34,179.67,181.91,190.58,186.65,175.96,187.38,189.32,198.02,175.02,193.67,291.72,301.08,311.6,310.33,322.34,334.48], fill:false, tension:.3 },
+      { label:"SPY", borderColor:"#1f77b4", data:[0.00,-0.04,-7.97,-19.46,-9.23,-4.89,-3.21,2.51,9.64,5.54,2.91,14.10,18.34,17.12,20.40,25.84,32.48,33.34,35.91,39.27,43.34,36.65,46.29,45.10,51.78,43.80,39.56,44.84,32.13,32.42,21.49,32.68,27.23,15.51,24.84,31.80,24.23,32.07,28.77,33.47,35.61,36.27,45.08,49.85,47.33,40.38,37.33,49.90,56.73,59.26,67.52,73.10,66.04,74.47,80.59,82.77,87.09,90.96,89.35,100.55,95.74,101.01,98.45,87.35,85.76,97.03,107.62,112.37], hidden:true, fill:false, tension:.3 },
+      { label:"Gold", borderColor:"#d4af37", data:[0.00,4.41,6.54,7.11,12.75,13.73,16.84,28.14,27.85,23.49,23.57,13.73,22.42,18.82,12.10,9.65,14.23,24.20,14.72,17.42,17.34,12.83,15.29,14.14,17.42,16.93,23.22,25.67,22.42,17.60,15.94,13.00,9.00,4.66,3.11,11.36,15.29,22.51,14.99,26.41,26.84,26.15,21.99,25.12,23.88,17.09,26.73,29.72,30.27,28.77,29.10,41.44,44.61,47.85,47.59,55.20,59.17,66.61,74.37,67.27,64.65,77.03,80.75,96.62,105.58,105.66,107.27,105.79], hidden:true, fill:false, tension:.3 },
+      { label:"BTC", borderColor:"#f7931a", data:[0.00,30.01,19.23,-13.38,-10.51,20.48,32.44,26.60,58.01,62.27,49.82,90.11,170.17,306.14,366.43,542.56,719.36,708.34,407.94,374.97,486.94,549.88,505.40,751.33,690.52,540.91,433.82,499.31,531.53,422.38,340.81,176.88,223.43,178.17,169.43,184.27,138.12,129.40,220.88,221.07,294.99,305.67,277.61,322.67,305.50,259.69,273.98,481.00,529.81,588.24,582.81,754.00,879.73,735.15,839.18,779.62,886.41,712.31,883.74,861.51,1239.17,1195.64,1319.33,1195.14,1051.45,1215.00,1349.28,1387.84,1504.94], hidden:true, fill:false, tension:.3 },
+      { label:"Risk-Free Interest", borderColor:"#1f4e79", data:[0.00,0.12,0.25,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.40,0.42,0.44,0.51,0.57,0.70,0.89,1.08,1.33,1.59,1.91,2.23,2.59,2.97,3.36,3.75,4.16,4.59,5.02,5.46,5.91,6.36,6.82,7.29,7.77,8.25,8.73,9.21,9.69,10.19,10.68,11.18,11.69,12.19,12.69,13.09,13.38,13.78,14.19,14.59,15.00], hidden:true, fill:false, tension:.3 }
     ];
 
-    const chart = new Chart(document.getElementById("performanceChart"), {
-      type: "line",
+    // --- Primary chart instance (use a named variable accessible to later code) ---
+    const perfChart = new Chart(document.getElementById('performanceChart'), {
+      type: 'line',
       plugins: [verticalLines],
       data: { labels: months, datasets },
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        interaction: { mode: "index", intersect: false },
+        interaction: { mode: 'index', intersect: false },
+        elements: { point: { radius: 0 } },
         plugins: {
-          legend: { position: "bottom" },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => {
-                const label = ctx.dataset.label || '';
-                const v = ctx.parsed.y;
-                return label ? `${label}: ${v.toFixed(2)}%` : v.toFixed(2) + '%';
-              }
-            }
-          }
+          legend: { position: 'bottom' },
+          tooltip: { callbacks: { label: (ctx) => (ctx.dataset.label || '') + ': ' + ctx.parsed.y.toFixed(2) + '%' } }
         },
         scales: {
-          y: {
-            type: "linear",
-            beginAtZero: true,
-            title: { display: true, text: "Cumulative Return (%)" }
-          },
-          x: {
-            ticks: { autoSkip: true, maxRotation: 45, minRotation: 0, maxTicksLimit: 14 } // will be overridden by callback below
-          }
-        }
+          y: { type: 'linear', beginAtZero: true, title: { display: true, text: 'Cumulative Return (%)' } },
+          x: { ticks: { maxRotation: 0, autoSkip: true, autoSkipPadding: 12, maxTicksLimit: 14 } }
+        },
+        layout: { padding: { top: 8, right: 8, bottom: 16, left: 8 } }
       }
     });
 
-    // Toggle linear/log y-scale
-    function toggleLogScale() {
-      const y = chart.options.scales.y;
+    // Toggle scale for the primary chart only
+    document.getElementById('logToggleBtn').addEventListener('click', function(){
+      const y = perfChart.options.scales.y;
       y.type = (y.type === 'linear') ? 'logarithmic' : 'linear';
-      document.getElementById('logToggleBtn').textContent =
-        y.type === 'logarithmic' ? 'Switch to Regular Scale' : 'Switch to Log Scale';
-      chart.update();
+      this.textContent = (y.type === 'logarithmic') ? 'Switch to Regular Scale' : 'Switch to Log Scale';
+      perfChart.update();
+    });
+
+    // ---- Utility transforms for secondary charts ----
+    function toIndexSeries(cum){ return cum.map(v => 1 + v/100); }
+    function toMonthlyReturns(cum){ const idx = toIndexSeries(cum); const r = [0]; for(let i=1;i<idx.length;i++){ r.push((idx[i]/idx[i-1])-1); } return r; }
+    function maxDrawdownSeries(cum){ const idx = toIndexSeries(cum); let peak=-Infinity; return idx.map(x=>{ peak=Math.max(peak,x); return (x/peak - 1)*100; }); }
+    function rollingSharpe(cum, win=6){ const r = toMonthlyReturns(cum); const out = new Array(r.length).fill(null); for(let i=win;i<r.length;i++){ const s=r.slice(i-win+1,i+1); const avg=s.reduce((a,b)=>a+b,0)/s.length; const sd=Math.sqrt(s.reduce((a,b)=>a+(b-avg)*(b-avg),0)/(s.length-1) || 0.0000001); out[i]=avg/(sd||1e-9); } return out; }
+
+    // Build lookup from the primary chart's datasets (NO global `chart` usage)
+    const colorBy = Object.fromEntries(perfChart.data.datasets.map(d=>[d.label, d.borderColor]));
+    const byLabel = Object.fromEntries(perfChart.data.datasets.map(d=>[d.label, d.data]));
+    const qsfKeys = ["QSF (Extreme Risk)", "QSF (High Risk)", "QSF (Medium Risk)"];
+
+    // Drawdown chart
+    const ddDatasets = qsfKeys.map(k=>({ label:k, data:maxDrawdownSeries(byLabel[k]), borderColor:colorBy[k], fill:false, tension:.25 }));
+    const drawdownChart = new Chart(document.getElementById('drawdownChart'), {
+      type:'line',
+      data: { labels: months, datasets: ddDatasets },
+      options: { responsive:true, maintainAspectRatio:false, elements:{ point:{ radius:0 } },
+        plugins:{ legend:{ position:'bottom' }, tooltip:{ callbacks:{ label:(c)=>`${c.dataset.label}: ${c.parsed.y.toFixed(2)}%` } } },
+        scales:{ y:{ beginAtZero:true, reverse:true, title:{ display:true, text:'Drawdown (%) — higher is better' } }, x:{ ticks:{ maxRotation:0 } } }
+      }
+    });
+
+    // Rolling Sharpe chart
+    const shDatasets = qsfKeys.map(k=>({ label:k, data:rollingSharpe(byLabel[k], 6), borderColor:colorBy[k], fill:false, tension:.25 }));
+    const sharpeChart = new Chart(document.getElementById('sharpeChart'), {
+      type:'line',
+      data: { labels: months, datasets: shDatasets },
+      options: { responsive:true, maintainAspectRatio:false, elements:{ point:{ radius:0 } },
+        plugins:{ legend:{ position:'bottom' } },
+        scales:{ y:{ title:{ display:true, text:'Sharpe (6‑month, monthly)' } }, x:{ ticks:{ maxRotation:0 } } }
+      }
+    });
+
+    // --- Additional Market Context charts ---
+    // Simple synthetic VIX (placeholder) — replace with live data feed if desired
+    const vixData = months.map(()=> Math.round(12 + Math.random()*20));
+    new Chart(document.getElementById('vixChart'), {
+      type: 'line',
+      data: { labels: months, datasets: [{ label: 'VIX', data: vixData, borderColor:'#8a6d1f', fill:false, tension:.25 }] },
+      options: { responsive:true, maintainAspectRatio:false, plugins:{ legend:{ position:'bottom'} }, scales:{ y:{ beginAtZero:true } } }
+    });
+
+    // Correlation vs QSF (High Risk)
+    function pearson(a,b){
+      const n = Math.min(a.length,b.length);
+      const A = a.slice(0,n), B=b.slice(0,n);
+      const ma = A.reduce((s,x)=>s+x,0)/n; const mb = B.reduce((s,x)=>s+x,0)/n;
+      let num=0, da=0, db=0; for(let i=0;i<n;i++){ const xa=A[i]-ma, xb=B[i]-mb; num+=xa*xb; da+=xa*xa; db+=xb*xb; }
+      return num/Math.sqrt((da||1e-12)*(db||1e-12));
     }
-    window.toggleLogScale = toggleLogScale;
+    const target = toMonthlyReturns(byLabel["QSF (High Risk)"]); // reference
+    const corrLabels = ['QSF Extreme','QSF High','QSF Medium','SPY','Gold','BTC'];
+    const corrSeries = [
+      pearson(target, toMonthlyReturns(byLabel["QSF (Extreme Risk)"])),
+      1,
+      pearson(target, toMonthlyReturns(byLabel["QSF (Medium Risk)"])),
+      pearson(target, toMonthlyReturns(byLabel["SPY"])) ,
+      pearson(target, toMonthlyReturns(byLabel["Gold"])) ,
+      pearson(target, toMonthlyReturns(byLabel["BTC"]))
+    ].map(v=> Math.max(-1, Math.min(1, v)));
 
-    // --- Dynamic X-axis label density + padding to avoid collisions ---
-    let dynamicSkip = 0;
+    new Chart(document.getElementById('correlationChart'), {
+      type: 'bar',
+      data: { labels: corrLabels, datasets: [{
+        label: 'Correlation vs QSF (High Risk)',
+        data: corrSeries,
+        backgroundColor: corrSeries.map(v=>{
+          const t = (v+1)/2; // 0..1
+          const r = Math.round(255*(1-t));
+          const g = Math.round(255*t);
+          return `rgba(${r},${g},100,0.8)`;
+        })
+      }] },
+      options: { responsive:true, maintainAspectRatio:false, scales:{ y:{ min:-1, max:1 } }, plugins:{ legend:{ position:'bottom' } } }
+    });
 
-   function updateChartForSize() {
-  // intentionally left blank
-}
+    // --- Lightweight console tests (sanity checks) ---
+    (function runTests(){
+      console.assert(typeof Chart !== 'undefined', 'Chart.js loaded');
+      console.assert(perfChart instanceof Chart, 'perfChart defined');
+      console.assert(Array.isArray(months) && months.length > 0, 'months defined');
+      // transform tests
+      console.assert(JSON.stringify(toIndexSeries([0,100])) === JSON.stringify([1,2]), 'toIndexSeries works');
+      const dd = maxDrawdownSeries([0,10,5,15]);
+      console.assert(dd[0] === 0 && dd[2] < 0, 'maxDrawdownSeries negative on drops');
+      const rs = rollingSharpe([0,1,2,3,4,5,6], 3);
+      console.assert(rs.length === 7 && rs[3] !== null, 'rollingSharpe length & null padding');
+    })();
   </script>
 </body>
 </html>
+
