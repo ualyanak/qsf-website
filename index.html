@@ -352,6 +352,7 @@ Our most advanced models remain proprietary, but we believe knowledge should not
       }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
       document.querySelectorAll('main section[id]').forEach(sec => observer.observe(sec));
     })();
+    
 
     // ---- Chart data & plugin ----
     const months = [
@@ -501,6 +502,17 @@ Our most advanced models remain proprietary, but we believe knowledge should not
         }
       }
     });
+
+
+  // Dismiss tooltip when tapping outside chart on mobile
+  document.addEventListener('click', function (e) {
+    const chartCanvas = document.getElementById('performanceChart');
+    if (!chartCanvas.contains(e.target)) {
+      chart.setActiveElements([]);
+      chart.tooltip.setActiveElements([], { x: 0, y: 0 });
+      chart.update();
+    }
+  });
 
     // Toggle linear/log y-scale
     function toggleLogScale() {
