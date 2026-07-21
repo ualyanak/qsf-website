@@ -21,27 +21,17 @@ const holdings = account.positions.map((position) => {
   const instrument = data.instruments[position.instrument];
   const publicQuote = quoteSnapshot.quotes[instrument.quote_symbol || position.instrument];
   const manual = Number.isFinite(Number(instrument.manual_mark));
-  const automatic = ["public_delayed", "model_delayed"].includes(instrument.mark_mode)
-    && publicQuote
-    && Number.isFinite(Number(publicQuote.price));
-  const price = automatic
-    ? Number(publicQuote.price)
-    : manual
-      ? Number(instrument.manual_mark)
+  const price = manual
+    ? Number(instrument.manual_mark)
+    : publicQuote && Number.isFinite(Number(publicQuote.price))
+      ? Number(publicQuote.price)
       : Number(position.basis_price);
-  const markQuality = automatic
-    ? String(publicQuote.quality || instrument.mark_mode)
-    : manual
-      ? "manual_demo"
+  const markQuality = manual
+    ? "manual_demo"
+    : publicQuote
+      ? String(publicQuote.quality || "public_delayed")
       : "fallback_opening_mark";
-  const markAsOf = automatic && instrument.mark_mode === "model_delayed" && publicQuote.valuation_as_of
-    ? publicQuote.valuation_as_of
-    : automatic
-      ? publicQuote.as_of
-      : manual
-        ? instrument.manual_as_of
-        : account.opening_as_of;
-  const markInputAsOf = automatic ? publicQuote.as_of : markAsOf;
+  const markAsOf = manual ? instrument.manual_as_of : publicQuote ? publicQuote.as_of : account.opening_as_of;
   return {
     id: position.instrument,
     symbol: instrument.symbol,
@@ -52,8 +42,7 @@ const holdings = account.positions.map((position) => {
     price,
     marketValue: Number(position.quantity) * Number(instrument.multiplier || 1) * price,
     markAsOf,
-    markInputAsOf,
-    markSource: automatic ? publicQuote.source : manual ? instrument.manual_source : "Published opening-basis fallback",
+    markSource: manual ? instrument.manual_source : publicQuote ? publicQuote.source : "Published opening-basis fallback",
     markQuality
   };
 }).sort((a, b) => Math.abs(b.marketValue) - Math.abs(a.marketValue));
@@ -94,7 +83,7 @@ const view = {
   history,
   latestMarkAsOf: holdings.map((item) => item.markAsOf).filter(Boolean).sort().at(-1) || null,
   quoteSnapshotGeneratedAt: quoteSnapshot.generated_at,
-  staleCount: holdings.filter((item) => !["public_delayed", "model_delayed"].includes(item.markQuality)).length,
+  staleCount: holdings.filter((item) => item.markQuality !== "public_delayed").length,
   modifiedAt: null,
   generatedAt: new Date().toISOString()
 };

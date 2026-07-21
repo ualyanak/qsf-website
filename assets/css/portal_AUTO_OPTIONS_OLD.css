@@ -914,7 +914,6 @@ td { color: #465564; }
 }
 
 .source-badge.is-public { border-color: #bcd8cc; background: #edf8f3; color: #246247; }
-.source-badge.is-model { border-color: #c7d5e1; background: #eef4f8; color: #28536f; }
 .source-badge.is-manual { border-color: #e4d3a8; background: var(--gold-100); color: #715a26; }
 .source-badge.is-stale { border-color: #e3c1c1; background: #fff2f2; color: #8e3d41; }
 
@@ -925,8 +924,6 @@ td { color: #465564; }
   color: var(--muted);
   font-size: 0.66rem;
   line-height: 1.35;
-  overflow-wrap: anywhere;
-  white-space: normal;
 }
 
 .dashboard-footer {

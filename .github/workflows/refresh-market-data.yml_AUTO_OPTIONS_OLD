@@ -38,9 +38,6 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Test quote and option-model logic
-        run: python -m unittest scripts/test_demo_quotes.py
-
       - name: Prepare latest snapshot fallbacks
         shell: bash
         run: |

@@ -108,27 +108,6 @@
     return Number.isNaN(date.getTime()) ? null : date;
   }
 
-  function timestampRank(value) {
-    const date = parseDate(value);
-    return date ? date.getTime() : 0;
-  }
-
-  function quoteRecency(quote, snapshot) {
-    return [
-      timestampRank(quote && quote.as_of),
-      timestampRank(quote && quote.valuation_as_of) || timestampRank(snapshot && snapshot.generated_at),
-      timestampRank(snapshot && snapshot.generated_at)
-    ];
-  }
-
-  function isNewerQuote(candidate, existing) {
-    if (!existing) return true;
-    for (let index = 0; index < candidate.length; index += 1) {
-      if (candidate[index] !== existing[index]) return candidate[index] > existing[index];
-    }
-    return false;
-  }
-
   function formatDate(value, withTime) {
     const date = value instanceof Date ? value : parseDate(value);
     if (!date) return "—";
@@ -183,40 +162,18 @@
     if (state.quotes && !force) return state.quotes;
     const previous = state.quotes;
     const urls = Array.isArray(config.demoQuoteUrls) ? config.demoQuoteUrls : ["../data/demo-quotes.json"];
-    const candidates = previous ? [previous] : [];
     for (const url of urls) {
       try {
         const payload = await fetchJson(url);
         if (payload && payload.demo === true && payload.quotes) {
-          candidates.push(payload);
+          state.quotes = payload;
+          return payload;
         }
       } catch (_error) {
         /* Try the packaged fallback next. */
       }
     }
-    if (candidates.length) {
-      const newestSnapshot = candidates.slice().sort(function (left, right) {
-        const leftDate = parseDate(left.generated_at);
-        const rightDate = parseDate(right.generated_at);
-        return (rightDate ? rightDate.getTime() : 0) - (leftDate ? leftDate.getTime() : 0);
-      })[0];
-      const mergedQuotes = {};
-      const mergedRecency = {};
-      candidates.forEach(function (snapshot) {
-        Object.entries(snapshot.quotes || {}).forEach(function (entry) {
-          const symbol = entry[0];
-          const quote = entry[1];
-          if (!quote || finite(quote.price) == null) return;
-          const recency = quoteRecency(quote, snapshot);
-          if (isNewerQuote(recency, mergedRecency[symbol])) {
-            mergedQuotes[symbol] = quote;
-            mergedRecency[symbol] = recency;
-          }
-        });
-      });
-      state.quotes = Object.assign({}, newestSnapshot, { quotes: mergedQuotes });
-      return state.quotes;
-    }
+    if (previous) return previous;
     state.quotes = { demo: true, generated_at: null, quotes: {}, failures: ["quote_snapshot_unavailable"] };
     return state.quotes;
   }
@@ -323,10 +280,6 @@
     return safeString(symbol, 48).toUpperCase().replace(/[^A-Z0-9._-]+/g, "_").replace(/^_+|_+$/g, "") || "CUSTOM";
   }
 
-  function usesAutomaticMark(instrument) {
-    return instrument && ["public_delayed", "model_delayed"].includes(instrument.mark_mode);
-  }
-
   function derivePortfolio(accountId) {
     const account = state.data.accounts[accountId];
     if (!account) throw new Error("unknown_demo_account");
@@ -371,38 +324,32 @@
       const publicSymbol = instrument.quote_symbol || id;
       const publicMark = state.quotes && state.quotes.quotes && state.quotes.quotes[publicSymbol];
       let mark;
-      if (usesAutomaticMark(instrument) && publicMark && finite(publicMark.price) != null) {
-        const publicAsOf = parseDate(publicMark.as_of);
-        const publicAge = publicAsOf ? Date.now() - publicAsOf.getTime() : Infinity;
-        const publishedQuality = safeString(publicMark.quality || "public_delayed", 40);
-        const expectedQuality = instrument.mark_mode === "model_delayed" ? "model_delayed" : "public_delayed";
-        const clientQuality = publishedQuality === expectedQuality
-          && publicAge >= -5 * 60 * 1000
-          && publicAge <= MAX_EXPECTED_QUOTE_AGE_MS
-          ? expectedQuality
-          : instrument.mark_mode === "model_delayed" ? "stale_model" : "stale_fallback";
-        mark = {
-          price: Number(publicMark.price),
-          asOf: instrument.mark_mode === "model_delayed" && parseDate(publicMark.valuation_as_of)
-            ? publicMark.valuation_as_of
-            : publicMark.as_of,
-          inputAsOf: publicMark.as_of,
-          source: safeString(publicMark.source || "Public delayed snapshot", 100),
-          quality: clientQuality
-        };
-      } else if (localMark && finite(localMark.price) != null) {
+      if (localMark && finite(localMark.price) != null) {
         mark = {
           price: Number(localMark.price),
           asOf: localMark.asOf,
-          inputAsOf: localMark.asOf,
           source: safeString(localMark.source || "Manual demo mark", 100),
           quality: "local_manual"
+        };
+      } else if (instrument.mark_mode === "public_delayed" && publicMark && finite(publicMark.price) != null) {
+        const publicAsOf = parseDate(publicMark.as_of);
+        const publicAge = publicAsOf ? Date.now() - publicAsOf.getTime() : Infinity;
+        const publishedQuality = safeString(publicMark.quality || "public_delayed", 40);
+        const clientQuality = publishedQuality === "public_delayed"
+          && publicAge >= -5 * 60 * 1000
+          && publicAge <= MAX_EXPECTED_QUOTE_AGE_MS
+          ? "public_delayed"
+          : "stale_fallback";
+        mark = {
+          price: Number(publicMark.price),
+          asOf: publicMark.as_of,
+          source: safeString(publicMark.source || "Public delayed snapshot", 100),
+          quality: clientQuality
         };
       } else if (finite(instrument.manual_mark) != null) {
         mark = {
           price: Number(instrument.manual_mark),
           asOf: instrument.manual_as_of,
-          inputAsOf: instrument.manual_as_of,
           source: safeString(instrument.manual_source || "Published manual test mark", 100),
           quality: "manual_demo"
         };
@@ -410,7 +357,6 @@
         mark = {
           price: Number(fallbackBasis.get(id) || 0),
           asOf: account.opening_as_of,
-          inputAsOf: account.opening_as_of,
           source: "Published opening-basis fallback",
           quality: "fallback_opening_mark"
         };
@@ -431,7 +377,6 @@
         price: Number(mark.price || 0),
         marketValue: marketValue,
         markAsOf: mark.asOf,
-        markInputAsOf: mark.inputAsOf,
         markSource: mark.source,
         markQuality: mark.quality
       });
@@ -460,7 +405,7 @@
     historyByDate.set(todayKey(), { date: todayKey(), value: nav, kind: local.modifiedAt ? "local_scenario" : "latest_marks" });
     const history = Array.from(historyByDate.values()).sort(function (a, b) { return a.date.localeCompare(b.date); });
     const staleCount = holdings.filter(function (holding) {
-      return !["public_delayed", "model_delayed"].includes(holding.markQuality);
+      return holding.markQuality !== "public_delayed";
     }).length;
 
     return {
@@ -500,9 +445,7 @@
   function markLabel(quality) {
     if (quality === "local_manual") return { label: "Local manual", className: "is-manual" };
     if (quality === "public_delayed") return { label: "Public delayed", className: "is-public" };
-    if (quality === "model_delayed") return { label: "Auto model", className: "is-model" };
     if (quality === "manual_demo") return { label: "Manual test", className: "is-manual" };
-    if (quality === "stale_model") return { label: "Stale model", className: "is-stale" };
     return { label: "Stale fallback", className: "is-stale" };
   }
 
@@ -622,10 +565,7 @@
       badge.title = holding.markSource + " · " + formatDate(holding.markAsOf, true);
       const detail = document.createElement("span");
       detail.className = "mark-detail";
-      detail.textContent = holding.markSource + " · Valued " + formatDate(holding.markAsOf, true)
-        + (holding.markInputAsOf && holding.markInputAsOf !== holding.markAsOf
-          ? " · market input " + formatDate(holding.markInputAsOf, true)
-          : "");
+      detail.textContent = holding.markSource + " · " + formatDate(holding.markAsOf, true);
       statusCell.append(badge, detail);
       row.append(
         instrumentCell,
@@ -639,7 +579,7 @@
     });
     setText("holdings-note", view.staleCount
       ? view.staleCount + " holding mark" + (view.staleCount === 1 ? " is" : "s are") + " manual or stale. Source and time appear beneath each status."
-      : "Equities use best-effort public snapshots; options use automatic model estimates from delayed underlier prices. Every source and time is shown.");
+      : "All displayed equity and ETF marks use the latest best-effort public snapshot.");
   }
 
   function renderDashboard(view) {
@@ -647,24 +587,20 @@
     setText("account-name", view.accountId + " · public demo");
     setText("dashboard-title", view.portfolioName);
     setText("metric-aum", formatCurrency(view.nav, view.currency));
-    setText("metric-aum-note", "Latest available marks · not official NAV");
+    setText("metric-aum-note", "Illustrative value · not official NAV");
     setText("metric-return-label", view.returnBasisLabel);
     setText("metric-return", formatPercent(view.returnPct));
     setText("metric-inception", view.returnBasisNote);
     setText("metric-cash", formatCurrency(view.cash, view.currency));
     setText("metric-quote-age", view.latestMarkAsOf ? formatDate(view.latestMarkAsOf, true) : "Fallback marks");
-    setText("portfolio-as-of", "Calculated " + formatDate(view.generatedAt, true) + (view.staleCount
-      ? " from the latest available automatic, manual, and fallback marks."
-      : " from delayed public marks and automatic option model estimates."));
+    setText("portfolio-as-of", "Calculated " + formatDate(view.generatedAt, true) + " from public delayed and manual test marks.");
     setText("scenario-state", view.modifiedAt ? "Locally modified" : "Published sample");
     renderChart(view.history, view.currency);
     renderAllocation(view);
     renderHoldings(view);
     setStatus("ready", view.modifiedAt
-      ? "Public demo loaded with local scenario edits from this browser; source badges identify any manual or fallback marks."
-      : view.staleCount
-        ? "Public demo loaded with the latest available marks; source badges identify stale or fallback values."
-        : "Public demo loaded. Equity marks and option model inputs refresh on a best-effort 15-minute cadence.");
+      ? "Public demo loaded with local scenario edits from this browser."
+      : "Public demo loaded. Equity marks refresh on a best-effort scheduled cadence.");
   }
 
   function attachSignOut() {
@@ -696,7 +632,7 @@
       const accountId = safeString(byId("login-username").value, 48).toLowerCase();
       const code = String(byId("login-password").value || "");
       if (!state.data.accounts[accountId] || state.data.credentials[accountId] !== code) {
-        setMessage("login-message", "That username or access code was not recognized.", "error");
+        setMessage("login-message", "That public demo label or code was not recognized.", "error");
         return;
       }
       if (!saveSession(accountId)) {
@@ -722,17 +658,6 @@
     state.accountId = session.accountId;
     state.account = state.data.accounts[state.accountId];
     state.local = readLocalState(state.accountId);
-    let migratedAutomaticMarks = false;
-    Object.keys(state.local.marks || {}).forEach(function (instrumentId) {
-      if (usesAutomaticMark(state.data.instruments[instrumentId])) {
-        delete state.local.marks[instrumentId];
-        migratedAutomaticMarks = true;
-      }
-    });
-    if (migratedAutomaticMarks) {
-      if (!(state.local.transactions || []).length && !Object.keys(state.local.marks).length) state.local.modifiedAt = null;
-      try { localStorage.setItem(localStorageKey(state.accountId), JSON.stringify(state.local)); } catch (_error) { state.storageAvailable = false; }
-    }
     return true;
   }
 
@@ -833,39 +758,6 @@
     updateTradePreview();
   }
 
-  function populateInstrumentLists() {
-    const tradeList = byId("instrument-list");
-    const customList = byId("custom-instrument-list");
-    if (!tradeList) return;
-    const registered = new Set();
-    const tradeSymbols = [];
-    Object.entries(state.data.instruments || {}).forEach(function (entry) {
-      registered.add(String(entry[0]).toUpperCase());
-      registered.add(String(entry[1].symbol || "").toUpperCase());
-      tradeSymbols.push(entry[1].symbol);
-    });
-    const customSymbols = [];
-    (state.local.transactions || []).forEach(function (event) {
-      const symbol = safeString(event.symbol || event.instrumentId, 48).toUpperCase();
-      if (!symbol || registered.has(String(event.instrumentId || "").toUpperCase()) || registered.has(symbol)) return;
-      if (!customSymbols.includes(symbol)) customSymbols.push(symbol);
-    });
-    tradeList.replaceChildren();
-    tradeSymbols.concat(customSymbols).forEach(function (symbol) {
-      const option = document.createElement("option");
-      option.value = symbol;
-      tradeList.append(option);
-    });
-    if (customList) {
-      customList.replaceChildren();
-      customSymbols.forEach(function (symbol) {
-        const option = document.createElement("option");
-        option.value = symbol;
-        customList.append(option);
-      });
-    }
-  }
-
   function renderEditor() {
     const view = derivePortfolio(state.accountId);
     state.view = view;
@@ -877,9 +769,8 @@
     setText("scenario-state", view.modifiedAt ? "Locally modified" : "Published sample");
     renderEventTable();
     renderMarkTable();
-    populateInstrumentLists();
     setStatus("ready", state.storageAvailable
-      ? "Local scenario ready. Registered instruments keep their automatic marks; nothing entered here is sent to a server."
+      ? "Local scenario ready. Nothing entered here is sent to a server."
       : "Browser storage is unavailable. Changes will last only until this page closes.");
   }
 
@@ -1005,10 +896,7 @@
     byId("trade-date").value = localDateTimeValue(new Date());
     updateTradePreview();
     renderEditor();
-    const pricingNote = resolved && usesAutomaticMark(resolved.instrument)
-      ? " Its registered mark will continue updating automatically."
-      : " This custom instrument keeps its execution-price fallback until an administrator registers its quote metadata.";
-    setMessage("trade-message", stored ? "Local scenario saved on this device." + pricingNote : "Scenario updated for this tab, but browser storage is unavailable.", stored ? "success" : "error");
+    setMessage("trade-message", stored ? "Local scenario saved on this device." : "Scenario updated for this tab, but browser storage is unavailable.", stored ? "success" : "error");
   }
 
   function submitMark(event) {
@@ -1019,10 +907,6 @@
     const resolved = resolveInstrument(byId("mark-symbol").value);
     if (!resolved) {
       setMessage("mark-message", "Choose an existing instrument before setting a mark.", "error");
-      return;
-    }
-    if (usesAutomaticMark(resolved.instrument)) {
-      setMessage("mark-message", "This registered instrument already updates automatically; no manual mark is needed.", "error");
       return;
     }
     const price = Number(byId("mark-price").value);
@@ -1156,19 +1040,17 @@
   async function initAdmin() {
     attachSignOut();
     if (!(await bootstrapDemo())) return;
+    const list = byId("instrument-list");
+    Object.values(state.data.instruments).forEach(function (instrument) {
+      const option = document.createElement("option");
+      option.value = instrument.symbol;
+      list.append(option);
+    });
     byId("trade-date").value = localDateTimeValue(new Date());
     byId("mark-as-of").value = localDateTimeValue(new Date());
     renderEditor();
     updateTradePreview();
     attachEditorEvents();
-    root.setInterval(async function () {
-      try {
-        await loadQuotes(true);
-        renderEditor();
-      } catch (_error) {
-        setStatus("error", "The scheduled public-mark check could not complete. Displayed timestamps remain authoritative.");
-      }
-    }, QUOTE_REFRESH_INTERVAL_MS);
   }
 
   document.querySelectorAll("[data-current-year]").forEach(function (node) {
@@ -1177,7 +1059,7 @@
 
   root.QSFDemoPortal = {
     deriveCurrent: function () { return state.view ? JSON.parse(JSON.stringify(state.view)) : null; },
-    version: "1.1.0"
+    version: "1.0.0"
   };
 
   if (config.mode !== "public-demo") return;

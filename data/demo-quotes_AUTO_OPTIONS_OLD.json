@@ -1,0 +1,70 @@
+{
+  "demo": true,
+  "failures": [],
+  "generated_at": "2026-07-21T08:03:12Z",
+  "missing": [],
+  "quotes": {
+    "IBM": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 213.0,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "IVR": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 7.9,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "NVDA": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 203.279999,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "PHYS": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 30.24,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "PLTR": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 134.850006,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "QBTS": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 16.719999,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "SGOV": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 100.589996,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "SPY": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 742.090027,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "TSSI": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 9.08,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    },
+    "WMT": {
+      "as_of": "2026-07-20T20:00:00Z",
+      "price": 112.199997,
+      "quality": "public_delayed",
+      "source": "Yahoo Finance chart snapshot"
+    }
+  },
+  "schema_version": 1,
+  "source": "Best-effort Yahoo Finance chart snapshots for an intentionally public test portal. Not an official valuation feed."
+}

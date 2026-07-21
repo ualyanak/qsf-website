@@ -7,9 +7,9 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Local Demo Editor | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo8">
-  <script defer src="../assets/js/portal-config.js?v=20260721-demo8"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260721-demo8"></script>
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo6">
+  <script defer src="../assets/js/portal-config.js?v=20260721-demo6"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260721-demo6"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="admin">
   <a class="skip-link" href="#admin-main">Skip to local scenario editor</a>
@@ -38,7 +38,7 @@
       <div>
         <p class="eyebrow">Device-local portfolio editor</p>
         <h1 id="editor-title">Demo scenario</h1>
-        <p class="as-of">Add simulated transactions or a fallback mark for a custom instrument. Registered positions keep updating automatically, and the dashboard and PDF use the same local scenario.</p>
+        <p class="as-of">Add simulated transactions or override marks. The dashboard and generated PDF will immediately use the same local scenario.</p>
       </div>
       <span id="operator-role" class="data-badge">Public demo</span>
     </section>
@@ -100,23 +100,22 @@
 
       <article class="panel mark-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">Custom-instrument fallback</p><h2>Set a custom mark</h2></div>
-          <span class="data-badge">Browser only</span>
+          <div><p class="eyebrow">Manual scenario marks</p><h2>Update a mark</h2></div>
+          <span class="data-badge">Local override</span>
         </div>
         <form id="mark-form" class="portal-form" novalidate inert aria-busy="true" data-editor-form>
-          <label for="mark-symbol">Custom instrument symbol</label>
-          <input id="mark-symbol" name="symbol" type="text" list="custom-instrument-list" autocomplete="off" autocapitalize="characters" maxlength="48" required>
-          <datalist id="custom-instrument-list"></datalist>
+          <label for="mark-symbol">Instrument symbol</label>
+          <input id="mark-symbol" name="symbol" type="text" list="instrument-list" autocomplete="off" autocapitalize="characters" maxlength="48" required>
           <label for="mark-price">Mark per unit</label>
           <input id="mark-price" name="price" type="number" min="0" max="100000000" step="any" inputmode="decimal" required>
           <label for="mark-as-of">Mark time</label>
           <input id="mark-as-of" name="asOf" type="datetime-local" required>
           <label for="mark-source">Source note</label>
           <input id="mark-source" name="source" type="text" maxlength="100" value="Manual demo mark" required>
-          <button class="button button-secondary" type="submit" disabled data-editor-submit>Save custom mark</button>
+          <button class="button button-secondary" type="submit" disabled data-editor-submit>Save manual mark</button>
           <p id="mark-message" class="form-message" role="status" aria-live="polite"></p>
         </form>
-        <p class="security-note">No manual update is needed for registered holdings: equities and seeded option models refresh every 15 minutes on this page and the dashboard. This form accepts only a custom symbol first added above.</p>
+        <p class="security-note">OptionStrat may be used as a delayed scenario reference. Confirm the exact contract before entering a mark. <a class="text-button" href="https://optionstrat.com/" target="_blank" rel="noopener noreferrer">Open OptionStrat ↗</a></p>
       </article>
     </section>
 

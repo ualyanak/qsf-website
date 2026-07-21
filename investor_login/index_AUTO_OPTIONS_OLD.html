@@ -7,9 +7,9 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Public Investor Demo | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo8">
-  <script defer src="../assets/js/portal-config.js?v=20260721-demo8"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260721-demo8"></script>
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo6">
+  <script defer src="../assets/js/portal-config.js?v=20260721-demo6"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260721-demo6"></script>
 </head>
 <body class="portal-shell auth-page" data-page="login">
   <a class="skip-link" href="#sign-in-title">Skip to demo access</a>
@@ -42,8 +42,8 @@
         <article>
           <span class="feature-number" aria-hidden="true">01</span>
           <div>
-            <h2>Illustrative portfolio access</h2>
-            <p>The usernames and access code are published for demonstration and provide no privacy or identity verification.</p>
+            <h2>Public test accounts</h2>
+            <p>The labels and access code are published for demonstration and provide no privacy or identity verification.</p>
           </div>
         </article>
         <article>
@@ -65,8 +65,8 @@
 
     <section class="auth-card" aria-labelledby="sign-in-title">
       <div class="card-rule" aria-hidden="true"></div>
-      <p class="eyebrow">Investor access</p>
-      <h2 id="sign-in-title">Open a portfolio</h2>
+      <p class="eyebrow">Public demo access</p>
+      <h2 id="sign-in-title">Open a test account</h2>
       <p class="card-copy">Input your public demo code provided by administrator.</p>
 
       <div id="portal-status" class="system-status is-pending" role="status" aria-live="polite">
@@ -75,14 +75,14 @@
       </div>
 
       <form id="login-form" class="portal-form" novalidate>
-        <label for="login-username">Username</label>
-        <input id="login-username" name="username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter username" required disabled data-auth-control>
+        <label for="login-username">Portfolio label</label>
+        <input id="login-username" name="username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter portfolio label" required disabled data-auth-control>
 
         <label for="login-password">Access code</label>
         <input id="login-password" name="demoCode" type="text" autocomplete="off" inputmode="numeric" pattern="[0-9]{7}" minlength="7" maxlength="7" placeholder="Enter access code" required disabled data-auth-control>
 
         <button class="button button-primary button-block" type="submit" disabled data-auth-control>
-          <span>Open portfolio</span>
+          <span>Open public demo</span>
           <span aria-hidden="true">→</span>
         </button>
         <p id="login-message" class="form-message" role="alert" aria-live="assertive"></p>

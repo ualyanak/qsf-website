@@ -282,15 +282,9 @@
 
   function markName(quality) {
     if (quality === "public_delayed") return "PUBLIC DELAYED";
-    if (quality === "model_delayed") return "AUTO MODEL";
     if (quality === "local_manual") return "LOCAL MANUAL";
     if (quality === "manual_demo") return "MANUAL TEST";
-    if (quality === "stale_model") return "STALE MODEL";
     return "STALE FALLBACK";
-  }
-
-  function isCurrentAutomaticMark(quality) {
-    return quality === "public_delayed" || quality === "model_delayed";
   }
 
   function drawHoldingsTable(page, PDFLib, fonts, view, rows, startY) {
@@ -319,59 +313,12 @@
           y: y,
           size: 7.4,
           font: index === 0 ? fonts.bold : fonts.regular,
-          color: c(PDFLib, index === 4 && !isCurrentAutomaticMark(holding.markQuality) ? palette.red : palette.ink)
+          color: c(PDFLib, index === 4 && holding.markQuality !== "public_delayed" ? palette.red : palette.ink)
         });
         cursor += widths[index];
       });
       page.drawLine({ start: { x: x, y: y - 7 }, end: { x: x + widths.reduce(function (a, b) { return a + b; }, 0), y: y - 7 }, thickness: 0.35, color: c(PDFLib, palette.line) });
       y -= 24;
-    });
-    return y;
-  }
-
-  function drawMarkProvenanceTable(page, PDFLib, fonts, rows, startY) {
-    const x = 38;
-    const width = page.getWidth() - 76;
-    page.drawRectangle({ x: x, y: startY - 20, width: width, height: 23, color: c(PDFLib, palette.canvas) });
-    page.drawText("INSTRUMENT / STATUS", { x: x + 6, y: startY - 13, size: 6.8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-    page.drawText("SOURCE AND TIMING", { x: x + 178, y: startY - 13, size: 6.8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-    let y = startY - 44;
-    rows.forEach(function (holding) {
-      const status = markName(holding.markQuality);
-      page.drawText(truncate(fonts.bold, holding.symbol, 7.6, 165), {
-        x: x + 6,
-        y: y,
-        size: 7.6,
-        font: fonts.bold,
-        color: c(PDFLib, palette.navy)
-      });
-      page.drawText(truncate(fonts.bold, status, 6.4, 165), {
-        x: x + 6,
-        y: y - 13,
-        size: 6.4,
-        font: fonts.bold,
-        color: c(PDFLib, isCurrentAutomaticMark(holding.markQuality) ? palette.green : palette.red)
-      });
-      page.drawText(truncate(fonts.regular, "Source: " + safe(holding.markSource, 160), 7, width - 192), {
-        x: x + 178,
-        y: y,
-        size: 7,
-        font: fonts.regular,
-        color: c(PDFLib, palette.ink)
-      });
-      const valued = "Valued: " + dateText(holding.markAsOf, true);
-      const timing = holding.markInputAsOf && holding.markInputAsOf !== holding.markAsOf
-        ? valued + "  ·  Market input: " + dateText(holding.markInputAsOf, true)
-        : "As of: " + dateText(holding.markAsOf, true);
-      page.drawText(truncate(fonts.regular, timing, 6.7, width - 192), {
-        x: x + 178,
-        y: y - 13,
-        size: 6.7,
-        font: fonts.regular,
-        color: c(PDFLib, palette.muted)
-      });
-      page.drawLine({ start: { x: x, y: y - 25 }, end: { x: x + width, y: y - 25 }, thickness: 0.35, color: c(PDFLib, palette.line) });
-      y -= 42;
     });
     return y;
   }
@@ -462,22 +409,7 @@
       const endY = drawHoldingsTable(page, PDFLib, fonts, view, rows, tableY);
       if (index === chunks.length - 1 && endY > 105) {
         page.drawRectangle({ x: 38, y: 64, width: page.getWidth() - 76, height: 36, color: c(PDFLib, palette.goldLight), borderWidth: 0.5, borderColor: c(PDFLib, palette.gold) });
-        page.drawText("Marks may be delayed, model-estimated, or manually supplied. Every value is illustrative and subject to change.", { x: 50, y: 78, size: 7.6, font: fonts.bold, color: c(PDFLib, palette.navy) });
-      }
-      drawWatermark(page, PDFLib, fonts.bold);
-    });
-
-    const provenanceChunks = [];
-    for (let index = 0; index < holdings.length; index += 14) provenanceChunks.push(holdings.slice(index, index + 14));
-    if (!provenanceChunks.length) provenanceChunks.push([]);
-    provenanceChunks.forEach(function (rows, index) {
-      const page = doc.addPage(A4);
-      drawTopRule(page, PDFLib, fonts, index === 0 ? "Mark provenance" : "Mark provenance continued", safe(view.portfolioName, 70));
-      page.drawText("SOURCE AND FRESHNESS FOR EACH ILLUSTRATIVE MARK", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-      const endY = drawMarkProvenanceTable(page, PDFLib, fonts, rows, 726);
-      if (index === provenanceChunks.length - 1 && endY > 104) {
-        page.drawRectangle({ x: 38, y: 64, width: page.getWidth() - 76, height: 38, color: c(PDFLib, palette.goldLight), borderWidth: 0.5, borderColor: c(PDFLib, palette.gold) });
-        page.drawText("AUTO MODEL marks are estimates derived from delayed underlier prices and are not option-market quotes.", { x: 50, y: 79, size: 7.4, font: fonts.bold, color: c(PDFLib, palette.navy) });
+        page.drawText("Marks may be delayed or manually supplied. Every value is illustrative and subject to change.", { x: 50, y: 78, size: 7.6, font: fonts.bold, color: c(PDFLib, palette.navy) });
       }
       drawWatermark(page, PDFLib, fonts.bold);
     });
@@ -504,5 +436,5 @@
     return { filename: filename, byteLength: bytes.length };
   }
 
-  root.QSFDemoPdf = { build: build, download: download, version: "1.1.0" };
+  root.QSFDemoPdf = { build: build, download: download, version: "1.0.0" };
 })(typeof window !== "undefined" ? window : globalThis);

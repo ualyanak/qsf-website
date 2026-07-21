@@ -22,39 +22,28 @@ repository. They must never be reused for real investor accounts.
   with the standard 100x contract multiplier.
 - The INFQ call vertical uses the supplied `$1.37` net mark per option share
   and a 100x multiplier.
-- "JAN 27" is interpreted as January 2027. The seeded listed contracts are
-  `BULL270115P00010000`, `INFQ270115C00010000`,
-  `INFQ270115C00017500`, and `INFQ270115C00025000`, all expiring January 15,
-  2027.
-- A public no-key OPRA feed with redistribution permission is not available.
-  The portal therefore publishes clearly labeled automatic model estimates,
-  not listed-option quotes. Each estimate is anchored to the supplied July 17
-  opening premium and moves with the delayed BULL or INFQ price and time decay.
+- The BULL and INFQ option marks remain manual until exact tradable contract
+  identifiers and an appropriate data source are available.
 
 ## Data flow
 
 1. `data/demo-accounts.json` contains the published test portfolios.
 2. `scripts/update_demo_quotes.py` retrieves an allowlisted set of best-effort
-   delayed equity and ETF snapshots, including the BULL and INFQ underliers.
+   delayed equity and ETF snapshots.
 3. `.github/workflows/refresh-market-data.yml` publishes those snapshots to
    `data/demo-quotes.json` on the `market-data` branch.
-4. The updater calculates the three seeded option strategy marks with a
-   Black-Scholes estimate calibrated to the supplied opening premium. The
-   model uses a 4% annual risk-free assumption, no dividend yield, the verified
-   January 15, 2027 expiry, and the newest delayed underlier observation.
+4. Options use manual test marks until a specific contract identifier and
+   suitable licensed source are available.
 5. `assets/js/portal-demo.js` derives the dashboard, holdings, allocation,
    return, local scenario, and report inputs from one calculation path.
 
-An open dashboard or local editor rechecks the quote snapshot every 15 minutes,
-and report generation performs another forced quote check before deriving the
-PDF view. Option rows distinguish the current model-valuation time from the
-delayed underlier observation used as the model input.
+An open dashboard rechecks the quote snapshot every 15 minutes, and report
+generation performs another forced quote check before deriving the PDF view.
 
 Scheduled GitHub Actions runs are best effort and can be delayed. The portal
 therefore preserves each mark's source, timestamp, and quality label.
 Observations older than four days are downgraded to a stale status rather than
-presented as current. Model estimates are labeled `AUTO MODEL` and explicitly
-state that they are not option-market quotes. The `chue` sample uses the user-supplied 25 SPY
+presented as current. The `chue` sample uses the user-supplied 25 SPY
 shares at a $400 per-share cost basis; because no acquisition date was supplied,
 the dashboard labels the gain against cost and does not invent dated history.
 
@@ -66,26 +55,21 @@ by demo account. It supports:
 - simulated buys and sells;
 - share or option multipliers;
 - illustrative fees and cash effects;
-- fallback marks for custom instruments;
+- manual mark overrides;
 - append-only reversals;
 - JSON export; and
 - reset to the published sample.
 
 Local edits do not write to GitHub, sync across devices, place trades, or update
-fund records. Transactions in registered instruments continue to use their
-automatic mark. A newly typed custom symbol keeps its execution price as a
-fallback until an administrator registers its exact contract/quote metadata in
-the repository; a static GitHub Pages site cannot send browser-local symbols to
-the scheduled quote worker.
+fund records.
 
 ## PDF reports
 
-`assets/js/demo-pdf.js` uses the vendored `pdf-lib` build to create a PDF in the
-browser. The report uses the same derived view model as the dashboard, includes
-a per-holding mark-provenance page, and contains a demonstration watermark and
-non-statement disclosure on every page. The checked reference artifact remains
-in the repository for review but `output/` is excluded from the published Pages
-site.
+`assets/js/demo-pdf.js` uses the vendored `pdf-lib` build to create a
+two-page PDF in the browser. The report uses the same derived view model as the
+dashboard and contains a demonstration watermark and non-statement disclosure
+on every page. The checked reference artifact remains in the repository for
+review but `output/` is excluded from the published Pages site.
 
 Run the reference renderer and visual checks locally:
 
