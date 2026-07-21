@@ -1,535 +1,391 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <title>Quantum Strategy Fund</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Quantum-native models for medium-term asset pricing. View strategy, performance, and tiers." />
-  <link rel="icon" type="image/png" href="logo3.png" />
-  <link rel="canonical" href="https://quantumstrategyfund.com/" />
-  <meta property="og:title" content="Quantum Strategy Fund" />
-  <meta property="og:description" content="Quantum-native models for medium-term asset pricing. View strategy, performance, and tiers." />
-  <meta property="og:image" content="https://quantumstrategyfund.com/og.png" />
-  <meta name="twitter:card" content="summary_large_image" />
-  <style>
-    .milestones-box {
-      background-color: #fff8f0;
-      border: 2px solid #d4af37;
-      border-radius: 8px;
-      padding: 1em 1.5em;
-      margin-top: 1.5em;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
-    }
-    .milestones-box h3 {
-      margin-top: 0;
-      color: #d4af37;
-    }
-    .milestones-box ul {
-      margin: 0;
-      padding-left: 1.2em;
-    }
-    .milestones-box li {
-      margin-bottom: 0.5em;
-    }
-  </style>
-
-  <style>
-    :root{
-      --gold:#d4af37;
-      --gold-dark:#8a6d1f;
-      --ink:#222;
-      --bg:#fff8f0;
-      --muted:#555;
-    }
-    /* Prevent iOS/Safari scroll anchoring jump */
-html, body {
-  overflow-anchor: none;
-}
-
-    /* Base */
-    * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
-      background-color: var(--bg);
-      color: var(--ink);
-      line-height: 1.55;
-    }
-    a { color: var(--gold-dark); text-decoration: none; }
-    a:hover { text-decoration: underline; }
-    a:focus { outline: 2px solid var(--gold); outline-offset: 2px; }
-
-    /* Skip link for a11y */
-    .skip-link {
-      position: absolute; left: -999px; top: auto;
-      background:#000; color:#fff; padding:.5rem .75rem; border-radius:.25rem;
-    }
-    .skip-link:focus { left: 1rem; top: 1rem; z-index: 9999; }
-
-    /* Header */
-    header {
-      background: linear-gradient(to right, var(--gold) 0%, #ffffff 50%, var(--gold) 100%);
-      padding: 1.5em 1em .75em;
-      text-align: center;
-    }
-    .logo { height: 200px; max-width: 60vw; object-fit: contain; display: block; margin: 0 auto .5rem; }
-    header h1 { margin: 0; font-size: 2.6rem; color: #222; }
-    header p { font-size: 1.15rem; color: var(--gold-dark); margin-top: .4rem; }
-    .cta { text-align: center; margin-top: 1rem; }
-    .btn {
-      display:inline-block; background: var(--gold); color:#111; padding:.75em 1.6em;
-      font-weight: 700; border-radius: 8px; text-decoration:none; border: 1px solid #b88a00;
-      transition: transform .12s ease, box-shadow .12s ease;
-    }
-    .btn:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(0,0,0,.12); }
-
-    /* Nav */
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: #fff; text-align: center; padding: .85em;
-      border-bottom: 2px solid var(--gold);
-    }
-    nav a {
-      display:inline-block; margin: 0 .5em; padding: .45em .9em; font-weight: 700;
-      border-radius: 8px; color: var(--gold-dark); text-decoration: none; transition: all .15s ease;
-    }
-    nav a:hover { background: #fff9e6; border: 2px solid var(--gold); color: #3a3a3a; }
-    nav a.active { background: #fff3ce; border: 2px solid var(--gold); }
-
-    /* Sections */
-    main section { padding: 3em 1em; max-width: 1000px; margin: 0 auto; }
-    h2 { color: #b88a00; margin: 0 0 .5em; font-size: 1.75rem; }
-    /* Works for desktop + mobile */
-main section[id] {
-  scroll-margin-top: 80px; /* adjust to match your sticky nav height */
-}
-
-    /* Highlight box (mobile-only note) */
-    .highlight {
-      background: #fff3ce; border-left: 4px solid var(--gold);
-      padding: 1em; margin: 1.25em 0; border-radius: 6px;
-    }
-    .mobile-only { display: none; }
-    @media (max-width: 768px) {
-      .mobile-only { display: block; }
-    }
-
-    /* Notes accordion */
-    .chart-notes summary { cursor: pointer; font-weight: 600; }
-    .chart-notes ul { margin: .6rem 0 0 1.2rem; }
-
-    /* Performance tracker */
-    #performance { margin-top: 2em; }
-    .tracker-container {
-      background-color: #fff5cc;
-      padding: 1em;
-      border-radius: 10px;
-      box-shadow: 3px 3px 0 var(--gold);
-      overflow-x: auto;
-      max-width: 100%;
-      transition: box-shadow .25s ease;
-    }
-    .tracker-container:hover { box-shadow: 3px 3px 12px var(--gold); }
-    .chart-wrapper { width: 100%; height: 420px; position: relative; }
-    canvas { display: block; width: 100% !important; height: 100% !important; }
-    .toolbar { margin-top: .75rem; display:flex; gap:.5rem; flex-wrap: wrap; }
-    .toolbar .btn { background: var(--gold); border-color: #b88a00; }
-
-    /* Footer */
-    footer {
-      text-align: center; padding: 2em 1em; background: #f7efe0; font-size: .95em; color: var(--muted);
-    }
-    .disclaimer { font-size: .85em; color:#6b6b6b; margin-top:.5rem; }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .logo { height: 140px; margin: 0 auto 0.2rem; }
-      header h1 { font-size: 1.9rem; }
-      header p { font-size: 1rem; }
-      nav { padding: .75em .5em; }
-      margin: 0 auto .5rem;
-      nav a { margin: .35em .35em; }
-      main section { padding: 2em 1em; }
-      .chart-wrapper { height: 320px; }
-      .btn { width: auto; }
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quantum Strategy Fund applies quantum-inspired models to medium-term asset pricing, portfolio construction, and risk analysis.">
+  <meta name="theme-color" content="#07172f">
+  <meta property="og:title" content="Quantum Strategy Fund">
+  <meta property="og:description" content="Where quantum computing meets asset management.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://quantumstrategyfund.com/">
+  <meta property="og:image" content="https://quantumstrategyfund.com/assets/images/qsf-mark.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="canonical" href="https://quantumstrategyfund.com/">
+  <link rel="icon" type="image/png" href="assets/images/qsf-mark.png">
+  <link rel="stylesheet" href="assets/css/site.css">
+  <title>Quantum Strategy Fund | Quantum-Inspired Asset Management</title>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to main content</a>
 
-  <a class="skip-link" href="#story">Skip to content</a>
+  <header class="site-header" id="top">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Quantum Strategy Fund home">
+        <img class="brand-mark" src="assets/images/qsf-mark.png" alt="" width="52" height="52">
+        <span class="brand-copy">
+          <span class="brand-name">Quantum Strategy Fund</span>
+          <span class="brand-descriptor">Asset Management</span>
+        </span>
+      </a>
 
-  <header>
-    <img src="logo3.png" alt="Quantum Strategy Fund logo" class="logo" width="400" height="400" />
-    <h1>Quantum Strategy Fund</h1>
-    <p>Where Quantum Computing Meets Asset Management</p>
-    <div class="cta">
-      <a class="btn" href="investor_login" aria-label="Investor login">Investor Login</a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="primary-navigation">
+        <span class="sr-only">Open navigation</span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </button>
+
+      <nav class="primary-nav" id="primary-navigation" aria-label="Primary navigation">
+        <a href="#story">About</a>
+        <a href="#why-quantum">Approach</a>
+        <a href="#strategies">Strategies</a>
+        <a href="#performance">Performance</a>
+        <a href="#insights">Insights</a>
+        <a href="#contact">Contact</a>
+        <a class="nav-login" href="investor_login/">Investor Login <span aria-hidden="true">↗</span></a>
+      </nav>
     </div>
   </header>
 
-  <nav aria-label="Primary">
-    <a href="#story">Our Story</a>
-    <a href="#why_quantum">Why Quantum?</a>
-    <a href="#performance">Performance</a>
-    <a href="#join">Newsletter</a>
-    <a href="#contact">Become an Investor</a>
-  </nav>
+  <main id="main-content">
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="hero-pattern" aria-hidden="true"></div>
+      <div class="shell hero-layout">
+        <div class="hero-copy">
+          <p class="eyebrow eyebrow-light"><span></span> Quantum-Inspired Asset Management</p>
+          <h1 id="hero-title">A different lens on<br><em>medium-term markets.</em></h1>
+          <p class="hero-lede">Quantum Strategy Fund applies quantum-inspired thinking to the market horizon between short-term trading noise and long-term macroeconomic trends.</p>
+          <div class="hero-actions">
+            <a class="button button-gold" href="#why-quantum">Explore our approach <span aria-hidden="true">→</span></a>
+            <a class="button button-ghost" href="#performance">View performance</a>
+          </div>
+          <p class="hero-caption">Founded in 2020 <span aria-hidden="true">·</span> Three strategy tiers <span aria-hidden="true">·</span> Investor-focused research</p>
+        </div>
 
-  <main id="main">
-    <section id="story">
-      <h2>Our Story</h2>
-      <p>
-        Quantum Strategy Fund was founded by a team of physicists and mathematicians right before the 2020 pandemic escalated. We recognized that medium-term market behavior often defies explanation by classical models, and is best suited for quantum mechanics. Short-term price action is typically driven by high-frequency trading algorithms, while long-term trends tend to follow macroeconomic forces. But neither of these frameworks effectively captures the medium-term dynamics, which are heavily influenced by retail investor behavior. We developed a new framework grounded in quantum mechanics, designed specifically to navigate and predict medium-term asset pricing.
-      </p>
-      <p>In order to meet the needs of different investors, we developed three distinct tiers:</p>
-      <ul>
-        <li><strong>Medium Risk</strong> — For stabler growth with controlled drawdowns</li>
-        <li><strong>High Risk</strong> — For aggressive growth with active rebalancing</li>
-        <li><strong>Extreme Risk</strong> — Designed for maximum returns</li>
-      </ul>
-      <p>
-        Over the past five years, that framework has delivered results. Our fund has achieved strong performance by applying quantum-native models to signal detection, portfolio optimization, and risk analysis. View our <a href="#performance">performance tracker</a> for the 5-year cumulative return for each tier.
-      </p>
-      </p>
-        The <strong>High Risk</strong> tier came to fruition in August 2023, and the <strong>Extreme Risk</strong> tier became available to investors in December 2024. We are constantly improving our models and actively testing new methods to meet the needs of investors with diverse interests and risk profiles. An <strong>Income-Focused</strong> tier will soon be available for investors seeking weekly or monthly dividends with stable growth.
-      </p>
-       <!-- Milestones Box -->
-  <div class="milestones-box">
-    <h3>Milestones</h3>
-    <ul>
-      <li><strong>February 2020</strong> – Fund founded </li>
-      <li><strong>September 2020</strong> – Fund topples S&P 500 Index</li>
-      <li><strong>December 2020</strong> – Fund topples Gold</li>
-      <li><strong>April 2023</strong> – Investors surpass +100% returns</li>
-      <li><strong>August 2023</strong> – High Risk tier launched</li>
-      <li><strong>January 2024</strong> – High Risk investors surpass +1000% returns </li>
-      <li><strong>December 2024</strong> – Extreme Risk tier launched</li>
-      <li><strong>February 2025</strong> – Fund topples Bitcoin</li>
-      <li><strong>March 2025</strong> – High Risk investors surpass +2000% returns</li>
-      <li><strong>March 2025</strong> – Extreme Risk investors surpass +3000% returns</li>
-      <li><strong>April 2025</strong> – Medium Risk investors surpass +300% returns</li>
-       <li><strong>April 2025</strong> – Extreme Risk investors surpass +5000% returns</li>
-      <li><strong>June 2025</strong> – Extreme Risk investors surpass +8000% returns</li>
-    </ul>
-  </div>
-    </section>
-
-    <section id="why_quantum">
-      <h2>Why Quantum?</h2>
-      <p>
-        Quantum Strategy Fund was built on a genuine love for quantum mechanics and a belief that its principles can change the way we understand markets. This is not a conventional fund built only to generate returns. It is also a platform for curiosity, learning, and discovery.
-<p><p>
-Medium-term market behavior is one of the hardest horizons to model. Short-term moves are often dominated by high-frequency trading, while long-term trends tend to follow macroeconomic forces. The middle ground is shaped by retail sentiment, bursts of collective behavior, and rapid shifts in risk appetite. These forces are too unpredictable for most classical models, which often smooth over the very details that matter.
-<p><p>
-Quantum mechanics gives us tools designed for uncertainty. Instead of assuming one fixed outcome, quantum-inspired models account for multiple possibilities at once, allowing us to simulate overlapping scenarios and capture the complex feedback loops that drive retail-driven markets. The result is a framework that adapts in real time and responds to the subtle signals that traditional approaches miss.
-<p><p>
-Our most advanced models remain proprietary, but we believe knowledge should not be locked away. We create opportunities for investors to learn the fundamentals of quantum thinking and to see how those ideas can be applied to finance. Through workshops, resources, and direct conversations, we aim to give every investor the tools to think differently about risk, opportunity, and market behavior. Check out our book on options trading for more information!
-      </p>
-     
-    </section>
-    <section id="book" style="margin-top: -40px;">
-  <div class="wrap card" style="text-align: center; padding: 32px 24px;">
-    <h2 style="color: var(--gold-700); margin-top: 0;">Buy Our Options Trading Book</h2>
-    <p style="color: var(--ink-2); font-size: 1.05rem; max-width: 600px; margin: 0 auto 20px;">
-      Learn foundational and advanced options strategies from the Quantum Strategy Fund team. Written with clarity, tested with data, includes introduction to Quantum Finance and Strategies.
-    </p>
-    
-    <!-- Placeholder for image -->
-    <img src="/options4.png" alt="Options Book Cover" style="max-width: 240px; margin: 20px auto;" />
-
-    <!-- PDF link (disabled for now) -->
-    <p style="margin: 24px 0 0;">
-      <a class="btn" href="#" onclick="return false;" aria-disabled="true" style="pointer-events: none; opacity: 0.6;">
-        Order Book
-      </a>
-    </p>
-
-    <!-- Out of stock notice -->
-    <p style="color: crimson; font-weight: bold; margin-top: 12px;">
-      Out of Stock – Check back soon!
-    </p>
-  </div>
-</section>
-
-    <section id="performance">
-    
-      
-
-      <h2>Performance Tracker</h2>
-   
-      <!-- How to read the chart -->
-      <details id="chart-notes" class="chart-notes">
-        <summary>How to read this chart</summary>
-        <ul>
-          <li><strong>Cumulative return</strong> shows total % gain since Jan 2020 (not annualized).</li>
-          <li>Use the buttons to <strong>show/hide</strong> different assets or strategy tiers for comparison.</li>
-          <li><strong>Log scale</strong> makes large differences comparable and cannot register negative returns; switch back to Regular for absolute spacing and negative returns.</li>
-          <li>Dashed vertical lines mark when <strong>new risk tiers</strong> launched (Aug 2023, Dec 2024).</li>
-        </ul>
-      </details>
-      
-      
-      <div class="tracker-container">
-        <div class="chart-wrapper">
-          <canvas id="performanceChart"></canvas>
+        <div class="hero-emblem" aria-hidden="true">
+          <div class="emblem-orbit emblem-orbit-outer"></div>
+          <div class="emblem-orbit emblem-orbit-inner"></div>
+          <div class="emblem-glow"></div>
+          <img src="assets/images/qsf-mark.png" alt="" width="520" height="520">
         </div>
       </div>
 
-      <div class="highlight mobile-only">
-        For best results, <strong>rotate your phone</strong>.
-      </div>
-      <div class="toolbar">
-        <button id="logToggleBtn" class="btn" type="button" onclick="toggleLogScale()">Switch to Log Scale</button>
-        <span style="align-self:center; font-size:.9rem; color:#666;">Tip: click legend items to show/hide series.</span>
-      </div>
-
-     
-
-      <p style="margin-top: 1em;">
-        While past performance is not indicative of future results, our analytics-based framework enables confident, repeatable execution.
-      </p>
+      <a class="hero-scroll" href="#story" aria-label="Continue to our story">
+        <span>Discover QSF</span>
+        <span class="scroll-line" aria-hidden="true"></span>
+      </a>
     </section>
 
-    <section id="join">
-      <h2>Join Our Investor Network</h2>
-      <p>Get exclusive insights, research briefings, and early access to investment opportunities.</p>
-      <div class="cta">
-        <a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Access" aria-label="Request investor access via email">Request Access</a>
+    <section class="fact-bar" aria-label="Fund overview">
+      <div class="shell fact-grid">
+        <div class="fact-item">
+          <span class="fact-label">Established</span>
+          <strong>February 2020</strong>
+        </div>
+        <div class="fact-item">
+          <span class="fact-label">Primary horizon</span>
+          <strong>Medium-term markets</strong>
+        </div>
+        <div class="fact-item">
+          <span class="fact-label">Strategy range</span>
+          <strong>Three risk tiers</strong>
+        </div>
+        <div class="fact-item fact-cta">
+          <span class="fact-label">Investor access</span>
+          <a href="investor_login/">Enter the portal <span aria-hidden="true">→</span></a>
+        </div>
       </div>
     </section>
 
-    <section id="contact" class="cta">
-      <h2>Contact Us</h2>
-      <p>Ready to take the next step?</p>
-      <a class="btn" href="mailto:info@quantumstrategyfund.com?subject=Investor Inquiry" aria-label="Become an investor by email">Become an Investor</a>
-      <p class="disclaimer">Investing involves risk, including loss of principal.</p>
+    <section class="section section-story" id="story" aria-labelledby="story-title">
+      <div class="shell editorial-grid">
+        <div class="section-heading">
+          <p class="eyebrow"><span></span> Our Story</p>
+          <h2 id="story-title">Built to study the market’s most overlooked horizon.</h2>
+        </div>
+
+        <div class="editorial-copy">
+          <p class="lead">Quantum Strategy Fund was founded by a team of physicists and mathematicians shortly before the 2020 pandemic escalated. We recognized that medium-term market behavior often defies explanation by classical models.</p>
+          <p>Short-term price action is typically driven by high-frequency trading algorithms, while long-term trends tend to follow macroeconomic forces. Neither framework effectively captures the middle ground, where retail investor behavior can have an outsized influence. We developed a framework grounded in quantum mechanics to navigate and study medium-term asset pricing.</p>
+          <p>That framework informs our work in signal detection, portfolio optimization, and risk analysis. As the models have developed, we have expanded the fund to serve investors with different objectives and risk profiles.</p>
+          <a class="text-link" href="#strategies">Review our strategy tiers <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-approach" id="why-quantum" aria-labelledby="approach-title">
+      <div class="shell">
+        <div class="section-intro section-intro-light">
+          <div>
+            <p class="eyebrow eyebrow-light"><span></span> Why Quantum?</p>
+            <h2 id="approach-title">Tools designed for uncertainty.</h2>
+          </div>
+          <p>Quantum Strategy Fund was built on a genuine love for quantum mechanics and a belief that its principles can change the way we understand markets. It is both an investment framework and a platform for curiosity, learning, and discovery.</p>
+        </div>
+
+        <div class="horizon-grid">
+          <article class="horizon-card">
+            <span class="horizon-number">01</span>
+            <p class="horizon-kicker">Short term</p>
+            <h3>Trading noise</h3>
+            <p>Price action is often dominated by high-frequency systems and rapidly changing liquidity.</p>
+          </article>
+          <article class="horizon-card horizon-card-featured">
+            <span class="horizon-number">02</span>
+            <p class="horizon-kicker">Medium term</p>
+            <h3>QSF’s area of focus</h3>
+            <p>Retail sentiment, collective behavior, and shifts in risk appetite create a complex, adaptive environment.</p>
+          </article>
+          <article class="horizon-card">
+            <span class="horizon-number">03</span>
+            <p class="horizon-kicker">Long term</p>
+            <h3>Macro forces</h3>
+            <p>Economic cycles and broad fundamental trends tend to become the prevailing influence.</p>
+          </article>
+        </div>
+
+        <div class="approach-note">
+          <p>Instead of assuming one fixed outcome, quantum-inspired models can account for multiple possibilities and overlapping scenarios. Our most advanced models remain proprietary, but we believe the foundations of quantum thinking should be approachable. Through resources and direct conversations, we aim to help investors think differently about risk, opportunity, and market behavior.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-strategies" id="strategies" aria-labelledby="strategies-title">
+      <div class="shell">
+        <div class="section-intro">
+          <div>
+            <p class="eyebrow"><span></span> Strategy Tiers</p>
+            <h2 id="strategies-title">One framework. Three risk profiles.</h2>
+          </div>
+          <p>Each tier applies the fund’s research framework with a different balance of growth objectives, active positioning, and tolerance for drawdowns.</p>
+        </div>
+
+        <div class="strategy-grid">
+          <article class="strategy-card">
+            <div class="strategy-card-top">
+              <span class="strategy-index">01</span>
+              <span class="risk-marker risk-medium">Medium risk</span>
+            </div>
+            <h3>Controlled growth</h3>
+            <p>Designed for investors seeking steadier growth with controlled drawdowns.</p>
+            <dl class="strategy-detail">
+              <div><dt>Availability</dt><dd>Since 2020</dd></div>
+              <div><dt>Positioning</dt><dd>Measured</dd></div>
+            </dl>
+          </article>
+
+          <article class="strategy-card">
+            <div class="strategy-card-top">
+              <span class="strategy-index">02</span>
+              <span class="risk-marker risk-high">High risk</span>
+            </div>
+            <h3>Aggressive growth</h3>
+            <p>Built for aggressive growth with active rebalancing and a higher tolerance for volatility.</p>
+            <dl class="strategy-detail">
+              <div><dt>Introduced</dt><dd>August 2023</dd></div>
+              <div><dt>Positioning</dt><dd>Active</dd></div>
+            </dl>
+          </article>
+
+          <article class="strategy-card strategy-card-dark">
+            <div class="strategy-card-top">
+              <span class="strategy-index">03</span>
+              <span class="risk-marker risk-extreme">Extreme risk</span>
+            </div>
+            <h3>Maximum return objective</h3>
+            <p>Designed for investors who understand and accept the potential for substantial volatility and loss.</p>
+            <dl class="strategy-detail">
+              <div><dt>Introduced</dt><dd>December 2024</dd></div>
+              <div><dt>Positioning</dt><dd>Maximum risk</dd></div>
+            </dl>
+          </article>
+        </div>
+
+        <p class="strategy-footnote"><strong>In development:</strong> an income-focused tier for investors seeking weekly or monthly distributions with a stable-growth objective.</p>
+      </div>
+    </section>
+
+    <section class="section section-milestones" aria-labelledby="milestones-title">
+      <div class="shell">
+        <div class="milestone-heading">
+          <div>
+            <p class="eyebrow"><span></span> Fund Development</p>
+            <h2 id="milestones-title">Milestones since inception.</h2>
+          </div>
+          <p>A timeline of strategy launches and performance milestones as previously reported by the fund.</p>
+        </div>
+
+        <ol class="timeline">
+          <li><time datetime="2020-02">Feb 2020</time><span>Fund founded</span></li>
+          <li><time datetime="2020-09">Sep 2020</time><span>Fund surpasses the S&amp;P 500 Index</span></li>
+          <li><time datetime="2020-12">Dec 2020</time><span>Fund surpasses gold</span></li>
+          <li><time datetime="2023-04">Apr 2023</time><span>Investors surpass +100% cumulative returns</span></li>
+          <li><time datetime="2023-08">Aug 2023</time><span>High Risk tier launched</span></li>
+          <li><time datetime="2024-01">Jan 2024</time><span>High Risk investors surpass +1,000% cumulative returns</span></li>
+          <li><time datetime="2024-12">Dec 2024</time><span>Extreme Risk tier launched</span></li>
+          <li><time datetime="2025-02">Feb 2025</time><span>Fund surpasses bitcoin</span></li>
+          <li><time datetime="2025-03">Mar 2025</time><span>High Risk investors surpass +2,000% cumulative returns</span></li>
+          <li><time datetime="2025-03">Mar 2025</time><span>Extreme Risk investors surpass +3,000% cumulative returns</span></li>
+          <li><time datetime="2025-04">Apr 2025</time><span>Medium Risk investors surpass +300% cumulative returns</span></li>
+          <li><time datetime="2025-04">Apr 2025</time><span>Extreme Risk investors surpass +5,000% cumulative returns</span></li>
+          <li><time datetime="2025-06">Jun 2025</time><span>Extreme Risk investors surpass +8,000% cumulative returns</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section section-performance" id="performance" aria-labelledby="performance-title">
+      <div class="shell">
+        <div class="section-intro performance-intro">
+          <div>
+            <p class="eyebrow"><span></span> Performance</p>
+            <h2 id="performance-title">Fund and benchmark tracker.</h2>
+          </div>
+          <div class="data-status" aria-live="polite">
+            <span class="status-dot" aria-hidden="true"></span>
+            <span id="chartStatus">Loading market data…</span>
+            <span class="status-separator" aria-hidden="true">·</span>
+            <span id="chartAsOf">As of —</span>
+          </div>
+        </div>
+
+        <div class="performance-panel" data-performance-chart>
+          <div class="chart-toolbar" aria-label="Chart controls">
+            <fieldset class="control-group">
+              <legend>Period</legend>
+              <div class="segmented-control" id="chartRange">
+                <button type="button" data-range="1Y" aria-pressed="false">1Y</button>
+                <button type="button" data-range="3Y" aria-pressed="false">3Y</button>
+                <button type="button" data-range="5Y" aria-pressed="false">5Y</button>
+                <button class="is-active" type="button" data-range="ALL" aria-pressed="true">All</button>
+              </div>
+            </fieldset>
+            <fieldset class="control-group">
+              <legend>Scale</legend>
+              <div class="segmented-control">
+                <button class="is-active" id="linearScaleBtn" type="button" data-scale="linear" aria-pressed="true">Regular</button>
+                <button id="logScaleBtn" type="button" data-scale="logarithmic" aria-pressed="false">Log</button>
+              </div>
+            </fieldset>
+          </div>
+
+          <div class="chart-frame">
+            <canvas id="performanceChart" role="img" aria-label="Cumulative return chart comparing Quantum Strategy Fund strategy tiers with market benchmarks from January 2020 to the latest available date.">
+              Your browser does not support the performance chart. A data table is available below.
+            </canvas>
+          </div>
+
+          <div class="chart-legend" id="chartLegend" aria-label="Performance series"></div>
+
+          <div class="chart-fallback" id="chartFallback" hidden>
+            <p id="chartFallbackMessage">The interactive chart is temporarily unavailable. Recent data is shown in the table below when available.</p>
+            <div class="table-scroll" tabindex="0" aria-label="Scrollable performance data table">
+              <table id="performanceFallbackTable">
+                <caption>Latest available cumulative returns</caption>
+                <thead>
+                  <tr><th scope="col">Series</th><th scope="col">Latest return</th><th scope="col">As of</th></tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <div class="performance-notes">
+          <details>
+            <summary>How to read this chart</summary>
+            <div>
+              <ul>
+                <li><strong>Cumulative return</strong> shows the total percentage change since January 2020, not an annualized return.</li>
+                <li>Use the legend to show or hide individual strategy tiers and benchmarks.</li>
+                <li>The “Latest available” column combines each series' own most recent observation; chart tooltips show the exact as-of time for each point.</li>
+                <li>The logarithmic view charts the growth of an initial $100 so negative return periods remain comparable on a positive scale.</li>
+                <li>Strategy launch markers identify the High Risk split in August 2023 and the Extreme Risk split in December 2024.</li>
+              </ul>
+            </div>
+          </details>
+          <div class="data-note">
+            <span>Data methodology</span>
+            <p>QSF strategy history is management-reported through September 2025 and is not live. Public benchmarks are best-effort, may be delayed beyond 15 minutes, and retain separate as-of times.</p>
+          </div>
+        </div>
+
+        <p class="risk-disclosure">QSF strategy figures are management-reported and have not been independently verified on this website; fee and distribution treatment should be confirmed in fund documentation. Past performance is not indicative of future results. All investing involves risk, including the possible loss of principal.</p>
+      </div>
+    </section>
+
+    <section class="section section-insights" id="insights" aria-labelledby="insights-title">
+      <div class="shell insight-card">
+        <div class="book-visual">
+          <span class="book-shadow" aria-hidden="true"></span>
+          <img src="assets/images/options-book-700.png" alt="Cover of the Quantum Strategy Fund options trading book" width="541" height="700" loading="lazy" decoding="async">
+        </div>
+        <div class="insight-copy">
+          <p class="eyebrow"><span></span> Education &amp; Insights</p>
+          <h2 id="insights-title">Options strategy, from foundations to advanced applications.</h2>
+          <p>Learn foundational and advanced options strategies from the Quantum Strategy Fund team. Written with clarity and tested with data, the book also introduces quantum finance and strategy concepts.</p>
+          <div class="availability-row">
+            <span class="availability-dot" aria-hidden="true"></span>
+            <span>Currently out of stock — check back soon.</span>
+          </div>
+          <span class="button button-disabled" aria-disabled="true">Order book</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-network" id="join" aria-labelledby="network-title">
+      <div class="shell network-grid">
+        <div>
+          <p class="eyebrow eyebrow-light"><span></span> Investor Network</p>
+          <h2 id="network-title">Stay close to our research.</h2>
+        </div>
+        <div>
+          <p>Join our investor network for research briefings, fund updates, and early access to investment opportunities.</p>
+          <a class="button button-gold" href="mailto:info@quantumstrategyfund.com?subject=Investor%20Access">Request access <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-contact" id="contact" aria-labelledby="contact-title">
+      <div class="shell contact-card">
+        <div>
+          <p class="eyebrow"><span></span> Contact</p>
+          <h2 id="contact-title">Start a conversation with QSF.</h2>
+          <p>Ready to take the next step? Contact the fund to discuss investor access and learn more about the available strategy tiers.</p>
+        </div>
+        <div class="contact-actions">
+          <a class="button button-navy" href="mailto:info@quantumstrategyfund.com?subject=Investor%20Inquiry">Become an investor <span aria-hidden="true">→</span></a>
+          <a class="contact-email" href="mailto:info@quantumstrategyfund.com">info@quantumstrategyfund.com</a>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    &copy; 2025 Quantum Strategy Fund. All rights reserved.
+  <footer class="site-footer">
+    <div class="shell footer-main">
+      <a class="footer-brand" href="#top" aria-label="Quantum Strategy Fund home">
+        <img src="assets/images/qsf-mark.png" alt="" width="64" height="64">
+        <span><strong>Quantum Strategy Fund</strong><small>Where Quantum Computing Meets Asset Management</small></span>
+      </a>
+      <div class="footer-links" aria-label="Footer navigation">
+        <a href="#story">About</a>
+        <a href="#why-quantum">Approach</a>
+        <a href="#performance">Performance</a>
+        <a href="investor_login/">Investor Login</a>
+      </div>
+    </div>
+    <div class="shell footer-legal">
+      <p>Investing involves risk, including loss of principal. Information presented on this website is for informational purposes only and does not constitute an offer, solicitation, or investment advice.</p>
+      <p>&copy; <span id="currentYear">2026</span> Quantum Strategy Fund. All rights reserved.</p>
+    </div>
   </footer>
-<script>
-  // Don't restore previous scroll automatically
-  if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 
-  function resetTop() {
-    if (!location.hash) window.scrollTo(0, 0);
-  }
+  <noscript>
+    <div class="noscript-notice">JavaScript is required to display the interactive performance chart and mobile navigation.</div>
+  </noscript>
 
-  // Fresh load
-  window.addEventListener('load', () => {
-    // Run a few times to beat iOS bar resize/layout shifts
-    requestAnimationFrame(resetTop);
-    setTimeout(resetTop, 0);
-    setTimeout(resetTop, 150);
-    setTimeout(resetTop, 400);
-  });
-
-  // When Safari brings the page back from bfcache
-  window.addEventListener('pageshow', (e) => {
-    if (e.persisted && !location.hash) resetTop();
-  });
-</script>
-  <!-- Chart.js (load once, defer) -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script>
-    // ---- Active nav highlighting via IntersectionObserver ----
-    (function(){
-      const links = Array.from(document.querySelectorAll('nav a'));
-      const map = new Map(links.map(a => [a.getAttribute('href').slice(1), a]));
-      const observer = new IntersectionObserver((entries)=>{
-        entries.forEach(entry=>{
-          const id = entry.target.id;
-          if(entry.isIntersecting){
-            links.forEach(l => l.classList.remove('active'));
-            const link = map.get(id);
-            if(link) link.classList.add('active');
-          }
-        });
-      }, { rootMargin: "-40% 0px -55% 0px", threshold: 0.01 });
-      document.querySelectorAll('main section[id]').forEach(sec => observer.observe(sec));
-    })();
-    
-
-    // ---- Chart data & plugin ----
-    const months = [
-      "Jan 2020","Feb 2020","Mar 2020","Apr 2020","May 2020","Jun 2020","Jul 2020","Aug 2020",
-      "Sep 2020","Oct 2020","Nov 2020","Dec 2020",
-      "Jan 2021","Feb 2021","Mar 2021","Apr 2021","May 2021","Jun 2021","Jul 2021","Aug 2021",
-      "Sep 2021","Oct 2021","Nov 2021","Dec 2021",
-      "Jan 2022","Feb 2022","Mar 2022","Apr 2022","May 2022","Jun 2022","Jul 2022","Aug 2022",
-      "Sep 2022","Oct 2022","Nov 2022","Dec 2022",
-      "Jan 2023","Feb 2023","Mar 2023","Apr 2023","May 2023","Jun 2023","Jul 2023","Aug 2023",
-      "Sep 2023","Oct 2023","Nov 2023","Dec 2023",
-      "Jan 2024","Feb 2024","Mar 2024","Apr 2024","May 2024","Jun 2024","Jul 2024","Aug 2024",
-      "Sep 2024","Oct 2024","Nov 2024","Dec 2024",
-      "Jan 2025","Feb 2025","Mar 2025","Apr 2025","May 2025","Jun 2025","Jul 2025","Aug 2025","Sep 2025"
-    ];
-
-   const verticalLines = {
-  id: 'verticalLines',
-  beforeDatasetsDraw(chart){
-    const { ctx, chartArea:{ top, bottom, left, right }, scales:{ x } } = chart;
-    const isMobile = chart.width < 600;
-
-    const lines = [
-      { 
-        label: "Aug 2023",
-        text: isMobile ? "Risk Split" : "QSF Medium–High Risk Split",
-        color: "#d4af37",
-        y: isMobile ? 12 : 16,   // vertical offset
-        x: isMobile ? -52  : -200    // horizontal offset
-      },
-      { 
-        label: "Dec 2024",
-        text: isMobile ? "Risk Split" : "QSF High–Extreme Risk Split",
-        color: "#e67e22",
-        y: isMobile ? 28 : 36,   // vertical offset
-        x: isMobile ? -52 : -200 // horizontal offset
-      }
-    ];
-
-    ctx.save();
-    ctx.setLineDash([5,5]);
-    ctx.lineWidth = 2;
-    ctx.textBaseline = 'top';
-    ctx.font = (isMobile ? 12 : 16) + "px Garamond";
-
-    for (const L of lines) {
-      const i = chart.data.labels.indexOf(L.label);
-      if (i < 0) continue;
-
-      const xPos = x.getPixelForValue(i);
-
-      // draw vertical line
-      ctx.strokeStyle = L.color;
-      ctx.beginPath();
-      ctx.moveTo(xPos, top);
-      ctx.lineTo(xPos, bottom);
-      ctx.stroke();
-
-      // label (with your manual offsets, clamped inside chart area)
-      const w = ctx.measureText(L.text).width;
-      const tx = Math.min(Math.max(xPos + L.x, left + 6), right - w - 6);
-      ctx.fillStyle = L.color;
-      ctx.fillText(L.text, tx, top + L.y);
-    }
-
-    ctx.restore();
-  }
-};
-
-
-    const datasets = [
-      // QSF series first (visible)
-      
-      {
-        label: "QSF (Medium Risk)",
-        data: [0.00,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,158.95,149.12,197.87,211.63,151.89,160.89,170.4,180.34,179.67,181.91,190.58,186.65,175.96,187.38,189.32,198.02,175.02,193.67,291.72,301.08,311.6,310.33,322.34,334.48,310.2],
-        borderColor: "#2ecc71", borderWidth: 2, fill: false, tension: 0.3
-      },
-      {
-        label: "QSF (High Risk)",
-        data: [0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,1088.45,1560.34,2201.27,1904.62,2313.56,2622.45,2036.88,2123.54,1863.23],
-        borderColor: "#e67e22", borderWidth: 2, fill: false, tension: 0.3
-      },
-      
-      {
-        label: "QSF (Extreme Risk)",
-        data: [0.0,-0.49,-9.37,40.01,50.47,29.66,19.35,11.59,9.43,23.57,20.54,52.85,62.51,71.55,61.95,57.38,52.49,61.53,70.45,89.69,76.41,65.48,83.36,94.72,111.97,119.95,120.98,88.92,75.61,70.91,69.78,74.3,64.25,50.08,44.62,49.82,65.57,78.63,88.7,109.95,124.3,122.89,129.65,152.58,358.95,631.62,295.33,693.57,1392.11,1559.67,1760.43,651.98,666.13,823.27,1019.41,1374.12,1847.99,1995.27,1098.03,873.61,888.45,3260.49,5401.22,3504.32,5913.23,8322.45,7036.88,8057.54,6587.34],
-        borderColor: "#ff0000", borderWidth: 2, fill: false, tension: 0.3
-      },
-      // Benchmarks (hidden by default)
-      {
-        label: "SPY",
-        data: [0.00,-0.04,-7.97,-19.46,-9.23,-4.89,-3.21,2.51,9.64,5.54,2.91,14.10,18.34,17.12,20.40,25.84,32.48,33.34,35.91,39.27,43.34,36.65,46.29,45.10,51.78,43.80,39.56,44.84,32.13,32.42,21.49,32.68,27.23,15.51,24.84,31.80,24.23,32.07,28.77,33.47,35.61,36.27,45.08,49.85,47.33,40.38,37.33,49.90,56.73,59.26,67.52,73.10,66.04,74.47,80.59,82.77,87.09,90.96,89.35,100.55,95.74,101.01,98.45,87.35,85.76,97.03,107.62,112.37,113.6],
-        borderColor: "#1f77b4", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "Gold",
-        data: [0.00,4.41,6.54,7.11,12.75,13.73,16.84,28.14,27.85,23.49,23.57,13.73,22.42,18.82,12.10,9.65,14.23,24.20,14.72,17.42,17.34,12.83,15.29,14.14,17.42,16.93,23.22,25.67,22.42,17.60,15.94,13.00,9.00,4.66,3.11,11.36,15.29,22.51,14.99,26.41,26.84,26.15,21.99,25.12,23.88,17.09,26.73,29.72,30.27,28.77,29.10,41.44,44.61,47.85,47.59,55.20,59.17,66.61,74.37,67.27,64.65,77.03,80.75,96.62,105.58,105.66,107.27,105.79,122.2],
-        borderColor: "#d4af37", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "BTC",
-        data: [0.00,30.01,19.23,-13.38,-10.51,20.48,32.44,26.60,58.01,62.27,49.82,90.11,170.17,306.14,366.43,542.56,719.36,708.34,407.94,374.97,486.94,549.88,505.40,751.33,690.52,540.91,433.82,499.31,531.53,422.38,340.81,176.88,223.43,178.17,169.43,184.27,138.12,129.40,220.88,221.07,294.99,305.67,277.61,322.67,305.50,259.69,273.98,481.00,529.81,588.24,582.81,754.00,879.73,735.15,839.18,779.62,886.41,712.31,883.74,861.51,1239.17,1195.64,1319.33,1195.14,1051.45,1215.00,1349.28,1504.94,1394.42],
-        borderColor: "#f7931a", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      },
-      {
-        label: "Risk-Free Interest",
-        data: [0.00,0.12,0.25,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.38,0.40,0.42,0.44,0.51,0.57,0.70,0.89,1.08,1.33,1.59,1.91,2.23,2.59,2.97,3.36,3.75,4.16,4.59,5.02,5.46,5.91,6.36,6.82,7.29,7.77,8.25,8.73,9.21,9.69,10.19,10.68,11.18,11.69,12.19,12.69,13.09,13.38,13.78,14.19,14.59,15.00,15.4],
-        borderColor: "#1f4e79", borderWidth: 2, fill: false, tension: 0.3, hidden: true
-      }
-    ];
-
-    const chart = new Chart(document.getElementById("performanceChart"), {
-      type: "line",
-      plugins: [verticalLines],
-      data: { labels: months, datasets },
-      options: {
-        elements: {
-    point: {
-      radius: 0
-    }
-  },
-        responsive: true,
-        maintainAspectRatio: false,
-        interaction: { mode: "index", intersect: false },
-        plugins: {
-          legend: { position: "bottom" },
-          tooltip: {
-            callbacks: {
-              label: (ctx) => {
-                const label = ctx.dataset.label || '';
-                const v = ctx.parsed.y;
-                return label ? `${label}: ${v.toFixed(2)}%` : v.toFixed(2) + '%';
-              }
-            }
-          }
-        },
-        scales: {
-          y: {
-            type: "linear",
-            beginAtZero: true,
-            title: { display: true, text: "Cumulative Return (%)" }
-          },
-          x: {
-            ticks: { autoSkip: true, maxRotation: 45, minRotation: 0, maxTicksLimit: 14 } // will be overridden by callback below
-          }
-        }
-      }
-    });
-
-
-  // Dismiss tooltip when tapping outside chart on mobile
-  document.addEventListener('click', function (e) {
-    const chartCanvas = document.getElementById('performanceChart');
-    if (!chartCanvas.contains(e.target)) {
-      chart.setActiveElements([]);
-      chart.tooltip.setActiveElements([], { x: 0, y: 0 });
-      chart.update();
-    }
-  });
-
-    // Toggle linear/log y-scale
-    function toggleLogScale() {
-      const y = chart.options.scales.y;
-      y.type = (y.type === 'linear') ? 'logarithmic' : 'linear';
-      document.getElementById('logToggleBtn').textContent =
-        y.type === 'logarithmic' ? 'Switch to Regular Scale' : 'Switch to Log Scale';
-      chart.update();
-    }
-    window.toggleLogScale = toggleLogScale;
-
-    // --- Dynamic X-axis label density + padding to avoid collisions ---
-    let dynamicSkip = 0;
-
-   function updateChartForSize() {
-  // intentionally left blank
-}
-  </script>
+  <script src="assets/js/site.js" defer></script>
+  <script src="assets/vendor/chart.umd.min.js" defer></script>
+  <script src="assets/js/performance.js" defer></script>
 </body>
 </html>

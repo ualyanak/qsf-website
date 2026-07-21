@@ -1,0 +1,10 @@
+exclude:
+  - .github/
+  - docs/
+  - private/
+  - reporting/
+  - scripts/
+  - supabase/
+  - index_OLD.html
+  - investor_login/index_OLD.html
+  - login_handler.html

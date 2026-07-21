@@ -1,0 +1,10 @@
+.DS_Store
+__pycache__/
+*.py[cod]
+
+# Investor data and generated statements must never enter this public repo.
+private/
+reporting/output/
+
+# Optional local portal override. Only the public example config is tracked.
+assets/js/portal-config.local.js

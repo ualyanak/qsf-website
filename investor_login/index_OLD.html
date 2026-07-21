@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Investor Login – Quantum Strategy Fund</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Secure Investor Portal – Quantum Strategy Fund">
+  <link rel="icon" type="image/png" href="../logo3.png">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f7fbff;
+      color: #2c3e50;
+    }
+    
+    header {
+  background: linear-gradient(to right, #a7dcff 0%, #ffffff 50%, #a7dcff 100%);
+  padding: 2em 1em 1em;
+  text-align: center;
+}
+    header img {
+      height: 200px;
+      margin-bottom: -1em;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8em;
+      color: #1e2e4e;
+    }
+    header p {
+      font-size: 1.2em;
+      color: #386190;
+      margin-top: 0.5em;
+    }
+    nav {
+      text-align: center;
+      margin-top: 1em;
+    }
+    nav a {
+      margin: 0.5em 1em;
+      text-decoration: none;
+      color: #1e2e4e;
+      font-weight: bold;
+      background-color: #e2f0ff;
+      padding: 0.5em 1.2em;
+      border-radius: 6px;
+      border: 1px solid #9ccaf2;
+      transition: all 0.2s ease;
+    }
+    nav a:hover {
+      background-color: #c6e4ff;
+      color: #0c1f3c;
+    }
+    section {
+      max-width: 400px;
+      margin: 3em auto;
+      background: #ffffff;
+      padding: 2em;
+      border-radius: 10px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.05);
+    }
+    h2 {
+      text-align: center;
+      color: #1e2e4e;
+      margin-bottom: 1em;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    label {
+      margin: 0.5em 0 0.2em;
+      font-weight: bold;
+      color: #2c3e50;
+    }
+    input[type="text"], input[type="password"], input[type="email"] {
+      padding: 0.6em;
+      border-radius: 6px;
+      border: 1px solid #b3cde7;
+      margin-bottom: 1em;
+    }
+    input[type="submit"] {
+      background-color: #1e2e4e;
+      color: white;
+      border: none;
+      padding: 0.8em;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    input[type="submit"]:hover {
+      background-color: #274570;
+    }
+    .error-message, .success-message {
+      color: red;
+      text-align: center;
+      font-weight: bold;
+      margin-top: 1em;
+    }
+    .success-message {
+      color: green;
+    }
+    .forgot-link {
+      text-align: center;
+      margin-top: 1em;
+      cursor: pointer;
+      color: #1e2e4e;
+      text-decoration: underline;
+    }
+    footer {
+      text-align: center;
+      padding: 2em;
+      font-size: 0.9em;
+      color: #555;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <img src="../logo3.png" alt="Quantum Strategy Fund Logo">
+    <h1>Investor Login</h1>
+    <p>Secure Access to Quantum Strategy Fund</p>
+    <nav>
+      <a href="../index.html">← Return to Homepage</a>
+    </nav>
+  </header>
+
+  <section id="login-section">
+    <h2>Member Portal</h2>
+    <form id="login-form">
+      <label for="username">Username or Email</label>
+      <input type="text" id="username" required>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" required>
+
+      <input type="submit" value="Login">
+    </form>
+    <div class="error-message" id="login-error"></div>
+    <div class="forgot-link" onclick="showForgot()">Forgot Password?</div>
+  </section>
+
+  <section id="forgot-section" style="display:none;">
+    <h2>Password Recovery</h2>
+    <form id="forgot-form">
+      <label for="recovery-email">Enter your email address</label>
+      <input type="email" id="recovery-email" required>
+
+      <input type="submit" value="Send Recovery">
+    </form>
+    <div class="success-message" id="recovery-message"></div>
+  </section>
+
+  <footer>
+    &copy; 2025 Quantum Strategy Fund. All rights reserved.
+  </footer>
+
+  <script>
+    document.getElementById('login-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('login-error').innerText = 'Wrong username or password.';
+    });
+
+    function showForgot() {
+      document.getElementById('login-section').style.display = 'none';
+      document.getElementById('forgot-section').style.display = 'block';
+    }
+
+    document.getElementById('forgot-form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      document.getElementById('recovery-message').innerText = 'A recovery phrase has been sent to your email if your email is associated with an account.';
+    });
+  </script>
+
+</body>
+</html>
+
+

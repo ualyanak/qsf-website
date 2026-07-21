@@ -1,0 +1,76 @@
+name: Refresh public market data
+
+on:
+  schedule:
+    # Offset from the start of the hour, when GitHub reports the heaviest
+    # scheduled-workflow load. This remains a best-effort cadence.
+    - cron: "7,22,37,52 * * * *"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# The refresh runs from trusted code on main but publishes only the generated
+# JSON to a separate market-data branch.  This keeps 15-minute commit churn out
+# of main and prevents a generated-data push from recursively triggering this
+# workflow.  The branch is an ordinary fast-forward history after its first
+# orphan snapshot; no force push or main-branch write is used.
+permissions:
+  contents: write
+
+concurrency:
+  group: qsf-market-data-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 8
+    steps:
+      - name: Check out trusted updater from main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Build complete snapshot
+        run: >-
+          python scripts/update_market_data.py
+          --strict
+          --output "$RUNNER_TEMP/performance.json"
+
+      - name: Publish snapshot to market-data branch
+        env:
+          SNAPSHOT_PATH: ${{ runner.temp }}/performance.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "qsf-market-data-bot"
+          git config user.email "qsf-market-data-bot@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin market-data >/dev/null 2>&1; then
+            git fetch --no-tags origin refs/heads/market-data:refs/remotes/origin/market-data
+            git switch --detach refs/remotes/origin/market-data
+          else
+            git switch --orphan market-data
+            # `git switch --orphan` clears tracked files on current Git; the
+            # guarded command also supports older runners that leave them.
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          mkdir -p data
+          cp "$SNAPSHOT_PATH" data/performance.json
+          git add data/performance.json
+
+          if git diff --cached --quiet; then
+            echo "Public sources have no new observation; nothing to publish."
+            exit 0
+          fi
+
+          git commit -m "data: refresh public market snapshot"
+          git push origin HEAD:refs/heads/market-data

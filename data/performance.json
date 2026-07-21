@@ -1,0 +1,3307 @@
+{
+  "generated_at": "2026-07-21T06:59:33Z",
+  "methodology": {
+    "baseline": "Last available January 2020 observation (displayed as 0%).",
+    "benchmark_frequency": "Completed calendar month-end observations plus the latest available delayed observation.",
+    "returns": "Cumulative, not annualized. SPY and GLD use adjusted close; BTC-USD uses price return.",
+    "risk_free": "Hypothetical cash-accrual proxy using DGS3MO annual yields compounded between published observations on an ACT/365 basis; it is not an investable total-return index."
+  },
+  "schema_version": 1,
+  "series": [
+    {
+      "category": "strategy",
+      "color": "#36c98f",
+      "default_hidden": false,
+      "id": "qsf-medium",
+      "label": "QSF Medium Risk",
+      "latest": null,
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2020-02",
+          "value": -0.49
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-03",
+          "value": -9.37
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-04",
+          "value": 40.01
+        },
+        {
+          "date": "2020-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-05",
+          "value": 50.47
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-06",
+          "value": 29.66
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-07",
+          "value": 19.35
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-08",
+          "value": 11.59
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-09",
+          "value": 9.43
+        },
+        {
+          "date": "2020-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-10",
+          "value": 23.57
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-11",
+          "value": 20.54
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-12",
+          "value": 52.85
+        },
+        {
+          "date": "2021-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-01",
+          "value": 62.51
+        },
+        {
+          "date": "2021-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2021-02",
+          "value": 71.55
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-03",
+          "value": 61.95
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-04",
+          "value": 57.38
+        },
+        {
+          "date": "2021-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-05",
+          "value": 52.49
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-06",
+          "value": 61.53
+        },
+        {
+          "date": "2021-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-07",
+          "value": 70.45
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-08",
+          "value": 89.69
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-09",
+          "value": 76.41
+        },
+        {
+          "date": "2021-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-10",
+          "value": 65.48
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-11",
+          "value": 83.36
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-12",
+          "value": 94.72
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-01",
+          "value": 111.97
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2022-02",
+          "value": 119.95
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-03",
+          "value": 120.98
+        },
+        {
+          "date": "2022-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-04",
+          "value": 88.92
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-05",
+          "value": 75.61
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-06",
+          "value": 70.91
+        },
+        {
+          "date": "2022-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-07",
+          "value": 69.78
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-08",
+          "value": 74.3
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-09",
+          "value": 64.25
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-10",
+          "value": 50.08
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-11",
+          "value": 44.62
+        },
+        {
+          "date": "2022-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-12",
+          "value": 49.82
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-01",
+          "value": 65.57
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2023-02",
+          "value": 78.63
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-03",
+          "value": 88.7
+        },
+        {
+          "date": "2023-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-04",
+          "value": 109.95
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-05",
+          "value": 124.3
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-06",
+          "value": 122.89
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-07",
+          "value": 129.65
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-08",
+          "value": 152.58
+        },
+        {
+          "date": "2023-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-09",
+          "value": 158.95
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-10",
+          "value": 149.12
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-11",
+          "value": 197.87
+        },
+        {
+          "date": "2023-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-12",
+          "value": 211.63
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-01",
+          "value": 151.89
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2024-02",
+          "value": 160.89
+        },
+        {
+          "date": "2024-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-03",
+          "value": 170.4
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-04",
+          "value": 180.34
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-05",
+          "value": 179.67
+        },
+        {
+          "date": "2024-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-06",
+          "value": 181.91
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-07",
+          "value": 190.58
+        },
+        {
+          "date": "2024-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-08",
+          "value": 186.65
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-09",
+          "value": 175.96
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-10",
+          "value": 187.38
+        },
+        {
+          "date": "2024-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-11",
+          "value": 189.32
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-12",
+          "value": 198.02
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-01",
+          "value": 175.02
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2025-02",
+          "value": 193.67
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-03",
+          "value": 291.72
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-04",
+          "value": 301.08
+        },
+        {
+          "date": "2025-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-05",
+          "value": 311.6
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-06",
+          "value": 310.33
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-07",
+          "value": 322.34
+        },
+        {
+          "date": "2025-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-08",
+          "value": 334.48
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-09",
+          "value": 310.2
+        }
+      ],
+      "provenance": {
+        "as_of": "2025-09-30",
+        "live": false,
+        "source": "QSF management-reported website series",
+        "statement": "Historical monthly figures through September 2025; not automatically updated or extrapolated."
+      },
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "strategy",
+      "color": "#e5a93d",
+      "default_hidden": false,
+      "id": "qsf-high",
+      "label": "QSF High Risk",
+      "latest": null,
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2020-02",
+          "value": -0.49
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-03",
+          "value": -9.37
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-04",
+          "value": 40.01
+        },
+        {
+          "date": "2020-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-05",
+          "value": 50.47
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-06",
+          "value": 29.66
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-07",
+          "value": 19.35
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-08",
+          "value": 11.59
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-09",
+          "value": 9.43
+        },
+        {
+          "date": "2020-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-10",
+          "value": 23.57
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-11",
+          "value": 20.54
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-12",
+          "value": 52.85
+        },
+        {
+          "date": "2021-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-01",
+          "value": 62.51
+        },
+        {
+          "date": "2021-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2021-02",
+          "value": 71.55
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-03",
+          "value": 61.95
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-04",
+          "value": 57.38
+        },
+        {
+          "date": "2021-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-05",
+          "value": 52.49
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-06",
+          "value": 61.53
+        },
+        {
+          "date": "2021-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-07",
+          "value": 70.45
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-08",
+          "value": 89.69
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-09",
+          "value": 76.41
+        },
+        {
+          "date": "2021-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-10",
+          "value": 65.48
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-11",
+          "value": 83.36
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-12",
+          "value": 94.72
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-01",
+          "value": 111.97
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2022-02",
+          "value": 119.95
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-03",
+          "value": 120.98
+        },
+        {
+          "date": "2022-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-04",
+          "value": 88.92
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-05",
+          "value": 75.61
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-06",
+          "value": 70.91
+        },
+        {
+          "date": "2022-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-07",
+          "value": 69.78
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-08",
+          "value": 74.3
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-09",
+          "value": 64.25
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-10",
+          "value": 50.08
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-11",
+          "value": 44.62
+        },
+        {
+          "date": "2022-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-12",
+          "value": 49.82
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-01",
+          "value": 65.57
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2023-02",
+          "value": 78.63
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-03",
+          "value": 88.7
+        },
+        {
+          "date": "2023-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-04",
+          "value": 109.95
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-05",
+          "value": 124.3
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-06",
+          "value": 122.89
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-07",
+          "value": 129.65
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-08",
+          "value": 152.58
+        },
+        {
+          "date": "2023-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-09",
+          "value": 358.95
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-10",
+          "value": 631.62
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-11",
+          "value": 295.33
+        },
+        {
+          "date": "2023-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-12",
+          "value": 693.57
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-01",
+          "value": 1392.11
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2024-02",
+          "value": 1559.67
+        },
+        {
+          "date": "2024-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-03",
+          "value": 1760.43
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-04",
+          "value": 651.98
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-05",
+          "value": 666.13
+        },
+        {
+          "date": "2024-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-06",
+          "value": 823.27
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-07",
+          "value": 1019.41
+        },
+        {
+          "date": "2024-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-08",
+          "value": 1374.12
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-09",
+          "value": 1847.99
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-10",
+          "value": 1995.27
+        },
+        {
+          "date": "2024-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-11",
+          "value": 1098.03
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-12",
+          "value": 873.61
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-01",
+          "value": 1088.45
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2025-02",
+          "value": 1560.34
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-03",
+          "value": 2201.27
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-04",
+          "value": 1904.62
+        },
+        {
+          "date": "2025-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-05",
+          "value": 2313.56
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-06",
+          "value": 2622.45
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-07",
+          "value": 2036.88
+        },
+        {
+          "date": "2025-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-08",
+          "value": 2123.54
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-09",
+          "value": 1863.23
+        }
+      ],
+      "provenance": {
+        "as_of": "2025-09-30",
+        "live": false,
+        "source": "QSF management-reported website series",
+        "statement": "Historical monthly figures through September 2025; not automatically updated or extrapolated."
+      },
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "strategy",
+      "color": "#e15b64",
+      "default_hidden": false,
+      "id": "qsf-extreme",
+      "label": "QSF Extreme Risk",
+      "latest": null,
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2020-02",
+          "value": -0.49
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-03",
+          "value": -9.37
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-04",
+          "value": 40.01
+        },
+        {
+          "date": "2020-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-05",
+          "value": 50.47
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-06",
+          "value": 29.66
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-07",
+          "value": 19.35
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-08",
+          "value": 11.59
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-09",
+          "value": 9.43
+        },
+        {
+          "date": "2020-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-10",
+          "value": 23.57
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2020-11",
+          "value": 20.54
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2020-12",
+          "value": 52.85
+        },
+        {
+          "date": "2021-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-01",
+          "value": 62.51
+        },
+        {
+          "date": "2021-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2021-02",
+          "value": 71.55
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-03",
+          "value": 61.95
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-04",
+          "value": 57.38
+        },
+        {
+          "date": "2021-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-05",
+          "value": 52.49
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-06",
+          "value": 61.53
+        },
+        {
+          "date": "2021-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-07",
+          "value": 70.45
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-08",
+          "value": 89.69
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-09",
+          "value": 76.41
+        },
+        {
+          "date": "2021-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-10",
+          "value": 65.48
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2021-11",
+          "value": 83.36
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2021-12",
+          "value": 94.72
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-01",
+          "value": 111.97
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2022-02",
+          "value": 119.95
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-03",
+          "value": 120.98
+        },
+        {
+          "date": "2022-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-04",
+          "value": 88.92
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-05",
+          "value": 75.61
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-06",
+          "value": 70.91
+        },
+        {
+          "date": "2022-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-07",
+          "value": 69.78
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-08",
+          "value": 74.3
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-09",
+          "value": 64.25
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-10",
+          "value": 50.08
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2022-11",
+          "value": 44.62
+        },
+        {
+          "date": "2022-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2022-12",
+          "value": 49.82
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-01",
+          "value": 65.57
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2023-02",
+          "value": 78.63
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-03",
+          "value": 88.7
+        },
+        {
+          "date": "2023-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-04",
+          "value": 109.95
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-05",
+          "value": 124.3
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-06",
+          "value": 122.89
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-07",
+          "value": 129.65
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-08",
+          "value": 152.58
+        },
+        {
+          "date": "2023-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-09",
+          "value": 358.95
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-10",
+          "value": 631.62
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2023-11",
+          "value": 295.33
+        },
+        {
+          "date": "2023-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2023-12",
+          "value": 693.57
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-01",
+          "value": 1392.11
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "management_reported_month_end",
+          "period": "2024-02",
+          "value": 1559.67
+        },
+        {
+          "date": "2024-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-03",
+          "value": 1760.43
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-04",
+          "value": 651.98
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-05",
+          "value": 666.13
+        },
+        {
+          "date": "2024-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-06",
+          "value": 823.27
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-07",
+          "value": 1019.41
+        },
+        {
+          "date": "2024-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-08",
+          "value": 1374.12
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-09",
+          "value": 1847.99
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-10",
+          "value": 1995.27
+        },
+        {
+          "date": "2024-11-30",
+          "kind": "management_reported_month_end",
+          "period": "2024-11",
+          "value": 1098.03
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "management_reported_month_end",
+          "period": "2024-12",
+          "value": 873.61
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-01",
+          "value": 888.45
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "management_reported_month_end",
+          "period": "2025-02",
+          "value": 3260.49
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-03",
+          "value": 5401.22
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-04",
+          "value": 3504.32
+        },
+        {
+          "date": "2025-05-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-05",
+          "value": 5913.23
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-06",
+          "value": 8322.45
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-07",
+          "value": 7036.88
+        },
+        {
+          "date": "2025-08-31",
+          "kind": "management_reported_month_end",
+          "period": "2025-08",
+          "value": 8057.54
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "management_reported_month_end",
+          "period": "2025-09",
+          "value": 6587.34
+        }
+      ],
+      "provenance": {
+        "as_of": "2025-09-30",
+        "live": false,
+        "source": "QSF management-reported website series",
+        "statement": "Historical monthly figures through September 2025; not automatically updated or extrapolated."
+      },
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "benchmark",
+      "color": "#5da9e9",
+      "default_hidden": true,
+      "freshness": {
+        "age_minutes_at_check": 659.6,
+        "as_of": "2026-07-20T20:00:00Z",
+        "max_age_minutes": 7200,
+        "within_expected_window": true
+      },
+      "id": "spy",
+      "label": "SPY (adjusted)",
+      "latest": {
+        "kind": "intraday_15m",
+        "market_price": 742.090027,
+        "timestamp": "2026-07-20T20:00:00Z",
+        "value": 153.0458
+      },
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-28",
+          "kind": "month_end",
+          "period": "2020-02",
+          "value": -7.9166
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "month_end",
+          "period": "2020-03",
+          "value": -19.4151
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "month_end",
+          "period": "2020-04",
+          "value": -9.1822
+        },
+        {
+          "date": "2020-05-29",
+          "kind": "month_end",
+          "period": "2020-05",
+          "value": -4.8552
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "month_end",
+          "period": "2020-06",
+          "value": -3.1678
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "month_end",
+          "period": "2020-07",
+          "value": 2.5348
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "month_end",
+          "period": "2020-08",
+          "value": 9.6914
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "month_end",
+          "period": "2020-09",
+          "value": 5.5842
+        },
+        {
+          "date": "2020-10-30",
+          "kind": "month_end",
+          "period": "2020-10",
+          "value": 2.9516
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "month_end",
+          "period": "2020-11",
+          "value": 14.1504
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "month_end",
+          "period": "2020-12",
+          "value": 18.3794
+        },
+        {
+          "date": "2021-01-29",
+          "kind": "month_end",
+          "period": "2021-01",
+          "value": 17.1731
+        },
+        {
+          "date": "2021-02-26",
+          "kind": "month_end",
+          "period": "2021-02",
+          "value": 20.4311
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "month_end",
+          "period": "2021-03",
+          "value": 25.8986
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "month_end",
+          "period": "2021-04",
+          "value": 32.56
+        },
+        {
+          "date": "2021-05-28",
+          "kind": "month_end",
+          "period": "2021-05",
+          "value": 33.4304
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "month_end",
+          "period": "2021-06",
+          "value": 36.4229
+        },
+        {
+          "date": "2021-07-30",
+          "kind": "month_end",
+          "period": "2021-07",
+          "value": 39.7533
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "month_end",
+          "period": "2021-08",
+          "value": 43.9123
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "month_end",
+          "period": "2021-09",
+          "value": 37.2052
+        },
+        {
+          "date": "2021-10-29",
+          "kind": "month_end",
+          "period": "2021-10",
+          "value": 46.832
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "month_end",
+          "period": "2021-11",
+          "value": 45.6523
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "month_end",
+          "period": "2021-12",
+          "value": 52.3884
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "month_end",
+          "period": "2022-01",
+          "value": 44.3512
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "month_end",
+          "period": "2022-02",
+          "value": 40.0904
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "month_end",
+          "period": "2022-03",
+          "value": 45.3565
+        },
+        {
+          "date": "2022-04-29",
+          "kind": "month_end",
+          "period": "2022-04",
+          "value": 32.5986
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "month_end",
+          "period": "2022-05",
+          "value": 32.898
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "month_end",
+          "period": "2022-06",
+          "value": 21.9391
+        },
+        {
+          "date": "2022-07-29",
+          "kind": "month_end",
+          "period": "2022-07",
+          "value": 33.1682
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "month_end",
+          "period": "2022-08",
+          "value": 27.7347
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "month_end",
+          "period": "2022-09",
+          "value": 15.9261
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "month_end",
+          "period": "2022-10",
+          "value": 25.3481
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "month_end",
+          "period": "2022-11",
+          "value": 32.3164
+        },
+        {
+          "date": "2022-12-30",
+          "kind": "month_end",
+          "period": "2022-12",
+          "value": 24.6912
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "month_end",
+          "period": "2023-01",
+          "value": 32.5327
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "month_end",
+          "period": "2023-02",
+          "value": 29.2005
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "month_end",
+          "period": "2023-03",
+          "value": 33.991
+        },
+        {
+          "date": "2023-04-28",
+          "kind": "month_end",
+          "period": "2023-04",
+          "value": 36.1315
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "month_end",
+          "period": "2023-05",
+          "value": 36.7599
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "month_end",
+          "period": "2023-06",
+          "value": 45.6219
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "month_end",
+          "period": "2023-07",
+          "value": 50.3886
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "month_end",
+          "period": "2023-08",
+          "value": 47.9445
+        },
+        {
+          "date": "2023-09-29",
+          "kind": "month_end",
+          "period": "2023-09",
+          "value": 40.9268
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "month_end",
+          "period": "2023-10",
+          "value": 37.8675
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "month_end",
+          "period": "2023-11",
+          "value": 50.4608
+        },
+        {
+          "date": "2023-12-29",
+          "kind": "month_end",
+          "period": "2023-12",
+          "value": 57.3301
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "month_end",
+          "period": "2024-01",
+          "value": 59.8359
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "month_end",
+          "period": "2024-02",
+          "value": 68.1772
+        },
+        {
+          "date": "2024-03-28",
+          "kind": "month_end",
+          "period": "2024-03",
+          "value": 73.6769
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "month_end",
+          "period": "2024-04",
+          "value": 66.6743
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "month_end",
+          "period": "2024-05",
+          "value": 75.1046
+        },
+        {
+          "date": "2024-06-28",
+          "kind": "month_end",
+          "period": "2024-06",
+          "value": 81.2824
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "month_end",
+          "period": "2024-07",
+          "value": 83.4775
+        },
+        {
+          "date": "2024-08-30",
+          "kind": "month_end",
+          "period": "2024-08",
+          "value": 87.7646
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "month_end",
+          "period": "2024-09",
+          "value": 91.7085
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "month_end",
+          "period": "2024-10",
+          "value": 89.9978
+        },
+        {
+          "date": "2024-11-29",
+          "kind": "month_end",
+          "period": "2024-11",
+          "value": 101.328
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "month_end",
+          "period": "2024-12",
+          "value": 96.4841
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "month_end",
+          "period": "2025-01",
+          "value": 101.7609
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "month_end",
+          "period": "2025-02",
+          "value": 99.1996
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "month_end",
+          "period": "2025-03",
+          "value": 88.1003
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "month_end",
+          "period": "2025-04",
+          "value": 86.4695
+        },
+        {
+          "date": "2025-05-30",
+          "kind": "month_end",
+          "period": "2025-05",
+          "value": 98.1881
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "month_end",
+          "period": "2025-06",
+          "value": 108.3723
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "month_end",
+          "period": "2025-07",
+          "value": 113.1714
+        },
+        {
+          "date": "2025-08-29",
+          "kind": "month_end",
+          "period": "2025-08",
+          "value": 117.5456
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "month_end",
+          "period": "2025-09",
+          "value": 125.2946
+        },
+        {
+          "date": "2025-10-31",
+          "kind": "month_end",
+          "period": "2025-10",
+          "value": 130.6651
+        },
+        {
+          "date": "2025-11-28",
+          "kind": "month_end",
+          "period": "2025-11",
+          "value": 131.1149
+        },
+        {
+          "date": "2025-12-31",
+          "kind": "month_end",
+          "period": "2025-12",
+          "value": 131.2992
+        },
+        {
+          "date": "2026-01-30",
+          "kind": "month_end",
+          "period": "2026-01",
+          "value": 134.708
+        },
+        {
+          "date": "2026-02-27",
+          "kind": "month_end",
+          "period": "2026-02",
+          "value": 132.6797
+        },
+        {
+          "date": "2026-03-31",
+          "kind": "month_end",
+          "period": "2026-03",
+          "value": 121.1901
+        },
+        {
+          "date": "2026-04-30",
+          "kind": "month_end",
+          "period": "2026-04",
+          "value": 144.4267
+        },
+        {
+          "date": "2026-05-29",
+          "kind": "month_end",
+          "period": "2026-05",
+          "value": 157.2898
+        },
+        {
+          "date": "2026-06-30",
+          "kind": "month_end",
+          "period": "2026-06",
+          "value": 154.6416
+        }
+      ],
+      "provenance": {
+        "adjustment": "Yahoo adjusted close",
+        "as_of": "2026-07-20T20:00:00Z",
+        "live": true,
+        "source": "Yahoo Finance chart endpoint",
+        "symbol": "SPY"
+      },
+      "refresh_status": "refreshed",
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "benchmark",
+      "color": "#d6b35a",
+      "default_hidden": true,
+      "freshness": {
+        "age_minutes_at_check": 659.6,
+        "as_of": "2026-07-20T20:00:00Z",
+        "max_age_minutes": 7200,
+        "within_expected_window": true
+      },
+      "id": "gold-gld",
+      "label": "Gold (GLD proxy, adjusted)",
+      "latest": {
+        "kind": "intraday_15m",
+        "market_price": 367.600006,
+        "timestamp": "2026-07-20T20:00:00Z",
+        "value": 146.1662
+      },
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-28",
+          "kind": "month_end",
+          "period": "2020-02",
+          "value": -0.6362
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "month_end",
+          "period": "2020-03",
+          "value": -0.8572
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "month_end",
+          "period": "2020-04",
+          "value": 6.3417
+        },
+        {
+          "date": "2020-05-29",
+          "kind": "month_end",
+          "period": "2020-05",
+          "value": 9.094
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "month_end",
+          "period": "2020-06",
+          "value": 12.0806
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "month_end",
+          "period": "2020-07",
+          "value": 24.1746
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "month_end",
+          "period": "2020-08",
+          "value": 23.7729
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "month_end",
+          "period": "2020-09",
+          "value": 18.6098
+        },
+        {
+          "date": "2020-10-30",
+          "kind": "month_end",
+          "period": "2020-10",
+          "value": 17.9937
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "month_end",
+          "period": "2020-11",
+          "value": 11.6119
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "month_end",
+          "period": "2020-12",
+          "value": 19.4402
+        },
+        {
+          "date": "2021-01-29",
+          "kind": "month_end",
+          "period": "2021-01",
+          "value": 15.5896
+        },
+        {
+          "date": "2021-02-26",
+          "kind": "month_end",
+          "period": "2021-02",
+          "value": 8.3573
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "month_end",
+          "period": "2021-03",
+          "value": 7.1185
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "month_end",
+          "period": "2021-04",
+          "value": 10.9355
+        },
+        {
+          "date": "2021-05-28",
+          "kind": "month_end",
+          "period": "2021-05",
+          "value": 19.4536
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "month_end",
+          "period": "2021-06",
+          "value": 10.9154
+        },
+        {
+          "date": "2021-07-30",
+          "kind": "month_end",
+          "period": "2021-07",
+          "value": 13.7213
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "month_end",
+          "period": "2021-08",
+          "value": 13.6342
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "month_end",
+          "period": "2021-09",
+          "value": 9.9712
+        },
+        {
+          "date": "2021-10-29",
+          "kind": "month_end",
+          "period": "2021-10",
+          "value": 11.5985
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "month_end",
+          "period": "2021-11",
+          "value": 10.8284
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "month_end",
+          "period": "2021-12",
+          "value": 14.4847
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "month_end",
+          "period": "2022-01",
+          "value": 12.5628
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "month_end",
+          "period": "2022-02",
+          "value": 19.4536
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "month_end",
+          "period": "2022-03",
+          "value": 20.9737
+        },
+        {
+          "date": "2022-04-29",
+          "kind": "month_end",
+          "period": "2022-04",
+          "value": 18.4692
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "month_end",
+          "period": "2022-05",
+          "value": 14.6052
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "month_end",
+          "period": "2022-06",
+          "value": 12.8106
+        },
+        {
+          "date": "2022-07-29",
+          "kind": "month_end",
+          "period": "2022-07",
+          "value": 9.8908
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "month_end",
+          "period": "2022-08",
+          "value": 6.6564
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "month_end",
+          "period": "2022-09",
+          "value": 3.576
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "month_end",
+          "period": "2022-10",
+          "value": 1.7277
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "month_end",
+          "period": "2022-11",
+          "value": 10.3663
+        },
+        {
+          "date": "2022-12-30",
+          "kind": "month_end",
+          "period": "2022-12",
+          "value": 13.6007
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "month_end",
+          "period": "2023-01",
+          "value": 20.1433
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "month_end",
+          "period": "2023-02",
+          "value": 13.6945
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "month_end",
+          "period": "2023-03",
+          "value": 22.6947
+        },
+        {
+          "date": "2023-04-28",
+          "kind": "month_end",
+          "period": "2023-04",
+          "value": 23.7528
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "month_end",
+          "period": "2023-05",
+          "value": 22.092
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "month_end",
+          "period": "2023-06",
+          "value": 19.3799
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "month_end",
+          "period": "2023-07",
+          "value": 22.1121
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "month_end",
+          "period": "2023-08",
+          "value": 20.5518
+        },
+        {
+          "date": "2023-09-29",
+          "kind": "month_end",
+          "period": "2023-09",
+          "value": 14.8128
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "month_end",
+          "period": "2023-10",
+          "value": 23.2773
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "month_end",
+          "period": "2023-11",
+          "value": 26.3979
+        },
+        {
+          "date": "2023-12-29",
+          "kind": "month_end",
+          "period": "2023-12",
+          "value": 28.0185
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "month_end",
+          "period": "2024-01",
+          "value": 26.197
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "month_end",
+          "period": "2024-02",
+          "value": 26.7729
+        },
+        {
+          "date": "2024-03-28",
+          "kind": "month_end",
+          "period": "2024-03",
+          "value": 37.762
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "month_end",
+          "period": "2024-04",
+          "value": 41.8804
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "month_end",
+          "period": "2024-05",
+          "value": 44.1773
+        },
+        {
+          "date": "2024-06-28",
+          "kind": "month_end",
+          "period": "2024-06",
+          "value": 43.9831
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "month_end",
+          "period": "2024-07",
+          "value": 51.711
+        },
+        {
+          "date": "2024-08-30",
+          "kind": "month_end",
+          "period": "2024-08",
+          "value": 54.8851
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "month_end",
+          "period": "2024-09",
+          "value": 62.767
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "month_end",
+          "period": "2024-10",
+          "value": 69.7649
+        },
+        {
+          "date": "2024-11-29",
+          "kind": "month_end",
+          "period": "2024-11",
+          "value": 64.4613
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "month_end",
+          "period": "2024-12",
+          "value": 62.1442
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "month_end",
+          "period": "2025-01",
+          "value": 73.1467
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "month_end",
+          "period": "2025-02",
+          "value": 76.3008
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "month_end",
+          "period": "2025-03",
+          "value": 92.9552
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "month_end",
+          "period": "2025-04",
+          "value": 103.4219
+        },
+        {
+          "date": "2025-05-30",
+          "kind": "month_end",
+          "period": "2025-05",
+          "value": 103.3081
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "month_end",
+          "period": "2025-06",
+          "value": 104.1318
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "month_end",
+          "period": "2025-07",
+          "value": 102.8795
+        },
+        {
+          "date": "2025-08-29",
+          "kind": "month_end",
+          "period": "2025-08",
+          "value": 112.9981
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "month_end",
+          "period": "2025-09",
+          "value": 138.0433
+        },
+        {
+          "date": "2025-10-31",
+          "kind": "month_end",
+          "period": "2025-10",
+          "value": 146.5144
+        },
+        {
+          "date": "2025-11-28",
+          "kind": "month_end",
+          "period": "2025-11",
+          "value": 159.7469
+        },
+        {
+          "date": "2025-12-31",
+          "kind": "month_end",
+          "period": "2025-12",
+          "value": 165.3921
+        },
+        {
+          "date": "2026-01-30",
+          "kind": "month_end",
+          "period": "2026-01",
+          "value": 197.9642
+        },
+        {
+          "date": "2026-02-27",
+          "kind": "month_end",
+          "period": "2026-02",
+          "value": 223.947
+        },
+        {
+          "date": "2026-03-31",
+          "kind": "month_end",
+          "period": "2026-03",
+          "value": 188.1471
+        },
+        {
+          "date": "2026-04-30",
+          "kind": "month_end",
+          "period": "2026-04",
+          "value": 183.7072
+        },
+        {
+          "date": "2026-05-29",
+          "kind": "month_end",
+          "period": "2026-05",
+          "value": 179.3277
+        },
+        {
+          "date": "2026-06-30",
+          "kind": "month_end",
+          "period": "2026-06",
+          "value": 146.6885
+        }
+      ],
+      "provenance": {
+        "adjustment": "Yahoo adjusted close",
+        "as_of": "2026-07-20T20:00:00Z",
+        "live": true,
+        "source": "Yahoo Finance chart endpoint",
+        "symbol": "GLD"
+      },
+      "refresh_status": "refreshed",
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "benchmark",
+      "color": "#f7931a",
+      "default_hidden": true,
+      "freshness": {
+        "age_minutes_at_check": 0.1,
+        "as_of": "2026-07-21T06:59:29Z",
+        "max_age_minutes": 180,
+        "within_expected_window": true
+      },
+      "id": "btc-usd",
+      "label": "Bitcoin (BTC-USD)",
+      "latest": {
+        "kind": "intraday_15m",
+        "market_price": 65891.546875,
+        "timestamp": "2026-07-21T06:59:29Z",
+        "value": 604.6825
+      },
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-29",
+          "kind": "month_end",
+          "period": "2020-02",
+          "value": -8.0319
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "month_end",
+          "period": "2020-03",
+          "value": -31.1414
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "month_end",
+          "period": "2020-04",
+          "value": -7.4004
+        },
+        {
+          "date": "2020-05-31",
+          "kind": "month_end",
+          "period": "2020-05",
+          "value": 1.1821
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "month_end",
+          "period": "2020-06",
+          "value": -2.273
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "month_end",
+          "period": "2020-07",
+          "value": 21.0997
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "month_end",
+          "period": "2020-08",
+          "value": 24.9215
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "month_end",
+          "period": "2020-09",
+          "value": 15.3356
+        },
+        {
+          "date": "2020-10-31",
+          "kind": "month_end",
+          "period": "2020-10",
+          "value": 47.382
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "month_end",
+          "period": "2020-11",
+          "value": 109.8901
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "month_end",
+          "period": "2020-12",
+          "value": 210.1613
+        },
+        {
+          "date": "2021-01-31",
+          "kind": "month_end",
+          "period": "2021-01",
+          "value": 254.1442
+        },
+        {
+          "date": "2021-02-28",
+          "kind": "month_end",
+          "period": "2021-02",
+          "value": 382.7296
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "month_end",
+          "period": "2021-03",
+          "value": 530.1123
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "month_end",
+          "period": "2021-04",
+          "value": 517.614
+        },
+        {
+          "date": "2021-05-31",
+          "kind": "month_end",
+          "period": "2021-05",
+          "value": 299.2593
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "month_end",
+          "period": "2021-06",
+          "value": 274.7471
+        },
+        {
+          "date": "2021-07-31",
+          "kind": "month_end",
+          "period": "2021-07",
+          "value": 345.1747
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "month_end",
+          "period": "2021-08",
+          "value": 404.428
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "month_end",
+          "period": "2021-09",
+          "value": 368.3253
+        },
+        {
+          "date": "2021-10-31",
+          "kind": "month_end",
+          "period": "2021-10",
+          "value": 555.7806
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "month_end",
+          "period": "2021-11",
+          "value": 509.6492
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "month_end",
+          "period": "2021-12",
+          "value": 395.2281
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "month_end",
+          "period": "2022-01",
+          "value": 311.5609
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "month_end",
+          "period": "2022-02",
+          "value": 361.9336
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "month_end",
+          "period": "2022-03",
+          "value": 387.0171
+        },
+        {
+          "date": "2022-04-30",
+          "kind": "month_end",
+          "period": "2022-04",
+          "value": 303.3448
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "month_end",
+          "period": "2022-05",
+          "value": 240.0055
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "month_end",
+          "period": "2022-06",
+          "value": 111.5894
+        },
+        {
+          "date": "2022-07-31",
+          "kind": "month_end",
+          "period": "2022-07",
+          "value": 149.5783
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "month_end",
+          "period": "2022-08",
+          "value": 114.4238
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "month_end",
+          "period": "2022-09",
+          "value": 107.8149
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "month_end",
+          "period": "2022-10",
+          "value": 119.1937
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "month_end",
+          "period": "2022-11",
+          "value": 83.6106
+        },
+        {
+          "date": "2022-12-31",
+          "kind": "month_end",
+          "period": "2022-12",
+          "value": 76.9685
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "month_end",
+          "period": "2023-01",
+          "value": 147.465
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "month_end",
+          "period": "2023-02",
+          "value": 147.5513
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "month_end",
+          "period": "2023-03",
+          "value": 204.5655
+        },
+        {
+          "date": "2023-04-30",
+          "kind": "month_end",
+          "period": "2023-04",
+          "value": 213.0176
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "month_end",
+          "period": "2023-05",
+          "value": 191.1029
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "month_end",
+          "period": "2023-06",
+          "value": 225.9415
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "month_end",
+          "period": "2023-07",
+          "value": 212.6038
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "month_end",
+          "period": "2023-08",
+          "value": 177.3263
+        },
+        {
+          "date": "2023-09-30",
+          "kind": "month_end",
+          "period": "2023-09",
+          "value": 188.4106
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "month_end",
+          "period": "2023-10",
+          "value": 270.7574
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "month_end",
+          "period": "2023-11",
+          "value": 303.322
+        },
+        {
+          "date": "2023-12-31",
+          "kind": "month_end",
+          "period": "2023-12",
+          "value": 352.0085
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "month_end",
+          "period": "2024-01",
+          "value": 355.4032
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "month_end",
+          "period": "2024-02",
+          "value": 554.4911
+        },
+        {
+          "date": "2024-03-31",
+          "kind": "month_end",
+          "period": "2024-03",
+          "value": 662.8835
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "month_end",
+          "period": "2024-04",
+          "value": 548.4858
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "month_end",
+          "period": "2024-05",
+          "value": 621.7924
+        },
+        {
+          "date": "2024-06-30",
+          "kind": "month_end",
+          "period": "2024-06",
+          "value": 570.3181
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "month_end",
+          "period": "2024-07",
+          "value": 591.0759
+        },
+        {
+          "date": "2024-08-31",
+          "kind": "month_end",
+          "period": "2024-08",
+          "value": 530.6584
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "month_end",
+          "period": "2024-09",
+          "value": 577.2825
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "month_end",
+          "period": "2024-10",
+          "value": 650.9221
+        },
+        {
+          "date": "2024-11-30",
+          "kind": "month_end",
+          "period": "2024-11",
+          "value": 931.4823
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "month_end",
+          "period": "2024-12",
+          "value": 899.1863
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "month_end",
+          "period": "2025-01",
+          "value": 995.1789
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "month_end",
+          "period": "2025-02",
+          "value": 802.334
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "month_end",
+          "period": "2025-03",
+          "value": 782.8261
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "month_end",
+          "period": "2025-04",
+          "value": 907.5078
+        },
+        {
+          "date": "2025-05-31",
+          "kind": "month_end",
+          "period": "2025-05",
+          "value": 1019.0606
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "month_end",
+          "period": "2025-06",
+          "value": 1045.7676
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "month_end",
+          "period": "2025-07",
+          "value": 1137.9856
+        },
+        {
+          "date": "2025-08-31",
+          "kind": "month_end",
+          "period": "2025-08",
+          "value": 1057.5464
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "month_end",
+          "period": "2025-09",
+          "value": 1119.7821
+        },
+        {
+          "date": "2025-10-31",
+          "kind": "month_end",
+          "period": "2025-10",
+          "value": 1071.6574
+        },
+        {
+          "date": "2025-11-30",
+          "kind": "month_end",
+          "period": "2025-11",
+          "value": 866.7294
+        },
+        {
+          "date": "2025-12-31",
+          "kind": "month_end",
+          "period": "2025-12",
+          "value": 835.8703
+        },
+        {
+          "date": "2026-01-31",
+          "kind": "month_end",
+          "period": "2026-01",
+          "value": 740.82
+        },
+        {
+          "date": "2026-02-28",
+          "kind": "month_end",
+          "period": "2026-02",
+          "value": 616.4927
+        },
+        {
+          "date": "2026-03-31",
+          "kind": "month_end",
+          "period": "2026-03",
+          "value": 629.7267
+        },
+        {
+          "date": "2026-04-30",
+          "kind": "month_end",
+          "period": "2026-04",
+          "value": 716.0428
+        },
+        {
+          "date": "2026-05-31",
+          "kind": "month_end",
+          "period": "2026-05",
+          "value": 686.904
+        },
+        {
+          "date": "2026-06-30",
+          "kind": "month_end",
+          "period": "2026-06",
+          "value": 526.2625
+        }
+      ],
+      "provenance": {
+        "adjustment": "Yahoo BTC-USD close",
+        "as_of": "2026-07-21T06:59:29Z",
+        "live": true,
+        "source": "Yahoo Finance chart endpoint",
+        "symbol": "BTC-USD"
+      },
+      "refresh_status": "refreshed",
+      "units": "cumulative_return_percent"
+    },
+    {
+      "category": "benchmark",
+      "color": "#93a8c4",
+      "default_hidden": true,
+      "freshness": {
+        "age_minutes_at_check": 6179.6,
+        "as_of": "2026-07-17T00:00:00Z",
+        "max_age_minutes": 14400,
+        "within_expected_window": true
+      },
+      "id": "risk-free",
+      "label": "Risk-Free (3-Month Treasury accrual proxy)",
+      "latest": {
+        "kind": "daily_fred_observation",
+        "timestamp": "2026-07-17T00:00:00Z",
+        "value": 20.4662
+      },
+      "points": [
+        {
+          "date": "2020-01-31",
+          "kind": "month_end",
+          "period": "2020-01",
+          "value": 0.0
+        },
+        {
+          "date": "2020-02-28",
+          "kind": "month_end",
+          "period": "2020-02",
+          "value": 0.1189
+        },
+        {
+          "date": "2020-03-31",
+          "kind": "month_end",
+          "period": "2020-03",
+          "value": 0.1512
+        },
+        {
+          "date": "2020-04-30",
+          "kind": "month_end",
+          "period": "2020-04",
+          "value": 0.1631
+        },
+        {
+          "date": "2020-05-29",
+          "kind": "month_end",
+          "period": "2020-05",
+          "value": 0.1729
+        },
+        {
+          "date": "2020-06-30",
+          "kind": "month_end",
+          "period": "2020-06",
+          "value": 0.1866
+        },
+        {
+          "date": "2020-07-31",
+          "kind": "month_end",
+          "period": "2020-07",
+          "value": 0.1975
+        },
+        {
+          "date": "2020-08-31",
+          "kind": "month_end",
+          "period": "2020-08",
+          "value": 0.2061
+        },
+        {
+          "date": "2020-09-30",
+          "kind": "month_end",
+          "period": "2020-09",
+          "value": 0.215
+        },
+        {
+          "date": "2020-10-30",
+          "kind": "month_end",
+          "period": "2020-10",
+          "value": 0.2233
+        },
+        {
+          "date": "2020-11-30",
+          "kind": "month_end",
+          "period": "2020-11",
+          "value": 0.231
+        },
+        {
+          "date": "2020-12-31",
+          "kind": "month_end",
+          "period": "2020-12",
+          "value": 0.2384
+        },
+        {
+          "date": "2021-01-29",
+          "kind": "month_end",
+          "period": "2021-01",
+          "value": 0.2452
+        },
+        {
+          "date": "2021-02-26",
+          "kind": "month_end",
+          "period": "2021-02",
+          "value": 0.2485
+        },
+        {
+          "date": "2021-03-31",
+          "kind": "month_end",
+          "period": "2021-03",
+          "value": 0.2513
+        },
+        {
+          "date": "2021-04-30",
+          "kind": "month_end",
+          "period": "2021-04",
+          "value": 0.2532
+        },
+        {
+          "date": "2021-05-28",
+          "kind": "month_end",
+          "period": "2021-05",
+          "value": 0.2544
+        },
+        {
+          "date": "2021-06-30",
+          "kind": "month_end",
+          "period": "2021-06",
+          "value": 0.2574
+        },
+        {
+          "date": "2021-07-30",
+          "kind": "month_end",
+          "period": "2021-07",
+          "value": 0.2617
+        },
+        {
+          "date": "2021-08-31",
+          "kind": "month_end",
+          "period": "2021-08",
+          "value": 0.2666
+        },
+        {
+          "date": "2021-09-30",
+          "kind": "month_end",
+          "period": "2021-09",
+          "value": 0.2701
+        },
+        {
+          "date": "2021-10-29",
+          "kind": "month_end",
+          "period": "2021-10",
+          "value": 0.2742
+        },
+        {
+          "date": "2021-11-30",
+          "kind": "month_end",
+          "period": "2021-11",
+          "value": 0.2787
+        },
+        {
+          "date": "2021-12-31",
+          "kind": "month_end",
+          "period": "2021-12",
+          "value": 0.2837
+        },
+        {
+          "date": "2022-01-31",
+          "kind": "month_end",
+          "period": "2022-01",
+          "value": 0.2952
+        },
+        {
+          "date": "2022-02-28",
+          "kind": "month_end",
+          "period": "2022-02",
+          "value": 0.3192
+        },
+        {
+          "date": "2022-03-31",
+          "kind": "month_end",
+          "period": "2022-03",
+          "value": 0.3563
+        },
+        {
+          "date": "2022-04-29",
+          "kind": "month_end",
+          "period": "2022-04",
+          "value": 0.4151
+        },
+        {
+          "date": "2022-05-31",
+          "kind": "month_end",
+          "period": "2022-05",
+          "value": 0.5008
+        },
+        {
+          "date": "2022-06-30",
+          "kind": "month_end",
+          "period": "2022-06",
+          "value": 0.6246
+        },
+        {
+          "date": "2022-07-29",
+          "kind": "month_end",
+          "period": "2022-07",
+          "value": 0.7996
+        },
+        {
+          "date": "2022-08-31",
+          "kind": "month_end",
+          "period": "2022-08",
+          "value": 1.0412
+        },
+        {
+          "date": "2022-09-30",
+          "kind": "month_end",
+          "period": "2022-09",
+          "value": 1.3009
+        },
+        {
+          "date": "2022-10-31",
+          "kind": "month_end",
+          "period": "2022-10",
+          "value": 1.622
+        },
+        {
+          "date": "2022-11-30",
+          "kind": "month_end",
+          "period": "2022-11",
+          "value": 1.9756
+        },
+        {
+          "date": "2022-12-30",
+          "kind": "month_end",
+          "period": "2022-12",
+          "value": 2.3328
+        },
+        {
+          "date": "2023-01-31",
+          "kind": "month_end",
+          "period": "2023-01",
+          "value": 2.7419
+        },
+        {
+          "date": "2023-02-28",
+          "kind": "month_end",
+          "period": "2023-02",
+          "value": 3.111
+        },
+        {
+          "date": "2023-03-31",
+          "kind": "month_end",
+          "period": "2023-03",
+          "value": 3.526
+        },
+        {
+          "date": "2023-04-28",
+          "kind": "month_end",
+          "period": "2023-04",
+          "value": 3.918
+        },
+        {
+          "date": "2023-05-31",
+          "kind": "month_end",
+          "period": "2023-05",
+          "value": 4.4024
+        },
+        {
+          "date": "2023-06-30",
+          "kind": "month_end",
+          "period": "2023-06",
+          "value": 4.8557
+        },
+        {
+          "date": "2023-07-31",
+          "kind": "month_end",
+          "period": "2023-07",
+          "value": 5.3319
+        },
+        {
+          "date": "2023-08-31",
+          "kind": "month_end",
+          "period": "2023-08",
+          "value": 5.817
+        },
+        {
+          "date": "2023-09-29",
+          "kind": "month_end",
+          "period": "2023-09",
+          "value": 6.2724
+        },
+        {
+          "date": "2023-10-31",
+          "kind": "month_end",
+          "period": "2023-10",
+          "value": 6.7814
+        },
+        {
+          "date": "2023-11-30",
+          "kind": "month_end",
+          "period": "2023-11",
+          "value": 7.2547
+        },
+        {
+          "date": "2023-12-29",
+          "kind": "month_end",
+          "period": "2023-12",
+          "value": 7.7073
+        },
+        {
+          "date": "2024-01-31",
+          "kind": "month_end",
+          "period": "2024-01",
+          "value": 8.2251
+        },
+        {
+          "date": "2024-02-29",
+          "kind": "month_end",
+          "period": "2024-02",
+          "value": 8.6815
+        },
+        {
+          "date": "2024-03-28",
+          "kind": "month_end",
+          "period": "2024-03",
+          "value": 9.126
+        },
+        {
+          "date": "2024-04-30",
+          "kind": "month_end",
+          "period": "2024-04",
+          "value": 9.6504
+        },
+        {
+          "date": "2024-05-31",
+          "kind": "month_end",
+          "period": "2024-05",
+          "value": 10.1463
+        },
+        {
+          "date": "2024-06-28",
+          "kind": "month_end",
+          "period": "2024-06",
+          "value": 10.5998
+        },
+        {
+          "date": "2024-07-31",
+          "kind": "month_end",
+          "period": "2024-07",
+          "value": 11.1304
+        },
+        {
+          "date": "2024-08-30",
+          "kind": "month_end",
+          "period": "2024-08",
+          "value": 11.6034
+        },
+        {
+          "date": "2024-09-30",
+          "kind": "month_end",
+          "period": "2024-09",
+          "value": 12.0628
+        },
+        {
+          "date": "2024-10-31",
+          "kind": "month_end",
+          "period": "2024-10",
+          "value": 12.503
+        },
+        {
+          "date": "2024-11-29",
+          "kind": "month_end",
+          "period": "2024-11",
+          "value": 12.9075
+        },
+        {
+          "date": "2024-12-31",
+          "kind": "month_end",
+          "period": "2024-12",
+          "value": 13.3346
+        },
+        {
+          "date": "2025-01-31",
+          "kind": "month_end",
+          "period": "2025-01",
+          "value": 13.7449
+        },
+        {
+          "date": "2025-02-28",
+          "kind": "month_end",
+          "period": "2025-02",
+          "value": 14.1155
+        },
+        {
+          "date": "2025-03-31",
+          "kind": "month_end",
+          "period": "2025-03",
+          "value": 14.5274
+        },
+        {
+          "date": "2025-04-30",
+          "kind": "month_end",
+          "period": "2025-04",
+          "value": 14.9264
+        },
+        {
+          "date": "2025-05-30",
+          "kind": "month_end",
+          "period": "2025-05",
+          "value": 15.33
+        },
+        {
+          "date": "2025-06-30",
+          "kind": "month_end",
+          "period": "2025-06",
+          "value": 15.7538
+        },
+        {
+          "date": "2025-07-31",
+          "kind": "month_end",
+          "period": "2025-07",
+          "value": 16.1791
+        },
+        {
+          "date": "2025-08-29",
+          "kind": "month_end",
+          "period": "2025-08",
+          "value": 16.5695
+        },
+        {
+          "date": "2025-09-30",
+          "kind": "month_end",
+          "period": "2025-09",
+          "value": 16.9793
+        },
+        {
+          "date": "2025-10-31",
+          "kind": "month_end",
+          "period": "2025-10",
+          "value": 17.3684
+        },
+        {
+          "date": "2025-11-28",
+          "kind": "month_end",
+          "period": "2025-11",
+          "value": 17.7161
+        },
+        {
+          "date": "2025-12-31",
+          "kind": "month_end",
+          "period": "2025-12",
+          "value": 18.1025
+        },
+        {
+          "date": "2026-01-30",
+          "kind": "month_end",
+          "period": "2026-01",
+          "value": 18.4523
+        },
+        {
+          "date": "2026-02-27",
+          "kind": "month_end",
+          "period": "2026-02",
+          "value": 18.7816
+        },
+        {
+          "date": "2026-03-31",
+          "kind": "month_end",
+          "period": "2026-03",
+          "value": 19.1621
+        },
+        {
+          "date": "2026-04-30",
+          "kind": "month_end",
+          "period": "2026-04",
+          "value": 19.5183
+        },
+        {
+          "date": "2026-05-29",
+          "kind": "month_end",
+          "period": "2026-05",
+          "value": 19.8624
+        },
+        {
+          "date": "2026-06-30",
+          "kind": "month_end",
+          "period": "2026-06",
+          "value": 20.2546
+        }
+      ],
+      "provenance": {
+        "as_of": "2026-07-17",
+        "compounding": "Previous observed DGS3MO annual yield, ACT/365, compounded between observations",
+        "live": true,
+        "series": "DGS3MO",
+        "source": "Federal Reserve Bank of St. Louis (FRED CSV)"
+      },
+      "refresh_status": "refreshed",
+      "units": "cumulative_return_percent"
+    }
+  ],
+  "snapshot": {
+    "benchmark_as_of": "2026-07-21T06:59:29Z",
+    "benchmark_status": "current_public_sources",
+    "checked_at": "2026-07-21T06:59:33Z",
+    "delay_notice": "Best-effort public data and workflow runs can be delayed beyond 15 minutes. FRED generally updates once per business day; each series retains its own as-of time.",
+    "failed_sources": [],
+    "fund_as_of": "2025-09-30",
+    "fund_status": "management_reported_not_live",
+    "stale_sources": [],
+    "strategy_as_of": "2025-09-30T00:00:00Z"
+  }
+}

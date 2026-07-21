@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quantum Strategy Fund authorized operations console.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Operations Console | Quantum Strategy Fund</title>
+  <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
+  <link rel="stylesheet" href="../assets/css/portal.css">
+  <script defer src="../assets/js/portal-config.js"></script>
+  <script defer src="../assets/js/portal.js"></script>
+</head>
+<body class="portal-shell dashboard-page" data-page="admin">
+  <a class="skip-link" href="#admin-main">Skip to operations console</a>
+  <header class="portal-masthead dashboard-header">
+    <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
+      <span class="brand-mark-wrap" aria-hidden="true"><img class="brand-mark" src="../assets/images/qsf-mark.png" alt=""></span>
+      <span><strong>Quantum Strategy Fund</strong><small>Operations Console</small></span>
+    </a>
+    <nav class="account-nav" aria-label="Operations navigation">
+      <a class="quiet-link" href="../investor_login/dashboard.html">Investor view</a>
+      <button id="sign-out" class="button button-quiet" type="button">Sign out</button>
+    </nav>
+  </header>
+
+  <div id="portal-status" class="system-banner is-pending" role="status" aria-live="polite">
+    <span class="status-dot" aria-hidden="true"></span><span data-status-text>Verifying operations authorization…</span>
+  </div>
+
+  <main id="admin-main" class="dashboard-layout admin-layout">
+    <section class="dashboard-heading">
+      <div>
+        <p class="eyebrow">Restricted operations</p>
+        <h1>Trade ledger entry</h1>
+        <p class="as-of">Entries are written to an immutable, balanced ledger. Authorization is checked by the database for every request.</p>
+      </div>
+      <span id="operator-role" class="data-badge">Role not verified</span>
+    </section>
+
+    <div id="admin-denied" class="access-notice">
+      <strong>Operations access has not been verified.</strong>
+      <span>This screen does not grant permission. The backend must confirm an operations or administrator role.</span>
+    </div>
+
+    <section id="admin-console" class="content-grid admin-console is-hidden" aria-label="Authorized trade entry">
+      <article class="panel trade-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">New ledger event</p><h2>Record a trade</h2></div>
+          <span class="data-badge">Server-authorized</span>
+        </div>
+        <form id="trade-form" class="portal-form trade-form" novalidate>
+          <label for="trade-portfolio">Portfolio</label>
+          <select id="trade-portfolio" name="portfolio" required><option value="">Select an authorized portfolio</option></select>
+
+          <div class="form-grid">
+            <label for="trade-symbol">Instrument symbol<input id="trade-symbol" name="symbol" type="text" autocomplete="off" autocapitalize="characters" maxlength="32" placeholder="e.g. SPY" required></label>
+            <label for="trade-side">Side<select id="trade-side" name="side" required><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
+            <label for="trade-quantity">Quantity<input id="trade-quantity" name="quantity" type="number" min="0.00000001" step="any" inputmode="decimal" required></label>
+            <label for="trade-price">Unit price<input id="trade-price" name="price" type="number" min="0" step="any" inputmode="decimal" required></label>
+            <label for="trade-fees">Fees<input id="trade-fees" name="fees" type="number" min="0" step="any" inputmode="decimal" value="0" required></label>
+            <label for="trade-date">Execution time<input id="trade-date" name="tradeDate" type="datetime-local" required></label>
+          </div>
+
+          <label for="trade-memo">Internal memo</label>
+          <textarea id="trade-memo" name="memo" rows="3" maxlength="500" placeholder="Optional reconciliation note"></textarea>
+
+          <label for="trade-idempotency">Import reference</label>
+          <input id="trade-idempotency" name="idempotency" type="text" maxlength="100" autocomplete="off" placeholder="Unique broker confirmation or import ID" required>
+          <p class="field-help">A repeated reference is safely treated as the same ledger event.</p>
+
+          <div class="trade-preview" id="trade-preview"><span>Balanced entry preview</span><strong>Enter quantity and price</strong></div>
+          <button class="button button-primary" type="submit">Submit immutable ledger entry</button>
+          <p id="trade-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+      </article>
+
+      <aside class="panel operations-note">
+        <div class="panel-heading"><div><p class="eyebrow">Controls</p><h2>Before submitting</h2></div></div>
+        <ol class="control-list">
+          <li><strong>Confirm execution details.</strong><span>Use the broker confirmation as the source of record.</span></li>
+          <li><strong>Use a unique import reference.</strong><span>This prevents accidental duplicate entries.</span></li>
+          <li><strong>Correct by reversal.</strong><span>Posted transactions cannot be edited or deleted.</span></li>
+          <li><strong>Reconcile valuations.</strong><span>Quote ingestion and NAV calculation remain backend processes.</span></li>
+        </ol>
+        <p class="security-note">No brokerage connection or brokerage password is required.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Restricted operations · All actions are auditable · <span data-current-year></span></p></footer>
+</body>
+</html>

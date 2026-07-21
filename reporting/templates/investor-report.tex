@@ -1,0 +1,150 @@
+\documentclass[a4paper,10pt]{article}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[margin=0.72in,headheight=18pt]{geometry}
+\usepackage{array,booktabs,fancyhdr,graphicx,lastpage,longtable,microtype,tabularx}
+\usepackage{xcolor}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+
+\definecolor{QSFNavy}{HTML}{0A1D31}
+\definecolor{QSFGold}{HTML}{C9A24F}
+\definecolor{QSFSlate}{HTML}{617080}
+\definecolor{QSFLight}{HTML}{F3F5F7}
+\definecolor{QSFLine}{HTML}{DCE2E8}
+\definecolor{QSFGreen}{HTML}{27765A}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{0.55em}
+\renewcommand{\familydefault}{\sfdefault}
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\small\bfseries\color{QSFNavy} Quantum Strategy Fund}
+\fancyhead[R]{\small\color{QSFSlate} Private Investor Report}
+\fancyfoot[L]{\footnotesize\color{QSFSlate} Confidential investor communication}
+\fancyfoot[R]{\footnotesize\color{QSFSlate} Page \thepage\ of \pageref{LastPage}}
+\renewcommand{\headrulewidth}{0.4pt}
+
+\newcommand{\metric}[2]{%
+  \begin{minipage}[t]{0.235\textwidth}
+    \colorbox{QSFLight}{%
+      \parbox[c][1.55cm][c]{0.89\linewidth}{%
+        \centering{\scriptsize\bfseries\color{QSFSlate}#1}\\[0.22em]
+        {\large\bfseries\color{QSFNavy}#2}%
+      }%
+    }%
+  \end{minipage}%
+}
+
+\begin{document}
+
+\thispagestyle{empty}
+\noindent\colorbox{QSFNavy}{%
+  \parbox[c][3.15cm][c]{\dimexpr\textwidth-2\fboxsep\relax}{%
+    \begin{minipage}[c]{0.72\linewidth}
+      {\color{white}\fontsize{27}{31}\selectfont\bfseries Investor Report}\\[0.35em]
+      {\color{white!78}\large Quantum Strategy Fund}\\[0.42em]
+      {\color{white!70}\small Account: @@ACCOUNT_NAME@@ \enspace\textbullet\enspace @@ACCOUNT_CODE@@}
+    \end{minipage}\hfill
+    \begin{minipage}[c]{0.23\linewidth}
+      \raggedleft
+      \IfFileExists{qsf-mark.png}{\includegraphics[width=2.55cm]{qsf-mark.png}}{%
+        {\color{QSFGold}\fontsize{24}{26}\selectfont\bfseries QSF}%
+      }
+    \end{minipage}
+  }%
+}
+\noindent\color{QSFGold}\rule{\textwidth}{2.2pt}
+
+\vspace{0.55em}
+{\small\color{QSFSlate}
+Valuation as of @@VALUATION_AS_OF@@\\
+Report generated @@REPORT_GENERATED_AT@@}
+
+\section*{Account Summary}
+\metric{ACCOUNT NET ASSET VALUE}{@@ACCOUNT_NAV@@}\hfill
+\metric{SINCE INCEPTION RETURN}{@@SINCE_INCEPTION_RETURN@@}\hfill
+\metric{CASH RESERVE}{@@CASH_BALANCE@@}\hfill
+\metric{QUOTE QUALITY}{@@QUOTE_QUALITY@@}
+
+\vspace{1em}
+\begin{tabularx}{\textwidth}{@{}X r X r@{}}
+  \toprule
+  \textbf{Gross assets} & \textbf{@@GROSS_ASSETS@@} &
+  \textbf{Liabilities / short marks} & \textbf{@@LIABILITIES@@} \\
+  Monthly return & @@MONTH_RETURN@@ & Year-to-date return & @@YTD_RETURN@@ \\
+  \bottomrule
+\end{tabularx}
+
+\section*{Portfolio Allocation}
+\begin{tabularx}{\textwidth}{@{}X r r@{}}
+  \toprule
+  \textbf{Asset class} & \textbf{Net market value} & \textbf{Share of positive assets} \\
+  \midrule
+@@ALLOCATION_ROWS@@
+  \bottomrule
+\end{tabularx}
+
+{\footnotesize\color{QSFSlate}
+Allocation percentages describe positive assets. Short positions and other liabilities are shown
+separately above and are not forced into a 100\% pie.}
+
+\section*{Account Value History}
+\begin{center}
+\begin{tikzpicture}
+\begin{axis}[
+  width=0.98\textwidth,
+  height=6.1cm,
+  axis line style={draw=QSFLine},
+  grid=major,
+  grid style={draw=QSFLine,line width=0.35pt},
+  tick label style={font=\footnotesize,color=QSFSlate},
+  scaled y ticks=false,
+  yticklabel style={/pgf/number format/fixed,/pgf/number format/1000 sep={,}},
+  xmin=0,
+  xmax=@@NAV_XMAX@@,
+  xtick={0,@@NAV_XMAX@@},
+  xticklabels={@@NAV_START_LABEL@@,@@NAV_END_LABEL@@},
+  ylabel={Account NAV (@@CURRENCY@@)},
+  enlarge y limits=0.10
+]
+\addplot[color=QSFNavy,line width=2pt,mark=none] coordinates {
+@@NAV_COORDINATES@@
+};
+\end{axis}
+\end{tikzpicture}
+\end{center}
+
+\newpage
+\section*{Current Holdings}
+\small
+\begin{longtable}{@{}p{1.7cm}p{3.4cm}r r r p{1.8cm}@{}}
+  \toprule
+  \textbf{Symbol} & \textbf{Instrument} & \textbf{Quantity} &
+  \textbf{Mark} & \textbf{Market value} & \textbf{Mark status} \\
+  \midrule
+  \endfirsthead
+  \toprule
+  \textbf{Symbol} & \textbf{Instrument} & \textbf{Quantity} &
+  \textbf{Mark} & \textbf{Market value} & \textbf{Mark status} \\
+  \midrule
+  \endhead
+@@HOLDINGS_ROWS@@
+  \bottomrule
+\end{longtable}
+
+\normalsize
+\section*{Valuation Notes}
+\begin{itemize}
+@@DISCLOSURE_ITEMS@@
+\end{itemize}
+
+\vfill
+{\footnotesize\color{QSFSlate}
+This report is confidential and intended solely for the authorized investor named above.
+Figures are informational, may include delayed, prior-close, or manual marks, and remain subject
+to reconciliation. Past performance is not indicative of future results. Investing involves risk,
+including possible loss of principal.}
+
+\end{document}

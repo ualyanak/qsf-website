@@ -1,0 +1,3 @@
+# Preserve rollback snapshots byte-for-byte and keep them out of normal text diffs.
+index_OLD.html -diff
+investor_login/index_OLD.html -diff
