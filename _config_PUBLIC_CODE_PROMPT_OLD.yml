@@ -1,7 +1,6 @@
 exclude:
   - .gitattributes_BACKUP_POLICY_OLD
   - _config_LIVE_FALLBACK_OLD.yml
-  - _config_PUBLIC_CODE_PROMPT_OLD.yml
   - _config_PUBLIC_RELEASE_OLD.yml
   - .github/
   - docs/
@@ -20,7 +19,6 @@ exclude:
   - investor_login/index_OLD.html
   - investor_login/index_SECURE_PENDING_OLD.html
   - investor_login/index_CHUE_RENAME_OLD.html
-  - investor_login/index_PUBLIC_CODE_PROMPT_OLD.html
   - investor_login/dashboard_SECURE_PENDING_OLD.html
   - admin/index_SECURE_PENDING_OLD.html
   - assets/css/portal_SECURE_PENDING_OLD.css

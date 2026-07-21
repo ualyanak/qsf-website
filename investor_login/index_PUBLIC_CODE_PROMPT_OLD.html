@@ -67,19 +67,26 @@
       <div class="card-rule" aria-hidden="true"></div>
       <p class="eyebrow">Public demo access</p>
       <h2 id="sign-in-title">Open a test account</h2>
-      <p class="card-copy">Input your public demo code provided by administrator.</p>
+      <p class="card-copy">The following labels and code are public. They do not protect data or authenticate a real investor.</p>
 
       <div id="portal-status" class="system-status is-pending" role="status" aria-live="polite">
         <span class="status-dot" aria-hidden="true"></span>
         <span data-status-text>Loading the public demo…</span>
       </div>
 
-      <form id="login-form" class="portal-form" novalidate>
-        <label for="login-username">Portfolio label</label>
-        <input id="login-username" name="username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter portfolio label" required disabled data-auth-control>
+      <div class="demo-credentials" aria-label="Published demo credentials">
+        <span>Test labels</span>
+        <strong>ahub <em>or</em> chue</strong>
+        <span>Public demo code</span>
+        <strong>1234567</strong>
+      </div>
 
-        <label for="login-password">Access code</label>
-        <input id="login-password" name="demoCode" type="text" autocomplete="off" inputmode="numeric" pattern="[0-9]{7}" minlength="7" maxlength="7" placeholder="Enter access code" required disabled data-auth-control>
+      <form id="login-form" class="portal-form" novalidate>
+        <label for="login-username">Demo portfolio label</label>
+        <input id="login-username" name="username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="ahub" required disabled data-auth-control>
+
+        <label for="login-password">Public demo code</label>
+        <input id="login-password" name="demoCode" type="text" autocomplete="off" inputmode="numeric" pattern="[0-9]{7}" minlength="7" maxlength="7" placeholder="1234567" required disabled data-auth-control>
 
         <button class="button button-primary button-block" type="submit" disabled data-auth-control>
           <span>Open public demo</span>
