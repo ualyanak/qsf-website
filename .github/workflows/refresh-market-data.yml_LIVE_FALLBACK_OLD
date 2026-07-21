@@ -38,27 +38,23 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Prepare latest snapshot fallbacks
+      - name: Prepare latest quote fallback
         shell: bash
         run: |
           set -euo pipefail
-          cp data/performance.json "$RUNNER_TEMP/performance.json"
           cp data/demo-quotes.json "$RUNNER_TEMP/demo-quotes-fallback.json"
           if git ls-remote --exit-code --heads origin market-data >/dev/null 2>&1; then
             git fetch --no-tags origin refs/heads/market-data:refs/remotes/origin/market-data
-            if git show refs/remotes/origin/market-data:data/performance.json > "$RUNNER_TEMP/performance-remote.json" 2>/dev/null \
-              && python -m json.tool "$RUNNER_TEMP/performance-remote.json" >/dev/null; then
-              cp "$RUNNER_TEMP/performance-remote.json" "$RUNNER_TEMP/performance.json"
-            fi
-            if git show refs/remotes/origin/market-data:data/demo-quotes.json > "$RUNNER_TEMP/demo-quotes-remote.json" 2>/dev/null \
+            if git show refs/remotes/origin/market-data:data/demo-quotes.json > "$RUNNER_TEMP/demo-quotes-remote.json" \
               && python -m json.tool "$RUNNER_TEMP/demo-quotes-remote.json" >/dev/null; then
               cp "$RUNNER_TEMP/demo-quotes-remote.json" "$RUNNER_TEMP/demo-quotes-fallback.json"
             fi
           fi
 
-      - name: Build resilient snapshots
+      - name: Build complete snapshots
         run: |
           python scripts/update_market_data.py \
+            --strict \
             --output "$RUNNER_TEMP/performance.json"
           python scripts/update_demo_quotes.py \
             --fallback "$RUNNER_TEMP/demo-quotes-fallback.json" \

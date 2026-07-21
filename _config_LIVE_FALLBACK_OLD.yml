@@ -1,6 +1,5 @@
 exclude:
   - .gitattributes_BACKUP_POLICY_OLD
-  - _config_LIVE_FALLBACK_OLD.yml
   - _config_PUBLIC_RELEASE_OLD.yml
   - .github/
   - docs/
@@ -27,7 +26,6 @@ exclude:
   - assets/js/portal-config_SECURE_PENDING_OLD.js
   - assets/js/portal.js
   - .github/workflows/refresh-market-data.yml_SECURE_PENDING_OLD
-  - .github/workflows/refresh-market-data.yml_LIVE_FALLBACK_OLD
   - _config_SECURE_PENDING_OLD.yml
   - data/demo-accounts_CHUE_RENAME_OLD.json
   - docs/DEMO_PORTAL_CHUE_RENAME_OLD.md

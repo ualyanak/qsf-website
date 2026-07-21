@@ -532,14 +532,6 @@ def parse_as_of(value: Any) -> datetime | None:
     return parsed.astimezone(timezone.utc)
 
 
-def series_observed_at(series: dict[str, Any] | None) -> datetime | None:
-    if not series:
-        return None
-    latest = series.get("latest") or {}
-    provenance = series.get("provenance") or {}
-    return parse_as_of(latest.get("timestamp") or provenance.get("as_of"))
-
-
 def add_freshness(series: dict[str, Any], checked_at: datetime) -> bool:
     series_id = str(series.get("id", ""))
     window = FRESHNESS_WINDOWS[series_id]
@@ -577,7 +569,6 @@ def build_snapshot(timeout: float, offline: bool, strict: bool, existing: dict[s
     failures: list[str] = []
     stale_sources: list[str] = []
     for series_id, fetcher in fetchers.items():
-        previous = existing_series(existing, series_id)
         try:
             if offline:
                 raise SourceUnavailable("offline mode")
@@ -586,17 +577,10 @@ def build_snapshot(timeout: float, offline: bool, strict: bool, existing: dict[s
             if not isinstance(error, (SourceUnavailable, HTTPError, URLError, TimeoutError, json.JSONDecodeError)):
                 raise
             failures.append(series_id)
-            benchmark = previous or legacy_fallback(series_id)
+            benchmark = existing_series(existing, series_id) or legacy_fallback(series_id)
             benchmark["refresh_status"] = "retained_after_source_unavailable"
         else:
-            fetched_at = series_observed_at(benchmark)
-            previous_at = series_observed_at(previous)
-            if previous is not None and previous_at is not None and (fetched_at is None or fetched_at < previous_at):
-                failures.append(series_id)
-                benchmark = previous
-                benchmark["refresh_status"] = "retained_after_older_source_response"
-            else:
-                benchmark["refresh_status"] = "refreshed"
+            benchmark["refresh_status"] = "refreshed"
         if not add_freshness(benchmark, checked_at):
             stale_sources.append(series_id)
             if benchmark["refresh_status"] == "refreshed":
