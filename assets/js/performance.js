@@ -151,13 +151,17 @@
 
   function readableTimestamp(value, includeTime) {
     if (!value) return "unavailable";
-    const parsed = new Date(value);
+    const raw = String(value);
+    const parsed = new Date(raw);
     if (Number.isNaN(parsed.getTime())) return String(value);
+    const preserveUtcDate = /^\d{4}-\d{2}-\d{2}$/.test(raw)
+      || (!includeTime && /T00:00:00(?:\.000)?Z$/.test(raw));
     return new Intl.DateTimeFormat(undefined, {
       day: "numeric",
       hour: includeTime ? "numeric" : undefined,
       minute: includeTime ? "2-digit" : undefined,
       month: "short",
+      timeZone: preserveUtcDate ? "UTC" : undefined,
       timeZoneName: includeTime ? "short" : undefined,
       year: "numeric",
     }).format(parsed);
