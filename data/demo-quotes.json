@@ -1,66 +1,66 @@
 {
   "demo": true,
   "failures": [],
-  "generated_at": "2026-07-21T14:14:26Z",
+  "generated_at": "2026-07-21T15:10:34Z",
   "missing": [],
   "quotes": {
     "IBM": {
-      "as_of": "2026-07-21T14:14:24Z",
-      "price": 210.955002,
+      "as_of": "2026-07-21T15:10:30Z",
+      "price": 210.309998,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "IVR": {
-      "as_of": "2026-07-21T14:14:23Z",
-      "price": 7.935,
+      "as_of": "2026-07-21T15:10:31Z",
+      "price": 7.945,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "NVDA": {
-      "as_of": "2026-07-21T14:14:23Z",
-      "price": 204.5,
+      "as_of": "2026-07-21T15:10:31Z",
+      "price": 206.070007,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "PHYS": {
-      "as_of": "2026-07-21T14:14:21Z",
-      "price": 30.690001,
+      "as_of": "2026-07-21T15:10:09Z",
+      "price": 30.74,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "PLTR": {
-      "as_of": "2026-07-21T14:14:24Z",
-      "price": 134.074997,
+      "as_of": "2026-07-21T15:10:32Z",
+      "price": 133.25,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "QBTS": {
-      "as_of": "2026-07-21T14:14:24Z",
-      "price": 17.469999,
+      "as_of": "2026-07-21T15:10:32Z",
+      "price": 17.780001,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "SGOV": {
-      "as_of": "2026-07-21T14:14:21Z",
-      "price": 100.595001,
+      "as_of": "2026-07-21T15:10:29Z",
+      "price": 100.590103,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "SPY": {
-      "as_of": "2026-07-21T14:14:25Z",
-      "price": 745.530029,
+      "as_of": "2026-07-21T15:10:32Z",
+      "price": 747.009521,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "TSSI": {
-      "as_of": "2026-07-21T14:13:53Z",
-      "price": 9.4495,
+      "as_of": "2026-07-21T15:10:08Z",
+      "price": 9.6125,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "WMT": {
-      "as_of": "2026-07-21T14:14:24Z",
-      "price": 111.245003,
+      "as_of": "2026-07-21T15:10:30Z",
+      "price": 110.699997,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     }
