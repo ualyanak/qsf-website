@@ -3,91 +3,169 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Quantum Strategy Fund authorized operations console.">
+  <meta name="description" content="Device-local editor for the public Quantum Strategy Fund portfolio demonstration.">
   <meta name="robots" content="noindex, nofollow">
-  <title>Operations Console | Quantum Strategy Fund</title>
+  <title>Local Demo Editor | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css">
-  <script defer src="../assets/js/portal-config.js"></script>
-  <script defer src="../assets/js/portal.js"></script>
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo6">
+  <script defer src="../assets/js/portal-config.js?v=20260721-demo6"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260721-demo6"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="admin">
-  <a class="skip-link" href="#admin-main">Skip to operations console</a>
+  <a class="skip-link" href="#admin-main">Skip to local scenario editor</a>
   <header class="portal-masthead dashboard-header">
     <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
       <span class="brand-mark-wrap" aria-hidden="true"><img class="brand-mark" src="../assets/images/qsf-mark.png" alt=""></span>
-      <span><strong>Quantum Strategy Fund</strong><small>Operations Console</small></span>
+      <span><strong>Quantum Strategy Fund</strong><small>Public Demo Editor</small></span>
     </a>
-    <nav class="account-nav" aria-label="Operations navigation">
-      <a class="quiet-link" href="../investor_login/dashboard.html">Investor view</a>
-      <button id="sign-out" class="button button-quiet" type="button">Sign out</button>
+    <nav class="account-nav" aria-label="Demo editor navigation">
+      <a class="quiet-link" href="../investor_login/dashboard.html">Portfolio dashboard</a>
+      <button id="sign-out" class="button button-quiet" type="button">Exit demo</button>
     </nav>
   </header>
 
+  <div class="demo-alert demo-alert-compact" role="note">
+    <strong>Local scenario mode</strong>
+    <span>Edits are simulations stored unencrypted in this browser. They are not trades, orders, broker instructions, or fund records.</span>
+  </div>
+
   <div id="portal-status" class="system-banner is-pending" role="status" aria-live="polite">
-    <span class="status-dot" aria-hidden="true"></span><span data-status-text>Verifying operations authorization…</span>
+    <span class="status-dot" aria-hidden="true"></span><span data-status-text>Loading the local scenario workspace…</span>
   </div>
 
   <main id="admin-main" class="dashboard-layout admin-layout">
     <section class="dashboard-heading">
       <div>
-        <p class="eyebrow">Restricted operations</p>
-        <h1>Trade ledger entry</h1>
-        <p class="as-of">Entries are written to an immutable, balanced ledger. Authorization is checked by the database for every request.</p>
+        <p class="eyebrow">Device-local portfolio editor</p>
+        <h1 id="editor-title">Demo scenario</h1>
+        <p class="as-of">Add simulated transactions or override marks. The dashboard and generated PDF will immediately use the same local scenario.</p>
       </div>
-      <span id="operator-role" class="data-badge">Role not verified</span>
+      <span id="operator-role" class="data-badge">Public demo</span>
     </section>
 
-    <div id="admin-denied" class="access-notice">
-      <strong>Operations access has not been verified.</strong>
-      <span>This screen does not grant permission. The backend must confirm an operations or administrator role.</span>
-    </div>
+    <section class="editor-summary" aria-label="Current local scenario summary">
+      <article><span>Illustrative value</span><strong id="editor-nav">—</strong></article>
+      <article><span>Scenario cash</span><strong id="editor-cash">—</strong></article>
+      <article><span>Local state</span><strong id="editor-modified">Published sample</strong></article>
+    </section>
 
-    <section id="admin-console" class="content-grid admin-console is-hidden" aria-label="Authorized trade entry">
+    <section class="editor-grid" aria-label="Local scenario inputs">
       <article class="panel trade-panel">
         <div class="panel-heading">
-          <div><p class="eyebrow">New ledger event</p><h2>Record a trade</h2></div>
-          <span class="data-badge">Server-authorized</span>
+          <div><p class="eyebrow">Simulated activity</p><h2>Add a transaction</h2></div>
+          <span class="data-badge">Browser only</span>
         </div>
-        <form id="trade-form" class="portal-form trade-form" novalidate>
-          <label for="trade-portfolio">Portfolio</label>
-          <select id="trade-portfolio" name="portfolio" required><option value="">Select an authorized portfolio</option></select>
-
+        <form id="trade-form" class="portal-form trade-form" novalidate inert aria-busy="true" data-editor-form>
           <div class="form-grid">
-            <label for="trade-symbol">Instrument symbol<input id="trade-symbol" name="symbol" type="text" autocomplete="off" autocapitalize="characters" maxlength="32" placeholder="e.g. SPY" required></label>
-            <label for="trade-side">Side<select id="trade-side" name="side" required><option value="buy">Buy</option><option value="sell">Sell</option></select></label>
-            <label for="trade-quantity">Quantity<input id="trade-quantity" name="quantity" type="number" min="0.00000001" step="any" inputmode="decimal" required></label>
-            <label for="trade-price">Unit price<input id="trade-price" name="price" type="number" min="0" step="any" inputmode="decimal" required></label>
-            <label for="trade-fees">Fees<input id="trade-fees" name="fees" type="number" min="0" step="any" inputmode="decimal" value="0" required></label>
-            <label for="trade-date">Execution time<input id="trade-date" name="tradeDate" type="datetime-local" required></label>
+            <label for="trade-symbol">Instrument symbol
+              <input id="trade-symbol" name="symbol" type="text" list="instrument-list" autocomplete="off" autocapitalize="characters" maxlength="48" placeholder="e.g. SPY" required>
+            </label>
+            <label for="trade-name">Display name
+              <input id="trade-name" name="name" type="text" autocomplete="off" maxlength="100" placeholder="Optional for existing symbols">
+            </label>
+            <label for="trade-side">Scenario side
+              <select id="trade-side" name="side" required><option value="buy">Buy</option><option value="sell">Sell</option></select>
+            </label>
+            <label for="trade-quantity">Quantity
+              <input id="trade-quantity" name="quantity" type="number" min="0.00000001" max="1000000" step="any" inputmode="decimal" required>
+            </label>
+            <label for="trade-price">Unit price
+              <input id="trade-price" name="price" type="number" min="0" max="100000000" step="any" inputmode="decimal" required>
+            </label>
+            <label for="trade-fees">Illustrative fees
+              <input id="trade-fees" name="fees" type="number" min="0" max="1000000" step="any" inputmode="decimal" value="0" required>
+            </label>
+            <label for="trade-multiplier">Multiplier
+              <select id="trade-multiplier" name="multiplier"><option value="1">1 · Share / ETF</option><option value="100">100 · Option contract</option></select>
+            </label>
+            <label for="trade-asset-class">Asset class
+              <select id="trade-asset-class" name="assetClass">
+                <option>Technology</option><option>Index Funds</option><option>Options</option><option>Short-Term Treasuries</option><option>Precious Metals</option><option>Real Estate</option><option>Consumer</option><option>Other</option>
+              </select>
+            </label>
+            <label for="trade-date">Scenario time
+              <input id="trade-date" name="tradeDate" type="datetime-local" required>
+            </label>
           </div>
+          <datalist id="instrument-list"></datalist>
 
-          <label for="trade-memo">Internal memo</label>
-          <textarea id="trade-memo" name="memo" rows="3" maxlength="500" placeholder="Optional reconciliation note"></textarea>
+          <label for="trade-memo">Scenario note</label>
+          <textarea id="trade-memo" name="memo" rows="3" maxlength="300" placeholder="Optional test note"></textarea>
 
-          <label for="trade-idempotency">Import reference</label>
-          <input id="trade-idempotency" name="idempotency" type="text" maxlength="100" autocomplete="off" placeholder="Unique broker confirmation or import ID" required>
-          <p class="field-help">A repeated reference is safely treated as the same ledger event.</p>
-
-          <div class="trade-preview" id="trade-preview"><span>Balanced entry preview</span><strong>Enter quantity and price</strong></div>
-          <button class="button button-primary" type="submit">Submit immutable ledger entry</button>
+          <div class="trade-preview" id="trade-preview"><span>Illustrative cash effect</span><strong>Enter quantity and price</strong></div>
+          <button class="button button-primary" type="submit" disabled data-editor-submit>Save local scenario</button>
           <p id="trade-message" class="form-message" role="status" aria-live="polite"></p>
         </form>
       </article>
 
-      <aside class="panel operations-note">
-        <div class="panel-heading"><div><p class="eyebrow">Controls</p><h2>Before submitting</h2></div></div>
-        <ol class="control-list">
-          <li><strong>Confirm execution details.</strong><span>Use the broker confirmation as the source of record.</span></li>
-          <li><strong>Use a unique import reference.</strong><span>This prevents accidental duplicate entries.</span></li>
-          <li><strong>Correct by reversal.</strong><span>Posted transactions cannot be edited or deleted.</span></li>
-          <li><strong>Reconcile valuations.</strong><span>Quote ingestion and NAV calculation remain backend processes.</span></li>
-        </ol>
-        <p class="security-note">No brokerage connection or brokerage password is required.</p>
-      </aside>
+      <article class="panel mark-panel">
+        <div class="panel-heading">
+          <div><p class="eyebrow">Manual scenario marks</p><h2>Update a mark</h2></div>
+          <span class="data-badge">Local override</span>
+        </div>
+        <form id="mark-form" class="portal-form" novalidate inert aria-busy="true" data-editor-form>
+          <label for="mark-symbol">Instrument symbol</label>
+          <input id="mark-symbol" name="symbol" type="text" list="instrument-list" autocomplete="off" autocapitalize="characters" maxlength="48" required>
+          <label for="mark-price">Mark per unit</label>
+          <input id="mark-price" name="price" type="number" min="0" max="100000000" step="any" inputmode="decimal" required>
+          <label for="mark-as-of">Mark time</label>
+          <input id="mark-as-of" name="asOf" type="datetime-local" required>
+          <label for="mark-source">Source note</label>
+          <input id="mark-source" name="source" type="text" maxlength="100" value="Manual demo mark" required>
+          <button class="button button-secondary" type="submit" disabled data-editor-submit>Save manual mark</button>
+          <p id="mark-message" class="form-message" role="status" aria-live="polite"></p>
+        </form>
+        <p class="security-note">OptionStrat may be used as a delayed scenario reference. Confirm the exact contract before entering a mark. <a class="text-button" href="https://optionstrat.com/" target="_blank" rel="noopener noreferrer">Open OptionStrat ↗</a></p>
+      </article>
+    </section>
+
+    <section class="panel local-ledger-panel">
+      <div class="panel-heading">
+        <div><p class="eyebrow">Device-local scenario</p><h2>Saved activity and mark overrides</h2></div>
+        <span id="scenario-state" class="data-badge">Published sample</span>
+      </div>
+
+      <div class="local-tabs" role="group" aria-label="Scenario tables">
+        <button class="text-button is-active" type="button" data-local-tab="events">Transactions</button>
+        <button class="text-button" type="button" data-local-tab="marks">Manual marks</button>
+      </div>
+
+      <div class="table-wrap" data-local-panel="events">
+        <table>
+          <caption class="sr-only">Local simulated transactions</caption>
+          <thead><tr><th scope="col">Time</th><th scope="col">Instrument</th><th scope="col">Activity</th><th scope="col">Cash effect</th><th scope="col">Action</th></tr></thead>
+          <tbody id="events-body"><tr><td colspan="5" class="table-empty">No local scenario transactions.</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="table-wrap is-hidden" data-local-panel="marks">
+        <table>
+          <caption class="sr-only">Local manual mark overrides</caption>
+          <thead><tr><th scope="col">Instrument</th><th scope="col">Mark</th><th scope="col">As of</th><th scope="col">Source</th><th scope="col">Action</th></tr></thead>
+          <tbody id="marks-body"><tr><td colspan="5" class="table-empty">No local mark overrides.</td></tr></tbody>
+        </table>
+      </div>
+
+      <div class="scenario-actions">
+        <button id="export-local-data" class="button button-quiet-dark" type="button">Download scenario JSON</button>
+        <button id="reset-local-data" class="button button-danger" type="button">Reset local demo</button>
+      </div>
+      <p id="editor-message" class="form-message" role="status" aria-live="polite"></p>
     </section>
   </main>
 
-  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Restricted operations · All actions are auditable · <span data-current-year></span></p></footer>
+  <dialog id="reset-dialog" class="reset-dialog">
+    <form method="dialog">
+      <p class="eyebrow">Reset local demo</p>
+      <h2>Discard this browser's scenario?</h2>
+      <p>This removes local transactions and manual mark overrides for this test account. The published sample remains unchanged.</p>
+      <div class="dialog-actions">
+        <button class="button button-quiet-dark" value="cancel">Keep scenario</button>
+        <button id="confirm-reset" class="button button-danger" value="confirm">Reset local demo</button>
+      </div>
+    </form>
+  </dialog>
+
+  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Public demonstration · Device-local edits · <span data-current-year></span></p></footer>
 </body>
 </html>

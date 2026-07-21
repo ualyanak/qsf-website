@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "demo": true,
+  "published_at": "2026-07-21",
+  "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
+  "credentials": {
+    "ahub": "1234567",
+    "chuenergard": "1234567"
+  },
+  "accounts": {
+    "ahub": {
+      "display_name": "ahub",
+      "portfolio_name": "ahub Demo Portfolio",
+      "currency": "USD",
+      "opening_as_of": "2026-07-17T09:30:00-04:00",
+      "opening_nav": 9900.0,
+      "cash": 413.83,
+      "cash_notes": [
+        {
+          "date": "2026-07-20",
+          "amount": 24.0,
+          "kind": "illustrative_realized_pnl",
+          "note": "User-provided test adjustment added to scenario cash."
+        }
+      ],
+      "positions": [
+        { "instrument": "SGOV", "quantity": 26, "basis_price": 100.58 },
+        { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
+        { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
+        { "instrument": "INFQ_C25_20270115", "quantity": 4, "basis_price": 0.75 },
+        { "instrument": "INFQ_C10_C17_5_20270115", "quantity": 20, "basis_price": 1.37 },
+        { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
+        { "instrument": "NVDA", "quantity": 1, "basis_price": 205.28 },
+        { "instrument": "PHYS", "quantity": 15, "basis_price": 30.31 },
+        { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
+        { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
+        { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
+        { "instrument": "TSSI", "quantity": 30, "basis_price": 9.94 },
+        { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
+      ],
+      "history": [
+        { "date": "2026-07-17", "value": 9900.0, "kind": "published_test_baseline" },
+        { "date": "2026-07-20", "value": 9924.0, "kind": "illustrative_cash_adjustment" }
+      ]
+    },
+    "chuenergard": {
+      "display_name": "chuenergard",
+      "portfolio_name": "chuenergard Demo Portfolio",
+      "currency": "USD",
+      "opening_as_of": null,
+      "opening_nav": 10000.0,
+      "baseline_label": "Supplied cost basis",
+      "return_basis_label": "Gain vs supplied cost",
+      "return_basis_note": "Against 25 SPY shares at the user-supplied $400 per-share cost basis; acquisition date was not provided.",
+      "cash": 0.0,
+      "cash_notes": [],
+      "positions": [
+        { "instrument": "SPY", "quantity": 25, "basis_price": 400.0 }
+      ],
+      "history": []
+    }
+  },
+  "instruments": {
+    "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "multiplier": 1, "mark_mode": "public_delayed" },
+    "BULL_P10_JAN2027": { "symbol": "BULL Jan 2027 $10 Put", "quote_symbol": "BULL", "name": "Short one BULL $10 put (exact expiry unverified)", "asset_class": "Options", "multiplier": 100, "mark_mode": "manual", "manual_mark": 3.16, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-provided opening mark; OptionStrat may be used for scenario updates" },
+    "IBM": { "symbol": "IBM", "name": "International Business Machines", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "INFQ_C25_20270115": { "symbol": "INFQ Jan 15 2027 $25 Call", "quote_symbol": "INFQ", "name": "Four INFQ $25 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "manual", "manual_mark": 0.75, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-provided opening mark; OptionStrat scenario mark" },
+    "INFQ_C10_C17_5_20270115": { "symbol": "INFQ Jan 15 2027 $10/$17.50 Call Vertical", "quote_symbol": "INFQ", "name": "Twenty net debit call verticals", "asset_class": "Options", "multiplier": 100, "mark_mode": "manual_combo", "manual_mark": 1.37, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-provided opening net combo mark; OptionStrat scenario mark" },
+    "IVR": { "symbol": "IVR", "name": "Invesco Mortgage Capital", "asset_class": "Real Estate", "multiplier": 1, "mark_mode": "public_delayed" },
+    "NVDA": { "symbol": "NVDA", "name": "NVIDIA", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "PHYS": { "symbol": "PHYS", "name": "Sprott Physical Gold Trust", "asset_class": "Precious Metals", "multiplier": 1, "mark_mode": "public_delayed" },
+    "PLTR": { "symbol": "PLTR", "name": "Palantir Technologies", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "QBTS": { "symbol": "QBTS", "name": "D-Wave Quantum", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "SPY": { "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "asset_class": "Index Funds", "multiplier": 1, "mark_mode": "public_delayed" },
+    "TSSI": { "symbol": "TSSI", "name": "TSS, Inc.", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "WMT": { "symbol": "WMT", "name": "Walmart", "asset_class": "Consumer", "multiplier": 1, "mark_mode": "public_delayed" }
+  }
+}

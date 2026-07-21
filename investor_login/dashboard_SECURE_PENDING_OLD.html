@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Quantum Strategy Fund investor portfolio dashboard.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Portfolio Overview | Quantum Strategy Fund</title>
+  <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
+  <link rel="stylesheet" href="../assets/css/portal.css">
+  <script defer src="../assets/js/portal-config.js"></script>
+  <script defer src="../assets/js/portal.js"></script>
+</head>
+<body class="portal-shell dashboard-page" data-page="dashboard">
+  <a class="skip-link" href="#dashboard-main">Skip to portfolio overview</a>
+
+  <header class="portal-masthead dashboard-header">
+    <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
+      <span class="brand-mark-wrap" aria-hidden="true"><img class="brand-mark" src="../assets/images/qsf-mark.png" alt=""></span>
+      <span><strong>Quantum Strategy Fund</strong><small>Investor Portal</small></span>
+    </a>
+    <nav class="account-nav" aria-label="Account navigation">
+      <span id="account-name" class="account-name">Investor account</span>
+      <a id="admin-link" class="quiet-link is-hidden" href="../admin/">Operations</a>
+      <button id="sign-out" class="button button-quiet" type="button">Sign out</button>
+    </nav>
+  </header>
+
+  <div id="portal-status" class="system-banner is-pending" role="status" aria-live="polite">
+    <span class="status-dot" aria-hidden="true"></span>
+    <span data-status-text>Verifying your secure session…</span>
+  </div>
+
+  <main id="dashboard-main" class="dashboard-layout">
+    <section class="dashboard-heading" aria-labelledby="dashboard-title">
+      <div>
+        <p class="eyebrow">Portfolio overview</p>
+        <h1 id="dashboard-title">Investor account</h1>
+        <p id="portfolio-as-of" class="as-of">Values will appear after secure data access is activated.</p>
+      </div>
+      <label class="portfolio-picker is-hidden" id="portfolio-picker-wrap" for="portfolio-picker">
+        Portfolio
+        <select id="portfolio-picker"></select>
+      </label>
+    </section>
+
+    <section class="metric-grid" aria-label="Account summary">
+      <article class="metric-card metric-primary">
+        <p>Account NAV</p>
+        <strong id="metric-aum">—</strong>
+        <span id="metric-aum-note">Awaiting verified valuation</span>
+      </article>
+      <article class="metric-card">
+        <p>Since inception</p>
+        <strong id="metric-return">—</strong>
+        <span id="metric-inception">Fund record</span>
+      </article>
+      <article class="metric-card">
+        <p>Cash reserve</p>
+        <strong id="metric-cash">—</strong>
+        <span>Included in AUM</span>
+      </article>
+      <article class="metric-card">
+        <p>Quote freshness</p>
+        <strong id="metric-quote-age">—</strong>
+        <span>Market data may be delayed</span>
+      </article>
+    </section>
+
+    <section class="content-grid">
+      <article class="panel performance-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Performance</p>
+            <h2>Account value history</h2>
+          </div>
+          <span class="data-badge">Verified NAV</span>
+        </div>
+        <div id="performance-chart" class="chart-shell" role="img" aria-label="No account value history is available yet">
+          <div class="empty-state">
+            <strong>Performance history pending</strong>
+            <span>Authorized daily valuations will appear here.</span>
+          </div>
+        </div>
+        <div class="chart-footnote">
+          <span id="chart-start">Start —</span>
+          <span id="chart-end">Latest —</span>
+        </div>
+      </article>
+
+      <article class="panel allocation-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Allocation</p>
+            <h2>Portfolio mix</h2>
+          </div>
+        </div>
+        <div id="allocation-view" class="allocation-view">
+          <div class="allocation-ring" aria-hidden="true"><span>—</span></div>
+          <div id="allocation-legend" class="allocation-legend">
+            <p class="muted-copy">Allocation is calculated from the latest authorized holdings and delayed quotes.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <section class="content-grid lower-grid">
+      <article class="panel report-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Documents</p>
+            <h2>Investor reports</h2>
+          </div>
+        </div>
+        <p class="panel-copy">Request a current, private report from the secure reporting service. The PDF is built from the same authorized portfolio records shown here.</p>
+        <button id="request-report" class="button button-primary" type="button" disabled>Generate current report</button>
+        <p id="report-message" class="form-message" role="status" aria-live="polite"></p>
+        <div id="report-jobs" class="report-jobs" aria-label="Recent report requests">
+          <p class="muted-copy">No report requests loaded.</p>
+        </div>
+      </article>
+
+      <article class="panel disclosure-panel">
+        <div class="panel-heading">
+          <div>
+            <p class="eyebrow">Data notice</p>
+            <h2>About these values</h2>
+          </div>
+        </div>
+        <ul class="plain-list">
+          <li>Market prices may be delayed by at least 15 minutes.</li>
+          <li>Options and less-liquid instruments may use the latest available mark.</li>
+          <li>Values are informational and subject to reconciliation.</li>
+          <li>Investor access is read-only; trade instructions are not accepted here.</li>
+        </ul>
+      </article>
+    </section>
+
+    <details class="panel advanced-panel">
+      <summary>
+        <span><span class="eyebrow">Advanced</span><strong>View current holdings</strong></span>
+        <span class="summary-action">Expand</span>
+      </summary>
+      <div class="table-wrap">
+        <table>
+          <caption class="sr-only">Current portfolio holdings</caption>
+          <thead><tr><th scope="col">Instrument</th><th scope="col">Quantity</th><th scope="col">Latest price</th><th scope="col">Market value</th><th scope="col">Weight</th></tr></thead>
+          <tbody id="holdings-body"><tr><td colspan="5" class="table-empty">Authorized holdings will appear here.</td></tr></tbody>
+        </table>
+      </div>
+      <p id="holdings-note" class="table-note">Market values require current quote coverage.</p>
+    </details>
+  </main>
+
+  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Confidential · For authorized investors only · <span data-current-year></span></p></footer>
+</body>
+</html>

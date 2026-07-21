@@ -3,67 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Quantum Strategy Fund investor portfolio dashboard.">
+  <meta name="description" content="Public demonstration of a Quantum Strategy Fund portfolio dashboard.">
   <meta name="robots" content="noindex, nofollow">
-  <title>Portfolio Overview | Quantum Strategy Fund</title>
+  <title>Demo Portfolio Overview | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css">
-  <script defer src="../assets/js/portal-config.js"></script>
-  <script defer src="../assets/js/portal.js"></script>
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo6">
+  <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260721-demo6"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260721-demo6"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260721-demo6"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
-  <a class="skip-link" href="#dashboard-main">Skip to portfolio overview</a>
+  <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
 
   <header class="portal-masthead dashboard-header">
     <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
       <span class="brand-mark-wrap" aria-hidden="true"><img class="brand-mark" src="../assets/images/qsf-mark.png" alt=""></span>
-      <span><strong>Quantum Strategy Fund</strong><small>Investor Portal</small></span>
+      <span><strong>Quantum Strategy Fund</strong><small>Public Investor Demo</small></span>
     </a>
-    <nav class="account-nav" aria-label="Account navigation">
-      <span id="account-name" class="account-name">Investor account</span>
-      <a id="admin-link" class="quiet-link is-hidden" href="../admin/">Operations</a>
-      <button id="sign-out" class="button button-quiet" type="button">Sign out</button>
+    <nav class="account-nav" aria-label="Demo account navigation">
+      <span id="account-name" class="account-name">Demo portfolio</span>
+      <a id="admin-link" class="quiet-link" href="../admin/">Local editor</a>
+      <button id="sign-out" class="button button-quiet" type="button">Exit demo</button>
     </nav>
   </header>
 
+  <div class="demo-alert demo-alert-compact" role="note">
+    <strong>Public sample · locally editable</strong>
+    <span>Not secure access, official NAV, proof of ownership, or an account statement. Local edits affect this browser only.</span>
+  </div>
+
   <div id="portal-status" class="system-banner is-pending" role="status" aria-live="polite">
     <span class="status-dot" aria-hidden="true"></span>
-    <span data-status-text>Verifying your secure session…</span>
+    <span data-status-text>Loading published test data and delayed marks…</span>
   </div>
 
   <main id="dashboard-main" class="dashboard-layout">
     <section class="dashboard-heading" aria-labelledby="dashboard-title">
       <div>
-        <p class="eyebrow">Portfolio overview</p>
-        <h1 id="dashboard-title">Investor account</h1>
-        <p id="portfolio-as-of" class="as-of">Values will appear after secure data access is activated.</p>
+        <p class="eyebrow">Illustrative portfolio overview</p>
+        <h1 id="dashboard-title">Demo portfolio</h1>
+        <p id="portfolio-as-of" class="as-of">Loading public sample values…</p>
       </div>
-      <label class="portfolio-picker is-hidden" id="portfolio-picker-wrap" for="portfolio-picker">
-        Portfolio
-        <select id="portfolio-picker"></select>
-      </label>
+      <span id="scenario-state" class="data-badge">Published sample</span>
     </section>
 
-    <section class="metric-grid" aria-label="Account summary">
+    <section class="metric-grid" aria-label="Illustrative account summary">
       <article class="metric-card metric-primary">
-        <p>Account NAV</p>
+        <p>Demo account value</p>
         <strong id="metric-aum">—</strong>
-        <span id="metric-aum-note">Awaiting verified valuation</span>
+        <span id="metric-aum-note">Illustrative estimate</span>
       </article>
       <article class="metric-card">
-        <p>Since inception</p>
+        <p id="metric-return-label">Illustrative return</p>
         <strong id="metric-return">—</strong>
-        <span id="metric-inception">Fund record</span>
+        <span id="metric-inception">Since the test baseline</span>
       </article>
       <article class="metric-card">
-        <p>Cash reserve</p>
+        <p>Scenario cash</p>
         <strong id="metric-cash">—</strong>
-        <span>Included in AUM</span>
+        <span>Includes local scenario events</span>
       </article>
       <article class="metric-card">
-        <p>Quote freshness</p>
+        <p>Latest mark</p>
         <strong id="metric-quote-age">—</strong>
-        <span>Market data may be delayed</span>
+        <span>Public delayed and manual marks</span>
       </article>
     </section>
 
@@ -71,15 +75,15 @@
       <article class="panel performance-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Performance</p>
-            <h2>Account value history</h2>
+            <p class="eyebrow">Illustrative performance</p>
+            <h2>Demo account value history</h2>
           </div>
-          <span class="data-badge">Verified NAV</span>
+          <span class="data-badge">Device-local estimate</span>
         </div>
-        <div id="performance-chart" class="chart-shell" role="img" aria-label="No account value history is available yet">
+        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading illustrative account value history">
           <div class="empty-state">
-            <strong>Performance history pending</strong>
-            <span>Authorized daily valuations will appear here.</span>
+            <strong>Building the scenario chart</strong>
+            <span>Published baselines and the latest marks will appear here.</span>
           </div>
         </div>
         <div class="chart-footnote">
@@ -91,14 +95,14 @@
       <article class="panel allocation-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Allocation</p>
-            <h2>Portfolio mix</h2>
+            <p class="eyebrow">Illustrative allocation</p>
+            <h2>Gross exposure mix</h2>
           </div>
         </div>
         <div id="allocation-view" class="allocation-view">
           <div class="allocation-ring" aria-hidden="true"><span>—</span></div>
           <div id="allocation-legend" class="allocation-legend">
-            <p class="muted-copy">Allocation is calculated from the latest authorized holdings and delayed quotes.</p>
+            <p class="muted-copy">Allocation will be calculated from public sample holdings and their latest available marks.</p>
           </div>
         </div>
       </article>
@@ -108,50 +112,55 @@
       <article class="panel report-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Documents</p>
-            <h2>Investor reports</h2>
+            <p class="eyebrow">Browser-generated document</p>
+            <h2>Download a demo PDF</h2>
           </div>
+          <span class="data-badge">Generated locally</span>
         </div>
-        <p class="panel-copy">Request a current, private report from the secure reporting service. The PDF is built from the same authorized portfolio records shown here.</p>
-        <button id="request-report" class="button button-primary" type="button" disabled>Generate current report</button>
+        <p class="panel-copy">Create a branded PDF from the exact illustrative account value, allocation, holdings, and marks displayed here. No portfolio data is sent to a reporting server.</p>
+        <label class="report-consent" for="report-consent">
+          <input id="report-consent" type="checkbox">
+          <span>I understand this PDF contains public sample data and local edits and is not an official fund or investor document.</span>
+        </label>
+        <button id="request-report" class="button button-primary" type="button" disabled>Generate demo PDF locally</button>
         <p id="report-message" class="form-message" role="status" aria-live="polite"></p>
-        <div id="report-jobs" class="report-jobs" aria-label="Recent report requests">
-          <p class="muted-copy">No report requests loaded.</p>
+        <div id="report-jobs" class="report-jobs" aria-label="Most recent local report">
+          <p class="muted-copy">No demo PDF generated in this session.</p>
         </div>
       </article>
 
       <article class="panel disclosure-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Data notice</p>
-            <h2>About these values</h2>
+            <p class="eyebrow">Public test-data notice</p>
+            <h2>How to read these values</h2>
           </div>
         </div>
         <ul class="plain-list">
-          <li>Market prices may be delayed by at least 15 minutes.</li>
-          <li>Options and less-liquid instruments may use the latest available mark.</li>
-          <li>Values are informational and subject to reconciliation.</li>
-          <li>Investor access is read-only; trade instructions are not accepted here.</li>
+          <li>Equity and ETF prices use best-effort public delayed snapshots when available.</li>
+          <li>Option values use clearly labeled manual scenario marks and may be stale.</li>
+          <li>Figures are illustrative and are not official NAV, AUM, performance, or accounting records.</li>
+          <li>Local edits are simulations, not trades, orders, or broker instructions.</li>
         </ul>
       </article>
     </section>
 
-    <details class="panel advanced-panel">
+    <details class="panel advanced-panel" open>
       <summary>
-        <span><span class="eyebrow">Advanced</span><strong>View current holdings</strong></span>
-        <span class="summary-action">Expand</span>
+        <span><span class="eyebrow">Advanced view</span><strong>Current demo holdings and marks</strong></span>
+        <span class="summary-action">Collapse</span>
       </summary>
       <div class="table-wrap">
         <table>
-          <caption class="sr-only">Current portfolio holdings</caption>
-          <thead><tr><th scope="col">Instrument</th><th scope="col">Quantity</th><th scope="col">Latest price</th><th scope="col">Market value</th><th scope="col">Weight</th></tr></thead>
-          <tbody id="holdings-body"><tr><td colspan="5" class="table-empty">Authorized holdings will appear here.</td></tr></tbody>
+          <caption class="sr-only">Current public demonstration holdings</caption>
+          <thead><tr><th scope="col">Instrument</th><th scope="col">Quantity</th><th scope="col">Latest mark</th><th scope="col">Market value</th><th scope="col">Weight</th><th scope="col">Mark status</th></tr></thead>
+          <tbody id="holdings-body"><tr><td colspan="6" class="table-empty">Loading public demonstration holdings…</td></tr></tbody>
         </table>
       </div>
-      <p id="holdings-note" class="table-note">Market values require current quote coverage.</p>
+      <p id="holdings-note" class="table-note">Every mark includes its source and timestamp.</p>
     </details>
   </main>
 
-  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Confidential · For authorized investors only · <span data-current-year></span></p></footer>
+  <footer class="portal-footer dashboard-footer"><p>Quantum Strategy Fund</p><p>Public demonstration · Test data only · <span data-current-year></span></p></footer>
 </body>
 </html>

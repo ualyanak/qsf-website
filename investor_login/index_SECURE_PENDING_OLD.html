@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Secure investor access for Quantum Strategy Fund clients.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Investor Portal | Quantum Strategy Fund</title>
+  <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
+  <link rel="stylesheet" href="../assets/css/portal.css">
+  <script defer src="../assets/js/portal-config.js"></script>
+  <script defer src="../assets/js/portal.js"></script>
+</head>
+<body class="portal-shell auth-page" data-page="login">
+  <a class="skip-link" href="#sign-in-title">Skip to sign in</a>
+
+  <header class="portal-masthead">
+    <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
+      <span class="brand-mark-wrap" aria-hidden="true">
+        <img class="brand-mark" src="../assets/images/qsf-mark.png" alt="">
+      </span>
+      <span>
+        <strong>Quantum Strategy Fund</strong>
+        <small>Investor Services</small>
+      </span>
+    </a>
+    <a class="quiet-link" href="../index.html">Return to main site</a>
+  </header>
+
+  <main id="portal-content" class="auth-layout">
+    <section class="auth-intro" aria-labelledby="portal-title">
+      <p class="eyebrow">Private client access</p>
+      <h1 id="portal-title">Your portfolio, presented with clarity.</h1>
+      <p class="auth-lede">Review account value, portfolio allocation, holdings, performance history, and report requests in one secure workspace.</p>
+
+      <div class="trust-list" aria-label="Portal features">
+        <article>
+          <span class="feature-number" aria-hidden="true">01</span>
+          <div>
+            <h2>Read-only investor access</h2>
+            <p>Investor accounts can review authorized portfolios but cannot place or alter trades.</p>
+          </div>
+        </article>
+        <article>
+          <span class="feature-number" aria-hidden="true">02</span>
+          <div>
+            <h2>Private reporting workflow</h2>
+            <p>Reports are created on demand by a protected backend and delivered only to the requesting investor.</p>
+          </div>
+        </article>
+        <article>
+          <span class="feature-number" aria-hidden="true">03</span>
+          <div>
+            <h2>Controlled data access</h2>
+            <p>Portfolio authorization is enforced in the database, independently of what the page displays.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="sign-in-title">
+      <div class="card-rule" aria-hidden="true"></div>
+      <p class="eyebrow">Member portal</p>
+      <h2 id="sign-in-title">Sign in to your account</h2>
+      <p class="card-copy">Use the email address associated with your investor profile.</p>
+
+      <div id="portal-status" class="system-status is-pending" role="status" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span data-status-text>Checking secure portal availability…</span>
+      </div>
+
+      <form id="login-form" class="portal-form" novalidate>
+        <label for="login-email">Email address</label>
+        <input id="login-email" name="email" type="email" inputmode="email" autocomplete="username" autocapitalize="none" spellcheck="false" required disabled data-auth-control>
+
+        <div class="label-row">
+          <label for="login-password">Password</label>
+          <a class="text-button" href="mailto:info@quantumstrategyfund.com?subject=Investor%20Portal%20Access">Access help</a>
+        </div>
+        <input id="login-password" name="password" type="password" autocomplete="current-password" minlength="8" required disabled data-auth-control>
+
+        <button class="button button-primary button-block" type="submit" disabled data-auth-control>
+          <span>Secure sign in</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p id="login-message" class="form-message" role="alert" aria-live="assertive"></p>
+      </form>
+
+      <p class="security-note">This portal will never ask for brokerage credentials or authorize investor trading.</p>
+      <noscript><p class="form-message is-error">JavaScript is required for secure sign in.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    <p>Quantum Strategy Fund</p>
+    <p>Confidential investor access · <span data-current-year></span></p>
+  </footer>
+</body>
+</html>

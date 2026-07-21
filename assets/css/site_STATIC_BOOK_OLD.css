@@ -1290,9 +1290,9 @@ dd {
   position: relative;
   z-index: 2;
   width: min(58%, 260px);
-  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.5);
+  box-shadow: 20px 30px 55px rgba(0, 0, 0, 0.5);
+  transform: perspective(900px) rotateY(8deg) rotateZ(-1deg);
 }
 
 .book-shadow {
@@ -1304,8 +1304,6 @@ dd {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.42);
   filter: blur(15px);
-  opacity: 0.58;
-  transform: scaleX(0.96);
 }
 
 .insight-copy {

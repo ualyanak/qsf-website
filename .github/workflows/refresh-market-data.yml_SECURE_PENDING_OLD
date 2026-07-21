@@ -38,32 +38,15 @@ jobs:
         with:
           python-version: "3.12"
 
-      - name: Prepare latest quote fallback
-        shell: bash
-        run: |
-          set -euo pipefail
-          cp data/demo-quotes.json "$RUNNER_TEMP/demo-quotes-fallback.json"
-          if git ls-remote --exit-code --heads origin market-data >/dev/null 2>&1; then
-            git fetch --no-tags origin refs/heads/market-data:refs/remotes/origin/market-data
-            if git show refs/remotes/origin/market-data:data/demo-quotes.json > "$RUNNER_TEMP/demo-quotes-remote.json" \
-              && python -m json.tool "$RUNNER_TEMP/demo-quotes-remote.json" >/dev/null; then
-              cp "$RUNNER_TEMP/demo-quotes-remote.json" "$RUNNER_TEMP/demo-quotes-fallback.json"
-            fi
-          fi
-
-      - name: Build complete snapshots
-        run: |
-          python scripts/update_market_data.py \
-            --strict \
-            --output "$RUNNER_TEMP/performance.json"
-          python scripts/update_demo_quotes.py \
-            --fallback "$RUNNER_TEMP/demo-quotes-fallback.json" \
-            --output "$RUNNER_TEMP/demo-quotes.json"
+      - name: Build complete snapshot
+        run: >-
+          python scripts/update_market_data.py
+          --strict
+          --output "$RUNNER_TEMP/performance.json"
 
       - name: Publish snapshot to market-data branch
         env:
           SNAPSHOT_PATH: ${{ runner.temp }}/performance.json
-          DEMO_QUOTES_PATH: ${{ runner.temp }}/demo-quotes.json
         shell: bash
         run: |
           set -euo pipefail
@@ -82,8 +65,7 @@ jobs:
 
           mkdir -p data
           cp "$SNAPSHOT_PATH" data/performance.json
-          cp "$DEMO_QUOTES_PATH" data/demo-quotes.json
-          git add data/performance.json data/demo-quotes.json
+          git add data/performance.json
 
           if git diff --cached --quiet; then
             echo "Public sources have no new observation; nothing to publish."

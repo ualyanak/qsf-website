@@ -1290,9 +1290,12 @@ dd {
   position: relative;
   z-index: 2;
   width: min(58%, 260px);
-  height: auto;
   border: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 28px 55px rgba(0, 0, 0, 0.5);
+  box-shadow: 20px 30px 55px rgba(0, 0, 0, 0.5);
+  animation: book-turntable 6.8s cubic-bezier(0.45, 0.05, 0.55, 0.95) infinite;
+  transform: perspective(900px) rotateY(-13deg) rotateX(1deg) rotateZ(-1deg);
+  transform-origin: 50% 55%;
+  will-change: transform;
 }
 
 .book-shadow {
@@ -1304,8 +1307,31 @@ dd {
   border-radius: 50%;
   background: rgba(0, 0, 0, 0.42);
   filter: blur(15px);
-  opacity: 0.58;
-  transform: scaleX(0.96);
+  animation: book-shadow-breathe 6.8s ease-in-out infinite;
+}
+
+@keyframes book-turntable {
+  0%,
+  100% {
+    transform: perspective(900px) translateY(3px) rotateY(-13deg) rotateX(1deg) rotateZ(-1deg);
+  }
+
+  50% {
+    transform: perspective(900px) translateY(-8px) rotateY(13deg) rotateX(-1deg) rotateZ(1deg);
+  }
+}
+
+@keyframes book-shadow-breathe {
+  0%,
+  100% {
+    opacity: 0.72;
+    transform: scaleX(0.86);
+  }
+
+  50% {
+    opacity: 0.44;
+    transform: scaleX(1.08);
+  }
 }
 
 .insight-copy {
