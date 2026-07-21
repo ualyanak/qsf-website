@@ -1537,6 +1537,10 @@ dd {
     --header-height: 72px;
   }
 
+  .site-header {
+    backdrop-filter: none;
+  }
+
   .nav-shell,
   .shell {
     width: min(calc(100% - 36px), var(--shell));
@@ -1564,10 +1568,12 @@ dd {
     position: fixed;
     top: var(--header-height);
     right: 0;
-    bottom: 0;
+    bottom: auto;
     left: 0;
     display: flex;
     visibility: hidden;
+    height: calc(100vh - var(--header-height));
+    height: calc(100dvh - var(--header-height));
     padding: 40px 24px 56px;
     background: var(--navy-950);
     flex-direction: column;
