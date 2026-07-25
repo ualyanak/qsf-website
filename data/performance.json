@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-07-25T14:20:29Z",
+  "generated_at": "2026-07-25T15:32:26Z",
   "methodology": {
     "baseline": "Last available January 2020 observation (displayed as 0%).",
     "benchmark_frequency": "Completed calendar month-end observations plus the latest available delayed observation.",
@@ -1306,7 +1306,7 @@
       "color": "#5da9e9",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 1100.5,
+        "age_minutes_at_check": 1172.4,
         "as_of": "2026-07-24T20:00:00Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
@@ -1390,7 +1390,7 @@
           "date": "2020-12-31",
           "kind": "month_end",
           "period": "2020-12",
-          "value": 18.3794
+          "value": 18.3795
         },
         {
           "date": "2021-01-29",
@@ -1402,13 +1402,13 @@
           "date": "2021-02-26",
           "kind": "month_end",
           "period": "2021-02",
-          "value": 20.4312
+          "value": 20.4311
         },
         {
           "date": "2021-03-31",
           "kind": "month_end",
           "period": "2021-03",
-          "value": 25.8986
+          "value": 25.8987
         },
         {
           "date": "2021-04-30",
@@ -1438,7 +1438,7 @@
           "date": "2021-08-31",
           "kind": "month_end",
           "period": "2021-08",
-          "value": 43.9123
+          "value": 43.9124
         },
         {
           "date": "2021-09-30",
@@ -1534,7 +1534,7 @@
           "date": "2022-12-30",
           "kind": "month_end",
           "period": "2022-12",
-          "value": 24.6913
+          "value": 24.6912
         },
         {
           "date": "2023-01-31",
@@ -1660,7 +1660,7 @@
           "date": "2024-09-30",
           "kind": "month_end",
           "period": "2024-09",
-          "value": 91.7085
+          "value": 91.7086
         },
         {
           "date": "2024-10-31",
@@ -1804,7 +1804,7 @@
       "color": "#d6b35a",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 1100.5,
+        "age_minutes_at_check": 1172.4,
         "as_of": "2026-07-24T20:00:00Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
@@ -2303,7 +2303,7 @@
       "default_hidden": true,
       "freshness": {
         "age_minutes_at_check": 0.0,
-        "as_of": "2026-07-25T14:20:29Z",
+        "as_of": "2026-07-25T15:32:25Z",
         "max_age_minutes": 180,
         "within_expected_window": true
       },
@@ -2311,9 +2311,9 @@
       "label": "Bitcoin (BTC-USD)",
       "latest": {
         "kind": "intraday_15m",
-        "market_price": 64093.941406,
-        "timestamp": "2026-07-25T14:20:29Z",
-        "value": 585.4579
+        "market_price": 64123.378906,
+        "timestamp": "2026-07-25T15:32:25Z",
+        "value": 585.7727
       },
       "points": [
         {
@@ -2787,7 +2787,7 @@
       ],
       "provenance": {
         "adjustment": "Yahoo BTC-USD close",
-        "as_of": "2026-07-25T14:20:29Z",
+        "as_of": "2026-07-25T15:32:25Z",
         "live": true,
         "source": "Yahoo Finance chart endpoint",
         "symbol": "BTC-USD"
@@ -2800,7 +2800,7 @@
       "color": "#93a8c4",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 3740.5,
+        "age_minutes_at_check": 3812.4,
         "as_of": "2026-07-23T00:00:00Z",
         "max_age_minutes": 14400,
         "within_expected_window": true
@@ -3294,9 +3294,9 @@
     }
   ],
   "snapshot": {
-    "benchmark_as_of": "2026-07-25T14:20:29Z",
+    "benchmark_as_of": "2026-07-25T15:32:25Z",
     "benchmark_status": "current_public_sources",
-    "checked_at": "2026-07-25T14:20:29Z",
+    "checked_at": "2026-07-25T15:32:26Z",
     "delay_notice": "Best-effort public data and workflow runs can be delayed beyond 15 minutes. FRED generally updates once per business day; each series retains its own as-of time.",
     "failed_sources": [],
     "fund_as_of": "2025-09-30",
