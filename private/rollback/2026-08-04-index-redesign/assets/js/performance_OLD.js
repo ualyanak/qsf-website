@@ -7,7 +7,6 @@
   const LOCAL_DATA_URL = "./data/performance.json";
   const REFRESH_BUCKET_MS = 15 * 60 * 1000;
   const LOAD_TIMEOUT_MS = 9000;
-  const DEMO_PAGE = Boolean(document.querySelector(".demo-topbar"));
   const RANGE_OPTIONS = [
     ["all", "All history"],
     ["5y", "Last 5 years"],
@@ -185,10 +184,10 @@
             snapshot.benchmark_as_of || loaded.payload.generated_at,
             false
           )}.`;
-    const strategyAsOf = readableTimestamp(snapshot.fund_as_of || snapshot.strategy_as_of, false);
-    const strategyText = DEMO_PAGE
-      ? `Fictional strategy sample data is shown through ${strategyAsOf}; it is not a real track record and is not live.`
-      : `QSF strategy history is management-reported through ${strategyAsOf} and is not live.`;
+    const strategyText = `QSF strategy history is management-reported through ${readableTimestamp(
+      snapshot.fund_as_of || snapshot.strategy_as_of,
+      false
+    )} and is not live.`;
     const delayText = snapshot.delay_notice || "Public quotes may be delayed.";
     const errors = loaded.failures.length ? ` ${loaded.failures.join("; ")}.` : "";
     const summary = live && loaded.origin === "remote"
@@ -526,9 +525,7 @@
     if (existing) existing.destroy();
     canvas.setAttribute(
       "aria-label",
-      DEMO_PAGE
-        ? "Demonstration chart comparing fictional sample strategy series with public market benchmarks from January 2020."
-        : "Interactive cumulative performance comparison from January 2020; use the legend to show or hide series."
+      "Interactive cumulative performance comparison from January 2020; use the legend to show or hide series."
     );
     canvas.setAttribute("role", "img");
     state.chart = new Chart(canvas.getContext("2d"), {

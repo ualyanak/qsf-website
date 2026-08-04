@@ -11,21 +11,9 @@
     year.textContent = String(new Date().getFullYear());
   }
 
-  function updateMobileMenuBounds() {
-    if (!header || !mobileQuery.matches) {
-      document.documentElement.style.removeProperty("--qsf-mobile-nav-top");
-      return;
-    }
-    const headerBottom = Math.max(0, Math.min(window.innerHeight, header.getBoundingClientRect().bottom));
-    document.documentElement.style.setProperty("--qsf-mobile-nav-top", `${Math.round(headerBottom)}px`);
-  }
-
   function updateHeader() {
     if (header) {
       header.classList.toggle("is-scrolled", window.scrollY > 12);
-    }
-    if (navToggle && navToggle.getAttribute("aria-expanded") === "true") {
-      updateMobileMenuBounds();
     }
   }
 
@@ -36,11 +24,6 @@
     const toggleLabel = navToggle.querySelector(".sr-only");
 
     function setMenu(open, returnFocus) {
-      if (open) {
-        updateMobileMenuBounds();
-      } else {
-        document.documentElement.style.removeProperty("--qsf-mobile-nav-top");
-      }
       navToggle.setAttribute("aria-expanded", String(open));
       primaryNav.classList.toggle("is-open", open);
       document.body.classList.toggle("nav-open", open && mobileQuery.matches);
@@ -102,16 +85,8 @@
     mobileQuery.addEventListener("change", function (event) {
       if (!event.matches) {
         setMenu(false, false);
-      } else if (navToggle.getAttribute("aria-expanded") === "true") {
-        updateMobileMenuBounds();
       }
     });
-
-    window.addEventListener("resize", function () {
-      if (navToggle.getAttribute("aria-expanded") === "true") {
-        updateMobileMenuBounds();
-      }
-    }, { passive: true });
   }
 
   const sectionLinks = Array.from(document.querySelectorAll('.primary-nav a[href^="#"]'));

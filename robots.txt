@@ -1,0 +1,5 @@
+# Demonstration site — not a real fund.
+# Kept out of search indexes so it is not mistaken for a live offering.
+
+User-agent: *
+Disallow: /

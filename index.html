@@ -3,10 +3,11 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Quantum Strategy Fund applies quantum-inspired models to medium-term asset pricing, portfolio construction, and risk analysis.">
+  <meta name="description" content="DEMONSTRATION SITE — not a real fund and not an offer to invest. A front-end design demo built around a fictional asset management brand.">
+  <meta name="robots" content="noindex, nofollow, noarchive">
   <meta name="theme-color" content="#07172f">
-  <meta property="og:title" content="Quantum Strategy Fund">
-  <meta property="og:description" content="Where quantum computing meets asset management.">
+  <meta property="og:title" content="Quantum Strategy Fund — Demonstration Site">
+  <meta property="og:description" content="Demonstration site. Not a real fund, not an offer to invest, and no securities are offered here.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://quantumstrategyfund.com/">
   <meta property="og:image" content="https://quantumstrategyfund.com/assets/images/qsf-mark.png">
@@ -14,10 +15,151 @@
   <link rel="canonical" href="https://quantumstrategyfund.com/">
   <link rel="icon" type="image/png" href="assets/images/qsf-mark.png">
   <link rel="stylesheet" href="assets/css/site.css?v=20260721-upright2">
-  <title>Quantum Strategy Fund | Quantum-Inspired Asset Management</title>
+  <title>Quantum Strategy Fund | Demonstration Site (Not a Real Fund)</title>
+
+  <!-- ==========================================================
+       DEMONSTRATION NOTICE STYLES
+       Added so the site's status as a demo is unmistakable.
+       Scoped to .demo-* classes; nothing here overrides site.css
+       except the .noscript-notice offset, which keeps it clear of
+       the fixed bottom bar.
+       ========================================================== -->
+  <style>
+    .demo-topbar {
+      position: relative;
+      z-index: 150;
+      padding: 16px 24px;
+      border-bottom: 2px solid #04101f;
+      background: #ffd84d;
+      color: #1a1400;
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: 0.9rem;
+      line-height: 1.55;
+      text-align: center;
+    }
+
+    .demo-topbar strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .demo-topbar p {
+      max-width: 780px;
+      margin: 0 auto;
+    }
+
+    .demo-fixedbar {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      z-index: 300;
+      padding: 10px 20px max(10px, env(safe-area-inset-bottom, 0px));
+      border-top: 2px solid #ffd84d;
+      background: #04101f;
+      color: #ffd84d;
+      font-family: var(--font-sans, system-ui, sans-serif);
+      font-size: 0.74rem;
+      font-weight: 700;
+      line-height: 1.35;
+      letter-spacing: 0.06em;
+      text-align: center;
+    }
+
+    body {
+      padding-bottom: calc(46px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .noscript-notice {
+      bottom: calc(46px + env(safe-area-inset-bottom, 0px));
+    }
+
+    .demo-flag {
+      display: inline-flex;
+      align-items: center;
+      margin-bottom: 16px;
+      padding: 7px 13px;
+      background: #ffd84d;
+      color: #1a1400;
+      font-size: 0.66rem;
+      font-weight: 800;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .demo-inline-note {
+      margin: 22px 0 28px;
+      padding: 16px 20px;
+      border-left: 3px solid #04101f;
+      background: #fff6d6;
+      color: #1a1400;
+      font-size: 0.86rem;
+      line-height: 1.6;
+    }
+
+    .demo-inline-note p {
+      margin: 0;
+    }
+
+    .demo-inline-note p + p {
+      margin-top: 10px;
+    }
+
+    .demo-disabled-note {
+      margin: 12px 0 0;
+      color: rgba(255, 255, 255, 0.55);
+      font-size: 0.76rem;
+    }
+
+    .section-contact .demo-disabled-note {
+      color: var(--muted, #697586);
+    }
+
+    @media (max-width: 900px) {
+      .primary-nav {
+        top: var(--qsf-mobile-nav-top, var(--header-height));
+        height: calc(100vh - var(--qsf-mobile-nav-top, var(--header-height)));
+        height: calc(100dvh - var(--qsf-mobile-nav-top, var(--header-height)));
+        padding-bottom: calc(112px + env(safe-area-inset-bottom, 0px));
+      }
+    }
+
+    @media (max-width: 680px) {
+      body {
+        padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .noscript-notice {
+        bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+      }
+
+      .demo-topbar {
+        padding: 14px 18px;
+        font-size: 0.84rem;
+        text-align: left;
+      }
+
+      .demo-fixedbar {
+        padding-right: 10px;
+        padding-left: 10px;
+        font-size: 0.64rem;
+        letter-spacing: 0.04em;
+      }
+    }
+  </style>
 </head>
 <body>
   <a class="skip-link" href="#main-content">Skip to main content</a>
+
+  <!-- DEMONSTRATION NOTICE — scrolls with the page -->
+  <div class="demo-topbar" role="region" aria-label="Demonstration site notice">
+    <strong>Demonstration site</strong>
+    <p>This is a front-end design demo built around a fictional asset management brand. <b>Quantum Strategy Fund is not a real fund.</b> Nothing here is an offer to sell or a solicitation to buy any security, no investment advice is given, and all performance figures shown are sample data for layout purposes only.</p>
+  </div>
 
   <header class="site-header" id="top">
     <div class="nav-shell">
@@ -25,7 +167,7 @@
         <img class="brand-mark" src="assets/images/qsf-mark.png" alt="" width="52" height="52">
         <span class="brand-copy">
           <span class="brand-name">Quantum Strategy Fund</span>
-          <span class="brand-descriptor">Asset Management</span>
+          <span class="brand-descriptor">Demo · Not a Real Fund</span>
         </span>
       </a>
 
@@ -43,7 +185,7 @@
         <a href="#performance">Performance</a>
         <a href="#insights">Insights</a>
         <a href="#contact">Contact</a>
-        <a class="nav-login" href="investor_login/">Public Investor Demo <span aria-hidden="true">↗</span></a>
+        <a class="nav-login" href="investor_login/">Portal UI Demo <span aria-hidden="true">↗</span></a>
       </nav>
     </div>
   </header>
@@ -53,14 +195,14 @@
       <div class="hero-pattern" aria-hidden="true"></div>
       <div class="shell hero-layout">
         <div class="hero-copy">
-          <p class="eyebrow eyebrow-light"><span></span> Quantum-Inspired Asset Management</p>
+          <p class="eyebrow eyebrow-light"><span></span> Design Demo · Fictional Brand</p>
           <h1 id="hero-title">A different lens on<br><em>medium-term markets.</em></h1>
-          <p class="hero-lede">Quantum Strategy Fund applies quantum-inspired thinking to the market horizon between short-term trading noise and long-term macroeconomic trends.</p>
+          <p class="hero-lede">A sample marketing site for a fictional quantum-inspired asset manager, built to demonstrate layout, typography, and interactive data visualisation.</p>
           <div class="hero-actions">
-            <a class="button button-gold" href="#why-quantum">Explore our approach <span aria-hidden="true">→</span></a>
-            <a class="button button-ghost" href="#performance">View performance</a>
+            <a class="button button-gold" href="#why-quantum">Explore the demo <span aria-hidden="true">→</span></a>
+            <a class="button button-ghost" href="#performance">View sample chart</a>
           </div>
-          <p class="hero-caption">Founded in 2020 <span aria-hidden="true">·</span> Three strategy tiers <span aria-hidden="true">·</span> Investor-focused research</p>
+          <p class="hero-caption">Demonstration only <span aria-hidden="true">·</span> Sample data <span aria-hidden="true">·</span> No securities offered</p>
         </div>
 
         <div class="hero-emblem" aria-hidden="true">
@@ -77,22 +219,22 @@
       </a>
     </section>
 
-    <section class="fact-bar" aria-label="Fund overview">
+    <section class="fact-bar" aria-label="Demo overview">
       <div class="shell fact-grid">
         <div class="fact-item">
-          <span class="fact-label">Established</span>
-          <strong>February 2020</strong>
+          <span class="fact-label">Site type</span>
+          <strong>Design demonstration</strong>
         </div>
         <div class="fact-item">
-          <span class="fact-label">Primary horizon</span>
-          <strong>Medium-term markets</strong>
+          <span class="fact-label">Brand</span>
+          <strong>Fictional</strong>
         </div>
         <div class="fact-item">
-          <span class="fact-label">Strategy range</span>
-          <strong>Three risk tiers</strong>
+          <span class="fact-label">All figures</span>
+          <strong>Sample data</strong>
         </div>
         <div class="fact-item fact-cta">
-          <span class="fact-label">Public investor demo</span>
+          <span class="fact-label">Portal UI demo</span>
           <a href="investor_login/">Explore the portal demo <span aria-hidden="true">→</span></a>
         </div>
       </div>
@@ -101,15 +243,16 @@
     <section class="section section-story" id="story" aria-labelledby="story-title">
       <div class="shell editorial-grid">
         <div class="section-heading">
-          <p class="eyebrow"><span></span> Our Story</p>
+          <p class="eyebrow"><span></span> The Premise</p>
           <h2 id="story-title">Built to study the market’s most overlooked horizon.</h2>
         </div>
 
         <div class="editorial-copy">
-          <p class="lead">Quantum Strategy Fund was founded by a team of physicists and mathematicians shortly before the 2020 pandemic escalated. We recognized that medium-term market behavior often defies explanation by classical models.</p>
-          <p>Short-term price action is typically driven by high-frequency trading algorithms, while long-term trends tend to follow macroeconomic forces. Neither framework effectively captures the middle ground, where retail investor behavior can have an outsized influence. We developed a framework grounded in quantum mechanics to navigate and study medium-term asset pricing.</p>
-          <p>That framework informs our work in signal detection, portfolio optimization, and risk analysis. As the models have developed, we have expanded the fund to serve investors with different objectives and risk profiles.</p>
-          <a class="text-link" href="#strategies">Review our strategy tiers <span aria-hidden="true">→</span></a>
+          <p class="demo-flag">Fictional narrative — sample copy</p>
+          <p class="lead">The imagined firm behind this demo is founded by physicists and mathematicians shortly before the 2020 pandemic, on the premise that medium-term market behaviour resists explanation by classical models.</p>
+          <p>Short-term price action is typically driven by high-frequency trading algorithms, while long-term trends tend to follow macroeconomic forces. Neither framework effectively captures the middle ground, where retail investor behaviour can have an outsized influence. The fictional firm builds a framework grounded in quantum mechanics to navigate that middle ground.</p>
+          <p>This narrative exists to give the page realistic content to lay out. It describes no real firm, no real research programme, and no real track record.</p>
+          <a class="text-link" href="#strategies">Review the sample tiers <span aria-hidden="true">→</span></a>
         </div>
       </div>
     </section>
@@ -121,7 +264,7 @@
             <p class="eyebrow eyebrow-light"><span></span> Why Quantum?</p>
             <h2 id="approach-title">Tools designed for uncertainty.</h2>
           </div>
-          <p>Quantum Strategy Fund was built on a genuine love for quantum mechanics and a belief that its principles can change the way we understand markets. It is both an investment framework and a platform for curiosity, learning, and discovery.</p>
+          <p>Sample copy for a fictional firm. The three-horizon framing below is illustrative content used to demonstrate the card layout.</p>
         </div>
 
         <div class="horizon-grid">
@@ -135,7 +278,7 @@
             <span class="horizon-number">02</span>
             <p class="horizon-kicker">Medium term</p>
             <h3>QSF’s area of focus</h3>
-            <p>Retail sentiment, collective behavior, and shifts in risk appetite create a complex, adaptive environment.</p>
+            <p>Retail sentiment, collective behaviour, and shifts in risk appetite create a complex, adaptive environment.</p>
           </article>
           <article class="horizon-card">
             <span class="horizon-number">03</span>
@@ -146,7 +289,7 @@
         </div>
 
         <div class="approach-note">
-          <p>Instead of assuming one fixed outcome, quantum-inspired models can account for multiple possibilities and overlapping scenarios. Our most advanced models remain proprietary, but we believe the foundations of quantum thinking should be approachable. Through resources and direct conversations, we aim to help investors think differently about risk, opportunity, and market behavior.</p>
+          <p>“Quantum-inspired” is used here as brand language for a fictional firm, not as a description of any real or validated investment method. No model, proprietary or otherwise, sits behind this page.</p>
         </div>
       </div>
     </section>
@@ -155,10 +298,10 @@
       <div class="shell">
         <div class="section-intro">
           <div>
-            <p class="eyebrow"><span></span> Strategy Tiers</p>
+            <p class="eyebrow"><span></span> Sample Strategy Tiers</p>
             <h2 id="strategies-title">One framework. Three risk profiles.</h2>
           </div>
-          <p>Each tier applies the fund’s research framework with a different balance of growth objectives, active positioning, and tolerance for drawdowns.</p>
+          <p>Placeholder product cards, included to demonstrate the three-column layout. These are not real products and are not available to anyone.</p>
         </div>
 
         <div class="strategy-grid">
@@ -168,9 +311,9 @@
               <span class="risk-marker risk-medium">Medium risk</span>
             </div>
             <h3>Controlled growth</h3>
-            <p>Designed for investors seeking steadier growth with controlled drawdowns.</p>
+            <p>Sample tier description for an approach oriented toward steadier growth with controlled drawdowns.</p>
             <dl class="strategy-detail">
-              <div><dt>Availability</dt><dd>Since 2020</dd></div>
+              <div><dt>Availability</dt><dd>Sample data</dd></div>
               <div><dt>Positioning</dt><dd>Measured</dd></div>
             </dl>
           </article>
@@ -181,9 +324,9 @@
               <span class="risk-marker risk-high">High risk</span>
             </div>
             <h3>Aggressive growth</h3>
-            <p>Built for aggressive growth with active rebalancing and a higher tolerance for volatility.</p>
+            <p>Sample tier description for an approach with active rebalancing and higher tolerance for volatility.</p>
             <dl class="strategy-detail">
-              <div><dt>Introduced</dt><dd>August 2023</dd></div>
+              <div><dt>Availability</dt><dd>Sample data</dd></div>
               <div><dt>Positioning</dt><dd>Active</dd></div>
             </dl>
           </article>
@@ -194,15 +337,15 @@
               <span class="risk-marker risk-extreme">Extreme risk</span>
             </div>
             <h3>Maximum return objective</h3>
-            <p>Designed for investors who understand and accept the potential for substantial volatility and loss.</p>
+            <p>Sample tier description for an approach carrying substantial volatility and potential for loss.</p>
             <dl class="strategy-detail">
-              <div><dt>Introduced</dt><dd>December 2024</dd></div>
+              <div><dt>Availability</dt><dd>Sample data</dd></div>
               <div><dt>Positioning</dt><dd>Maximum risk</dd></div>
             </dl>
           </article>
         </div>
 
-        <p class="strategy-footnote"><strong>In development:</strong> an income-focused tier for investors seeking weekly or monthly distributions with a stable-growth objective.</p>
+        <p class="strategy-footnote"><strong>Note:</strong> these tiers are fictional placeholders used to fill out the layout. Nothing on this page is purchasable, subscribable, or available for investment.</p>
       </div>
     </section>
 
@@ -210,26 +353,30 @@
       <div class="shell">
         <div class="milestone-heading">
           <div>
-            <p class="eyebrow"><span></span> Fund Development</p>
+            <p class="eyebrow"><span></span> Sample Timeline</p>
             <h2 id="milestones-title">Milestones since inception.</h2>
           </div>
-          <p>A timeline of strategy launches and performance milestones as previously reported by the fund.</p>
+          <p>Illustrative placeholder timeline used to demonstrate the two-column list layout.</p>
+        </div>
+
+        <div class="demo-inline-note">
+          <p><strong>Sample data.</strong> Every date and return figure below is fictional placeholder content invented for this demonstration. They are not the results of any real fund, have never been audited, and must not be relied upon for any purpose.</p>
         </div>
 
         <ol class="timeline">
-          <li><time datetime="2020-02">Feb 2020</time><span>Fund founded</span></li>
-          <li><time datetime="2020-09">Sep 2020</time><span>Fund surpasses the S&amp;P 500 Index</span></li>
-          <li><time datetime="2020-12">Dec 2020</time><span>Fund surpasses gold</span></li>
-          <li><time datetime="2023-04">Apr 2023</time><span>Investors surpass +100% cumulative returns</span></li>
-          <li><time datetime="2023-08">Aug 2023</time><span>High Risk tier launched</span></li>
-          <li><time datetime="2024-01">Jan 2024</time><span>High Risk investors surpass +1,000% cumulative returns</span></li>
-          <li><time datetime="2024-12">Dec 2024</time><span>Extreme Risk tier launched</span></li>
-          <li><time datetime="2025-02">Feb 2025</time><span>Fund surpasses bitcoin</span></li>
-          <li><time datetime="2025-03">Mar 2025</time><span>High Risk investors surpass +2,000% cumulative returns</span></li>
-          <li><time datetime="2025-03">Mar 2025</time><span>Extreme Risk investors surpass +3,000% cumulative returns</span></li>
-          <li><time datetime="2025-04">Apr 2025</time><span>Medium Risk investors surpass +300% cumulative returns</span></li>
-          <li><time datetime="2025-04">Apr 2025</time><span>Extreme Risk investors surpass +5,000% cumulative returns</span></li>
-          <li><time datetime="2025-06">Jun 2025</time><span>Extreme Risk investors surpass +8,000% cumulative returns</span></li>
+          <li><time datetime="2020-02">Feb 2020</time><span>Fund founded <em>(sample)</em></span></li>
+          <li><time datetime="2020-09">Sep 2020</time><span>Sample milestone: surpasses the S&amp;P 500 Index</span></li>
+          <li><time datetime="2020-12">Dec 2020</time><span>Sample milestone: surpasses gold</span></li>
+          <li><time datetime="2023-04">Apr 2023</time><span>Sample figure: +100% cumulative</span></li>
+          <li><time datetime="2023-08">Aug 2023</time><span>High Risk tier launched <em>(sample)</em></span></li>
+          <li><time datetime="2024-01">Jan 2024</time><span>Sample figure: +1,000% cumulative</span></li>
+          <li><time datetime="2024-12">Dec 2024</time><span>Extreme Risk tier launched <em>(sample)</em></span></li>
+          <li><time datetime="2025-02">Feb 2025</time><span>Sample milestone: surpasses bitcoin</span></li>
+          <li><time datetime="2025-03">Mar 2025</time><span>Sample figure: +2,000% cumulative</span></li>
+          <li><time datetime="2025-03">Mar 2025</time><span>Sample figure: +3,000% cumulative</span></li>
+          <li><time datetime="2025-04">Apr 2025</time><span>Sample figure: +300% cumulative</span></li>
+          <li><time datetime="2025-04">Apr 2025</time><span>Sample figure: +5,000% cumulative</span></li>
+          <li><time datetime="2025-06">Jun 2025</time><span>Sample figure: +8,000% cumulative</span></li>
         </ol>
       </div>
     </section>
@@ -238,8 +385,9 @@
       <div class="shell">
         <div class="section-intro performance-intro">
           <div>
-            <p class="eyebrow"><span></span> Performance</p>
+            <p class="eyebrow"><span></span> Sample Performance</p>
             <h2 id="performance-title">Fund and benchmark tracker.</h2>
+            <p class="demo-flag">Sample data — not real returns</p>
           </div>
           <div class="data-status" aria-live="polite">
             <span class="status-dot" aria-hidden="true"></span>
@@ -247,6 +395,11 @@
             <span class="status-separator" aria-hidden="true">·</span>
             <span id="chartAsOf">As of —</span>
           </div>
+        </div>
+
+        <div class="demo-inline-note">
+          <p><strong>The strategy lines in this chart are fictional sample data.</strong> They were invented to demonstrate the charting component and do not represent the results of any real fund, portfolio, or trading strategy.</p>
+          <p>Benchmark series may be pulled from public market data so the chart has something real to render against. Do not use anything on this page to make a financial decision.</p>
         </div>
 
         <div class="performance-panel" data-performance-chart>
@@ -270,7 +423,7 @@
           </div>
 
           <div class="chart-frame">
-            <canvas id="performanceChart" role="img" aria-label="Cumulative return chart comparing Quantum Strategy Fund strategy tiers with market benchmarks from January 2020 to the latest available date.">
+            <canvas id="performanceChart" role="img" aria-label="Demonstration chart showing fictional sample cumulative returns for three placeholder strategy tiers alongside public market benchmarks, from January 2020 to the latest available date.">
               Your browser does not support the performance chart. A data table is available below.
             </canvas>
           </div>
@@ -278,10 +431,10 @@
           <div class="chart-legend" id="chartLegend" aria-label="Performance series"></div>
 
           <div class="chart-fallback" id="chartFallback" hidden>
-            <p id="chartFallbackMessage">The interactive chart is temporarily unavailable. Recent data is shown in the table below when available.</p>
+            <p id="chartFallbackMessage">The interactive chart is temporarily unavailable. Sample data is shown in the table below when available.</p>
             <div class="table-scroll" tabindex="0" aria-label="Scrollable performance data table">
               <table id="performanceFallbackTable">
-                <caption>Latest available cumulative returns</caption>
+                <caption>Latest available cumulative returns (sample data)</caption>
                 <thead>
                   <tr><th scope="col">Series</th><th scope="col">Latest return</th><th scope="col">As of</th></tr>
                 </thead>
@@ -296,21 +449,21 @@
             <summary>How to read this chart</summary>
             <div>
               <ul>
-                <li><strong>Cumulative return</strong> shows the total percentage change since January 2020, not an annualized return.</li>
-                <li>Use the legend to show or hide individual strategy tiers and benchmarks.</li>
-                <li>The “Latest available” column combines each series' own most recent observation; chart tooltips show the exact as-of time for each point.</li>
+                <li>All strategy series are <strong>fictional sample data</strong> created for this demonstration.</li>
+                <li><strong>Cumulative return</strong> shows the total percentage change since January 2020, not an annualised return.</li>
+                <li>Use the legend to show or hide individual series.</li>
                 <li>The logarithmic view charts the growth of an initial $100 so negative return periods remain comparable on a positive scale.</li>
-                <li>Strategy launch markers identify the High Risk split in August 2023 and the Extreme Risk split in December 2024.</li>
+                <li>Launch markers identify where the sample data splits into additional placeholder tiers.</li>
               </ul>
             </div>
           </details>
           <div class="data-note">
             <span>Data methodology</span>
-            <p>QSF strategy history is management-reported through September 2025 and is not live. Public benchmarks are best-effort, may be delayed beyond 15 minutes, and retain separate as-of times.</p>
+            <p>Strategy history is fictional sample data and is not live. Any public benchmark series are best-effort, may be delayed, and retain separate as-of times.</p>
           </div>
         </div>
 
-        <p class="risk-disclosure">QSF strategy figures are management-reported and have not been independently verified on this website; fee and distribution treatment should be confirmed in fund documentation. Past performance is not indicative of future results. All investing involves risk, including the possible loss of principal.</p>
+        <p class="risk-disclosure">This is a demonstration site. The strategy figures shown are fictional sample data, not the results of any real fund, and have never been audited or independently verified. Nothing here is an offer, a solicitation, or investment advice. Do not make financial decisions based on this page.</p>
       </div>
     </section>
 
@@ -318,17 +471,17 @@
       <div class="shell insight-card">
         <div class="book-visual">
           <span class="book-shadow" aria-hidden="true"></span>
-          <img src="assets/images/options-book-700.png" alt="Cover of the Quantum Strategy Fund options trading book" width="541" height="700" loading="lazy" decoding="async">
+          <img src="assets/images/options-book-700.png" alt="Mock cover for a fictional options trading book" width="541" height="700" loading="lazy" decoding="async">
         </div>
         <div class="insight-copy">
-          <p class="eyebrow"><span></span> Education &amp; Insights</p>
+          <p class="eyebrow"><span></span> Sample Content Module</p>
           <h2 id="insights-title">Options strategy, from foundations to advanced applications.</h2>
-          <p>Learn foundational and advanced options strategies from the Quantum Strategy Fund team. Written with clarity and tested with data, the book also introduces quantum finance and strategy concepts.</p>
+          <p>A placeholder product module used to demonstrate the split image-and-copy layout. The book pictured is a mock cover; there is no such publication and nothing is for sale.</p>
           <div class="availability-row">
             <span class="availability-dot" aria-hidden="true"></span>
-            <span>Currently out of stock — check back soon.</span>
+            <span>Not a real product — demonstration only.</span>
           </div>
-          <span class="button button-disabled" aria-disabled="true">Order book</span>
+          <span class="button button-disabled" aria-disabled="true">Order book (disabled)</span>
         </div>
       </div>
     </section>
@@ -336,12 +489,13 @@
     <section class="section section-network" id="join" aria-labelledby="network-title">
       <div class="shell network-grid">
         <div>
-          <p class="eyebrow eyebrow-light"><span></span> Investor Network</p>
+          <p class="eyebrow eyebrow-light"><span></span> Sample CTA Module</p>
           <h2 id="network-title">Stay close to our research.</h2>
         </div>
         <div>
-          <p>Join our investor network for research briefings, fund updates, and early access to investment opportunities.</p>
-          <a class="button button-gold" href="mailto:info@quantumstrategyfund.com?subject=Investor%20Access">Request access <span aria-hidden="true">→</span></a>
+          <p>A placeholder call-to-action block. There is no investor network, no mailing list, and no research to subscribe to.</p>
+          <span class="button button-disabled" aria-disabled="true">Request access (disabled)</span>
+          <p class="demo-disabled-note">Disabled deliberately — this demo does not collect contact details or accept investor enquiries.</p>
         </div>
       </div>
     </section>
@@ -349,13 +503,13 @@
     <section class="section section-contact" id="contact" aria-labelledby="contact-title">
       <div class="shell contact-card">
         <div>
-          <p class="eyebrow"><span></span> Contact</p>
+          <p class="eyebrow"><span></span> Sample Contact Module</p>
           <h2 id="contact-title">Start a conversation with QSF.</h2>
-          <p>Ready to take the next step? Contact the fund to discuss investor access and learn more about the available strategy tiers.</p>
+          <p>A placeholder contact block, kept to show the layout. Quantum Strategy Fund is not a real firm, so there is nobody to contact and no investor access to discuss.</p>
         </div>
         <div class="contact-actions">
-          <a class="button button-navy" href="mailto:info@quantumstrategyfund.com?subject=Investor%20Inquiry">Become an investor <span aria-hidden="true">→</span></a>
-          <a class="contact-email" href="mailto:info@quantumstrategyfund.com">info@quantumstrategyfund.com</a>
+          <span class="button button-disabled" aria-disabled="true">Become an investor (disabled)</span>
+          <p class="demo-disabled-note">No live contact address on this demonstration site.</p>
         </div>
       </div>
     </section>
@@ -365,18 +519,18 @@
     <div class="shell footer-main">
       <a class="footer-brand" href="#top" aria-label="Quantum Strategy Fund home">
         <img src="assets/images/qsf-mark.png" alt="" width="64" height="64">
-        <span><strong>Quantum Strategy Fund</strong><small>Where Quantum Computing Meets Asset Management</small></span>
+        <span><strong>Quantum Strategy Fund</strong><small>Demonstration Site · Fictional Brand</small></span>
       </a>
       <div class="footer-links" aria-label="Footer navigation">
         <a href="#story">About</a>
         <a href="#why-quantum">Approach</a>
         <a href="#performance">Performance</a>
-        <a href="investor_login/">Public Investor Demo</a>
+        <a href="investor_login/">Portal UI Demo</a>
       </div>
     </div>
     <div class="shell footer-legal">
-      <p>Investing involves risk, including loss of principal. Information presented on this website is for informational purposes only and does not constitute an offer, solicitation, or investment advice.</p>
-      <p>&copy; <span id="currentYear">2026</span> Quantum Strategy Fund. All rights reserved.</p>
+      <p><strong>This website is a demonstration.</strong> Quantum Strategy Fund is a fictional brand created for a front-end design demo. It is not a registered investment adviser, fund, or financial institution. No securities are offered or sold here, nothing on this site is an offer, solicitation, or investment advice, and all performance figures shown are fictional sample data that has never been audited or verified.</p>
+      <p>&copy; <span id="currentYear">2026</span> · Demonstration site. All rights reserved.</p>
     </div>
   </footer>
 
@@ -384,8 +538,13 @@
     <div class="noscript-notice">JavaScript is required to display the interactive performance chart and mobile navigation.</div>
   </noscript>
 
-  <script src="assets/js/site.js" defer></script>
+  <!-- DEMONSTRATION NOTICE — persistent, always visible -->
+  <div class="demo-fixedbar" role="note">
+    Demonstration site · Fictional brand · Sample data · Not an offer to invest
+  </div>
+
+  <script src="assets/js/site.js?v=20260804-demo" defer></script>
   <script src="assets/vendor/chart.umd.min.js" defer></script>
-  <script src="assets/js/performance.js" defer></script>
+  <script src="assets/js/performance.js?v=20260804-demo" defer></script>
 </body>
 </html>
