@@ -146,21 +146,6 @@ class OptionModelTests(unittest.TestCase):
         self.assertEqual(instrument["multiplier"], 100)
         self.assertLess(position["quantity"] * instrument["multiplier"] * 2.5, 0)
 
-    def test_bull_purchase_is_funded_by_sgov_reallocation(self) -> None:
-        repository = pathlib.Path(__file__).resolve().parents[1]
-        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
-        account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
-
-        self.assertEqual(account["cash"], 413.83)
-        self.assertEqual(positions["SGOV"]["quantity"], 3)
-        self.assertEqual(positions["BULL"]["quantity"], 320)
-        self.assertEqual(positions["BULL"]["basis_price"], 7.2)
-        self.assertEqual(320 * 7.2, 2304.0)
-        self.assertEqual(data["instruments"]["BULL"]["mark_mode"], "public_delayed")
-        for instrument_id in positions:
-            self.assertIn(instrument_id, data["instruments"])
-
 
 if __name__ == "__main__":
     unittest.main()

@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-04",
+  "published_at": "2026-07-21",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -21,17 +21,10 @@
           "amount": 24.0,
           "kind": "illustrative_realized_pnl",
           "note": "User-provided test adjustment added to scenario cash."
-        },
-        {
-          "date": "2026-08-04",
-          "amount": 0.0,
-          "kind": "illustrative_reallocation",
-          "note": "User-provided test reallocation: proceeds from 23 SGOV shares ($2,304 total) were used immediately to purchase 320 BULL shares at $7.20. Three SGOV shares remain and scenario cash is unchanged."
         }
       ],
       "positions": [
-        { "instrument": "SGOV", "quantity": 3, "basis_price": 100.58 },
-        { "instrument": "BULL", "quantity": 320, "basis_price": 7.2 },
+        { "instrument": "SGOV", "quantity": 26, "basis_price": 100.58 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
         { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
         { "instrument": "INFQ_C25_20270115", "quantity": 4, "basis_price": 0.75 },
@@ -69,7 +62,6 @@
   },
   "instruments": {
     "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "multiplier": 1, "mark_mode": "public_delayed" },
-    "BULL": { "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "asset_class": "Financial Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "BULL_P10_JAN2027": { "symbol": "BULL Jan 15 2027 $10 Put", "quote_symbol": "BULL_P10_JAN2027", "option_symbol": "BULL270115P00010000", "underlying_symbol": "BULL", "expiry": "2027-01-15", "name": "Short one BULL $10 put", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 3.16, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
     "IBM": { "symbol": "IBM", "name": "International Business Machines", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "INFQ_C25_20270115": { "symbol": "INFQ Jan 15 2027 $25 Call", "quote_symbol": "INFQ_C25_20270115", "option_symbol": "INFQ270115C00025000", "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "Four INFQ $25 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 0.75, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },

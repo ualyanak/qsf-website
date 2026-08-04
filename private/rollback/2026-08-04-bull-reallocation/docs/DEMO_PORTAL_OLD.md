@@ -20,9 +20,6 @@ repository. They must never be reused for real investor accounts.
   (`$8.0999` per share), rather than as a per-share price.
 - The supplied `$75` INFQ call cost is treated as `$0.75` per option share,
   with the standard 100x contract multiplier.
-- The August 4 test reallocation treats `$2,304` as the proceeds from selling
-  23 of the original 26 SGOV shares and immediately purchases 320 BULL shares
-  at `$7.20`. Three SGOV shares remain and scenario cash is unchanged.
 - The INFQ call vertical uses the supplied `$1.37` net mark per option share
   and a 100x multiplier.
 - "JAN 27" is interpreted as January 2027. The seeded listed contracts are
@@ -55,11 +52,6 @@ delayed underlier observation used as the model input.
 
 Scheduled GitHub Actions runs are best effort and can be delayed. The portal
 therefore preserves each mark's source, timestamp, and quality label.
-The workflow already requests Yahoo Finance chart snapshots four times per
-hour, and open dashboards recheck the published snapshot every 15 minutes.
-GitHub can delay or drop scheduled jobs, so this static demonstration cannot
-guarantee a 20-minute market-data service without a separate scheduler and an
-authorized data provider.
 Observations older than four days are downgraded to a stale status rather than
 presented as current. Model estimates are labeled `AUTO MODEL` and explicitly
 state that they are not option-market quotes. The `chue` sample uses the user-supplied 25 SPY
