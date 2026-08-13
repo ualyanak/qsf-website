@@ -1,0 +1,92 @@
+name: Refresh public portfolio history
+
+on:
+  schedule:
+    # Rebuild the complete history after US market close every day. Rebuilding
+    # all dates makes delayed or skipped GitHub schedules self-healing.
+    - cron: "30 23 * * *"
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Run only trusted code from main and publish only the generated history file
+# to the existing market-data branch. The shared concurrency group serializes
+# this writer with the intraday market-data refresh workflow.
+permissions:
+  contents: write
+
+concurrency:
+  group: qsf-market-data-refresh
+  cancel-in-progress: false
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Check out trusted updater from main
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          ref: main
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Test portfolio-history and quote-model logic
+        run: |
+          python -m unittest scripts/test_demo_portfolio_history.py
+          python -m unittest scripts/test_demo_quotes.py
+
+      - name: Prepare latest portfolio-history fallback
+        shell: bash
+        run: |
+          set -euo pipefail
+          cp data/demo-portfolio-history.json "$RUNNER_TEMP/demo-portfolio-history-fallback.json"
+          if git ls-remote --exit-code --heads origin market-data >/dev/null 2>&1; then
+            git fetch --no-tags origin refs/heads/market-data:refs/remotes/origin/market-data
+            if git show refs/remotes/origin/market-data:data/demo-portfolio-history.json > "$RUNNER_TEMP/demo-portfolio-history-remote.json" 2>/dev/null \
+              && python -m json.tool "$RUNNER_TEMP/demo-portfolio-history-remote.json" >/dev/null; then
+              cp "$RUNNER_TEMP/demo-portfolio-history-remote.json" "$RUNNER_TEMP/demo-portfolio-history-fallback.json"
+            fi
+          fi
+
+      - name: Build resilient portfolio history
+        run: |
+          python scripts/update_demo_portfolio_history.py \
+            --fallback "$RUNNER_TEMP/demo-portfolio-history-fallback.json" \
+            --output "$RUNNER_TEMP/demo-portfolio-history.json"
+
+      - name: Publish portfolio history to market-data branch
+        env:
+          PORTFOLIO_HISTORY_PATH: ${{ runner.temp }}/demo-portfolio-history.json
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "qsf-market-data-bot"
+          git config user.email "qsf-market-data-bot@users.noreply.github.com"
+
+          if git ls-remote --exit-code --heads origin market-data >/dev/null 2>&1; then
+            git fetch --no-tags origin refs/heads/market-data:refs/remotes/origin/market-data
+            git switch --detach refs/remotes/origin/market-data
+          else
+            git switch --orphan market-data
+            # Support Git versions that leave tracked files after an orphan
+            # switch while keeping the first generated snapshot minimal.
+            git rm -rf . >/dev/null 2>&1 || true
+          fi
+
+          mkdir -p data
+          cp "$PORTFOLIO_HISTORY_PATH" data/demo-portfolio-history.json
+          git add data/demo-portfolio-history.json
+
+          if git diff --cached --quiet; then
+            echo "Portfolio history has no new observation; nothing to publish."
+            exit 0
+          fi
+
+          git commit -m "data: refresh public portfolio history"
+          git push origin HEAD:refs/heads/market-data
