@@ -152,47 +152,14 @@ class OptionModelTests(unittest.TestCase):
         account = data["accounts"]["ahub"]
         positions = {position["instrument"]: position for position in account["positions"]}
 
+        self.assertEqual(account["cash"], 413.83)
+        self.assertEqual(positions["SGOV"]["quantity"], 3)
         self.assertEqual(positions["BULL"]["quantity"], 320)
         self.assertEqual(positions["BULL"]["basis_price"], 7.2)
         self.assertEqual(320 * 7.2, 2304.0)
         self.assertEqual(data["instruments"]["BULL"]["mark_mode"], "public_delayed")
         for instrument_id in positions:
             self.assertIn(instrument_id, data["instruments"])
-
-    def test_august_thirteenth_infq_sales_and_sgov_purchase(self) -> None:
-        repository = pathlib.Path(__file__).resolve().parents[1]
-        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
-        account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
-
-        infq_sale_proceeds = 3 * 100 * 1.10 + 5 * 100 * 2.42 + 15 * 100 * 2.43
-        sgov_purchase_cost = 51 * 100.53
-        net_cash_change = infq_sale_proceeds - sgov_purchase_cost
-        weighted_sgov_basis = (3 * 100.58 + sgov_purchase_cost) / 54
-
-        self.assertEqual(data["published_at"], "2026-08-13")
-        self.assertAlmostEqual(infq_sale_proceeds, 5185.0, places=2)
-        self.assertAlmostEqual(sgov_purchase_cost, 5127.03, places=2)
-        self.assertAlmostEqual(net_cash_change, 57.97, places=2)
-        self.assertAlmostEqual(account["cash"], 413.83 + net_cash_change, places=2)
-        self.assertEqual(positions["INFQ_C25_20270115"]["quantity"], 1)
-        self.assertNotIn("INFQ_C10_C17_5_20270115", positions)
-        self.assertEqual(positions["SGOV"]["quantity"], 54)
-        self.assertAlmostEqual(positions["SGOV"]["basis_price"], weighted_sgov_basis, places=10)
-        self.assertEqual(data["instruments"]["SGOV"]["mark_mode"], "public_delayed")
-        self.assertIn("SGOV", quotes.SYMBOLS)
-        self.assertNotIn("GOVT", positions)
-
-        update_note = account["cash_notes"][-1]
-        self.assertEqual(update_note["as_of"], "2026-08-13T10:00:00-05:00")
-        self.assertAlmostEqual(update_note["amount"], net_cash_change, places=2)
-
-        for instrument_id in positions:
-            instrument = data["instruments"][instrument_id]
-            if instrument["mark_mode"] == "public_delayed":
-                self.assertIn(instrument.get("quote_symbol", instrument_id), quotes.SYMBOLS)
-            elif instrument["mark_mode"] == "model_delayed":
-                self.assertIn(instrument.get("quote_symbol", instrument_id), quotes.OPTION_MODEL_SPECS)
 
 
 if __name__ == "__main__":

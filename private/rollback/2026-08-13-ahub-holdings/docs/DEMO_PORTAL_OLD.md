@@ -23,14 +23,6 @@ repository. They must never be reused for real investor accounts.
 - The August 4 test reallocation treats `$2,304` as the proceeds from selling
   23 of the original 26 SGOV shares and immediately purchases 320 BULL shares
   at `$7.20`. Three SGOV shares remain and scenario cash is unchanged.
-- The August 13, 10:00 a.m. CDT update sells three INFQ `$25` calls at `$1.10`,
-  five INFQ `$10/$17.50` call verticals at `$2.42`, and the remaining fifteen
-  verticals at `$2.43`. Gross proceeds are `$5,185.00`. It then purchases 51
-  SGOV shares at the interpreted `$100.53` price for `$5,127.03`; net proceeds
-  of `$57.97` increase the existing `$413.83` scenario cash to `$471.80`.
-  Together with the three existing shares, the account now holds 54 SGOV
-  shares at a `$100.5327777778` weighted basis. One INFQ `$25` call remains and
-  the vertical position is closed.
 - The INFQ call vertical uses the supplied `$1.37` net mark per option share
   and a 100x multiplier.
 - "JAN 27" is interpreted as January 2027. The seeded listed contracts are
@@ -46,8 +38,7 @@ repository. They must never be reused for real investor accounts.
 
 1. `data/demo-accounts.json` contains the published test portfolios.
 2. `scripts/update_demo_quotes.py` retrieves an allowlisted set of best-effort
-   delayed equity and ETF snapshots, including the SGOV holding and the BULL
-   and INFQ underliers.
+   delayed equity and ETF snapshots, including the BULL and INFQ underliers.
 3. `.github/workflows/refresh-market-data.yml` publishes those snapshots to
    `data/demo-quotes.json` on the `market-data` branch.
 4. The updater calculates the three seeded option strategy marks with a
