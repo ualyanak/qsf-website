@@ -244,7 +244,7 @@
       return { date: item.date, value: Number(item.value) };
     }).filter(function (item) { return Number.isFinite(item.value); });
     if (points.length < 2) {
-      page.drawText("Nightly account value history is not available yet.", { x: x + 18, y: y + height / 2, size: 9, font: fonts.regular, color: c(PDFLib, palette.muted) });
+      page.drawText("Insufficient scenario history for a chart.", { x: x + 18, y: y + height / 2, size: 9, font: fonts.regular, color: c(PDFLib, palette.muted) });
       return;
     }
     const values = points.map(function (point) { return point.value; });
@@ -314,14 +314,11 @@
         markName(holding.markQuality)
       ];
       values.forEach(function (value, index) {
-        const font = index === 0 ? fonts.bold : fonts.regular;
-        const rendered = truncate(font, value, 7.4, widths[index] - 10);
-        const numeric = index >= 1 && index <= 3;
-        page.drawText(rendered, {
-          x: numeric ? cursor + widths[index] - 5 - font.widthOfTextAtSize(rendered, 7.4) : cursor + 5,
+        page.drawText(truncate(index === 0 ? fonts.bold : fonts.regular, value, 7.4, widths[index] - 10), {
+          x: cursor + 5,
           y: y,
           size: 7.4,
-          font: font,
+          font: index === 0 ? fonts.bold : fonts.regular,
           color: c(PDFLib, index === 4 && !isCurrentAutomaticMark(holding.markQuality) ? palette.red : palette.ink)
         });
         cursor += widths[index];
@@ -433,7 +430,7 @@
     const cardWidth = (w - 76 - gap) / 2;
     drawMetric(page1, PDFLib, fonts, 38, h - 330, cardWidth, "Demo account value", money(view.nav, view.currency), palette.navy);
     drawMetric(page1, PDFLib, fonts, 38 + cardWidth + gap, h - 330, cardWidth, view.returnBasisLabel || "Illustrative return", percent(view.returnPct), view.returnPct >= 0 ? palette.green : palette.red);
-    drawMetric(page1, PDFLib, fonts, 38, h - 412, cardWidth, "Cash & Cash Equivalents", money(view.cashAndCashEquivalents == null ? view.cash : view.cashAndCashEquivalents, view.currency), palette.navy2);
+    drawMetric(page1, PDFLib, fonts, 38, h - 412, cardWidth, "Scenario cash", money(view.cash, view.currency), palette.navy2);
     drawMetric(page1, PDFLib, fonts, 38 + cardWidth + gap, h - 412, cardWidth, view.baselineLabel || "Published test baseline", money(view.openingNav, view.currency), palette.gold);
 
     drawAllocation(page1, PDFLib, fonts, view.allocation || [], 38, h - 454, w - 76);
@@ -451,11 +448,10 @@
     if (!chunks.length) chunks.push([]);
     chunks.forEach(function (rows, index) {
       const page = doc.addPage(A4);
-      drawTopRule(page, PDFLib, fonts, index === 0 ? "Holdings and nightly account value history" : "Holdings continued", safe(view.portfolioName, 70));
+      drawTopRule(page, PDFLib, fonts, index === 0 ? "Holdings and illustrative performance" : "Holdings continued", safe(view.portfolioName, 70));
       let tableY;
       if (index === 0) {
-        page.drawText("NIGHTLY ACCOUNT VALUE HISTORY", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-        page.drawText("Prior completed sessions plus today's live estimate from delayed public and model-derived marks.", { x: 38, y: 729, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) });
+        page.drawText("ILLUSTRATIVE ACCOUNT VALUE HISTORY", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
         drawPerformanceChart(page, PDFLib, fonts, view, 38, 565, page.getWidth() - 76, 160);
         page.drawText("PUBLIC TEST HOLDINGS", { x: 38, y: 541, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
         tableY = 526;

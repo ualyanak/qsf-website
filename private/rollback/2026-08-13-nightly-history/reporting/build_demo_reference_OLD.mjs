@@ -13,10 +13,6 @@ await import(path.join(repo, "assets/js/demo-pdf.js"));
 
 const data = JSON.parse(fs.readFileSync(path.join(repo, "data/demo-accounts.json"), "utf8"));
 const quoteSnapshot = JSON.parse(fs.readFileSync(path.join(repo, "data/demo-quotes.json"), "utf8"));
-const historyPath = path.join(repo, "data/demo-portfolio-history.json");
-const historySnapshot = fs.existsSync(historyPath)
-  ? JSON.parse(fs.readFileSync(historyPath, "utf8"))
-  : { schema_version: 1, demo: true, generated_at: null, accounts: {} };
 const accountId = process.argv[2] || "ahub";
 const account = data.accounts[accountId];
 if (!account) throw new Error("Unknown demo account: " + accountId);
@@ -51,7 +47,6 @@ const holdings = account.positions.map((position) => {
     symbol: instrument.symbol,
     name: instrument.name,
     assetClass: instrument.asset_class,
-    cashEquivalent: instrument.cash_equivalent === true,
     quantity: Number(position.quantity),
     multiplier: Number(instrument.multiplier || 1),
     price,
@@ -64,43 +59,20 @@ const holdings = account.positions.map((position) => {
 }).sort((a, b) => Math.abs(b.marketValue) - Math.abs(a.marketValue));
 
 const positionsValue = holdings.reduce((sum, holding) => sum + holding.marketValue, 0);
-const cashEquivalentMarketValue = holdings.reduce((sum, holding) => sum + (holding.cashEquivalent ? holding.marketValue : 0), 0);
-const cashAndCashEquivalents = Number(account.cash) + cashEquivalentMarketValue;
 const nav = Number(account.cash) + positionsValue;
 const groups = new Map();
-for (const holding of holdings) {
-  const group = holding.cashEquivalent ? "Cash & Cash Equivalents" : holding.assetClass;
-  groups.set(group, (groups.get(group) || 0) + Math.abs(holding.marketValue));
-}
-if (Number(account.cash) > 0) groups.set("Cash & Cash Equivalents", (groups.get("Cash & Cash Equivalents") || 0) + Number(account.cash));
+for (const holding of holdings) groups.set(holding.assetClass, (groups.get(holding.assetClass) || 0) + Math.abs(holding.marketValue));
+if (Number(account.cash) > 0) groups.set("Cash", (groups.get("Cash") || 0) + Number(account.cash));
 const gross = [...groups.values()].reduce((sum, value) => sum + value, 0);
 const allocation = [...groups.entries()]
   .map(([name, value]) => ({ name, value, percent: gross ? value / gross * 100 : 0 }))
   .sort((a, b) => b.value - a.value);
 
-const today = new Date().toISOString().slice(0, 10);
-const historyByDate = new Map();
-for (const point of account.history || []) {
-  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date < today && Number.isFinite(Number(point.value))) {
-    historyByDate.set(point.date, { date: point.date, value: Number(point.value), kind: point.kind || "published_test" });
-  }
-}
-const packagedAccountHistory = historySnapshot.accounts && historySnapshot.accounts[accountId];
-const packagedPoints = Array.isArray(packagedAccountHistory)
-  ? packagedAccountHistory
-  : packagedAccountHistory && Array.isArray(packagedAccountHistory.points)
-    ? packagedAccountHistory.points
-    : packagedAccountHistory && Array.isArray(packagedAccountHistory.history)
-      ? packagedAccountHistory.history
-      : [];
-for (const point of packagedPoints) {
-  const value = Number(point.value == null ? point.nav : point.value);
-  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date < today && Number.isFinite(value)) {
-    historyByDate.set(point.date, { date: point.date, value, kind: point.kind || "nightly_close" });
-  }
-}
-historyByDate.set(today, { date: today, value: nav, kind: "live_delayed_marks" });
-const history = [...historyByDate.values()].sort((left, right) => left.date.localeCompare(right.date));
+const history = [...account.history, {
+  date: new Date().toISOString().slice(0, 10),
+  value: nav,
+  kind: "reference_render"
+}];
 
 const view = {
   demo: true,
@@ -114,16 +86,12 @@ const view = {
   returnBasisLabel: account.return_basis_label || "Illustrative return",
   returnBasisNote: account.return_basis_note || null,
   cash: Number(account.cash),
-  cashEquivalentMarketValue,
-  cashAndCashEquivalents,
   nav,
   returnPct: (nav / Number(account.opening_nav) - 1) * 100,
   positionsValue,
   holdings,
   allocation,
   history,
-  historySnapshotGeneratedAt: historySnapshot.generated_at || null,
-  historyStatus: packagedPoints.length ? "ready" : "formation-fallback",
   latestMarkAsOf: holdings.map((item) => item.markAsOf).filter(Boolean).sort().at(-1) || null,
   quoteSnapshotGeneratedAt: quoteSnapshot.generated_at,
   staleCount: holdings.filter((item) => !["public_delayed", "model_delayed"].includes(item.markQuality)).length,

@@ -20,20 +20,20 @@
           "date": "2026-07-20",
           "amount": 24.0,
           "kind": "illustrative_realized_pnl",
-          "note": "User-provided test adjustment added to the cash balance."
+          "note": "User-provided test adjustment added to scenario cash."
         },
         {
           "date": "2026-08-04",
           "amount": 0.0,
           "kind": "illustrative_reallocation",
-          "note": "User-provided test reallocation: proceeds from 23 SGOV shares ($2,304 total) were used immediately to purchase 320 BULL shares at $7.20. Three SGOV shares remain and the cash balance is unchanged."
+          "note": "User-provided test reallocation: proceeds from 23 SGOV shares ($2,304 total) were used immediately to purchase 320 BULL shares at $7.20. Three SGOV shares remain and scenario cash is unchanged."
         },
         {
           "date": "2026-08-13",
           "as_of": "2026-08-13T10:00:00-05:00",
           "amount": 57.97,
           "kind": "illustrative_trade_update",
-          "note": "User-provided 10:00 a.m. CDT test update: sold three INFQ $25 calls at $1.10 and all twenty INFQ $10/$17.50 call verticals (five at $2.42 and fifteen at $2.43) for $5,185.00 total proceeds; purchased 51 SGOV shares at the interpreted $100.53 price for $5,127.03; net proceeds of $57.97 were added to the existing $413.83 cash balance."
+          "note": "User-provided 10:00 a.m. CDT test update: sold three INFQ $25 calls at $1.10 and all twenty INFQ $10/$17.50 call verticals (five at $2.42 and fifteen at $2.43) for $5,185.00 total proceeds; purchased 51 SGOV shares at the interpreted $100.53 price for $5,127.03; net proceeds of $57.97 were added to the existing $413.83 scenario cash."
         }
       ],
       "positions": [
@@ -52,7 +52,8 @@
         { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
       ],
       "history": [
-        { "date": "2026-07-17", "value": 9900.0, "kind": "published_test_baseline" }
+        { "date": "2026-07-17", "value": 9900.0, "kind": "published_test_baseline" },
+        { "date": "2026-07-20", "value": 9924.0, "kind": "illustrative_cash_adjustment" }
       ]
     },
     "chue": {
@@ -73,7 +74,7 @@
     }
   },
   "instruments": {
-    "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "cash_equivalent": true, "multiplier": 1, "mark_mode": "public_delayed" },
+    "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "multiplier": 1, "mark_mode": "public_delayed" },
     "BULL": { "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "asset_class": "Financial Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "BULL_P10_JAN2027": { "symbol": "BULL Jan 15 2027 $10 Put", "quote_symbol": "BULL_P10_JAN2027", "option_symbol": "BULL270115P00010000", "underlying_symbol": "BULL", "expiry": "2027-01-15", "name": "Short one BULL $10 put", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 3.16, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
     "IBM": { "symbol": "IBM", "name": "International Business Machines", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },

@@ -12,10 +12,6 @@ window.QSF_PORTAL_CONFIG = Object.freeze({
     "https://raw.githubusercontent.com/ualyanak/qsf-website/market-data/data/demo-quotes.json",
     "../data/demo-quotes.json"
   ],
-  demoHistoryUrls: [
-    "https://raw.githubusercontent.com/ualyanak/qsf-website/market-data/data/demo-portfolio-history.json",
-    "../data/demo-portfolio-history.json"
-  ],
   demoSessionKey: "qsf.publicDemo.session.v1",
   demoStoragePrefix: "qsf.publicDemo.account.",
   enabled: false,

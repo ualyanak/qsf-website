@@ -5,7 +5,6 @@
     mode: "public-demo",
     demoDataUrl: "../data/demo-accounts.json",
     demoQuoteUrls: ["../data/demo-quotes.json"],
-    demoHistoryUrls: ["../data/demo-portfolio-history.json"],
     demoSessionKey: "qsf.publicDemo.session.v1",
     demoStoragePrefix: "qsf.publicDemo.account."
   }, root.QSF_PORTAL_CONFIG || {});
@@ -17,8 +16,6 @@
   const state = {
     data: null,
     quotes: null,
-    history: null,
-    historyStatus: "idle",
     accountId: null,
     account: null,
     local: null,
@@ -222,90 +219,6 @@
     }
     state.quotes = { demo: true, generated_at: null, quotes: {}, failures: ["quote_snapshot_unavailable"] };
     return state.quotes;
-  }
-
-  function normalizeHistoryPayload(payload) {
-    if (!payload || payload.demo !== true || !payload.accounts || typeof payload.accounts !== "object") return null;
-    const accounts = {};
-    Object.entries(payload.accounts).forEach(function (entry) {
-      const accountId = safeString(entry[0], 48).toLowerCase();
-      const account = entry[1];
-      const sourcePoints = Array.isArray(account)
-        ? account
-        : account && Array.isArray(account.points)
-          ? account.points
-          : account && Array.isArray(account.history)
-            ? account.history
-            : [];
-      const points = sourcePoints.map(function (point) {
-        const date = safeString(point && point.date, 10);
-        const value = finite(point && (point.value != null ? point.value : point.nav));
-        if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || value == null) return null;
-        return {
-          date: date,
-          value: value,
-          kind: safeString(point && point.kind || "nightly_close", 48),
-          valuationAsOf: safeString(point && point.valuation_as_of, 40) || null,
-          source: safeString(point && point.source || "Nightly published account value", 120),
-          quality: safeString(point && point.quality || "historical_close", 48)
-        };
-      }).filter(Boolean);
-      if (accountId) accounts[accountId] = { points: points };
-    });
-    return {
-      schema_version: Number(payload.schema_version || 1),
-      demo: true,
-      generated_at: safeString(payload.generated_at, 40) || null,
-      accounts: accounts
-    };
-  }
-
-  async function loadHistory(force) {
-    if (state.history && !force) return state.history;
-    state.historyStatus = "loading";
-    const urls = Array.isArray(config.demoHistoryUrls) ? config.demoHistoryUrls : ["../data/demo-portfolio-history.json"];
-    const candidates = state.history ? [state.history] : [];
-    for (const url of urls) {
-      try {
-        const normalized = normalizeHistoryPayload(await fetchJson(url));
-        if (normalized) candidates.push(normalized);
-      } catch (_error) {
-        /* Try the packaged fallback next, or retain the previous snapshot. */
-      }
-    }
-    if (!candidates.length) {
-      state.history = { schema_version: 1, demo: true, generated_at: null, accounts: {} };
-      state.historyStatus = "formation-fallback";
-      return state.history;
-    }
-
-    const ordered = candidates.slice().sort(function (left, right) {
-      return timestampRank(left.generated_at) - timestampRank(right.generated_at);
-    });
-    const merged = {};
-    ordered.forEach(function (snapshot) {
-      Object.entries(snapshot.accounts || {}).forEach(function (entry) {
-        const accountId = entry[0];
-        const points = entry[1] && Array.isArray(entry[1].points) ? entry[1].points : [];
-        if (!merged[accountId]) merged[accountId] = new Map();
-        points.forEach(function (point) { merged[accountId].set(point.date, point); });
-      });
-    });
-    const accounts = {};
-    Object.entries(merged).forEach(function (entry) {
-      accounts[entry[0]] = { points: Array.from(entry[1].values()).sort(function (a, b) { return a.date.localeCompare(b.date); }) };
-    });
-    const newest = ordered[ordered.length - 1];
-    state.history = {
-      schema_version: 1,
-      demo: true,
-      generated_at: newest.generated_at,
-      accounts: accounts
-    };
-    state.historyStatus = Object.values(accounts).some(function (account) { return account.points.length > 0; })
-      ? "ready"
-      : "formation-fallback";
-    return state.history;
   }
 
   function saveSession(accountId) {
@@ -513,7 +426,6 @@
         symbol: instrument.symbol || id,
         name: instrument.name || "",
         assetClass: instrument.asset_class || "Other",
-        cashEquivalent: instrument.cash_equivalent === true,
         quantity: quantity,
         multiplier: multiplier,
         price: Number(mark.price || 0),
@@ -526,36 +438,26 @@
     });
 
     holdings.sort(function (a, b) { return Math.abs(b.marketValue) - Math.abs(a.marketValue); });
-    const cashEquivalentMarketValue = holdings.reduce(function (sum, holding) {
-      return sum + (holding.cashEquivalent ? holding.marketValue : 0);
-    }, 0);
-    const cashAndCashEquivalents = cash + cashEquivalentMarketValue;
     const nav = cash + positionsValue;
     const openingNav = Number(account.opening_nav);
     const returnPct = openingNav ? (nav / openingNav - 1) * 100 : null;
     const grossGroups = new Map();
     holdings.forEach(function (holding) {
-      const group = holding.cashEquivalent ? "Cash & Cash Equivalents" : holding.assetClass;
-      grossGroups.set(group, (grossGroups.get(group) || 0) + Math.abs(holding.marketValue));
+      grossGroups.set(holding.assetClass, (grossGroups.get(holding.assetClass) || 0) + Math.abs(holding.marketValue));
     });
-    if (cash > 0) grossGroups.set("Cash & Cash Equivalents", (grossGroups.get("Cash & Cash Equivalents") || 0) + cash);
+    if (cash > 0) grossGroups.set("Cash", (grossGroups.get("Cash") || 0) + cash);
     const allocationTotal = Array.from(grossGroups.values()).reduce(function (sum, value) { return sum + value; }, 0);
     const allocation = Array.from(grossGroups.entries()).map(function (entry) {
       return { name: entry[0], value: entry[1], percent: allocationTotal ? entry[1] / allocationTotal * 100 : 0 };
     }).sort(function (a, b) { return b.value - a.value; });
 
-    const today = todayKey();
     const historyByDate = new Map();
     (account.history || []).forEach(function (point) {
-      if (point && /^\d{4}-\d{2}-\d{2}$/.test(point.date) && point.date < today && finite(point.value) != null) {
+      if (point && /^\d{4}-\d{2}-\d{2}$/.test(point.date) && finite(point.value) != null) {
         historyByDate.set(point.date, { date: point.date, value: Number(point.value), kind: point.kind || "published_test" });
       }
     });
-    const publishedHistory = state.history && state.history.accounts && state.history.accounts[accountId];
-    (publishedHistory && publishedHistory.points || []).forEach(function (point) {
-      if (point && point.date < today && finite(point.value) != null) historyByDate.set(point.date, point);
-    });
-    historyByDate.set(today, { date: today, value: nav, kind: local.modifiedAt ? "local_scenario" : "live_delayed_marks" });
+    historyByDate.set(todayKey(), { date: todayKey(), value: nav, kind: local.modifiedAt ? "local_scenario" : "latest_marks" });
     const history = Array.from(historyByDate.values()).sort(function (a, b) { return a.date.localeCompare(b.date); });
     const staleCount = holdings.filter(function (holding) {
       return !["public_delayed", "model_delayed"].includes(holding.markQuality);
@@ -573,16 +475,12 @@
       returnBasisLabel: account.return_basis_label || "Illustrative return",
       returnBasisNote: account.return_basis_note || ("From " + formatCurrency(openingNav, account.currency || "USD") + " test baseline"),
       cash: cash,
-      cashEquivalentMarketValue: cashEquivalentMarketValue,
-      cashAndCashEquivalents: cashAndCashEquivalents,
       nav: nav,
       returnPct: returnPct,
       positionsValue: positionsValue,
       holdings: holdings,
       allocation: allocation,
       history: history,
-      historySnapshotGeneratedAt: state.history && state.history.generated_at,
-      historyStatus: state.historyStatus,
       latestMarkAsOf: latestMarkDate ? latestMarkDate.toISOString() : null,
       quoteSnapshotGeneratedAt: state.quotes && state.quotes.generated_at,
       staleCount: staleCount,
@@ -612,20 +510,20 @@
     const shell = byId("performance-chart");
     if (!shell || !Array.isArray(history)) return;
     const points = history.map(function (item) {
-      return { date: parseDate(item.date), value: Number(item.value), kind: item.kind || "nightly_close" };
+      return { date: parseDate(item.date), value: Number(item.value) };
     }).filter(function (item) { return item.date && Number.isFinite(item.value); });
     if (points.length < 2) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       const title = document.createElement("strong");
-      title.textContent = "Nightly history is not available yet";
+      title.textContent = "No dated performance history yet";
       const note = document.createElement("span");
-      note.textContent = "The latest live estimate will be joined to prior completed-session values when they are available.";
+      note.textContent = "The supplied cost basis has no acquisition date, so it is not plotted as a dated return.";
       empty.append(title, note);
       shell.replaceChildren(empty);
-      shell.setAttribute("aria-label", "Nightly account value history is not yet available for this demonstration portfolio.");
-      setText("chart-start", "Nightly history pending");
-      setText("chart-end", points.length ? "Today · live estimate " + formatCurrency(points[0].value, currency) : "Today · live estimate —");
+      shell.setAttribute("aria-label", "No dated performance history is available for this demonstration portfolio.");
+      setText("chart-start", "Dated history pending");
+      setText("chart-end", points.length ? "Latest " + formatCurrency(points[0].value, currency) : "Latest —");
       return;
     }
     const width = 900;
@@ -668,9 +566,9 @@
     dot.setAttribute("stroke-width", "3");
     svg.append(area, line, dot);
     shell.replaceChildren(svg);
-    shell.setAttribute("aria-label", "Nightly account value history from " + formatDate(points[0].date) + " through prior completed sessions, followed by today's live estimate from delayed marks, ending at " + formatCurrency(points[points.length - 1].value, currency));
+    shell.setAttribute("aria-label", "Illustrative value from " + formatDate(points[0].date) + " to " + formatDate(points[points.length - 1].date) + ", ending at " + formatCurrency(points[points.length - 1].value, currency));
     setText("chart-start", "Start " + formatDate(points[0].date));
-    setText("chart-end", "Today · live estimate " + formatCurrency(points[points.length - 1].value, currency));
+    setText("chart-end", "Latest " + formatCurrency(points[points.length - 1].value, currency));
   }
 
   function renderAllocation(view) {
@@ -753,7 +651,7 @@
     setText("metric-return-label", view.returnBasisLabel);
     setText("metric-return", formatPercent(view.returnPct));
     setText("metric-inception", view.returnBasisNote);
-    setText("metric-cash", formatCurrency(view.cashAndCashEquivalents, view.currency));
+    setText("metric-cash", formatCurrency(view.cash, view.currency));
     setText("metric-quote-age", view.latestMarkAsOf ? formatDate(view.latestMarkAsOf, true) : "Fallback marks");
     setText("portfolio-as-of", "Calculated " + formatDate(view.generatedAt, true) + (view.staleCount
       ? " from the latest available automatic, manual, and fallback marks."
@@ -815,7 +713,7 @@
       routeToLogin();
       return false;
     }
-    await Promise.all([loadData(), loadQuotes(), loadHistory()]);
+    await Promise.all([loadData(), loadQuotes()]);
     if (!state.data.accounts[session.accountId]) {
       clearSession();
       routeToLogin();
@@ -843,9 +741,9 @@
     if (!button || !state.view || !root.QSFDemoPdf) return;
     button.disabled = true;
     button.setAttribute("aria-busy", "true");
-    setMessage("report-message", "Refreshing public marks and nightly history before building the demonstration PDF…");
+    setMessage("report-message", "Refreshing public marks before building the demonstration PDF…");
     try {
-      await Promise.all([loadQuotes(true), loadHistory(true)]);
+      await loadQuotes(true);
       renderDashboard(derivePortfolio(state.accountId));
       setMessage("report-message", "Building the demonstration PDF in this browser…");
       const result = await root.QSFDemoPdf.download(state.view, "../assets/images/qsf-mark.png");
@@ -883,10 +781,10 @@
     reportButton.addEventListener("click", generateReport);
     root.setInterval(async function () {
       try {
-        await Promise.all([loadQuotes(true), loadHistory(true)]);
+        await loadQuotes(true);
         renderDashboard(derivePortfolio(state.accountId));
       } catch (_error) {
-        setStatus("error", "The scheduled public-data check could not complete. Displayed timestamps remain authoritative.");
+        setStatus("error", "The scheduled public-mark check could not complete. Displayed timestamps remain authoritative.");
       }
     }, QUOTE_REFRESH_INTERVAL_MS);
   }
@@ -905,7 +803,7 @@
     }
     const signed = side === "sell" ? -quantity : quantity;
     const cashEffect = -(signed * price * multiplier) - fees;
-    node.textContent = (cashEffect >= 0 ? "+" : "") + formatCurrency(cashEffect, "USD") + " cash balance impact";
+    node.textContent = (cashEffect >= 0 ? "+" : "") + formatCurrency(cashEffect, "USD") + " scenario cash";
   }
 
   function setInstrumentDefaults() {
@@ -974,7 +872,7 @@
     setText("editor-title", view.portfolioName + " · local scenario");
     setText("operator-role", view.accountId + " public demo");
     setText("editor-nav", formatCurrency(view.nav, view.currency));
-    setText("editor-cash", formatCurrency(view.cashAndCashEquivalents, view.currency));
+    setText("editor-cash", formatCurrency(view.cash, view.currency));
     setText("editor-modified", view.modifiedAt ? formatDate(view.modifiedAt, true) : "Published sample");
     setText("scenario-state", view.modifiedAt ? "Locally modified" : "Published sample");
     renderEventTable();
@@ -1265,10 +1163,10 @@
     attachEditorEvents();
     root.setInterval(async function () {
       try {
-        await Promise.all([loadQuotes(true), loadHistory(true)]);
+        await loadQuotes(true);
         renderEditor();
       } catch (_error) {
-        setStatus("error", "The scheduled public-data check could not complete. Displayed timestamps remain authoritative.");
+        setStatus("error", "The scheduled public-mark check could not complete. Displayed timestamps remain authoritative.");
       }
     }, QUOTE_REFRESH_INTERVAL_MS);
   }

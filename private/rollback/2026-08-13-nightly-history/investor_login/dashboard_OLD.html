@@ -9,9 +9,9 @@
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
   <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo8">
   <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
-  <script defer src="../assets/js/portal-config.js?v=20260813-history1"></script>
-  <script defer src="../assets/js/demo-pdf.js?v=20260813-history1"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260813-history1"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260721-demo8"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260721-demo8"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260721-demo8"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
   <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
@@ -35,7 +35,7 @@
 
   <div id="portal-status" class="system-banner is-pending" role="status" aria-live="polite">
     <span class="status-dot" aria-hidden="true"></span>
-    <span data-status-text>Loading published test data, nightly history, and delayed marks…</span>
+    <span data-status-text>Loading published test data and delayed marks…</span>
   </div>
 
   <main id="dashboard-main" class="dashboard-layout">
@@ -60,9 +60,9 @@
         <span id="metric-inception">Since the test baseline</span>
       </article>
       <article class="metric-card">
-        <p>Cash &amp; Cash Equivalents</p>
+        <p>Scenario cash</p>
         <strong id="metric-cash">—</strong>
-        <span>Cash balance plus marked SGOV holdings</span>
+        <span>Includes local scenario events</span>
       </article>
       <article class="metric-card">
         <p>Latest mark</p>
@@ -75,22 +75,21 @@
       <article class="panel performance-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Illustrative account value</p>
-            <h2>Nightly account value history</h2>
+            <p class="eyebrow">Illustrative performance</p>
+            <h2>Demo account value history</h2>
           </div>
-          <span class="data-badge">Nightly history + live point</span>
+          <span class="data-badge">Device-local estimate</span>
         </div>
-        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading nightly account value history and today's live delayed estimate">
+        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading illustrative account value history">
           <div class="empty-state">
-            <strong>Loading nightly account value history</strong>
-            <span>Prior completed sessions and today's live estimate will appear here.</span>
+            <strong>Building the scenario chart</strong>
+            <span>Published baselines and the latest marks will appear here.</span>
           </div>
         </div>
         <div class="chart-footnote">
           <span id="chart-start">Start —</span>
           <span id="chart-end">Latest —</span>
         </div>
-        <p class="table-note">Nightly points cover prior completed sessions. Today's endpoint is recalculated from the latest available delayed public marks and automatic option estimates.</p>
       </article>
 
       <article class="panel allocation-panel">
@@ -140,7 +139,6 @@
         <ul class="plain-list">
           <li>Equity and ETF prices use best-effort public delayed snapshots when available.</li>
           <li>Seeded option values update automatically from delayed BULL/INFQ prices and time decay; they are model estimates, not exchange quotes.</li>
-          <li>Historical points are nightly estimates for completed sessions; today's endpoint remains a live estimate from the latest available delayed marks.</li>
           <li>Figures are illustrative and are not official NAV, AUM, performance, or accounting records.</li>
           <li>Local edits are simulations, not trades, orders, or broker instructions.</li>
         </ul>

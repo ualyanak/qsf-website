@@ -1,0 +1,94 @@
+{
+  "schema_version": 1,
+  "demo": true,
+  "account_id": "ahub",
+  "currency": "USD",
+  "market_timezone": "America/New_York",
+  "notice": "PUBLIC DEMONSTRATION ONLY. This ledger contains intentionally public synthetic test data and is not an official investor record.",
+  "formation": {
+    "as_of": "2026-07-17T09:30:00-04:00",
+    "nav": 9900.0,
+    "cash": 389.83,
+    "positions": [
+      { "instrument": "SGOV", "quantity": 26, "basis_price": 100.58 },
+      { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
+      { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
+      { "instrument": "INFQ_C25_20270115", "quantity": 4, "basis_price": 0.75 },
+      { "instrument": "INFQ_C10_C17_5_20270115", "quantity": 20, "basis_price": 1.37 },
+      { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
+      { "instrument": "NVDA", "quantity": 1, "basis_price": 205.28 },
+      { "instrument": "PHYS", "quantity": 15, "basis_price": 30.31 },
+      { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
+      { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
+      { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
+      { "instrument": "TSSI", "quantity": 30, "basis_price": 9.94 },
+      { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
+    ]
+  },
+  "events": [
+    {
+      "id": "2026-07-20-cash-adjustment",
+      "kind": "cash_adjustment",
+      "effective_at": "2026-07-20T09:30:00-04:00",
+      "amount": 24.0,
+      "note": "User-provided illustrative realized-profit adjustment."
+    },
+    {
+      "id": "2026-08-04-sgov-to-bull",
+      "kind": "trade",
+      "effective_date": "2026-08-04",
+      "timing": "before_close",
+      "note": "Date-only user update; apply all legs before the August 4 close.",
+      "legs": [
+        { "instrument": "SGOV", "signed_quantity": -23, "price": 100.17391304347827 },
+        { "instrument": "BULL", "signed_quantity": 320, "price": 7.2 }
+      ]
+    },
+    {
+      "id": "2026-08-13-infq-sales-and-sgov-purchase",
+      "kind": "trade",
+      "effective_at": "2026-08-13T10:00:00-05:00",
+      "note": "User-provided 10:00 a.m. CDT update; gross INFQ proceeds are $5,185.00 and the 51-share SGOV purchase costs $5,127.03.",
+      "legs": [
+        { "instrument": "INFQ_C25_20270115", "signed_quantity": -3, "price": 1.1 },
+        { "instrument": "INFQ_C10_C17_5_20270115", "signed_quantity": -5, "price": 2.42 },
+        { "instrument": "INFQ_C10_C17_5_20270115", "signed_quantity": -15, "price": 2.43 },
+        { "instrument": "SGOV", "signed_quantity": 51, "price": 100.53 }
+      ]
+    }
+  ],
+  "instruments": {
+    "SGOV": { "kind": "equity", "symbol": "SGOV", "multiplier": 1 },
+    "BULL": { "kind": "equity", "symbol": "BULL", "multiplier": 1 },
+    "BULL_P10_JAN2027": { "kind": "option_model", "model_spec_id": "BULL_P10_JAN2027", "underlying": "BULL", "multiplier": 100 },
+    "IBM": { "kind": "equity", "symbol": "IBM", "multiplier": 1 },
+    "INFQ_C25_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C25_20270115", "underlying": "INFQ", "multiplier": 100 },
+    "INFQ_C10_C17_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_C17_5_20270115", "underlying": "INFQ", "multiplier": 100 },
+    "IVR": { "kind": "equity", "symbol": "IVR", "multiplier": 1 },
+    "NVDA": { "kind": "equity", "symbol": "NVDA", "multiplier": 1 },
+    "PHYS": { "kind": "equity", "symbol": "PHYS", "multiplier": 1 },
+    "PLTR": { "kind": "equity", "symbol": "PLTR", "multiplier": 1 },
+    "QBTS": { "kind": "equity", "symbol": "QBTS", "multiplier": 1 },
+    "SPY": { "kind": "equity", "symbol": "SPY", "multiplier": 1 },
+    "TSSI": { "kind": "equity", "symbol": "TSSI", "multiplier": 1 },
+    "WMT": { "kind": "equity", "symbol": "WMT", "multiplier": 1 }
+  },
+  "expected_current_snapshot": {
+    "cash": 471.8,
+    "positions": {
+      "SGOV": 54,
+      "BULL": 320,
+      "BULL_P10_JAN2027": -1,
+      "IBM": 1,
+      "INFQ_C25_20270115": 1,
+      "IVR": 100,
+      "NVDA": 1,
+      "PHYS": 15,
+      "PLTR": 4,
+      "QBTS": 20,
+      "SPY": 1,
+      "TSSI": 30,
+      "WMT": 5
+    }
+  }
+}
