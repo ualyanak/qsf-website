@@ -230,68 +230,6 @@
     });
   }
 
-  function parseChartDate(value) {
-    const text = String(value == null ? "" : value);
-    const dateOnly = /^(\d{4})-(\d{2})-(\d{2})$/.exec(text);
-    const date = dateOnly
-      ? new Date(Date.UTC(Number(dateOnly[1]), Number(dateOnly[2]) - 1, Number(dateOnly[3]), 12))
-      : new Date(value);
-    return Number.isNaN(date.getTime()) ? null : date;
-  }
-
-  function formatChartDate(date, includeYear) {
-    const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const label = months[date.getUTCMonth()] + " " + date.getUTCDate();
-    return includeYear ? label + " '" + String(date.getUTCFullYear()).slice(-2) : label;
-  }
-
-  function formatAxisMoney(value, currency) {
-    return new Intl.NumberFormat("en-US", {
-      style: "currency",
-      currency: currency || "USD",
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0
-    }).format(value);
-  }
-
-  function chartTickIndexes(length, maximum) {
-    if (length <= 0 || maximum <= 0) return [];
-    const count = Math.min(length, maximum);
-    if (count === 1) return [0];
-    const indexes = [];
-    for (let tick = 0; tick < count; tick += 1) {
-      const index = Math.round(tick * (length - 1) / (count - 1));
-      if (indexes[indexes.length - 1] !== index) indexes.push(index);
-    }
-    return indexes;
-  }
-
-  function niceChartStep(value) {
-    if (!(value > 0) || !Number.isFinite(value)) return 1;
-    const power = Math.pow(10, Math.floor(Math.log10(value)));
-    const scaled = value / power;
-    const factors = [1, 2, 2.5, 5, 10];
-    const factor = factors.find(function (candidate) { return candidate >= scaled - 1e-10; }) || 10;
-    return factor * power;
-  }
-
-  function chartAxis(values) {
-    const dataMin = Math.min.apply(null, values);
-    const dataMax = Math.max.apply(null, values);
-    const targetMin = Math.min(9000, dataMin);
-    const targetMax = Math.max(9000, dataMax);
-    const intervalCount = 5;
-    let step = niceChartStep((targetMax - targetMin) / intervalCount || Math.max(1, Math.abs(targetMax) * 0.01));
-    let min = dataMin >= 9000 ? 9000 : Math.floor(dataMin / step) * step;
-    let max = min + intervalCount * step;
-    while (max < targetMax - 1e-8) {
-      step = niceChartStep(step * 1.000001);
-      min = dataMin >= 9000 ? 9000 : Math.floor(dataMin / step) * step;
-      max = min + intervalCount * step;
-    }
-    return { min: min, max: max, step: step, intervalCount: intervalCount };
-  }
-
   function drawPerformanceChart(page, PDFLib, fonts, view, x, y, width, height) {
     page.drawRectangle({
       x: x,
@@ -302,99 +240,44 @@
       borderColor: c(PDFLib, palette.line),
       color: c(PDFLib, palette.white)
     });
-    const pointMap = new Map();
-    (view.history || []).forEach(function (item) {
-      const date = parseChartDate(item && item.date);
-      const value = Number(item && item.value);
-      if (date && Number.isFinite(value)) {
-        pointMap.set(String(item.date).slice(0, 10), { date: date, value: value });
-      }
-    });
-    const points = Array.from(pointMap.values()).sort(function (left, right) { return left.date - right.date; });
+    const points = (view.history || []).map(function (item) {
+      return { date: item.date, value: Number(item.value) };
+    }).filter(function (item) { return Number.isFinite(item.value); });
     if (points.length < 2) {
       page.drawText("Nightly account value history is not available yet.", { x: x + 18, y: y + height / 2, size: 9, font: fonts.regular, color: c(PDFLib, palette.muted) });
       return;
     }
     const values = points.map(function (point) { return point.value; });
-    const axis = chartAxis(values);
-    const pad = { left: 52, right: 18, top: 27, bottom: 32 };
-    const plotWidth = width - pad.left - pad.right;
-    const plotHeight = height - pad.top - pad.bottom;
-    const firstTime = points[0].date.getTime();
-    const lastTime = points[points.length - 1].date.getTime();
-    const timeSpan = Math.max(1, lastTime - firstTime);
-    const px = function (point) { return x + pad.left + (point.date.getTime() - firstTime) / timeSpan * plotWidth; };
-    const py = function (value) { return y + pad.bottom + (value - axis.min) / (axis.max - axis.min) * plotHeight; };
-
-    for (let tick = 0; tick <= axis.intervalCount; tick += 1) {
-      const value = axis.min + tick * axis.step;
-      const gy = py(value);
-      page.drawLine({
-        start: { x: x + pad.left, y: gy },
-        end: { x: x + width - pad.right, y: gy },
-        thickness: tick === 0 ? 0.7 : 0.35,
-        color: c(PDFLib, tick === 0 ? [0.63, 0.68, 0.72] : palette.line)
-      });
-      const label = formatAxisMoney(value, view.currency);
-      page.drawText(label, {
-        x: x + pad.left - 7 - textWidth(fonts.regular, label, 6.5),
-        y: gy - 2.3,
-        size: 6.5,
-        font: fonts.regular,
-        color: c(PDFLib, palette.muted)
-      });
-    }
-    page.drawLine({
-      start: { x: x + pad.left, y: y + pad.bottom },
-      end: { x: x + pad.left, y: y + height - pad.top },
-      thickness: 0.7,
-      color: c(PDFLib, [0.55, 0.61, 0.66])
+    let min = Math.min.apply(null, values);
+    let max = Math.max.apply(null, values);
+    if (min === max) { min -= 1; max += 1; }
+    const spread = max - min || 1;
+    min -= spread * 0.1;
+    max += spread * 0.1;
+    const pad = { left: 34, right: 18, top: 24, bottom: 30 };
+    const px = function (index) { return x + pad.left + index * ((width - pad.left - pad.right) / (points.length - 1)); };
+    const py = function (value) { return y + pad.bottom + (value - min) * ((height - pad.top - pad.bottom) / (max - min)); };
+    [0, 0.5, 1].forEach(function (ratio) {
+      const gy = y + pad.bottom + ratio * (height - pad.top - pad.bottom);
+      page.drawLine({ start: { x: x + pad.left, y: gy }, end: { x: x + width - pad.right, y: gy }, thickness: 0.4, color: c(PDFLib, palette.line) });
     });
-
-    const includeYear = points[0].date.getUTCFullYear() !== points[points.length - 1].date.getUTCFullYear();
-    const xIndexes = chartTickIndexes(points.length, 7);
-    xIndexes.forEach(function (index, tick) {
-      const gx = px(points[index]);
-      page.drawLine({
-        start: { x: gx, y: y + pad.bottom },
-        end: { x: gx, y: y + pad.bottom - 4 },
-        thickness: 0.55,
-        color: c(PDFLib, [0.55, 0.61, 0.66])
-      });
-      const label = formatChartDate(points[index].date, includeYear);
-      const labelWidth = textWidth(fonts.regular, label, 6.4);
-      const labelX = tick === 0 ? gx : tick === xIndexes.length - 1 ? gx - labelWidth : gx - labelWidth / 2;
-      page.drawText(label, { x: labelX, y: y + 11, size: 6.4, font: fonts.regular, color: c(PDFLib, palette.muted) });
-    });
-
-    const axisTitle = "ACCOUNT VALUE (" + (view.currency || "USD") + ")";
-    page.drawText(axisTitle, { x: x + pad.left, y: y + height - 15, size: 6.5, font: fonts.bold, color: c(PDFLib, palette.muted) });
-    const latest = "LATEST " + money(points[points.length - 1].value, view.currency);
-    page.drawText(latest, {
-      x: x + width - pad.right - textWidth(fonts.bold, latest, 6.7),
-      y: y + height - 15,
-      size: 6.7,
-      font: fonts.bold,
-      color: c(PDFLib, palette.navy)
-    });
-
     for (let index = 1; index < points.length; index += 1) {
       page.drawLine({
-        start: { x: px(points[index - 1]), y: py(points[index - 1].value) },
-        end: { x: px(points[index]), y: py(points[index].value) },
+        start: { x: px(index - 1), y: py(points[index - 1].value) },
+        end: { x: px(index), y: py(points[index].value) },
         thickness: 2.1,
         color: c(PDFLib, palette.navy)
       });
     }
-    const finalPoint = points[points.length - 1];
-    page.drawCircle({
-      x: px(finalPoint),
-      y: py(finalPoint.value),
-      size: 3.8,
-      color: c(PDFLib, palette.gold),
-      borderColor: c(PDFLib, palette.white),
-      borderWidth: 1.2
+    points.forEach(function (point, index) {
+      page.drawCircle({ x: px(index), y: py(point.value), size: index === points.length - 1 ? 3.8 : 2.4, color: c(PDFLib, index === points.length - 1 ? palette.gold : palette.navy) });
     });
+    const start = safe(points[0].date, 20);
+    const end = safe(points[points.length - 1].date, 20);
+    page.drawText(start, { x: x + pad.left, y: y + 10, size: 7, font: fonts.regular, color: c(PDFLib, palette.muted) });
+    page.drawText(end, { x: x + width - pad.right - textWidth(fonts.regular, end, 7), y: y + 10, size: 7, font: fonts.regular, color: c(PDFLib, palette.muted) });
+    const latest = money(points[points.length - 1].value, view.currency);
+    page.drawText(latest, { x: x + width - pad.right - textWidth(fonts.bold, latest, 8), y: y + height - 16, size: 8, font: fonts.bold, color: c(PDFLib, palette.navy) });
   }
 
   function markName(quality) {
@@ -572,7 +455,7 @@
       let tableY;
       if (index === 0) {
         page.drawText("NIGHTLY ACCOUNT VALUE HISTORY", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-        page.drawText("Completed end-of-day estimates from public closing prices and model-derived option values.", { x: 38, y: 729, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) });
+        page.drawText("Prior completed sessions plus today's live estimate from delayed public and model-derived marks.", { x: 38, y: 729, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) });
         drawPerformanceChart(page, PDFLib, fonts, view, 38, 565, page.getWidth() - 76, 160);
         page.drawText("PUBLIC TEST HOLDINGS", { x: 38, y: 541, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
         tableY = 526;

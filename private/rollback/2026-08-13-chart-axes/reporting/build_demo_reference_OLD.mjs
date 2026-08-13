@@ -81,7 +81,7 @@ const allocation = [...groups.entries()]
 const today = new Date().toISOString().slice(0, 10);
 const historyByDate = new Map();
 for (const point of account.history || []) {
-  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date <= today && Number.isFinite(Number(point.value))) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date < today && Number.isFinite(Number(point.value))) {
     historyByDate.set(point.date, { date: point.date, value: Number(point.value), kind: point.kind || "published_test" });
   }
 }
@@ -95,10 +95,11 @@ const packagedPoints = Array.isArray(packagedAccountHistory)
       : [];
 for (const point of packagedPoints) {
   const value = Number(point.value == null ? point.nav : point.value);
-  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date <= today && Number.isFinite(value)) {
+  if (/^\d{4}-\d{2}-\d{2}$/.test(String(point.date)) && point.date < today && Number.isFinite(value)) {
     historyByDate.set(point.date, { date: point.date, value, kind: point.kind || "nightly_close" });
   }
 }
+historyByDate.set(today, { date: today, value: nav, kind: "live_delayed_marks" });
 const history = [...historyByDate.values()].sort((left, right) => left.date.localeCompare(right.date));
 
 const view = {

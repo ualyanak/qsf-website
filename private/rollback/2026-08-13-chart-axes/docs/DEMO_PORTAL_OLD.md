@@ -57,8 +57,8 @@ repository. They must never be reused for real investor accounts.
 3. `data/demo-portfolio-ledger.json` records the formation portfolio and each
    supplied cash or trade event. `scripts/update_demo_portfolio_history.py`
    replays that ledger against raw daily closes and writes prior completed-night
-   values to `data/demo-portfolio-history.json`; the chart uses the latest
-   completed nightly value while the headline account value may be fresher.
+   values to `data/demo-portfolio-history.json`; it does not replace today's
+   live delayed estimate in the browser.
 4. `.github/workflows/refresh-market-data.yml` publishes intraday quote
    snapshots, while `.github/workflows/refresh-portfolio-history.yml` rebuilds
    and publishes the complete nightly series after the market close. Both write
@@ -74,8 +74,9 @@ repository. They must never be reused for real investor accounts.
 
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving
-the PDF view. The chart and PDF use the latest completed end-of-day history point;
-they do not add an intraday point. Option rows distinguish the current
+the PDF view. Nightly history is merged by date only through the prior completed
+session; today's point is always recalculated from the current delayed marks and
+wins over any same-date published point. Option rows distinguish the current
 model-valuation time from the delayed underlier observation used as the model
 input.
 

@@ -9,9 +9,9 @@
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
   <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo8">
   <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
-  <script defer src="../assets/js/portal-config.js?v=20260813-axes1"></script>
-  <script defer src="../assets/js/demo-pdf.js?v=20260813-axes1"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260813-axes1"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260813-history1"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260813-history1"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260813-history1"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
   <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
@@ -78,19 +78,19 @@
             <p class="eyebrow">Illustrative account value</p>
             <h2>Nightly account value history</h2>
           </div>
-          <span class="data-badge">Nightly value history</span>
+          <span class="data-badge">Nightly history + live point</span>
         </div>
-        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading completed nightly account value history">
+        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading nightly account value history and today's live delayed estimate">
           <div class="empty-state">
             <strong>Loading nightly account value history</strong>
-            <span>Completed end-of-day values will appear here.</span>
+            <span>Prior completed sessions and today's live estimate will appear here.</span>
           </div>
         </div>
         <div class="chart-footnote">
           <span id="chart-start">Start —</span>
           <span id="chart-end">Latest —</span>
         </div>
-        <p class="table-note">Each point is a completed end-of-day estimate built from public closing prices and automatic option models. The history refreshes after the market close.</p>
+        <p class="table-note">Nightly points cover prior completed sessions. Today's endpoint is recalculated from the latest available delayed public marks and automatic option estimates.</p>
       </article>
 
       <article class="panel allocation-panel">
@@ -140,7 +140,7 @@
         <ul class="plain-list">
           <li>Equity and ETF prices use best-effort public delayed snapshots when available.</li>
           <li>Seeded option values update automatically from delayed BULL/INFQ prices and time decay; they are model estimates, not exchange quotes.</li>
-          <li>Historical points are end-of-day estimates recorded nightly after completed sessions; the headline account value may use fresher delayed marks.</li>
+          <li>Historical points are nightly estimates for completed sessions; today's endpoint remains a live estimate from the latest available delayed marks.</li>
           <li>Figures are illustrative and are not official NAV, AUM, performance, or accounting records.</li>
           <li>Local edits are simulations, not trades, orders, or broker instructions.</li>
         </ul>

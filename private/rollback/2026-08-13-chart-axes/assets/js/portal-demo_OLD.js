@@ -11,7 +11,6 @@
   }, root.QSF_PORTAL_CONFIG || {});
   const QUOTE_REFRESH_INTERVAL_MS = 15 * 60 * 1000;
   const MAX_EXPECTED_QUOTE_AGE_MS = 4 * 24 * 60 * 60 * 1000;
-  let chartResizeTimer = null;
 
   const page = document.body && document.body.dataset.page;
   const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467"];
@@ -548,14 +547,15 @@
     const today = todayKey();
     const historyByDate = new Map();
     (account.history || []).forEach(function (point) {
-      if (point && /^\d{4}-\d{2}-\d{2}$/.test(point.date) && point.date <= today && finite(point.value) != null) {
+      if (point && /^\d{4}-\d{2}-\d{2}$/.test(point.date) && point.date < today && finite(point.value) != null) {
         historyByDate.set(point.date, { date: point.date, value: Number(point.value), kind: point.kind || "published_test" });
       }
     });
     const publishedHistory = state.history && state.history.accounts && state.history.accounts[accountId];
     (publishedHistory && publishedHistory.points || []).forEach(function (point) {
-      if (point && point.date <= today && finite(point.value) != null) historyByDate.set(point.date, point);
+      if (point && point.date < today && finite(point.value) != null) historyByDate.set(point.date, point);
     });
+    historyByDate.set(today, { date: today, value: nav, kind: local.modifiedAt ? "local_scenario" : "live_delayed_marks" });
     const history = Array.from(historyByDate.values()).sort(function (a, b) { return a.date.localeCompare(b.date); });
     const staleCount = holdings.filter(function (holding) {
       return !["public_delayed", "model_delayed"].includes(holding.markQuality);
@@ -608,200 +608,50 @@
     return { label: "Stale fallback", className: "is-stale" };
   }
 
-  function chartTickIndexes(length, maximum) {
-    if (length <= 0 || maximum <= 0) return [];
-    const count = Math.min(length, maximum);
-    if (count === 1) return [0];
-    const indexes = [];
-    for (let tick = 0; tick < count; tick += 1) {
-      const index = Math.round(tick * (length - 1) / (count - 1));
-      if (indexes[indexes.length - 1] !== index) indexes.push(index);
-    }
-    return indexes;
-  }
-
-  function niceChartStep(value) {
-    if (!(value > 0) || !Number.isFinite(value)) return 1;
-    const power = Math.pow(10, Math.floor(Math.log10(value)));
-    const scaled = value / power;
-    const factors = [1, 2, 2.5, 5, 10];
-    const factor = factors.find(function (candidate) { return candidate >= scaled - 1e-10; }) || 10;
-    return factor * power;
-  }
-
-  function chartAxis(values) {
-    const dataMin = Math.min.apply(null, values);
-    const dataMax = Math.max.apply(null, values);
-    const targetMin = Math.min(9000, dataMin);
-    const targetMax = Math.max(9000, dataMax);
-    const intervalCount = 5;
-    let step = niceChartStep((targetMax - targetMin) / intervalCount || Math.max(1, Math.abs(targetMax) * 0.01));
-    let min = dataMin >= 9000 ? 9000 : Math.floor(dataMin / step) * step;
-    let max = min + intervalCount * step;
-    while (max < targetMax - 1e-8) {
-      step = niceChartStep(step * 1.000001);
-      min = dataMin >= 9000 ? 9000 : Math.floor(dataMin / step) * step;
-      max = min + intervalCount * step;
-    }
-    return { min: min, max: max, step: step, intervalCount: intervalCount };
-  }
-
-  function formatChartDate(date, includeYear) {
-    const label = new Intl.DateTimeFormat("en-US", { month: "short", day: "numeric" }).format(date);
-    return includeYear ? label + " ’" + String(date.getFullYear()).slice(-2) : label;
-  }
-
-  function svgNode(name, attributes) {
-    const node = document.createElementNS("http://www.w3.org/2000/svg", name);
-    Object.keys(attributes || {}).forEach(function (key) { node.setAttribute(key, attributes[key]); });
-    return node;
-  }
-
   function renderChart(history, currency) {
     const shell = byId("performance-chart");
     if (!shell || !Array.isArray(history)) return;
-    const pointMap = new Map();
-    history.forEach(function (item) {
-      const date = parseDate(item && item.date);
-      const value = Number(item && item.value);
-      if (date && Number.isFinite(value)) {
-        pointMap.set(String(item.date).slice(0, 10), { date: date, value: value, kind: item.kind || "nightly_close" });
-      }
-    });
-    const points = Array.from(pointMap.values()).sort(function (left, right) { return left.date - right.date; });
+    const points = history.map(function (item) {
+      return { date: parseDate(item.date), value: Number(item.value), kind: item.kind || "nightly_close" };
+    }).filter(function (item) { return item.date && Number.isFinite(item.value); });
     if (points.length < 2) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       const title = document.createElement("strong");
       title.textContent = "Nightly history is not available yet";
       const note = document.createElement("span");
-      note.textContent = "Completed end-of-day values will appear here after nightly history is available.";
+      note.textContent = "The latest live estimate will be joined to prior completed-session values when they are available.";
       empty.append(title, note);
       shell.replaceChildren(empty);
       shell.setAttribute("aria-label", "Nightly account value history is not yet available for this demonstration portfolio.");
       setText("chart-start", "Nightly history pending");
-      setText("chart-end", points.length ? "Latest nightly value " + formatDate(points[0].date) + " · " + formatCurrency(points[0].value, currency) : "Latest nightly value —");
+      setText("chart-end", points.length ? "Today · live estimate " + formatCurrency(points[0].value, currency) : "Today · live estimate —");
       return;
     }
-    const box = shell.getBoundingClientRect();
-    const width = Math.max(320, Math.round(box.width || shell.clientWidth || 900));
-    const height = Math.max(240, Math.round(box.height || shell.clientHeight || (width < 520 ? 250 : 310)));
-    const mobile = width < 520;
-    const pad = mobile
-      ? { top: 26, right: 10, bottom: 42, left: 56 }
-      : { top: 28, right: 16, bottom: 44, left: 66 };
+    const width = 900;
+    const height = 310;
+    const pad = { top: 25, right: 25, bottom: 30, left: 25 };
     const values = points.map(function (point) { return point.value; });
-    const axis = chartAxis(values);
-    const plotWidth = width - pad.left - pad.right;
-    const plotHeight = height - pad.top - pad.bottom;
-    const firstTime = points[0].date.getTime();
-    const lastTime = points[points.length - 1].date.getTime();
-    const timeSpan = Math.max(1, lastTime - firstTime);
-    function x(index) { return pad.left + (points[index].date.getTime() - firstTime) / timeSpan * plotWidth; }
-    function y(value) { return pad.top + (axis.max - value) / (axis.max - axis.min) * plotHeight; }
+    let min = Math.min.apply(null, values);
+    let max = Math.max.apply(null, values);
+    if (min === max) { min -= Math.max(1, Math.abs(min) * 0.01); max += Math.max(1, Math.abs(max) * 0.01); }
+    const spread = max - min || 1;
+    min -= spread * 0.12;
+    max += spread * 0.12;
+    function x(index) { return pad.left + index * ((width - pad.left - pad.right) / (points.length - 1)); }
+    function y(value) { return pad.top + (max - value) * ((height - pad.top - pad.bottom) / (max - min)); }
     const linePath = points.map(function (point, index) {
       return (index ? "L" : "M") + x(index).toFixed(2) + " " + y(point.value).toFixed(2);
     }).join(" ");
     const areaPath = linePath + " L" + x(points.length - 1).toFixed(2) + " " + (height - pad.bottom) + " L" + x(0).toFixed(2) + " " + (height - pad.bottom) + " Z";
-    const svg = svgNode("svg", {
-      viewBox: "0 0 " + width + " " + height,
-      preserveAspectRatio: "xMidYMid meet",
-      "aria-hidden": "true",
-      focusable: "false"
-    });
-    svg.append(svgNode("rect", { x: "0", y: "0", width: width, height: height, fill: "#ffffff" }));
-    const clipId = "qsf-performance-plot";
-    const defs = svgNode("defs");
-    const clipPath = svgNode("clipPath", { id: clipId });
-    clipPath.append(svgNode("rect", { x: pad.left, y: pad.top, width: plotWidth, height: plotHeight }));
-    defs.append(clipPath);
-    svg.append(defs);
-
-    const axisFont = "Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
-    const yLabels = [];
-    for (let tick = 0; tick <= axis.intervalCount; tick += 1) {
-      const value = axis.min + tick * axis.step;
-      const gy = y(value);
-      svg.append(svgNode("line", {
-        x1: pad.left,
-        x2: width - pad.right,
-        y1: gy,
-        y2: gy,
-        stroke: tick === 0 ? "#aeb9c3" : "#d7dee5",
-        "stroke-width": tick === 0 ? "1" : ".8",
-        "vector-effect": "non-scaling-stroke",
-        "data-axis-grid": "y"
-      }));
-      const labelValue = formatCurrency(value, currency, false);
-      yLabels.push(labelValue);
-      const label = svgNode("text", {
-        x: pad.left - 8,
-        y: gy + 3.5,
-        "text-anchor": "end",
-        fill: "#5f6f7e",
-        "font-family": axisFont,
-        "font-size": mobile ? "9.5" : "10.5",
-        "font-variant-numeric": "tabular-nums",
-        "data-axis-label": "y"
-      });
-      label.textContent = labelValue;
-      svg.append(label);
-    }
-    svg.append(svgNode("line", {
-      x1: pad.left,
-      x2: pad.left,
-      y1: pad.top,
-      y2: height - pad.bottom,
-      stroke: "#8e9dab",
-      "stroke-width": "1",
-      "vector-effect": "non-scaling-stroke",
-      "data-axis-line": "y"
-    }));
-
-    const includeYear = points[0].date.getFullYear() !== points[points.length - 1].date.getFullYear();
-    const xIndexes = chartTickIndexes(points.length, mobile ? 6 : 7);
-    xIndexes.forEach(function (index, tick) {
-      const gx = x(index);
-      svg.append(svgNode("line", {
-        x1: gx,
-        x2: gx,
-        y1: height - pad.bottom,
-        y2: height - pad.bottom + 5,
-        stroke: "#8e9dab",
-        "stroke-width": "1",
-        "vector-effect": "non-scaling-stroke"
-      }));
-      const label = svgNode("text", {
-        x: gx,
-        y: height - 14,
-        "text-anchor": tick === 0 ? "start" : tick === xIndexes.length - 1 ? "end" : "middle",
-        fill: "#5f6f7e",
-        "font-family": axisFont,
-        "font-size": mobile ? "9.5" : "10.5",
-        "data-axis-label": "x"
-      });
-      label.textContent = formatChartDate(points[index].date, includeYear);
-      svg.append(label);
-    });
-
-    const unit = svgNode("text", {
-      x: pad.left,
-      y: 15,
-      fill: "#415464",
-      "font-family": axisFont,
-      "font-size": mobile ? "9.5" : "10.5",
-      "font-weight": "650",
-      "letter-spacing": ".04em",
-      "data-axis-title": "y"
-    });
-    unit.textContent = "ACCOUNT VALUE (" + (currency || "USD") + ")";
-    svg.append(unit);
-
+    const ns = "http://www.w3.org/2000/svg";
+    const svg = document.createElementNS(ns, "svg");
     svg.setAttribute("viewBox", "0 0 " + width + " " + height);
-    const area = svgNode("path", { "clip-path": "url(#" + clipId + ")" });
+    svg.setAttribute("preserveAspectRatio", "none");
+    const area = document.createElementNS(ns, "path");
     area.setAttribute("d", areaPath);
     area.setAttribute("fill", "rgba(201, 162, 79, .17)");
-    const line = svgNode("path", { "clip-path": "url(#" + clipId + ")", "data-chart-series": "nightly-account-value" });
+    const line = document.createElementNS(ns, "path");
     line.setAttribute("d", linePath);
     line.setAttribute("fill", "none");
     line.setAttribute("stroke", "#15344f");
@@ -809,7 +659,7 @@
     line.setAttribute("vector-effect", "non-scaling-stroke");
     line.setAttribute("stroke-linecap", "round");
     line.setAttribute("stroke-linejoin", "round");
-    const dot = svgNode("circle", { "data-chart-latest": "true" });
+    const dot = document.createElementNS(ns, "circle");
     dot.setAttribute("cx", x(points.length - 1));
     dot.setAttribute("cy", y(points[points.length - 1].value));
     dot.setAttribute("r", "5");
@@ -818,9 +668,9 @@
     dot.setAttribute("stroke-width", "3");
     svg.append(area, line, dot);
     shell.replaceChildren(svg);
-    shell.setAttribute("aria-label", "Nightly account value history from " + formatDate(points[0].date) + " through " + formatDate(points[points.length - 1].date) + ". The vertical axis runs from " + yLabels[0] + " to " + yLabels[yLabels.length - 1] + " in five intervals. Latest completed value " + formatCurrency(points[points.length - 1].value, currency) + ".");
+    shell.setAttribute("aria-label", "Nightly account value history from " + formatDate(points[0].date) + " through prior completed sessions, followed by today's live estimate from delayed marks, ending at " + formatCurrency(points[points.length - 1].value, currency));
     setText("chart-start", "Start " + formatDate(points[0].date));
-    setText("chart-end", "Latest nightly value " + formatDate(points[points.length - 1].date) + " · " + formatCurrency(points[points.length - 1].value, currency));
+    setText("chart-end", "Today · live estimate " + formatCurrency(points[points.length - 1].value, currency));
   }
 
   function renderAllocation(view) {
@@ -1031,12 +881,6 @@
     const reportButton = byId("request-report");
     consent.addEventListener("change", function () { reportButton.disabled = !consent.checked; });
     reportButton.addEventListener("click", generateReport);
-    root.addEventListener("resize", function () {
-      root.clearTimeout(chartResizeTimer);
-      chartResizeTimer = root.setTimeout(function () {
-        if (state.view) renderChart(state.view.history, state.view.currency);
-      }, 120);
-    });
     root.setInterval(async function () {
       try {
         await Promise.all([loadQuotes(true), loadHistory(true)]);
