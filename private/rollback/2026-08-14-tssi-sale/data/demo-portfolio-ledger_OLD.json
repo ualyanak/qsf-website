@@ -55,16 +55,6 @@
         { "instrument": "INFQ_C10_C17_5_20270115", "signed_quantity": -15, "price": 2.43 },
         { "instrument": "SGOV", "signed_quantity": 51, "price": 100.53 }
       ]
-    },
-    {
-      "id": "2026-08-14-tssi-sale",
-      "kind": "trade",
-      "effective_date": "2026-08-14",
-      "timing": "before_close",
-      "note": "Date-only user update; sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. The $9.94 basis produces an illustrative realized loss of $8.70.",
-      "legs": [
-        { "instrument": "TSSI", "signed_quantity": -30, "price": 9.65 }
-      ]
     }
   ],
   "instruments": {
@@ -84,7 +74,7 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "multiplier": 1 }
   },
   "expected_current_snapshot": {
-    "cash": 761.3,
+    "cash": 471.8,
     "positions": {
       "SGOV": 54,
       "BULL": 320,
@@ -97,6 +87,7 @@
       "PLTR": 4,
       "QBTS": 20,
       "SPY": 1,
+      "TSSI": 30,
       "WMT": 5
     }
   }

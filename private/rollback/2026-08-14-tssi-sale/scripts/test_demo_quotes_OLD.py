@@ -170,10 +170,11 @@ class OptionModelTests(unittest.TestCase):
         net_cash_change = infq_sale_proceeds - sgov_purchase_cost
         weighted_sgov_basis = (3 * 100.58 + sgov_purchase_cost) / 54
 
+        self.assertEqual(data["published_at"], "2026-08-13")
         self.assertAlmostEqual(infq_sale_proceeds, 5185.0, places=2)
         self.assertAlmostEqual(sgov_purchase_cost, 5127.03, places=2)
         self.assertAlmostEqual(net_cash_change, 57.97, places=2)
-        self.assertAlmostEqual(413.83 + net_cash_change, 471.8, places=2)
+        self.assertAlmostEqual(account["cash"], 413.83 + net_cash_change, places=2)
         self.assertEqual(positions["INFQ_C25_20270115"]["quantity"], 1)
         self.assertNotIn("INFQ_C10_C17_5_20270115", positions)
         self.assertEqual(positions["SGOV"]["quantity"], 54)
@@ -182,7 +183,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertIn("SGOV", quotes.SYMBOLS)
         self.assertNotIn("GOVT", positions)
 
-        update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-13")
+        update_note = account["cash_notes"][-1]
         self.assertEqual(update_note["as_of"], "2026-08-13T10:00:00-05:00")
         self.assertAlmostEqual(update_note["amount"], net_cash_change, places=2)
 
@@ -192,27 +193,6 @@ class OptionModelTests(unittest.TestCase):
                 self.assertIn(instrument.get("quote_symbol", instrument_id), quotes.SYMBOLS)
             elif instrument["mark_mode"] == "model_delayed":
                 self.assertIn(instrument.get("quote_symbol", instrument_id), quotes.OPTION_MODEL_SPECS)
-
-    def test_august_fourteenth_tssi_sale_is_converted_to_cash(self) -> None:
-        repository = pathlib.Path(__file__).resolve().parents[1]
-        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
-        account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
-        proceeds = 30 * 9.65
-        basis = 30 * 9.94
-        realized_pnl = proceeds - basis
-
-        self.assertEqual(data["published_at"], "2026-08-14")
-        self.assertAlmostEqual(proceeds, 289.5, places=2)
-        self.assertAlmostEqual(basis, 298.2, places=2)
-        self.assertAlmostEqual(realized_pnl, -8.7, places=2)
-        self.assertAlmostEqual(account["cash"], 471.8 + proceeds, places=2)
-        self.assertNotIn("TSSI", positions)
-        self.assertEqual(len(positions), 12)
-
-        update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-14")
-        self.assertAlmostEqual(update_note["amount"], proceeds, places=2)
-        self.assertIn("$8.70", update_note["note"])
 
 
 if __name__ == "__main__":

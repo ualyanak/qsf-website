@@ -77,14 +77,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.ledger,
             dt.datetime(2026, 8, 13, 16, 0, tzinfo=history.MARKET_ZONE),
         )
-        before_august_14 = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 14, 9, 29, tzinfo=history.MARKET_ZONE),
-        )
-        august_14 = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 14, 9, 30, tzinfo=history.MARKET_ZONE),
-        )
 
         self.assertAlmostEqual(july_17["cash"], 389.83, places=2)
         self.assertAlmostEqual(july_20["cash"], 413.83, places=2)
@@ -95,25 +87,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(history.position_quantities(before_august_13)["INFQ_C25_20270115"], 4)
         self.assertEqual(history.position_quantities(before_august_13)["INFQ_C10_C17_5_20270115"], 20)
         self.assertAlmostEqual(august_13["cash"], 471.8, places=2)
-        self.assertEqual(history.position_quantities(august_13)["TSSI"], 30)
-        self.assertAlmostEqual(before_august_14["cash"], 471.8, places=2)
-        self.assertEqual(history.position_quantities(before_august_14)["TSSI"], 30)
-        self.assertAlmostEqual(august_14["cash"], 761.3, places=2)
-        self.assertNotIn("TSSI", history.position_quantities(august_14))
-        self.assertEqual(history.position_quantities(august_14), self.ledger["expected_current_snapshot"]["positions"])
-
-    def test_august_fourteenth_tssi_sale_cash_and_loss(self) -> None:
-        proceeds = 30 * 9.65
-        basis = 30 * 9.94
-        realized_pnl = proceeds - basis
-        current = history.replay_ledger(self.ledger)
-
-        self.assertAlmostEqual(proceeds, 289.5, places=2)
-        self.assertAlmostEqual(basis, 298.2, places=2)
-        self.assertAlmostEqual(realized_pnl, -8.7, places=2)
-        self.assertAlmostEqual(current["cash"], 471.8 + proceeds, places=2)
-        self.assertNotIn("TSSI", history.position_quantities(current))
-        self.assertEqual(len(history.position_quantities(current)), 12)
+        self.assertEqual(history.position_quantities(august_13), self.ledger["expected_current_snapshot"]["positions"])
 
     def test_date_only_august_four_event_is_applied_before_close(self) -> None:
         before = history.replay_ledger(
@@ -166,8 +140,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(payload["last_completed_session"], "2026-08-14")
         self.assertEqual(points[-1]["date"], "2026-08-16")
         self.assertEqual(by_date["2026-08-14"]["kind"], "session_close")
-        self.assertAlmostEqual(by_date["2026-08-14"]["cash"], 761.3, places=2)
-        self.assertEqual(by_date["2026-08-14"]["position_count"], 12)
         self.assertEqual(by_date["2026-08-15"]["value"], by_date["2026-08-14"]["value"])
         self.assertEqual(by_date["2026-08-16"]["value"], by_date["2026-08-14"]["value"])
 
@@ -190,20 +162,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(closing["kind"], "session_close")
         self.assertAlmostEqual(closing["cash"], 471.8, places=2)
         self.assertEqual(closing["position_count"], 13)
-        self.assertTrue(math_is_positive(closing["value"]))
-
-    def test_august_fourteen_close_uses_tssi_sale_and_cash_proceeds(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_close(dt.date(2026, 8, 14)),
-            fetcher=self.fetcher,
-        )
-        closing = self.points(payload)[-1]
-        self.assertEqual(closing["date"], "2026-08-14")
-        self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 761.3, places=2)
-        self.assertEqual(closing["position_count"], 12)
-        self.assertNotIn("TSSI", closing["forward_filled_symbols"])
         self.assertTrue(math_is_positive(closing["value"]))
 
     def test_missing_individual_mark_is_forward_filled_and_degraded(self) -> None:

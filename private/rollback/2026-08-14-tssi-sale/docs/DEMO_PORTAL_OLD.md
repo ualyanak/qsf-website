@@ -31,12 +31,6 @@ repository. They must never be reused for real investor accounts.
   Together with the three existing shares, the account now holds 54 SGOV
   shares at a `$100.5327777778` weighted basis. One INFQ `$25` call remains and
   the vertical position is closed.
-- The August 14 date-only update sells all 30 TSSI shares at `$9.65` with no
-  reported fees. Gross and net proceeds are `$289.50`; the supplied `$9.94`
-  per-share basis totals `$298.20`, producing an illustrative realized loss of
-  `$8.70`. The proceeds increase raw cash from `$471.80` to `$761.30`, and the
-  current TSSI position is closed. TSSI remains in the formation ledger and
-  instrument catalog so prior nightly history can still be reconstructed.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains
