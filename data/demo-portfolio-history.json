@@ -162,15 +162,13 @@
         {
           "cash": 413.83,
           "date": "2026-07-31",
-          "forward_filled_symbols": [
-            "TSSI"
-          ],
+          "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 13,
-          "positions_value": 10034.22,
-          "quality": "degraded",
+          "positions_value": 10039.62,
+          "quality": "complete",
           "source_date": "2026-07-31",
-          "value": 10448.05
+          "value": 10453.45
         },
         {
           "cash": 413.83,
@@ -178,10 +176,10 @@
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 13,
-          "positions_value": 10034.22,
+          "positions_value": 10039.62,
           "quality": "carry_forward",
           "source_date": "2026-07-31",
-          "value": 10448.05
+          "value": 10453.45
         },
         {
           "cash": 413.83,
@@ -189,10 +187,10 @@
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 13,
-          "positions_value": 10034.22,
+          "positions_value": 10039.62,
           "quality": "carry_forward",
           "source_date": "2026-07-31",
-          "value": 10448.05
+          "value": 10453.45
         },
         {
           "cash": 413.83,
@@ -318,12 +316,12 @@
       ]
     }
   },
-  "coverage_status": "degraded",
+  "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-13T23:23:31Z",
+  "generated_at": "2026-08-14T00:06:21Z",
   "last_completed_session": "2026-08-13",
   "mark_history": {
     "BULL": [
@@ -1670,6 +1668,11 @@
       {
         "date": "2026-07-30",
         "price": 9.74,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-31",
+        "price": 9.92,
         "source": "yahoo"
       },
       {
