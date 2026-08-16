@@ -334,6 +334,17 @@
           "quality": "carry_forward",
           "source_date": "2026-08-14",
           "value": 12860.03
+        },
+        {
+          "cash": 761.3,
+          "date": "2026-08-16",
+          "forward_filled_symbols": [],
+          "kind": "carry_forward",
+          "position_count": 12,
+          "positions_value": 12098.73,
+          "quality": "carry_forward",
+          "source_date": "2026-08-14",
+          "value": 12860.03
         }
       ]
     }
@@ -343,7 +354,7 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-15T23:42:48Z",
+  "generated_at": "2026-08-16T23:42:14Z",
   "last_completed_session": "2026-08-14",
   "mark_history": {
     "BULL": [
@@ -1745,7 +1756,7 @@
       {
         "date": "2026-07-31",
         "price": 9.92,
-        "source": "yahoo"
+        "source": "fallback"
       },
       {
         "date": "2026-08-03",
