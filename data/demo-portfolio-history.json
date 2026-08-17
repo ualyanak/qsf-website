@@ -345,6 +345,17 @@
           "quality": "carry_forward",
           "source_date": "2026-08-14",
           "value": 12860.03
+        },
+        {
+          "cash": 761.3,
+          "date": "2026-08-17",
+          "forward_filled_symbols": [],
+          "kind": "session_close",
+          "position_count": 12,
+          "positions_value": 12144.87,
+          "quality": "complete",
+          "source_date": "2026-08-17",
+          "value": 12906.17
         }
       ]
     }
@@ -354,8 +365,8 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-16T23:42:14Z",
-  "last_completed_session": "2026-08-14",
+  "generated_at": "2026-08-17T23:45:15Z",
+  "last_completed_session": "2026-08-17",
   "mark_history": {
     "BULL": [
       {
@@ -486,6 +497,11 @@
       {
         "date": "2026-08-14",
         "price": 8.04,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 8.16,
         "source": "yahoo"
       }
     ],
@@ -619,6 +635,11 @@
         "date": "2026-08-14",
         "price": 234.320007,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 228.850006,
+        "source": "yahoo"
       }
     ],
     "INFQ": [
@@ -750,6 +771,11 @@
       {
         "date": "2026-08-14",
         "price": 12.86,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 13.41,
         "source": "yahoo"
       }
     ],
@@ -883,6 +909,11 @@
         "date": "2026-08-14",
         "price": 7.48,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 7.52,
+        "source": "yahoo"
       }
     ],
     "NVDA": [
@@ -1014,6 +1045,11 @@
       {
         "date": "2026-08-14",
         "price": 225.160004,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 225.009995,
         "source": "yahoo"
       }
     ],
@@ -1147,6 +1183,11 @@
         "date": "2026-08-14",
         "price": 33.23,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 33.610001,
+        "source": "yahoo"
       }
     ],
     "PLTR": [
@@ -1278,6 +1319,11 @@
       {
         "date": "2026-08-14",
         "price": 174.039993,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 172.550003,
         "source": "yahoo"
       }
     ],
@@ -1411,6 +1457,11 @@
         "date": "2026-08-14",
         "price": 21.17,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 20.870001,
+        "source": "yahoo"
       }
     ],
     "SGOV": [
@@ -1541,6 +1592,11 @@
       },
       {
         "date": "2026-08-14",
+        "price": 100.559998,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
         "price": 100.559998,
         "source": "yahoo"
       }
@@ -1675,6 +1731,11 @@
         "date": "2026-08-14",
         "price": 776.340027,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 772.669983,
+        "source": "yahoo"
       }
     ],
     "TSSI": [
@@ -1756,7 +1817,7 @@
       {
         "date": "2026-07-31",
         "price": 9.92,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
@@ -1806,6 +1867,11 @@
       {
         "date": "2026-08-14",
         "price": 9.68,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 9.48,
         "source": "yahoo"
       }
     ],
@@ -1939,6 +2005,11 @@
         "date": "2026-08-14",
         "price": 115.269997,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 114.330002,
+        "source": "yahoo"
       }
     ]
   },
@@ -1962,7 +2033,8 @@
     "2026-08-11",
     "2026-08-12",
     "2026-08-13",
-    "2026-08-14"
+    "2026-08-14",
+    "2026-08-17"
   ],
   "schema_version": 1,
   "source": "Yahoo Finance raw daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV."
