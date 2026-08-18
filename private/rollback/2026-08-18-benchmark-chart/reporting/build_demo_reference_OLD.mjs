@@ -101,66 +101,6 @@ for (const point of packagedPoints) {
 }
 const history = [...historyByDate.values()].sort((left, right) => left.date.localeCompare(right.date));
 
-const comparisonStart = history[0] && history[0].date;
-const comparisonEnd = history.at(-1) && history.at(-1).date;
-const qsfComparison = {
-  id: "qsf",
-  label: "QSF",
-  symbol: "QSF",
-  priceBasis: "nightly_demo_nav",
-  baselineDate: comparisonStart || String(account.opening_as_of || "").slice(0, 10),
-  baselineValue: Number(account.opening_nav),
-  units: "normalized_dollars",
-  status: packagedPoints.length ? "ready" : "formation_fallback",
-  source: "Published synthetic nightly portfolio value",
-  points: history.map((point) => ({
-    date: point.date,
-    value: Number(point.value),
-    kind: point.kind || "nightly_close"
-  }))
-};
-
-const rawComparisons = packagedAccountHistory
-  && !Array.isArray(packagedAccountHistory)
-  && Array.isArray(packagedAccountHistory.comparisons)
-  ? packagedAccountHistory.comparisons
-  : [];
-const benchmarkComparisons = rawComparisons.map((series) => {
-  if (!series || typeof series !== "object") return null;
-  const pointsByDate = new Map();
-  for (const point of series.points || []) {
-    const date = String(point && point.date || "");
-    const value = Number(point && point.value);
-    if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || !Number.isFinite(value)) continue;
-    if (comparisonStart && date < comparisonStart) continue;
-    if (comparisonEnd && date > comparisonEnd) continue;
-    pointsByDate.set(date, {
-      date,
-      value,
-      marketPrice: Number.isFinite(Number(point.market_price)) ? Number(point.market_price) : null,
-      kind: point.kind || "benchmark_close",
-      sourceDate: point.source_date || date,
-      quality: point.quality || series.status || "published"
-    });
-  }
-  const points = [...pointsByDate.values()].sort((left, right) => left.date.localeCompare(right.date));
-  if (points.length < 2) return null;
-  return {
-    id: String(series.id || series.symbol || "benchmark"),
-    label: String(series.label || series.symbol || series.id || "Benchmark"),
-    symbol: String(series.symbol || series.id || ""),
-    priceBasis: series.price_basis || null,
-    baselineDate: series.baseline_date || comparisonStart || points[0].date,
-    baselinePrice: Number.isFinite(Number(series.baseline_price)) ? Number(series.baseline_price) : null,
-    baselineValue: Number.isFinite(Number(series.baseline_value)) ? Number(series.baseline_value) : Number(account.opening_nav),
-    units: series.units || "normalized_dollars",
-    status: series.status || "published",
-    source: series.source || "Published benchmark history",
-    points
-  };
-}).filter(Boolean);
-const comparisonSeries = [qsfComparison, ...benchmarkComparisons];
-
 const view = {
   demo: true,
   accountId,
@@ -181,9 +121,6 @@ const view = {
   holdings,
   allocation,
   history,
-  comparisonSeries,
-  comparisonBaselineDate: comparisonStart || qsfComparison.baselineDate,
-  comparisonLatestDate: comparisonEnd || null,
   historySnapshotGeneratedAt: historySnapshot.generated_at || null,
   historyStatus: packagedPoints.length ? "ready" : "formation-fallback",
   latestMarkAsOf: holdings.map((item) => item.markAsOf).filter(Boolean).sort().at(-1) || null,
@@ -199,10 +136,4 @@ const outputDir = path.join(repo, "output/pdf");
 fs.mkdirSync(outputDir, { recursive: true });
 const output = path.join(outputDir, "QSF-" + accountId + "-public-demo-reference.pdf");
 fs.writeFileSync(output, bytes);
-console.log(JSON.stringify({
-  output,
-  bytes: bytes.length,
-  nav: Number(nav.toFixed(2)),
-  holdings: holdings.length,
-  comparisonSeries: comparisonSeries.length
-}));
+console.log(JSON.stringify({ output, bytes: bytes.length, nav: Number(nav.toFixed(2)), holdings: holdings.length }));

@@ -35,18 +35,6 @@ class PortfolioHistoryTests(unittest.TestCase):
                 day: base + session_index * 0.07 + symbol_index * 0.003
                 for session_index, day in enumerate(cls.sessions)
             }
-        cls.prices["GLD"] = {
-            day: 350.0 + session_index * 1.25
-            for session_index, day in enumerate(cls.sessions)
-        }
-        calendar_dates = [
-            dt.date(2026, 7, 17) + dt.timedelta(days=offset)
-            for offset in range((dt.date(2026, 8, 14) - dt.date(2026, 7, 17)).days + 1)
-        ]
-        cls.prices["BTC-USD"] = {
-            day: 60000.0 + day_index * 275.0
-            for day_index, day in enumerate(calendar_dates)
-        }
 
     def fetcher(self, symbol: str, start: dt.date, end: dt.date) -> dict[dt.date, float]:
         return {day: price for day, price in self.prices[symbol].items() if start <= day <= end}
@@ -54,17 +42,9 @@ class PortfolioHistoryTests(unittest.TestCase):
     def points(self, payload: dict[str, object]) -> list[dict[str, object]]:
         return payload["accounts"]["ahub"]["points"]  # type: ignore[index]
 
-    def comparisons(self, payload: dict[str, object]) -> dict[str, dict[str, object]]:
-        series = payload["accounts"]["ahub"]["comparisons"]  # type: ignore[index]
-        return {item["id"]: item for item in series}
-
     @staticmethod
     def after_close(day: dt.date) -> dt.datetime:
         return dt.datetime.combine(day, dt.time(16, 30), history.MARKET_ZONE)
-
-    @staticmethod
-    def after_all_daily_closes(day: dt.date) -> dt.datetime:
-        return dt.datetime.combine(day + dt.timedelta(days=1), dt.time(0, 30), dt.timezone.utc)
 
     def test_formation_and_current_snapshot_reconcile(self) -> None:
         history.validate_ledger(self.ledger)
@@ -174,161 +154,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.assertEqual(by_date[sunday]["value"], by_date[friday]["value"])
             self.assertEqual(by_date[sunday]["positions_value"], by_date[friday]["positions_value"])
         self.assertEqual(payload["generated_at"], "2026-08-13T20:30:00Z")
-
-    def test_public_comparisons_are_normalized_to_formation_nav(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 14)),
-            fetcher=self.fetcher,
-        )
-        raw_series = payload["accounts"]["ahub"]["comparisons"]
-        self.assertEqual([series["id"] for series in raw_series], ["spy", "gold-gld", "btc-usd"])
-        comparisons = self.comparisons(payload)
-        self.assertEqual(payload["benchmark_coverage_status"], "complete")
-        self.assertEqual(payload["benchmark_failures"], [])
-
-        for comparison_id, expected_basis in (
-            ("spy", "adjusted_close"),
-            ("gold-gld", "adjusted_close"),
-            ("btc-usd", "close"),
-        ):
-            series = comparisons[comparison_id]
-            self.assertEqual(series["price_basis"], expected_basis)
-            self.assertEqual(series["baseline_date"], "2026-07-17")
-            self.assertEqual(series["baseline_value"], 9900.0)
-            self.assertEqual(series["units"], "normalized_account_value_usd")
-            self.assertEqual(series["status"], "ready")
-            self.assertEqual(series["points"][0]["date"], "2026-07-17")
-            self.assertEqual(series["points"][0]["value"], 9900.0)
-            self.assertEqual(len(series["points"]), len(self.points(payload)))
-
-        spy = comparisons["spy"]
-        spy_by_date = {point["date"]: point for point in spy["points"]}
-        expected = 9900.0 * self.prices["SPY"][dt.date(2026, 7, 20)] / self.prices["SPY"][dt.date(2026, 7, 17)]
-        self.assertAlmostEqual(spy_by_date["2026-07-20"]["value"], round(expected, 2), places=2)
-        self.assertAlmostEqual(spy["baseline_price"], self.prices["SPY"][dt.date(2026, 7, 17)], places=6)
-
-    def test_equity_comparisons_carry_weekends_while_bitcoin_moves(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 7, 20)),
-            fetcher=self.fetcher,
-        )
-        comparisons = self.comparisons(payload)
-        for comparison_id in ("spy", "gold-gld"):
-            by_date = {point["date"]: point for point in comparisons[comparison_id]["points"]}
-            self.assertEqual(by_date["2026-07-18"]["value"], by_date["2026-07-17"]["value"])
-            self.assertEqual(by_date["2026-07-19"]["value"], by_date["2026-07-17"]["value"])
-            self.assertEqual(by_date["2026-07-18"]["quality"], "carry_forward")
-        bitcoin = {point["date"]: point for point in comparisons["btc-usd"]["points"]}
-        self.assertNotEqual(bitcoin["2026-07-18"]["value"], bitcoin["2026-07-17"]["value"])
-        self.assertNotEqual(bitcoin["2026-07-19"]["value"], bitcoin["2026-07-18"]["value"])
-        self.assertEqual(bitcoin["2026-07-18"]["kind"], "daily_close")
-
-    def test_comparison_fallback_is_retained_and_extended_without_blocking_nav(self) -> None:
-        fallback = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 12)),
-            fetcher=self.fetcher,
-        )
-
-        def failing_benchmark_fetcher(_symbol: str, _start: dt.date, _end: dt.date) -> dict[dt.date, float]:
-            raise TimeoutError("benchmark source unavailable")
-
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 13)),
-            fetcher=self.fetcher,
-            benchmark_fetcher=failing_benchmark_fetcher,
-            fallback=fallback,
-        )
-        self.assertEqual(self.points(payload)[-1]["date"], "2026-08-13")
-        self.assertEqual(payload["benchmark_coverage_status"], "degraded")
-        self.assertEqual(len(payload["benchmark_failures"]), 3)
-        for series in payload["accounts"]["ahub"]["comparisons"]:
-            self.assertEqual(series["status"], "degraded")
-            self.assertEqual(series["points"][-1]["date"], "2026-08-13")
-            self.assertEqual(series["points"][-1]["quality"], "stale_fallback")
-            self.assertEqual(series["points"][-1]["value"], series["points"][-2]["value"])
-
-    def test_missing_formation_baseline_only_makes_that_comparison_unavailable(self) -> None:
-        def missing_gold_baseline(symbol: str, start: dt.date, end: dt.date) -> dict[dt.date, float]:
-            result = self.fetcher(symbol, start, end)
-            if symbol == "GLD":
-                result.pop(dt.date(2026, 7, 17), None)
-            return result
-
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 7, 20)),
-            fetcher=self.fetcher,
-            benchmark_fetcher=missing_gold_baseline,
-        )
-        comparisons = self.comparisons(payload)
-        self.assertEqual(self.points(payload)[-1]["date"], "2026-07-20")
-        self.assertEqual(comparisons["spy"]["status"], "ready")
-        self.assertEqual(comparisons["btc-usd"]["status"], "ready")
-        self.assertEqual(comparisons["gold-gld"]["status"], "unavailable")
-        self.assertEqual(comparisons["gold-gld"]["points"], [])
-        self.assertIn("gold-gld: missing formation baseline", payload["benchmark_failures"])
-
-    def test_yahoo_parser_selects_adjusted_or_raw_and_maps_btc_to_utc_date(self) -> None:
-        market_timestamp = int(dt.datetime(2026, 7, 17, 13, 30, tzinfo=dt.timezone.utc).timestamp())
-        result = {
-            "timestamp": [market_timestamp],
-            "indicators": {
-                "quote": [{"close": [101.25]}],
-                "adjclose": [{"adjclose": [99.75]}],
-            },
-        }
-        raw = history.parse_yahoo_daily_result(
-            result,
-            symbol="SPY",
-            start=dt.date(2026, 7, 17),
-            end=dt.date(2026, 7, 17),
-        )
-        adjusted = history.parse_yahoo_daily_result(
-            result,
-            symbol="SPY",
-            start=dt.date(2026, 7, 17),
-            end=dt.date(2026, 7, 17),
-            adjusted=True,
-        )
-        self.assertEqual(raw[dt.date(2026, 7, 17)], 101.25)
-        self.assertEqual(adjusted[dt.date(2026, 7, 17)], 99.75)
-
-        utc_midnight = int(dt.datetime(2026, 7, 17, tzinfo=dt.timezone.utc).timestamp())
-        btc_result = {
-            "timestamp": [utc_midnight],
-            "indicators": {"quote": [{"close": [60000.0]}]},
-        }
-        utc_prices = history.parse_yahoo_daily_result(
-            btc_result,
-            symbol="BTC-USD",
-            start=dt.date(2026, 7, 17),
-            end=dt.date(2026, 7, 17),
-            utc_dates=True,
-        )
-        market_prices = history.parse_yahoo_daily_result(
-            btc_result,
-            symbol="BTC-USD",
-            start=dt.date(2026, 7, 16),
-            end=dt.date(2026, 7, 16),
-        )
-        self.assertIn(dt.date(2026, 7, 17), utc_prices)
-        self.assertIn(dt.date(2026, 7, 16), market_prices)
-
-    def test_bitcoin_open_utc_candle_is_not_recorded_as_a_daily_close(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_close(dt.date(2026, 7, 20)),
-            fetcher=self.fetcher,
-        )
-        bitcoin = self.comparisons(payload)["btc-usd"]
-        by_date = {point["date"]: point for point in bitcoin["points"]}
-        self.assertEqual(by_date["2026-07-20"]["source_date"], "2026-07-19")
-        self.assertEqual(by_date["2026-07-20"]["quality"], "stale_fallback")
-        self.assertEqual(bitcoin["status"], "degraded")
 
     def test_trailing_weekend_nights_carry_the_last_completed_session(self) -> None:
         payload = history.build_history(

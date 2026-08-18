@@ -4,9 +4,7 @@
 The current portfolio remains defined by ``data/demo-accounts.json``.  This
 module replays the separate synthetic ledger, downloads raw Yahoo daily closes,
 and values the same seeded option models used by ``update_demo_quotes.py``.
-It also builds public SPY, GLD, and BTC-USD comparison series normalized to the
-formation NAV.  It never creates a point for a market session that has not fully
-closed.
+It never creates a point for a market session that has not fully closed.
 """
 
 from __future__ import annotations
@@ -39,27 +37,6 @@ MARKET_ZONE = ZoneInfo("America/New_York")
 MARKET_CLOSE = dt.time(16, 0)
 FIRST_CALCULATED_SESSION = dt.date(2026, 7, 20)
 EPSILON = 1e-8
-BENCHMARK_SPECS: tuple[dict[str, Any], ...] = (
-    {
-        "id": "spy",
-        "label": "SPY (adjusted)",
-        "symbol": "SPY",
-        "price_basis": "adjusted_close",
-    },
-    {
-        "id": "gold-gld",
-        "label": "Gold (GLD proxy, adjusted)",
-        "symbol": "GLD",
-        "price_basis": "adjusted_close",
-    },
-    {
-        "id": "btc-usd",
-        "label": "Bitcoin (BTC-USD)",
-        "symbol": "BTC-USD",
-        "price_basis": "close",
-    },
-)
-BENCHMARK_SOURCE = "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed."
 
 
 class HistoryError(RuntimeError):
@@ -259,57 +236,7 @@ def assert_current_account_snapshot(ledger: Mapping[str, Any], accounts: Mapping
         raise HistoryError("Ledger positions do not match data/demo-accounts.json")
 
 
-def parse_yahoo_daily_result(
-    result: Mapping[str, Any],
-    *,
-    symbol: str,
-    start: dt.date,
-    end: dt.date,
-    adjusted: bool = False,
-    utc_dates: bool = False,
-) -> dict[dt.date, float]:
-    """Return positive daily prices from one Yahoo chart result.
-
-    Portfolio marks intentionally use raw closes and New York session dates.
-    SPY and GLD comparisons use adjusted closes, while BTC uses raw closes and
-    the UTC date attached to Yahoo's continuously traded daily candle.
-    """
-    timestamps = result.get("timestamp") or []
-    indicators = result.get("indicators") or {}
-    quote_rows = indicators.get("quote") or []
-    closes = quote_rows[0].get("close") if quote_rows else []
-    if adjusted:
-        adjusted_rows = indicators.get("adjclose") or []
-        prices = adjusted_rows[0].get("adjclose") if adjusted_rows else []
-        price_label = "adjusted close"
-    else:
-        prices = closes
-        price_label = "close"
-    observations: dict[dt.date, float] = {}
-    for timestamp, raw_price in zip(timestamps, prices or []):
-        if raw_price is None:
-            continue
-        price = finite_number(raw_price, f"{symbol} Yahoo {price_label}")
-        if price <= 0:
-            continue
-        observed = dt.datetime.fromtimestamp(int(timestamp), dt.timezone.utc)
-        observed_date = observed.date() if utc_dates else observed.astimezone(MARKET_ZONE).date()
-        if start <= observed_date <= end:
-            observations[observed_date] = price
-    if not observations:
-        raise HistoryError(f"Yahoo returned no usable daily {price_label}s for {symbol}")
-    return observations
-
-
-def fetch_yahoo_daily_closes(
-    symbol: str,
-    start: dt.date,
-    end: dt.date,
-    timeout: int = 20,
-    *,
-    adjusted: bool = False,
-    utc_dates: bool = False,
-) -> dict[dt.date, float]:
+def fetch_yahoo_daily_closes(symbol: str, start: dt.date, end: dt.date, timeout: int = 20) -> dict[dt.date, float]:
     period_start = int(dt.datetime.combine(start - dt.timedelta(days=5), dt.time(), dt.timezone.utc).timestamp())
     period_end = int(dt.datetime.combine(end + dt.timedelta(days=2), dt.time(), dt.timezone.utc).timestamp())
     parameters = urllib.parse.urlencode({
@@ -317,7 +244,7 @@ def fetch_yahoo_daily_closes(
         "period2": period_end,
         "interval": "1d",
         "events": "div,splits",
-        "includeAdjustedClose": "true" if adjusted else "false",
+        "includeAdjustedClose": "false",
     })
     last_error: Exception | None = None
     for host in YAHOO_HOSTS:
@@ -333,14 +260,22 @@ def fetch_yahoo_daily_closes(
             if not results:
                 raise HistoryError(f"Yahoo returned no result for {symbol}")
             result = results[0]
-            return parse_yahoo_daily_result(
-                result,
-                symbol=symbol,
-                start=start,
-                end=end,
-                adjusted=adjusted,
-                utc_dates=utc_dates,
-            )
+            timestamps = result.get("timestamp") or []
+            quote_rows = result.get("indicators", {}).get("quote") or []
+            closes = quote_rows[0].get("close") if quote_rows else []
+            observations: dict[dt.date, float] = {}
+            for timestamp, close in zip(timestamps, closes or []):
+                if close is None:
+                    continue
+                price = finite_number(close, f"{symbol} Yahoo close")
+                if price <= 0:
+                    continue
+                session_date = dt.datetime.fromtimestamp(int(timestamp), dt.timezone.utc).astimezone(MARKET_ZONE).date()
+                if start <= session_date <= end:
+                    observations[session_date] = price
+            if not observations:
+                raise HistoryError(f"Yahoo returned no usable daily closes for {symbol}")
+            return observations
         except (OSError, TimeoutError, urllib.error.URLError, json.JSONDecodeError, HistoryError, ValueError) as error:
             last_error = error
     raise HistoryError(f"Yahoo daily history unavailable for {symbol}") from last_error
@@ -423,186 +358,6 @@ def fallback_mark_history(fallback: Mapping[str, Any] | None, start: dt.date, en
     return result
 
 
-def fallback_comparison(
-    fallback: Mapping[str, Any] | None,
-    account_id: str,
-    spec: Mapping[str, Any],
-    start: dt.date,
-    end: dt.date,
-    *,
-    last_source_date: dt.date | None = None,
-) -> dict[str, Any] | None:
-    """Return one validated comparison series from a prior snapshot."""
-    comparison_id = str(spec["id"])
-    if not isinstance(fallback, Mapping):
-        return None
-    accounts = fallback.get("accounts")
-    account = accounts.get(account_id) if isinstance(accounts, Mapping) else None
-    comparisons = account.get("comparisons") if isinstance(account, Mapping) else None
-    if not isinstance(comparisons, list):
-        return None
-    for candidate in comparisons:
-        if not isinstance(candidate, Mapping) or str(candidate.get("id")) != comparison_id:
-            continue
-        if (
-            str(candidate.get("symbol")) != str(spec["symbol"])
-            or str(candidate.get("price_basis")) != str(spec["price_basis"])
-            or str(candidate.get("units")) != "normalized_account_value_usd"
-        ):
-            return None
-        try:
-            baseline_date = dt.date.fromisoformat(str(candidate.get("baseline_date")))
-            baseline_price = finite_number(candidate.get("baseline_price"), f"fallback {comparison_id} baseline")
-        except (ValueError, HistoryError):
-            return None
-        if baseline_date != start or baseline_price <= 0:
-            return None
-        points: list[dict[str, Any]] = []
-        for point in candidate.get("points") or []:
-            if not isinstance(point, Mapping):
-                continue
-            try:
-                day = dt.date.fromisoformat(str(point.get("date")))
-                source_date = dt.date.fromisoformat(str(point.get("source_date")))
-                value = finite_number(point.get("value"), f"fallback {comparison_id} value")
-                market_price = finite_number(point.get("market_price"), f"fallback {comparison_id} price")
-            except (ValueError, HistoryError):
-                continue
-            if (
-                start <= day <= end
-                and start <= source_date <= day
-                and (last_source_date is None or source_date <= last_source_date)
-                and value >= 0
-                and market_price > 0
-            ):
-                points.append({
-                    "date": day.isoformat(),
-                    "value": round(value, 2),
-                    "market_price": round(market_price, 6),
-                    "kind": str(point.get("kind") or "carry_forward"),
-                    "source_date": source_date.isoformat(),
-                    "quality": str(point.get("quality") or "fallback"),
-                })
-        if not points:
-            return None
-        result = dict(candidate)
-        result["baseline_price"] = baseline_price
-        result["points"] = sorted(points, key=lambda point: point["date"])
-        return result
-    return None
-
-
-def comparison_observations(series: Mapping[str, Any] | None) -> dict[dt.date, float]:
-    """Recover unique source prices from a previously generated comparison."""
-    observations: dict[dt.date, float] = {}
-    if not isinstance(series, Mapping):
-        return observations
-    for point in series.get("points") or []:
-        if not isinstance(point, Mapping):
-            continue
-        try:
-            source_date = dt.date.fromisoformat(str(point.get("source_date")))
-            market_price = finite_number(point.get("market_price"), "fallback benchmark market price")
-        except (ValueError, HistoryError):
-            continue
-        if market_price > 0:
-            observations[source_date] = market_price
-    return observations
-
-
-def unavailable_comparison(spec: Mapping[str, Any], formation_date: dt.date, opening_nav: float) -> dict[str, Any]:
-    return {
-        "id": str(spec["id"]),
-        "label": str(spec["label"]),
-        "symbol": str(spec["symbol"]),
-        "price_basis": str(spec["price_basis"]),
-        "baseline_date": formation_date.isoformat(),
-        "baseline_price": None,
-        "baseline_value": round(opening_nav, 2),
-        "units": "normalized_account_value_usd",
-        "status": "unavailable",
-        "source": BENCHMARK_SOURCE,
-        "points": [],
-    }
-
-
-def build_comparison(
-    spec: Mapping[str, Any],
-    *,
-    formation_date: dt.date,
-    calendar_dates: list[dt.date],
-    opening_nav: float,
-    market_sessions: set[dt.date],
-    fetched: Mapping[dt.date, float],
-    fallback_series: Mapping[str, Any] | None,
-    fetch_failed: bool,
-) -> dict[str, Any]:
-    """Normalize one public benchmark to the account's formation value."""
-    comparison_id = str(spec["id"])
-    observations = comparison_observations(fallback_series)
-    observations.update(normalize_observations(fetched, formation_date, calendar_dates[-1], str(spec["symbol"])))
-    baseline_price = observations.get(formation_date)
-    if baseline_price is None and isinstance(fallback_series, Mapping):
-        try:
-            fallback_date = dt.date.fromisoformat(str(fallback_series.get("baseline_date")))
-            fallback_price = finite_number(fallback_series.get("baseline_price"), f"{comparison_id} fallback baseline")
-            if fallback_date == formation_date and fallback_price > 0:
-                baseline_price = fallback_price
-                observations[formation_date] = fallback_price
-        except (ValueError, HistoryError):
-            pass
-    if baseline_price is None or baseline_price <= 0:
-        return unavailable_comparison(spec, formation_date, opening_nav)
-
-    points: list[dict[str, Any]] = []
-    degraded = fetch_failed
-    for day in calendar_dates:
-        eligible = [observed for observed in observations if observed <= day]
-        if not eligible:
-            return unavailable_comparison(spec, formation_date, opening_nav)
-        source_date = max(eligible)
-        market_price = observations[source_date]
-        if day == formation_date:
-            kind = "formation_baseline"
-            quality = "baseline"
-            value = opening_nav
-        elif source_date == day:
-            kind = "daily_close"
-            quality = "retained" if fetch_failed else "complete"
-            value = opening_nav * market_price / baseline_price
-        else:
-            kind = "carry_forward"
-            expected_observation = comparison_id == "btc-usd" or day in market_sessions
-            if fetch_failed or expected_observation:
-                quality = "stale_fallback"
-                degraded = True
-            else:
-                quality = "carry_forward"
-            value = opening_nav * market_price / baseline_price
-        points.append({
-            "date": day.isoformat(),
-            "value": round(value, 2),
-            "market_price": round(market_price, 6),
-            "kind": kind,
-            "source_date": source_date.isoformat(),
-            "quality": quality,
-        })
-
-    return {
-        "id": comparison_id,
-        "label": str(spec["label"]),
-        "symbol": str(spec["symbol"]),
-        "price_basis": str(spec["price_basis"]),
-        "baseline_date": formation_date.isoformat(),
-        "baseline_price": round(baseline_price, 6),
-        "baseline_value": round(opening_nav, 2),
-        "units": "normalized_account_value_usd",
-        "status": "degraded" if degraded else "ready",
-        "source": BENCHMARK_SOURCE,
-        "points": points,
-    }
-
-
 def completed_cutoff(as_of: dt.datetime) -> dt.date:
     local = as_of.astimezone(MARKET_ZONE)
     if local.timetz().replace(tzinfo=None) >= MARKET_CLOSE:
@@ -681,7 +436,6 @@ def build_history(
     *,
     as_of: dt.datetime,
     fetcher: DailyFetcher = fetch_yahoo_daily_closes,
-    benchmark_fetcher: DailyFetcher | None = None,
     fallback: Mapping[str, Any] | None = None,
 ) -> dict[str, Any]:
     """Fetch, replay, and value a deterministic calendar-daily history."""
@@ -806,65 +560,6 @@ def build_history(
     if [point["date"] for point in points] != [day.isoformat() for day in expected_dates]:
         raise HistoryError("History points are not unique, sorted, and calendar-contiguous")
 
-    benchmark_fetch = benchmark_fetcher or fetcher
-    benchmark_failures: list[str] = []
-    comparisons: list[dict[str, Any]] = []
-    account_id = str(ledger["account_id"])
-    for spec in BENCHMARK_SPECS:
-        comparison_id = str(spec["id"])
-        benchmark_end = history_end
-        if comparison_id == "btc-usd":
-            # Yahoo can expose the still-open UTC daily candle. Never record it
-            # as a completed nightly close when this workflow runs from a push.
-            last_closed_utc_candle = as_of.astimezone(dt.timezone.utc).date() - dt.timedelta(days=1)
-            benchmark_end = min(benchmark_end, last_closed_utc_candle)
-        retained = fallback_comparison(
-            fallback,
-            account_id,
-            spec,
-            formation_date,
-            history_end,
-            last_source_date=benchmark_end,
-        )
-        fetched_benchmark: dict[dt.date, float] = {}
-        fetch_failed = False
-        try:
-            if benchmark_end < formation_date:
-                raise HistoryError("no completed benchmark observation")
-            fetched_benchmark = normalize_observations(
-                benchmark_fetch(str(spec["symbol"]), formation_date, benchmark_end),
-                formation_date,
-                benchmark_end,
-                str(spec["symbol"]),
-            )
-            if not fetched_benchmark:
-                raise HistoryError("no usable benchmark observations")
-        except Exception as error:  # Comparisons must never prevent account NAV publication.
-            fetch_failed = True
-            benchmark_failures.append(f"{comparison_id}: {type(error).__name__}")
-        comparison = build_comparison(
-            spec,
-            formation_date=formation_date,
-            calendar_dates=expected_dates,
-            opening_nav=formation_nav,
-            market_sessions=session_set,
-            fetched=fetched_benchmark,
-            fallback_series=retained,
-            fetch_failed=fetch_failed,
-        )
-        if comparison["status"] == "unavailable" and not fetch_failed:
-            benchmark_failures.append(f"{comparison_id}: missing formation baseline")
-        comparisons.append(comparison)
-
-    available_comparisons = [comparison for comparison in comparisons if comparison["points"]]
-    benchmark_coverage_status = (
-        "complete"
-        if len(available_comparisons) == len(BENCHMARK_SPECS) and all(comparison["status"] == "ready" for comparison in comparisons)
-        else "degraded"
-        if available_comparisons
-        else "unavailable"
-    )
-
     mark_history: dict[str, list[dict[str, Any]]] = {}
     for symbol in symbols:
         mark_history[symbol] = [
@@ -880,23 +575,20 @@ def build_history(
     return {
         "schema_version": 1,
         "demo": True,
-        "account_id": account_id,
+        "account_id": str(ledger["account_id"]),
         "currency": str(ledger.get("currency", "USD")),
         "generated_at": utc_text(as_of),
         "formation_date": formation_date.isoformat(),
         "last_completed_session": last_session.isoformat(),
         "coverage_status": "degraded" if failures or any(point["quality"] == "degraded" for point in points) else "complete",
-        "source": "Yahoo Finance daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV.",
+        "source": "Yahoo Finance raw daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV.",
         "failures": sorted(failures),
-        "benchmark_coverage_status": benchmark_coverage_status,
-        "benchmark_failures": sorted(set(benchmark_failures)),
         "market_sessions": [day.isoformat() for day in calculated_sessions],
         "accounts": {
-            account_id: {
+            str(ledger["account_id"]): {
                 "currency": str(ledger.get("currency", "USD")),
                 "opening_nav": formation_nav,
                 "points": points,
-                "comparisons": comparisons,
             }
         },
         "mark_history": mark_history,
@@ -922,26 +614,7 @@ def main(argv: list[str] | None = None) -> int:
     def fetch(symbol: str, start: dt.date, end: dt.date) -> Mapping[dt.date, float]:
         return fetch_yahoo_daily_closes(symbol, start, end, timeout=args.timeout)
 
-    benchmark_spec_by_symbol = {str(spec["symbol"]): spec for spec in BENCHMARK_SPECS}
-
-    def fetch_benchmark(symbol: str, start: dt.date, end: dt.date) -> Mapping[dt.date, float]:
-        spec = benchmark_spec_by_symbol[symbol]
-        return fetch_yahoo_daily_closes(
-            symbol,
-            start,
-            end,
-            timeout=args.timeout,
-            adjusted=spec["price_basis"] == "adjusted_close",
-            utc_dates=symbol == "BTC-USD",
-        )
-
-    history = build_history(
-        ledger,
-        as_of=as_of,
-        fetcher=fetch,
-        benchmark_fetcher=fetch_benchmark,
-        fallback=fallback,
-    )
+    history = build_history(ledger, as_of=as_of, fetcher=fetch, fallback=fallback)
     args.output.parent.mkdir(parents=True, exist_ok=True)
     args.output.write_text(json.dumps(history, indent=2, sort_keys=True) + "\n", encoding="utf-8")
     print(json.dumps({
@@ -949,7 +622,6 @@ def main(argv: list[str] | None = None) -> int:
         "points": len(history["accounts"][str(ledger["account_id"])]["points"]),
         "last_completed_session": history["last_completed_session"],
         "coverage_status": history["coverage_status"],
-        "benchmark_coverage_status": history["benchmark_coverage_status"],
     }, sort_keys=True))
     return 0
 

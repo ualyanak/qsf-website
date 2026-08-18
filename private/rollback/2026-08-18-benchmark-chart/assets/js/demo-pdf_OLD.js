@@ -254,78 +254,6 @@
     }).format(value);
   }
 
-  function compactPercent(value) {
-    const number = Number(value);
-    if (!Number.isFinite(number)) return "-";
-    return (number >= 0 ? "+" : "") + number.toFixed(1) + "%";
-  }
-
-  function comparisonStyle(series) {
-    const key = [series && series.id, series && series.symbol, series && series.label]
-      .map(function (value) { return String(value || "").toLowerCase(); })
-      .join(" ");
-    if (/\bqsf\b/.test(key)) {
-      return { key: "qsf", label: "QSF", color: palette.navy, thickness: 2.4, marker: 3.4, dashArray: null };
-    }
-    if (/\bspy\b/.test(key)) {
-      return { key: "spy", label: "SPY", color: [0.239, 0.435, 0.549], thickness: 1.45, marker: 2.5, dashArray: null };
-    }
-    if (/\bgld\b|gold/.test(key)) {
-      return { key: "gold", label: "Gold", color: palette.gold, thickness: 1.55, marker: 2.5, dashArray: null };
-    }
-    if (/\bbtc\b|bitcoin/.test(key)) {
-      return { key: "bitcoin", label: "Bitcoin", color: [0.902, 0.412, 0.118], thickness: 1.45, marker: 2.5, dashArray: [3.2, 2.1] };
-    }
-    return { key: "benchmark", label: safe(series && series.label, 18) || "Benchmark", color: [0.43, 0.49, 0.55], thickness: 1.35, marker: 2.4, dashArray: null };
-  }
-
-  function normalizeComparisonSeries(view) {
-    const input = Array.isArray(view.comparisonSeries) ? view.comparisonSeries.slice() : [];
-    const hasQsf = input.some(function (series) { return comparisonStyle(series).key === "qsf"; });
-    if (!hasQsf && Array.isArray(view.history)) {
-      input.unshift({
-        id: "qsf",
-        label: "QSF",
-        symbol: "QSF",
-        baselineValue: Number(view.openingNav),
-        points: view.history
-      });
-    }
-    const seen = new Set();
-    const normalized = [];
-    input.forEach(function (series) {
-      if (!series || typeof series !== "object") return;
-      const style = comparisonStyle(series);
-      const identity = style.key === "benchmark" ? safe(series.id || series.symbol || series.label, 40) : style.key;
-      if (!identity || seen.has(identity)) return;
-      const pointsByDate = new Map();
-      (series.points || []).forEach(function (item) {
-        const date = parseChartDate(item && item.date);
-        const value = Number(item && (item.value == null ? item.nav : item.value));
-        if (date && Number.isFinite(value)) {
-          pointsByDate.set(String(item.date).slice(0, 10), { date: date, value: value });
-        }
-      });
-      const points = Array.from(pointsByDate.values()).sort(function (left, right) { return left.date - right.date; });
-      if (points.length < 2) return;
-      const suppliedBaseline = Number(series.baselineValue == null ? series.baseline_value : series.baselineValue);
-      const baselineValue = Number.isFinite(suppliedBaseline) && suppliedBaseline !== 0
-        ? suppliedBaseline
-        : Number.isFinite(Number(view.openingNav)) && Number(view.openingNav) !== 0
-          ? Number(view.openingNav)
-          : points[0].value;
-      normalized.push({
-        id: identity,
-        label: safe(series.label || style.label, 40),
-        style: style,
-        baselineValue: baselineValue,
-        points: points
-      });
-      seen.add(identity);
-    });
-    return normalized.slice(0, 4);
-  }
-
   function chartTickIndexes(length, maximum) {
     if (length <= 0 || maximum <= 0) return [];
     const count = Math.min(length, maximum);
@@ -374,21 +302,26 @@
       borderColor: c(PDFLib, palette.line),
       color: c(PDFLib, palette.white)
     });
-    const series = normalizeComparisonSeries(view);
-    if (!series.length) {
-      page.drawText("Normalized portfolio history is not available yet.", { x: x + 18, y: y + height / 2, size: 9, font: fonts.regular, color: c(PDFLib, palette.muted) });
+    const pointMap = new Map();
+    (view.history || []).forEach(function (item) {
+      const date = parseChartDate(item && item.date);
+      const value = Number(item && item.value);
+      if (date && Number.isFinite(value)) {
+        pointMap.set(String(item.date).slice(0, 10), { date: date, value: value });
+      }
+    });
+    const points = Array.from(pointMap.values()).sort(function (left, right) { return left.date - right.date; });
+    if (points.length < 2) {
+      page.drawText("Nightly account value history is not available yet.", { x: x + 18, y: y + height / 2, size: 9, font: fonts.regular, color: c(PDFLib, palette.muted) });
       return;
     }
-    const values = series.reduce(function (result, item) {
-      return result.concat(item.points.map(function (point) { return point.value; }));
-    }, []);
+    const values = points.map(function (point) { return point.value; });
     const axis = chartAxis(values);
-    const pad = { left: 52, right: 18, top: 58, bottom: 32 };
+    const pad = { left: 52, right: 18, top: 27, bottom: 32 };
     const plotWidth = width - pad.left - pad.right;
     const plotHeight = height - pad.top - pad.bottom;
-    const allPoints = series.reduce(function (result, item) { return result.concat(item.points); }, []);
-    const firstTime = Math.min.apply(null, allPoints.map(function (point) { return point.date.getTime(); }));
-    const lastTime = Math.max.apply(null, allPoints.map(function (point) { return point.date.getTime(); }));
+    const firstTime = points[0].date.getTime();
+    const lastTime = points[points.length - 1].date.getTime();
     const timeSpan = Math.max(1, lastTime - firstTime);
     const px = function (point) { return x + pad.left + (point.date.getTime() - firstTime) / timeSpan * plotWidth; };
     const py = function (value) { return y + pad.bottom + (value - axis.min) / (axis.max - axis.min) * plotHeight; };
@@ -418,89 +351,49 @@
       color: c(PDFLib, [0.55, 0.61, 0.66])
     });
 
-    const qsfSeries = series.find(function (item) { return item.style.key === "qsf"; });
-    const tickSeries = qsfSeries || series.reduce(function (longest, item) {
-      return !longest || item.points.length > longest.points.length ? item : longest;
-    }, null);
-    const includeYear = new Date(firstTime).getUTCFullYear() !== new Date(lastTime).getUTCFullYear();
-    const xIndexes = chartTickIndexes(tickSeries.points.length, 7);
+    const includeYear = points[0].date.getUTCFullYear() !== points[points.length - 1].date.getUTCFullYear();
+    const xIndexes = chartTickIndexes(points.length, 7);
     xIndexes.forEach(function (index, tick) {
-      const gx = px(tickSeries.points[index]);
+      const gx = px(points[index]);
       page.drawLine({
         start: { x: gx, y: y + pad.bottom },
         end: { x: gx, y: y + pad.bottom - 4 },
         thickness: 0.55,
         color: c(PDFLib, [0.55, 0.61, 0.66])
       });
-      const label = formatChartDate(tickSeries.points[index].date, includeYear);
+      const label = formatChartDate(points[index].date, includeYear);
       const labelWidth = textWidth(fonts.regular, label, 6.4);
       const labelX = tick === 0 ? gx : tick === xIndexes.length - 1 ? gx - labelWidth : gx - labelWidth / 2;
       page.drawText(label, { x: labelX, y: y + 11, size: 6.4, font: fonts.regular, color: c(PDFLib, palette.muted) });
     });
 
-    const axisTitle = "GROWTH OF OPENING VALUE (" + (view.currency || "USD") + ")";
+    const axisTitle = "ACCOUNT VALUE (" + (view.currency || "USD") + ")";
     page.drawText(axisTitle, { x: x + pad.left, y: y + height - 15, size: 6.5, font: fonts.bold, color: c(PDFLib, palette.muted) });
-    const through = "THROUGH " + formatChartDate(new Date(lastTime), true).toUpperCase();
-    page.drawText(through, {
-      x: x + width - pad.right - textWidth(fonts.bold, through, 6.5),
+    const latest = "LATEST " + money(points[points.length - 1].value, view.currency);
+    page.drawText(latest, {
+      x: x + width - pad.right - textWidth(fonts.bold, latest, 6.7),
       y: y + height - 15,
-      size: 6.5,
+      size: 6.7,
       font: fonts.bold,
       color: c(PDFLib, palette.navy)
     });
 
-    const legendWidth = plotWidth / series.length;
-    series.forEach(function (item, index) {
-      const legendX = x + pad.left + index * legendWidth;
-      const legendY = y + height - 36;
-      const swatchOptions = {
-        start: { x: legendX, y: legendY + 1.5 },
-        end: { x: legendX + 11, y: legendY + 1.5 },
-        thickness: item.style.thickness,
-        color: c(PDFLib, item.style.color)
-      };
-      if (item.style.dashArray) swatchOptions.dashArray = item.style.dashArray;
-      page.drawLine(swatchOptions);
-      const latestPoint = item.points[item.points.length - 1];
-      const latestReturn = item.baselineValue
-        ? (latestPoint.value / item.baselineValue - 1) * 100
-        : NaN;
-      const legendText = item.style.label + " " + formatAxisMoney(latestPoint.value, view.currency)
-        + (Number.isFinite(latestReturn) ? " (" + compactPercent(latestReturn) + ")" : "");
-      page.drawText(truncate(fonts.bold, legendText, 5.7, legendWidth - 17), {
-        x: legendX + 15,
-        y: legendY,
-        size: 5.7,
-        font: fonts.bold,
-        color: c(PDFLib, palette.ink)
+    for (let index = 1; index < points.length; index += 1) {
+      page.drawLine({
+        start: { x: px(points[index - 1]), y: py(points[index - 1].value) },
+        end: { x: px(points[index]), y: py(points[index].value) },
+        thickness: 2.1,
+        color: c(PDFLib, palette.navy)
       });
-    });
-
-    const drawOrder = series.slice().sort(function (left, right) {
-      return (left.style.key === "qsf" ? 1 : 0) - (right.style.key === "qsf" ? 1 : 0);
-    });
-    drawOrder.forEach(function (item) {
-      for (let index = 1; index < item.points.length; index += 1) {
-        const options = {
-          start: { x: px(item.points[index - 1]), y: py(item.points[index - 1].value) },
-          end: { x: px(item.points[index]), y: py(item.points[index].value) },
-          thickness: item.style.thickness,
-          color: c(PDFLib, item.style.color)
-        };
-        if (item.style.dashArray) options.dashArray = item.style.dashArray;
-        page.drawLine(options);
-      }
-    });
-    drawOrder.forEach(function (item) {
-      const finalPoint = item.points[item.points.length - 1];
-      page.drawCircle({
-        x: px(finalPoint),
-        y: py(finalPoint.value),
-        size: item.style.marker,
-        color: c(PDFLib, item.style.color),
-        borderColor: c(PDFLib, palette.white),
-        borderWidth: 0.9
-      });
+    }
+    const finalPoint = points[points.length - 1];
+    page.drawCircle({
+      x: px(finalPoint),
+      y: py(finalPoint.value),
+      size: 3.8,
+      color: c(PDFLib, palette.gold),
+      borderColor: c(PDFLib, palette.white),
+      borderWidth: 1.2
     });
   }
 
@@ -675,28 +568,14 @@
     if (!chunks.length) chunks.push([]);
     chunks.forEach(function (rows, index) {
       const page = doc.addPage(A4);
-      drawTopRule(page, PDFLib, fonts, index === 0 ? "Holdings and QSF benchmark comparison" : "Holdings continued", safe(view.portfolioName, 70));
+      drawTopRule(page, PDFLib, fonts, index === 0 ? "Holdings and nightly account value history" : "Holdings continued", safe(view.portfolioName, 70));
       let tableY;
       if (index === 0) {
-        const comparisonCount = normalizeComparisonSeries(view).filter(function (series) { return series.style.key !== "qsf"; }).length;
-        const baselineDate = parseChartDate(view.comparisonBaselineDate || view.openingAsOf);
-        const baselineLabel = baselineDate ? dateText(baselineDate, false) : "July 17, 2026";
-        page.drawText("QSF VS. NORMALIZED BENCHMARKS", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-        page.drawText(
-          comparisonCount
-            ? "All series are rebased to the " + baselineLabel + " opening value; benchmark lines use public closing prices."
-            : "Benchmark history is unavailable; the chart shows completed QSF nightly values rebased to the " + baselineLabel + " opening value.",
-          { x: 38, y: 729, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) }
-        );
-        page.drawText(
-          comparisonCount
-            ? "SPY and the GLD gold proxy use adjusted public closes; Bitcoin uses BTC-USD; all values are illustrative."
-            : "The QSF line remains illustrative public test data and is not an official account or fund return.",
-          { x: 38, y: 718, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) }
-        );
-        drawPerformanceChart(page, PDFLib, fonts, view, 38, 515, page.getWidth() - 76, 190);
-        page.drawText("PUBLIC TEST HOLDINGS", { x: 38, y: 491, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
-        tableY = 476;
+        page.drawText("NIGHTLY ACCOUNT VALUE HISTORY", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
+        page.drawText("Completed end-of-day estimates from public closing prices and model-derived option values.", { x: 38, y: 729, size: 6.8, font: fonts.regular, color: c(PDFLib, palette.muted) });
+        drawPerformanceChart(page, PDFLib, fonts, view, 38, 565, page.getWidth() - 76, 160);
+        page.drawText("PUBLIC TEST HOLDINGS", { x: 38, y: 541, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
+        tableY = 526;
       } else {
         page.drawText("PUBLIC TEST HOLDINGS", { x: 38, y: 741, size: 8, font: fonts.bold, color: c(PDFLib, palette.muted) });
         tableY = 726;
@@ -746,5 +625,5 @@
     return { filename: filename, byteLength: bytes.length };
   }
 
-  root.QSFDemoPdf = { build: build, download: download, version: "1.2.0" };
+  root.QSFDemoPdf = { build: build, download: download, version: "1.1.0" };
 })(typeof window !== "undefined" ? window : globalThis);

@@ -7,11 +7,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Demo Portfolio Overview | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=20260818-benchmark1">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260721-demo8">
   <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
-  <script defer src="../assets/js/portal-config.js?v=20260818-benchmark1"></script>
-  <script defer src="../assets/js/demo-pdf.js?v=20260818-benchmark1"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260818-benchmark1"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260813-axes1"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260813-axes1"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260813-axes1"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
   <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
@@ -75,25 +75,22 @@
       <article class="panel performance-panel">
         <div class="panel-heading">
           <div>
-            <p class="eyebrow">Growth of $9,900 from formation</p>
-            <h2>QSF vs public benchmarks</h2>
+            <p class="eyebrow">Illustrative account value</p>
+            <h2>Nightly account value history</h2>
           </div>
-          <span class="data-badge">Nightly comparison</span>
+          <span class="data-badge">Nightly value history</span>
         </div>
-        <div id="performance-legend" class="performance-legend" role="list" aria-label="Latest normalized nightly values">
-          <p class="muted-copy">Loading QSF and public benchmark values…</p>
-        </div>
-        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading the completed nightly QSF and public benchmark comparison">
+        <div id="performance-chart" class="chart-shell" role="img" aria-label="Loading completed nightly account value history">
           <div class="empty-state">
-            <strong>Loading nightly comparison</strong>
-            <span>QSF, Gold, SPY, and Bitcoin will be shown on the same $9,900 starting-value scale.</span>
+            <strong>Loading nightly account value history</strong>
+            <span>Completed end-of-day values will appear here.</span>
           </div>
         </div>
         <div class="chart-footnote">
-          <span id="chart-start">All series = $9,900 · formation</span>
-          <span id="chart-end">Latest night —</span>
+          <span id="chart-start">Start —</span>
+          <span id="chart-end">Latest —</span>
         </div>
-        <p class="table-note">Completed nightly values only. QSF uses the demonstration portfolio estimate; Gold uses the GLD proxy, SPY uses adjusted closes, and Bitcoin uses BTC-USD closes. SPY and GLD carry across exchange holidays and weekends; Bitcoin uses completed UTC daily closes.</p>
+        <p class="table-note">Each point is a completed end-of-day estimate built from public closing prices and automatic option models. The history refreshes after the market close.</p>
       </article>
 
       <article class="panel allocation-panel">

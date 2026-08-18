@@ -64,16 +64,11 @@ repository. They must never be reused for real investor accounts.
    supplied cash or trade event. `scripts/update_demo_portfolio_history.py`
    replays that ledger against raw daily closes and writes prior completed-night
    values to `data/demo-portfolio-history.json`; the chart uses the latest
-   completed nightly value while the headline account value may be fresher. The
-   same snapshot contains public SPY, GLD, and Bitcoin comparison series aligned
-   to the account's calendar dates. SPY and GLD use Yahoo adjusted daily closes;
-   Bitcoin uses Yahoo raw daily closes mapped to their UTC candle dates. The
-   account's own position history continues to use raw closes.
+   completed nightly value while the headline account value may be fresher.
 4. `.github/workflows/refresh-market-data.yml` publishes intraday quote
    snapshots, while `.github/workflows/refresh-portfolio-history.yml` rebuilds
-   and publishes the complete nightly series at 00:30 UTC, after the US market
-   close and after the prior UTC Bitcoin daily candle has closed. Both write to
-   the `market-data` branch. Main-branch copies are packaged fallbacks when a
+   and publishes the complete nightly series after the market close. Both write
+   to the `market-data` branch. Main-branch copies are packaged fallbacks when a
    remote snapshot is unavailable.
 5. The updater calculates the three seeded option strategy marks with a
    Black-Scholes estimate calibrated to the supplied opening premium. The
@@ -89,18 +84,6 @@ the PDF view. The chart and PDF use the latest completed end-of-day history poin
 they do not add an intraday point. Option rows distinguish the current
 model-valuation time from the delayed underlier observation used as the model
 input.
-
-Each comparison starts at the `$9,900.00` formation NAV on July 17, 2026 and is
-normalized as `formation NAV × daily price ÷ formation-date price`; the first
-point is forced to exactly the formation NAV. This presents hypothetical growth
-of the same starting value, not an actual holding or investable return. GLD is a
-publicly traded gold proxy rather than spot gold. SPY and GLD carry their last
-close across non-trading days, while Bitcoin can move every UTC calendar day.
-Runs triggered before UTC midnight ignore the still-open Bitcoin candle and
-carry the last completed candle instead.
-If a comparison download fails, the account NAV still publishes: a previously
-validated comparison is retained and carried forward with degraded quality, or
-that comparison is marked unavailable when no valid formation baseline exists.
 
 Scheduled GitHub Actions runs are best effort and can be delayed. The portal
 therefore preserves each mark's source, timestamp, and quality label.

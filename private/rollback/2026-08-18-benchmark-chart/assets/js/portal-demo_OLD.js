@@ -13,14 +13,6 @@
   const MAX_EXPECTED_QUOTE_AGE_MS = 4 * 24 * 60 * 60 * 1000;
   let chartResizeTimer = null;
 
-  const comparisonOrder = ["spy", "gold-gld", "btc-usd"];
-  const chartSeriesStyles = Object.freeze({
-    qsf: { label: "QSF", color: "#15344f", width: 3.2, dash: "" },
-    spy: { label: "SPY", color: "#3d6f8c", width: 2.2, dash: "" },
-    "gold-gld": { label: "Gold", color: "#967638", width: 2.2, dash: "" },
-    "btc-usd": { label: "Bitcoin", color: "#b45309", width: 2.2, dash: "7 5" }
-  });
-
   const page = document.body && document.body.dataset.page;
   const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467"];
   const state = {
@@ -259,30 +251,7 @@
           quality: safeString(point && point.quality || "historical_close", 48)
         };
       }).filter(Boolean);
-      const comparisons = (account && Array.isArray(account.comparisons) ? account.comparisons : []).map(function (comparison) {
-        const id = safeString(comparison && comparison.id, 32).toLowerCase();
-        if (!comparisonOrder.includes(id)) return null;
-        const comparisonPoints = (comparison && Array.isArray(comparison.points) ? comparison.points : []).map(function (point) {
-          const date = safeString(point && point.date, 10);
-          const value = finite(point && (point.value != null ? point.value : point.normalized_value));
-          if (!/^\d{4}-\d{2}-\d{2}$/.test(date) || value == null) return null;
-          return {
-            date: date,
-            value: value,
-            kind: safeString(point && point.kind || "nightly_benchmark", 48),
-            sourceDate: safeString(point && (point.source_date || point.sourceDate), 10) || date,
-            quality: safeString(point && point.quality || "historical_close", 48)
-          };
-        }).filter(Boolean);
-        return {
-          id: id,
-          label: safeString(comparison && comparison.label, 64) || chartSeriesStyles[id].label,
-          source: safeString(comparison && comparison.source, 160) || "Public benchmark closing prices",
-          baselineDate: safeString(comparison && (comparison.baseline_date || comparison.baselineDate), 10) || null,
-          points: comparisonPoints
-        };
-      }).filter(Boolean);
-      if (accountId) accounts[accountId] = { points: points, comparisons: comparisons };
+      if (accountId) accounts[accountId] = { points: points };
     });
     return {
       schema_version: Number(payload.schema_version || 1),
@@ -319,28 +288,13 @@
       Object.entries(snapshot.accounts || {}).forEach(function (entry) {
         const accountId = entry[0];
         const points = entry[1] && Array.isArray(entry[1].points) ? entry[1].points : [];
-        const comparisons = entry[1] && Array.isArray(entry[1].comparisons) ? entry[1].comparisons : [];
-        if (!merged[accountId]) merged[accountId] = { points: new Map(), comparisons: new Map() };
-        points.forEach(function (point) { merged[accountId].points.set(point.date, point); });
-        comparisons.forEach(function (comparison) {
-          const previous = merged[accountId].comparisons.get(comparison.id);
-          const comparisonPoints = previous ? previous.points : new Map();
-          (comparison.points || []).forEach(function (point) { comparisonPoints.set(point.date, point); });
-          merged[accountId].comparisons.set(comparison.id, Object.assign({}, previous || {}, comparison, { points: comparisonPoints }));
-        });
+        if (!merged[accountId]) merged[accountId] = new Map();
+        points.forEach(function (point) { merged[accountId].set(point.date, point); });
       });
     });
     const accounts = {};
     Object.entries(merged).forEach(function (entry) {
-      const comparisons = Array.from(entry[1].comparisons.values()).map(function (comparison) {
-        return Object.assign({}, comparison, {
-          points: Array.from(comparison.points.values()).sort(function (a, b) { return a.date.localeCompare(b.date); })
-        });
-      }).sort(function (a, b) { return comparisonOrder.indexOf(a.id) - comparisonOrder.indexOf(b.id); });
-      accounts[entry[0]] = {
-        points: Array.from(entry[1].points.values()).sort(function (a, b) { return a.date.localeCompare(b.date); }),
-        comparisons: comparisons
-      };
+      accounts[entry[0]] = { points: Array.from(entry[1].values()).sort(function (a, b) { return a.date.localeCompare(b.date); }) };
     });
     const newest = ordered[ordered.length - 1];
     state.history = {
@@ -603,49 +557,6 @@
       if (point && point.date <= today && finite(point.value) != null) historyByDate.set(point.date, point);
     });
     const history = Array.from(historyByDate.values()).sort(function (a, b) { return a.date.localeCompare(b.date); });
-    const historyDates = new Set(history.map(function (point) { return point.date; }));
-    const qsfStyle = chartSeriesStyles.qsf;
-    const comparisonSeries = history.length ? [{
-      id: "qsf",
-      label: qsfStyle.label,
-      source: "QSF public demonstration nightly account value",
-      points: history.map(function (point) {
-        return {
-          date: point.date,
-          value: Number(point.value),
-          kind: point.kind || "nightly_close",
-          sourceDate: point.sourceDate || point.source_date || point.date,
-          quality: point.quality || "historical_close"
-        };
-      })
-    }] : [];
-    (publishedHistory && publishedHistory.comparisons || []).forEach(function (comparison) {
-      if (!comparisonOrder.includes(comparison.id)) return;
-      const benchmarkPoints = (comparison.points || []).filter(function (point) {
-        return historyDates.has(point.date) && point.date <= today && finite(point.value) != null;
-      }).map(function (point) {
-        return {
-          date: point.date,
-          value: Number(point.value),
-          kind: point.kind || "nightly_benchmark",
-          sourceDate: point.sourceDate || point.source_date || point.date,
-          quality: point.quality || "historical_close"
-        };
-      }).sort(function (a, b) { return a.date.localeCompare(b.date); });
-      if (benchmarkPoints.length < 2) return;
-      comparisonSeries.push({
-        id: comparison.id,
-        label: chartSeriesStyles[comparison.id].label,
-        source: comparison.source,
-        baselineDate: comparison.baselineDate,
-        points: benchmarkPoints
-      });
-    });
-    comparisonSeries.sort(function (a, b) {
-      const left = a.id === "qsf" ? -1 : comparisonOrder.indexOf(a.id);
-      const right = b.id === "qsf" ? -1 : comparisonOrder.indexOf(b.id);
-      return left - right;
-    });
     const staleCount = holdings.filter(function (holding) {
       return !["public_delayed", "model_delayed"].includes(holding.markQuality);
     }).length;
@@ -670,7 +581,6 @@
       holdings: holdings,
       allocation: allocation,
       history: history,
-      comparisonSeries: comparisonSeries,
       historySnapshotGeneratedAt: state.history && state.history.generated_at,
       historyStatus: state.historyStatus,
       latestMarkAsOf: latestMarkDate ? latestMarkDate.toISOString() : null,
@@ -747,78 +657,30 @@
     return node;
   }
 
-  function renderChartLegend(chartSeries, currency, openingValue) {
-    const legend = byId("performance-legend");
-    if (!legend) return;
-    legend.replaceChildren();
-    chartSeries.forEach(function (series) {
-      const style = chartSeriesStyles[series.id];
-      const latest = series.points[series.points.length - 1];
-      if (!style || !latest) return;
-      const item = document.createElement("div");
-      item.className = "performance-legend-item";
-      item.setAttribute("role", "listitem");
-      item.dataset.seriesId = series.id;
-      const swatch = document.createElement("span");
-      swatch.className = "performance-legend-swatch" + (style.dash ? " is-dashed" : "");
-      swatch.style.setProperty("--series-color", style.color);
-      swatch.setAttribute("aria-hidden", "true");
-      const name = document.createElement("span");
-      name.className = "performance-legend-name";
-      name.textContent = style.label;
-      const value = document.createElement("strong");
-      value.className = "performance-legend-value";
-      value.textContent = formatCurrency(latest.value, currency);
-      const change = openingValue ? (latest.value / openingValue - 1) * 100 : null;
-      const changeText = document.createElement("span");
-      changeText.className = "performance-legend-change";
-      changeText.textContent = change == null
-        ? "Change unavailable"
-        : formatPercent(change) + " since " + formatCurrency(openingValue, currency, false);
-      item.setAttribute("aria-label", style.label + ", latest nightly value " + value.textContent + ", " + changeText.textContent + ".");
-      item.append(swatch, name, value, changeText);
-      legend.append(item);
-    });
-  }
-
-  function renderChart(comparisonSeries, currency, openingValue) {
+  function renderChart(history, currency) {
     const shell = byId("performance-chart");
-    if (!shell || !Array.isArray(comparisonSeries)) return;
-    const chartSeries = comparisonSeries.map(function (series) {
-      if (!series || !chartSeriesStyles[series.id] || !Array.isArray(series.points)) return null;
-      const pointMap = new Map();
-      series.points.forEach(function (item) {
-        const date = parseDate(item && item.date);
-        const value = Number(item && item.value);
-        if (date && Number.isFinite(value)) {
-          pointMap.set(String(item.date).slice(0, 10), {
-            date: date,
-            dateKey: String(item.date).slice(0, 10),
-            value: value,
-            kind: item.kind || "nightly_close",
-            quality: item.quality || "historical_close"
-          });
-        }
-      });
-      const points = Array.from(pointMap.values()).sort(function (left, right) { return left.date - right.date; });
-      return points.length ? { id: series.id, label: chartSeriesStyles[series.id].label, points: points } : null;
-    }).filter(Boolean);
-    const qsfSeries = chartSeries.find(function (series) { return series.id === "qsf"; });
-    const points = qsfSeries ? qsfSeries.points : [];
-    const baselineValue = finite(openingValue) || (points[0] && points[0].value) || 9900;
-    renderChartLegend(chartSeries, currency, baselineValue);
+    if (!shell || !Array.isArray(history)) return;
+    const pointMap = new Map();
+    history.forEach(function (item) {
+      const date = parseDate(item && item.date);
+      const value = Number(item && item.value);
+      if (date && Number.isFinite(value)) {
+        pointMap.set(String(item.date).slice(0, 10), { date: date, value: value, kind: item.kind || "nightly_close" });
+      }
+    });
+    const points = Array.from(pointMap.values()).sort(function (left, right) { return left.date - right.date; });
     if (points.length < 2) {
       const empty = document.createElement("div");
       empty.className = "empty-state";
       const title = document.createElement("strong");
-      title.textContent = "Nightly comparison is not available yet";
+      title.textContent = "Nightly history is not available yet";
       const note = document.createElement("span");
-      note.textContent = "QSF and public benchmark values will appear after completed end-of-day history is available.";
+      note.textContent = "Completed end-of-day values will appear here after nightly history is available.";
       empty.append(title, note);
       shell.replaceChildren(empty);
-      shell.setAttribute("aria-label", "The nightly QSF and public benchmark comparison is not yet available for this demonstration portfolio.");
-      setText("chart-start", "Formation baseline pending");
-      setText("chart-end", points.length ? "Latest night " + formatDate(points[0].date) : "Latest night —");
+      shell.setAttribute("aria-label", "Nightly account value history is not yet available for this demonstration portfolio.");
+      setText("chart-start", "Nightly history pending");
+      setText("chart-end", points.length ? "Latest nightly value " + formatDate(points[0].date) + " · " + formatCurrency(points[0].value, currency) : "Latest nightly value —");
       return;
     }
     const box = shell.getBoundingClientRect();
@@ -828,19 +690,19 @@
     const pad = mobile
       ? { top: 26, right: 10, bottom: 42, left: 56 }
       : { top: 28, right: 16, bottom: 44, left: 66 };
-    const axisValues = [];
-    chartSeries.forEach(function (series) {
-      series.points.forEach(function (point) { axisValues.push(point.value); });
-    });
-    const axis = chartAxis(axisValues);
+    const values = points.map(function (point) { return point.value; });
+    const axis = chartAxis(values);
     const plotWidth = width - pad.left - pad.right;
     const plotHeight = height - pad.top - pad.bottom;
     const firstTime = points[0].date.getTime();
     const lastTime = points[points.length - 1].date.getTime();
     const timeSpan = Math.max(1, lastTime - firstTime);
     function x(index) { return pad.left + (points[index].date.getTime() - firstTime) / timeSpan * plotWidth; }
-    function xDate(date) { return pad.left + (date.getTime() - firstTime) / timeSpan * plotWidth; }
     function y(value) { return pad.top + (axis.max - value) / (axis.max - axis.min) * plotHeight; }
+    const linePath = points.map(function (point, index) {
+      return (index ? "L" : "M") + x(index).toFixed(2) + " " + y(point.value).toFixed(2);
+    }).join(" ");
+    const areaPath = linePath + " L" + x(points.length - 1).toFixed(2) + " " + (height - pad.bottom) + " L" + x(0).toFixed(2) + " " + (height - pad.bottom) + " Z";
     const svg = svgNode("svg", {
       viewBox: "0 0 " + width + " " + height,
       preserveAspectRatio: "xMidYMid meet",
@@ -932,56 +794,33 @@
       "letter-spacing": ".04em",
       "data-axis-title": "y"
     });
-    unit.textContent = "GROWTH OF " + formatCurrency(baselineValue, currency, false) + " (" + (currency || "USD") + ")";
+    unit.textContent = "ACCOUNT VALUE (" + (currency || "USD") + ")";
     svg.append(unit);
 
-    const drawOrder = chartSeries.slice().sort(function (a, b) {
-      return a.id === "qsf" ? 1 : b.id === "qsf" ? -1 : comparisonOrder.indexOf(a.id) - comparisonOrder.indexOf(b.id);
-    });
-    drawOrder.forEach(function (series) {
-      const style = chartSeriesStyles[series.id];
-      const linePath = series.points.map(function (point, index) {
-        return (index ? "L" : "M") + xDate(point.date).toFixed(2) + " " + y(point.value).toFixed(2);
-      }).join(" ");
-      const line = svgNode("path", {
-        "clip-path": "url(#" + clipId + ")",
-        "data-chart-series": series.id,
-        "data-series-id": series.id
-      });
-      line.setAttribute("d", linePath);
-      line.setAttribute("fill", "none");
-      line.setAttribute("stroke", style.color);
-      line.setAttribute("stroke-width", style.width);
-      if (style.dash) line.setAttribute("stroke-dasharray", style.dash);
-      line.setAttribute("vector-effect", "non-scaling-stroke");
-      line.setAttribute("stroke-linecap", "round");
-      line.setAttribute("stroke-linejoin", "round");
-      svg.append(line);
-    });
-    drawOrder.forEach(function (series) {
-      const style = chartSeriesStyles[series.id];
-      const latestPoint = series.points[series.points.length - 1];
-      const marker = svgNode("circle", {
-        "data-chart-latest": series.id,
-        "data-series-id": series.id
-      });
-      marker.setAttribute("cx", xDate(latestPoint.date));
-      marker.setAttribute("cy", y(latestPoint.value));
-      marker.setAttribute("r", series.id === "qsf" ? "5" : "4");
-      marker.setAttribute("fill", style.color);
-      marker.setAttribute("stroke", "#fff");
-      marker.setAttribute("stroke-width", "2.5");
-      marker.setAttribute("vector-effect", "non-scaling-stroke");
-      svg.append(marker);
-    });
+    svg.setAttribute("viewBox", "0 0 " + width + " " + height);
+    const area = svgNode("path", { "clip-path": "url(#" + clipId + ")" });
+    area.setAttribute("d", areaPath);
+    area.setAttribute("fill", "rgba(201, 162, 79, .17)");
+    const line = svgNode("path", { "clip-path": "url(#" + clipId + ")", "data-chart-series": "nightly-account-value" });
+    line.setAttribute("d", linePath);
+    line.setAttribute("fill", "none");
+    line.setAttribute("stroke", "#15344f");
+    line.setAttribute("stroke-width", "3");
+    line.setAttribute("vector-effect", "non-scaling-stroke");
+    line.setAttribute("stroke-linecap", "round");
+    line.setAttribute("stroke-linejoin", "round");
+    const dot = svgNode("circle", { "data-chart-latest": "true" });
+    dot.setAttribute("cx", x(points.length - 1));
+    dot.setAttribute("cy", y(points[points.length - 1].value));
+    dot.setAttribute("r", "5");
+    dot.setAttribute("fill", "#c9a24f");
+    dot.setAttribute("stroke", "#fff");
+    dot.setAttribute("stroke-width", "3");
+    svg.append(area, line, dot);
     shell.replaceChildren(svg);
-    const latestSummaries = chartSeries.map(function (series) {
-      const latestPoint = series.points[series.points.length - 1];
-      return chartSeriesStyles[series.id].label + " " + formatCurrency(latestPoint.value, currency);
-    });
-    shell.setAttribute("aria-label", "Growth of " + formatCurrency(baselineValue, currency, false) + " from " + formatDate(points[0].date) + " through " + formatDate(points[points.length - 1].date) + ", comparing QSF with available public benchmarks. The vertical axis runs from " + yLabels[0] + " to " + yLabels[yLabels.length - 1] + " in five intervals. Latest nightly values: " + latestSummaries.join(", ") + ".");
-    setText("chart-start", "All series = " + formatCurrency(baselineValue, currency, false) + " · " + formatDate(points[0].date));
-    setText("chart-end", "Latest night " + formatDate(points[points.length - 1].date));
+    shell.setAttribute("aria-label", "Nightly account value history from " + formatDate(points[0].date) + " through " + formatDate(points[points.length - 1].date) + ". The vertical axis runs from " + yLabels[0] + " to " + yLabels[yLabels.length - 1] + " in five intervals. Latest completed value " + formatCurrency(points[points.length - 1].value, currency) + ".");
+    setText("chart-start", "Start " + formatDate(points[0].date));
+    setText("chart-end", "Latest nightly value " + formatDate(points[points.length - 1].date) + " · " + formatCurrency(points[points.length - 1].value, currency));
   }
 
   function renderAllocation(view) {
@@ -1070,7 +909,7 @@
       ? " from the latest available automatic, manual, and fallback marks."
       : " from delayed public marks and automatic option model estimates."));
     setText("scenario-state", view.modifiedAt ? "Locally modified" : "Published sample");
-    renderChart(view.comparisonSeries, view.currency, view.openingNav);
+    renderChart(view.history, view.currency);
     renderAllocation(view);
     renderHoldings(view);
     setStatus("ready", view.modifiedAt
@@ -1195,7 +1034,7 @@
     root.addEventListener("resize", function () {
       root.clearTimeout(chartResizeTimer);
       chartResizeTimer = root.setTimeout(function () {
-        if (state.view) renderChart(state.view.comparisonSeries, state.view.currency, state.view.openingNav);
+        if (state.view) renderChart(state.view.history, state.view.currency);
       }, 120);
     });
     root.setInterval(async function () {
@@ -1596,7 +1435,7 @@
 
   root.QSFDemoPortal = {
     deriveCurrent: function () { return state.view ? JSON.parse(JSON.stringify(state.view)) : null; },
-    version: "1.2.0"
+    version: "1.1.0"
   };
 
   if (config.mode !== "public-demo") return;

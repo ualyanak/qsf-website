@@ -2,9 +2,9 @@ name: Refresh public portfolio history
 
 on:
   schedule:
-    # Rebuild after the US close and after the prior UTC Bitcoin candle closes.
-    # Rebuilding all dates makes delayed or skipped schedules self-healing.
-    - cron: "30 0 * * *"
+    # Rebuild the complete history after US market close every day. Rebuilding
+    # all dates makes delayed or skipped GitHub schedules self-healing.
+    - cron: "30 23 * * *"
   push:
     branches:
       - main
@@ -40,7 +40,6 @@ jobs:
         run: |
           python -m unittest scripts/test_demo_portfolio_history.py
           python -m unittest scripts/test_demo_quotes.py
-          python -m unittest scripts/test_chart_axes.py
 
       - name: Prepare latest portfolio-history fallback
         shell: bash

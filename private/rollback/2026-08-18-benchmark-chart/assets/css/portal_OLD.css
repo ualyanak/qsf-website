@@ -705,63 +705,6 @@ a { color: inherit; }
   white-space: nowrap;
 }
 
-.performance-legend {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 8px;
-  margin: -4px 0 12px;
-}
-
-.performance-legend > .muted-copy { grid-column: 1 / -1; }
-
-.performance-legend-item {
-  display: grid;
-  grid-template-columns: 21px minmax(0, 1fr);
-  grid-template-rows: auto auto auto;
-  gap: 1px 7px;
-  min-width: 0;
-  padding: 9px 10px;
-  border: 1px solid #e3e8ec;
-  border-radius: 8px;
-  background: #fbfcfd;
-  color: var(--muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.performance-legend-swatch {
-  grid-area: 1 / 1 / span 3 / 2;
-  align-self: start;
-  width: 19px;
-  margin-top: 7px;
-  border-top: 3px solid var(--series-color, var(--navy-800));
-}
-
-.performance-legend-swatch.is-dashed { border-top-style: dashed; }
-
-.performance-legend-name {
-  overflow: hidden;
-  color: var(--navy-900);
-  font-size: 0.72rem;
-  font-weight: 800;
-  letter-spacing: 0.02em;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.performance-legend-value {
-  overflow: hidden;
-  color: var(--navy-900);
-  font-size: 0.79rem;
-  line-height: 1.25;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.performance-legend-change {
-  font-size: 0.68rem;
-  font-weight: 750;
-}
-
 .chart-shell {
   position: relative;
   display: grid;
@@ -770,7 +713,11 @@ a { color: inherit; }
   overflow: hidden;
   border: 1px solid #e5e9ed;
   border-radius: var(--radius-sm);
-  background: linear-gradient(180deg, #fff, #f9fafb);
+  background:
+    linear-gradient(rgba(21, 52, 79, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(21, 52, 79, 0.05) 1px, transparent 1px),
+    linear-gradient(180deg, #fff, #f9fafb);
+  background-size: 100% 25%, 12.5% 100%, 100% 100%;
 }
 
 .chart-shell svg {
@@ -1241,7 +1188,6 @@ td { color: #465564; }
   .metric-card { min-height: 137px; padding: 18px; }
   .metric-card strong { font-size: 1.55rem; }
   .panel { padding: 21px 18px; }
-  .performance-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .chart-shell,
   .chart-shell svg { min-height: 250px; height: 250px; }
   .allocation-view { grid-template-columns: 1fr; }
@@ -1261,9 +1207,6 @@ td { color: #465564; }
   .metric-card span { font-size: 0.69rem; }
   .panel-heading { display: grid; }
   .panel-heading .data-badge { justify-self: start; }
-  .performance-legend-item { min-height: 72px; padding: 8px; }
-  .performance-legend-name { font-size: 0.69rem; }
-  .performance-legend-value { font-size: 0.74rem; }
   .form-grid { grid-template-columns: 1fr; }
   .trade-preview { display: grid; }
   .editor-summary { grid-template-columns: 1fr; }
