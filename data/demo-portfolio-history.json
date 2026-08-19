@@ -1194,7 +1194,7 @@
           "value": 12906.17
         },
         {
-          "cash": 761.3,
+          "cash": 773.91,
           "date": "2026-08-18",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -1202,7 +1202,7 @@
           "positions_value": 11991.8,
           "quality": "complete",
           "source_date": "2026-08-18",
-          "value": 12753.1
+          "value": 12765.71
         }
       ]
     }
@@ -1214,7 +1214,7 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-19T02:04:03Z",
+  "generated_at": "2026-08-19T03:18:01Z",
   "last_completed_session": "2026-08-18",
   "mark_history": {
     "BULL": [
