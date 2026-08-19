@@ -152,7 +152,7 @@ class OptionModelTests(unittest.TestCase):
         account = data["accounts"]["ahub"]
         positions = {position["instrument"]: position for position in account["positions"]}
 
-        self.assertEqual(positions["BULL"]["quantity"], 100)
+        self.assertEqual(positions["BULL"]["quantity"], 320)
         self.assertEqual(positions["BULL"]["basis_price"], 7.2)
         self.assertEqual(320 * 7.2, 2304.0)
         self.assertEqual(data["instruments"]["BULL"]["mark_mode"], "public_delayed")
@@ -224,36 +224,14 @@ class OptionModelTests(unittest.TestCase):
             if note.get("date") == "2026-08-18" and note.get("kind") == "illustrative_dividend"
         }
 
-        self.assertEqual(data["published_at"], "2026-08-19")
+        self.assertEqual(data["published_at"], "2026-08-18")
         self.assertEqual(set(dividend_notes), {"SGOV", "IVR"})
         self.assertAlmostEqual(dividend_notes["SGOV"]["amount"], 0.61, places=2)
         self.assertAlmostEqual(dividend_notes["IVR"]["amount"], 12.0, places=2)
-        self.assertAlmostEqual(761.3 + 0.61 + 12.0, 773.91, places=2)
+        self.assertAlmostEqual(account["cash"], 761.3 + 0.61 + 12.0, places=2)
         self.assertEqual(positions["SGOV"]["quantity"], 54)
         self.assertEqual(positions["IVR"]["quantity"], 100)
         self.assertEqual(len(positions), 12)
-
-    def test_august_nineteenth_bull_sale_is_converted_to_cash(self) -> None:
-        repository = pathlib.Path(__file__).resolve().parents[1]
-        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
-        account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
-        proceeds = 220 * 8.45
-        sold_basis = 220 * 7.2
-        realized_pnl = proceeds - sold_basis
-
-        self.assertAlmostEqual(proceeds, 1859.0, places=2)
-        self.assertAlmostEqual(sold_basis, 1584.0, places=2)
-        self.assertAlmostEqual(realized_pnl, 275.0, places=2)
-        self.assertAlmostEqual(account["cash"], 773.91 + proceeds, places=2)
-        self.assertEqual(positions["BULL"]["quantity"], 100)
-        self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
-        self.assertEqual(len(positions), 12)
-
-        update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-19")
-        self.assertEqual(update_note["instrument"], "BULL")
-        self.assertAlmostEqual(update_note["amount"], proceeds, places=2)
-        self.assertIn("$275.00", update_note["note"])
 
 
 if __name__ == "__main__":

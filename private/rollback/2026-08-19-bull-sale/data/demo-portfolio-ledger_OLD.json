@@ -85,16 +85,6 @@
       "instrument": "IVR",
       "classification": "dividend",
       "note": "User-provided total IVR cash dividend credited to the ahub demo portfolio."
-    },
-    {
-      "id": "2026-08-19-bull-sale",
-      "kind": "trade",
-      "effective_date": "2026-08-19",
-      "timing": "before_close",
-      "note": "Date-only user update; sold 220 BULL shares at $8.45 for $1,859.00 total proceeds with no reported fees. The $7.20 basis produces an illustrative realized gain of $275.00, and 100 BULL shares remain at the unchanged basis.",
-      "legs": [
-        { "instrument": "BULL", "signed_quantity": -220, "price": 8.45 }
-      ]
     }
   ],
   "instruments": {
@@ -114,10 +104,10 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "multiplier": 1 }
   },
   "expected_current_snapshot": {
-    "cash": 2632.91,
+    "cash": 773.91,
     "positions": {
       "SGOV": 54,
-      "BULL": 100,
+      "BULL": 320,
       "BULL_P10_JAN2027": -1,
       "IBM": 1,
       "INFQ_C25_20270115": 1,
