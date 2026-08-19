@@ -37,9 +37,6 @@ repository. They must never be reused for real investor accounts.
   `$8.70`. The proceeds increase raw cash from `$471.80` to `$761.30`, and the
   current TSSI position is closed. TSSI remains in the formation ledger and
   instrument catalog so prior nightly history can still be reconstructed.
-- The August 18 update records two user-provided total cash dividends: `$0.61`
-  from SGOV and `$12.00` from IVR. The combined `$12.61` credit increases raw
-  cash from `$761.30` to `$773.91`; holdings and cost bases are unchanged.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains

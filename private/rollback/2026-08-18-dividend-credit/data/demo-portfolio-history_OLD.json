@@ -260,24 +260,16 @@
             },
             {
               "date": "2026-08-17",
-              "kind": "daily_close",
-              "market_price": 772.669983,
-              "quality": "complete",
-              "source_date": "2026-08-17",
-              "value": 10291.32
-            },
-            {
-              "date": "2026-08-18",
-              "kind": "daily_close",
-              "market_price": 767.450012,
-              "quality": "complete",
-              "source_date": "2026-08-18",
-              "value": 10221.79
+              "kind": "carry_forward",
+              "market_price": 776.340027,
+              "quality": "stale_fallback",
+              "source_date": "2026-08-14",
+              "value": 10340.2
             }
           ],
           "price_basis": "adjusted_close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "ready",
+          "status": "degraded",
           "symbol": "SPY",
           "units": "normalized_account_value_usd"
         },
@@ -538,24 +530,16 @@
             },
             {
               "date": "2026-08-17",
-              "kind": "daily_close",
-              "market_price": 405.48999,
-              "quality": "complete",
-              "source_date": "2026-08-17",
-              "value": 10896.42
-            },
-            {
-              "date": "2026-08-18",
-              "kind": "daily_close",
-              "market_price": 398.549988,
-              "quality": "complete",
-              "source_date": "2026-08-18",
-              "value": 10709.93
+              "kind": "carry_forward",
+              "market_price": 401.480011,
+              "quality": "stale_fallback",
+              "source_date": "2026-08-14",
+              "value": 10788.66
             }
           ],
           "price_basis": "adjusted_close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "ready",
+          "status": "degraded",
           "symbol": "GLD",
           "units": "normalized_account_value_usd"
         },
@@ -821,19 +805,11 @@
               "quality": "complete",
               "source_date": "2026-08-17",
               "value": 9994.01
-            },
-            {
-              "date": "2026-08-18",
-              "kind": "carry_forward",
-              "market_price": 64506.253906,
-              "quality": "stale_fallback",
-              "source_date": "2026-08-17",
-              "value": 9994.01
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -1192,17 +1168,6 @@
           "quality": "complete",
           "source_date": "2026-08-17",
           "value": 12906.17
-        },
-        {
-          "cash": 773.91,
-          "date": "2026-08-18",
-          "forward_filled_symbols": [],
-          "kind": "session_close",
-          "position_count": 12,
-          "positions_value": 11991.8,
-          "quality": "complete",
-          "source_date": "2026-08-18",
-          "value": 12765.71
         }
       ]
     }
@@ -1214,8 +1179,8 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-19T03:59:59Z",
-  "last_completed_session": "2026-08-18",
+  "generated_at": "2026-08-18T13:57:17Z",
+  "last_completed_session": "2026-08-17",
   "mark_history": {
     "BULL": [
       {
@@ -1351,12 +1316,7 @@
       {
         "date": "2026-08-17",
         "price": 8.16,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 7.93,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "IBM": [
@@ -1493,12 +1453,7 @@
       {
         "date": "2026-08-17",
         "price": 228.850006,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 232.669998,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "INFQ": [
@@ -1635,12 +1590,7 @@
       {
         "date": "2026-08-17",
         "price": 13.41,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 12.91,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "IVR": [
@@ -1777,12 +1727,7 @@
       {
         "date": "2026-08-17",
         "price": 7.52,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 7.47,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "NVDA": [
@@ -1919,12 +1864,7 @@
       {
         "date": "2026-08-17",
         "price": 225.009995,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 219.740005,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "PHYS": [
@@ -2061,12 +2001,7 @@
       {
         "date": "2026-08-17",
         "price": 33.610001,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 33.02,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "PLTR": [
@@ -2203,12 +2138,7 @@
       {
         "date": "2026-08-17",
         "price": 172.550003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 171.539993,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "QBTS": [
@@ -2345,12 +2275,7 @@
       {
         "date": "2026-08-17",
         "price": 20.870001,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 19.530001,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "SGOV": [
@@ -2487,12 +2412,7 @@
       {
         "date": "2026-08-17",
         "price": 100.559998,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 100.57,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "SPY": [
@@ -2629,12 +2549,7 @@
       {
         "date": "2026-08-17",
         "price": 772.669983,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 767.450012,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "TSSI": [
@@ -2771,12 +2686,7 @@
       {
         "date": "2026-08-17",
         "price": 9.48,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 9.44,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ],
     "WMT": [
@@ -2913,12 +2823,7 @@
       {
         "date": "2026-08-17",
         "price": 114.330002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 115.199997,
-        "source": "yahoo"
+        "source": "fallback"
       }
     ]
   },
@@ -2943,8 +2848,7 @@
     "2026-08-12",
     "2026-08-13",
     "2026-08-14",
-    "2026-08-17",
-    "2026-08-18"
+    "2026-08-17"
   ],
   "schema_version": 1,
   "source": "Yahoo Finance daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV."

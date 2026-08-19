@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-18",
+  "published_at": "2026-08-14",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 773.91,
+      "cash": 761.3,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -40,20 +40,6 @@
           "amount": 289.5,
           "kind": "illustrative_trade_update",
           "note": "User-provided date-only test update: sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. Against the $9.94 per-share basis, the illustrative realized loss is $8.70. Proceeds increased the cash balance from $471.80 to $761.30."
-        },
-        {
-          "date": "2026-08-18",
-          "amount": 0.61,
-          "kind": "illustrative_dividend",
-          "instrument": "SGOV",
-          "note": "User-provided total cash dividend: SGOV paid $0.61 to the ahub demo portfolio; the full amount was credited to cash."
-        },
-        {
-          "date": "2026-08-18",
-          "amount": 12.0,
-          "kind": "illustrative_dividend",
-          "instrument": "IVR",
-          "note": "User-provided total cash dividend: IVR paid $12.00 to the ahub demo portfolio; the full amount was credited to cash."
         }
       ],
       "positions": [
