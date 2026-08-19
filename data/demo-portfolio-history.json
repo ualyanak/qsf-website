@@ -824,16 +824,16 @@
             },
             {
               "date": "2026-08-18",
-              "kind": "carry_forward",
-              "market_price": 64506.253906,
-              "quality": "stale_fallback",
-              "source_date": "2026-08-17",
-              "value": 9994.01
+              "kind": "daily_close",
+              "market_price": 64680.710938,
+              "quality": "complete",
+              "source_date": "2026-08-18",
+              "value": 10021.04
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -1207,14 +1207,14 @@
       ]
     }
   },
-  "benchmark_coverage_status": "degraded",
+  "benchmark_coverage_status": "complete",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-19T03:18:01Z",
+  "generated_at": "2026-08-19T19:38:33Z",
   "last_completed_session": "2026-08-18",
   "mark_history": {
     "BULL": [
@@ -2716,7 +2716,7 @@
       {
         "date": "2026-07-31",
         "price": 9.92,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
