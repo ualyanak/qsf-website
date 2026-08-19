@@ -152,7 +152,7 @@ class OptionModelTests(unittest.TestCase):
         account = data["accounts"]["ahub"]
         positions = {position["instrument"]: position for position in account["positions"]}
 
-        self.assertEqual(positions["BULL"]["quantity"], 200)
+        self.assertEqual(positions["BULL"]["quantity"], 100)
         self.assertEqual(positions["BULL"]["basis_price"], 7.2)
         self.assertEqual(320 * 7.2, 2304.0)
         self.assertEqual(data["instruments"]["BULL"]["mark_mode"], "public_delayed")
@@ -238,22 +238,22 @@ class OptionModelTests(unittest.TestCase):
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
         positions = {position["instrument"]: position for position in account["positions"]}
-        proceeds = 120 * 8.45
-        sold_basis = 120 * 7.2
+        proceeds = 220 * 8.45
+        sold_basis = 220 * 7.2
         realized_pnl = proceeds - sold_basis
 
-        self.assertAlmostEqual(proceeds, 1014.0, places=2)
-        self.assertAlmostEqual(sold_basis, 864.0, places=2)
-        self.assertAlmostEqual(realized_pnl, 150.0, places=2)
+        self.assertAlmostEqual(proceeds, 1859.0, places=2)
+        self.assertAlmostEqual(sold_basis, 1584.0, places=2)
+        self.assertAlmostEqual(realized_pnl, 275.0, places=2)
         self.assertAlmostEqual(account["cash"], 773.91 + proceeds, places=2)
-        self.assertEqual(positions["BULL"]["quantity"], 200)
+        self.assertEqual(positions["BULL"]["quantity"], 100)
         self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
         self.assertEqual(len(positions), 12)
 
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-19")
         self.assertEqual(update_note["instrument"], "BULL")
         self.assertAlmostEqual(update_note["amount"], proceeds, places=2)
-        self.assertIn("$150.00", update_note["note"])
+        self.assertIn("$275.00", update_note["note"])
 
 
 if __name__ == "__main__":

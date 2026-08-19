@@ -40,11 +40,11 @@ repository. They must never be reused for real investor accounts.
 - The August 18 update records two user-provided total cash dividends: `$0.61`
   from SGOV and `$12.00` from IVR. The combined `$12.61` credit increases raw
   cash from `$761.30` to `$773.91`; holdings and cost bases are unchanged.
-- The August 19 date-only update sells 120 of the 320 BULL shares at `$8.45`
-  with no reported fees. Gross and net proceeds are `$1,014.00`; the sold
-  shares' `$7.20` basis totals `$864.00`, producing an illustrative realized
-  gain of `$150.00`. Proceeds increase raw cash from `$773.91` to `$1,787.91`.
-  The remaining 200 BULL shares retain their `$7.20` per-share basis.
+- The August 19 date-only update sells 220 of the 320 BULL shares at `$8.45`
+  with no reported fees. Gross and net proceeds are `$1,859.00`; the sold
+  shares' `$7.20` basis totals `$1,584.00`, producing an illustrative realized
+  gain of `$275.00`. Proceeds increase raw cash from `$773.91` to `$2,632.91`.
+  The remaining 100 BULL shares retain their `$7.20` per-share basis.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains

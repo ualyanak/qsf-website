@@ -142,8 +142,8 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(history.position_quantities(august_18), history.position_quantities(august_14))
         self.assertAlmostEqual(before_august_19["cash"], 773.91, places=2)
         self.assertEqual(history.position_quantities(before_august_19)["BULL"], 320)
-        self.assertAlmostEqual(august_19["cash"], 1787.91, places=2)
-        self.assertEqual(history.position_quantities(august_19)["BULL"], 200)
+        self.assertAlmostEqual(august_19["cash"], 2632.91, places=2)
+        self.assertEqual(history.position_quantities(august_19)["BULL"], 100)
         self.assertEqual(history.position_quantities(august_19), self.ledger["expected_current_snapshot"]["positions"])
 
     def test_august_fourteenth_tssi_sale_cash_and_loss(self) -> None:
@@ -186,15 +186,15 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.ledger,
             dt.datetime(2026, 8, 19, 9, 30, tzinfo=history.MARKET_ZONE),
         )
-        proceeds = 120 * 8.45
-        realized_pnl = proceeds - 120 * 7.2
+        proceeds = 220 * 8.45
+        realized_pnl = proceeds - 220 * 7.2
 
         self.assertAlmostEqual(before["cash"], 773.91, places=2)
-        self.assertAlmostEqual(after["cash"], 1787.91, places=2)
+        self.assertAlmostEqual(after["cash"], 2632.91, places=2)
         self.assertAlmostEqual(after["cash"] - before["cash"], proceeds, places=2)
-        self.assertAlmostEqual(realized_pnl, 150.0, places=2)
+        self.assertAlmostEqual(realized_pnl, 275.0, places=2)
         self.assertEqual(history.position_quantities(before)["BULL"], 320)
-        self.assertEqual(history.position_quantities(after)["BULL"], 200)
+        self.assertEqual(history.position_quantities(after)["BULL"], 100)
         self.assertAlmostEqual(after["positions"]["BULL"]["basis_price"], 7.2, places=2)
 
     def test_date_only_august_four_event_is_applied_before_close(self) -> None:
@@ -468,8 +468,8 @@ class PortfolioHistoryTests(unittest.TestCase):
 
         self.assertEqual(closing["date"], "2026-08-19")
         self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 1787.91, places=2)
-        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 1787.91, places=2)
+        self.assertAlmostEqual(closing["cash"], 2632.91, places=2)
+        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 2632.91, places=2)
         self.assertEqual(closing["position_count"], 12)
         self.assertNotIn("BULL", closing["forward_filled_symbols"])
 

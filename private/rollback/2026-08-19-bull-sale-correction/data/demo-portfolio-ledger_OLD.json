@@ -91,9 +91,9 @@
       "kind": "trade",
       "effective_date": "2026-08-19",
       "timing": "before_close",
-      "note": "Date-only user update; sold 120 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. The $7.20 basis produces an illustrative realized gain of $150.00, and 200 BULL shares remain at the unchanged basis.",
+      "note": "Date-only user update; sold 220 BULL shares at $8.45 for $1,859.00 total proceeds with no reported fees. The $7.20 basis produces an illustrative realized gain of $275.00, and 100 BULL shares remain at the unchanged basis.",
       "legs": [
-        { "instrument": "BULL", "signed_quantity": -120, "price": 8.45 }
+        { "instrument": "BULL", "signed_quantity": -220, "price": 8.45 }
       ]
     }
   ],
@@ -114,10 +114,10 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "multiplier": 1 }
   },
   "expected_current_snapshot": {
-    "cash": 1787.91,
+    "cash": 2632.91,
     "positions": {
       "SGOV": 54,
-      "BULL": 200,
+      "BULL": 100,
       "BULL_P10_JAN2027": -1,
       "IBM": 1,
       "INFQ_C25_20270115": 1,

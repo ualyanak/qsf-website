@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1787.91,
+      "cash": 2632.91,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -57,15 +57,15 @@
         },
         {
           "date": "2026-08-19",
-          "amount": 1014.0,
+          "amount": 1859.0,
           "kind": "illustrative_trade_update",
           "instrument": "BULL",
-          "note": "User-provided date-only test update: sold 120 of 320 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $150.00. Proceeds increased cash from $773.91 to $1,787.91; 200 BULL shares remain at the unchanged $7.20 basis."
+          "note": "User-provided date-only test update: sold 220 of 320 BULL shares at $8.45 for $1,859.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $275.00. Proceeds increased cash from $773.91 to $2,632.91; 100 BULL shares remain at the unchanged $7.20 basis."
         }
       ],
       "positions": [
         { "instrument": "SGOV", "quantity": 54, "basis_price": 100.5327777778 },
-        { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
+        { "instrument": "BULL", "quantity": 100, "basis_price": 7.2 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
         { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
         { "instrument": "INFQ_C25_20270115", "quantity": 1, "basis_price": 0.75 },
