@@ -24,13 +24,7 @@
   const page = document.body && document.body.dataset.page;
   const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467"];
   const exposureFallbackColors = ["#15344f", "#c9a24f", "#3d6f8c", "#56816f", "#967638", "#8b5f63", "#445467", "#7b8793"];
-  const riskHistoryDefaults = Object.freeze([
-    { id: "high", label: "High Risk", color: "#a43f43" },
-    { id: "medium", label: "Medium Risk", color: "#c9a24f" },
-    { id: "low", label: "Low Risk", color: "#27765a" }
-  ]);
   let exposureSelectionKey = "now";
-  let riskHistorySelectionKey = "now";
   const state = {
     data: null,
     quotes: null,
@@ -332,88 +326,6 @@
     return { categories: categories, points: points };
   }
 
-  function canonicalRiskHistoryId(value) {
-    const normalized = normalizedId(value, "");
-    if (normalized === "high" || normalized === "high-risk" || normalized === "higher" || normalized === "higher-risk") return "high";
-    if (normalized === "medium" || normalized === "medium-risk" || normalized === "moderate" || normalized === "moderate-risk") return "medium";
-    if (normalized === "low" || normalized === "low-risk" || normalized === "lower" || normalized === "lower-risk") return "low";
-    return null;
-  }
-
-  function normalizeRiskHistoryValues(rawValues, grossExposure) {
-    const values = {};
-    const entries = Array.isArray(rawValues)
-      ? rawValues.map(function (item) { return [item && (item.id || item.category_id || item.categoryId || item.risk_level || item.riskLevel || item.label), item]; })
-      : rawValues && typeof rawValues === "object"
-        ? Object.entries(rawValues)
-        : [];
-    entries.forEach(function (entry) {
-      const id = canonicalRiskHistoryId(entry[0]);
-      const raw = entry[1];
-      if (!id) return;
-      const value = raw && typeof raw === "object" ? firstFinite(raw, ["value", "market_value", "marketValue", "amount"]) : null;
-      let percent = raw && typeof raw === "object" ? firstFinite(raw, ["percent", "percentage", "weight", "pct"]) : finite(raw);
-      if (percent == null && value != null && grossExposure > 0) percent = value / grossExposure * 100;
-      if (percent == null) return;
-      values[id] = { value: value, percent: Math.max(0, percent) };
-    });
-    return values;
-  }
-
-  function normalizeRiskHistory(raw) {
-    const providedCategories = raw && (Array.isArray(raw.categories)
-      ? raw.categories
-      : Array.isArray(raw.risk_categories)
-        ? raw.risk_categories
-        : Array.isArray(raw.riskCategories)
-          ? raw.riskCategories
-          : Array.isArray(raw.groups)
-            ? raw.groups
-            : []);
-    const categoryMap = new Map(riskHistoryDefaults.map(function (category) { return [category.id, Object.assign({}, category)]; }));
-    (providedCategories || []).forEach(function (item) {
-      if (!item || typeof item !== "object") return;
-      const id = canonicalRiskHistoryId(item.id || item.category_id || item.categoryId || item.label || item.name);
-      if (!id) return;
-      categoryMap.set(id, Object.assign({}, categoryMap.get(id), {
-        label: categoryMap.get(id).label,
-        color: categoryMap.get(id).color
-      }));
-    });
-    const categories = riskHistoryDefaults.map(function (category) { return categoryMap.get(category.id); });
-    const sourcePoints = raw && (Array.isArray(raw.points)
-      ? raw.points
-      : Array.isArray(raw.risk_points)
-        ? raw.risk_points
-        : Array.isArray(raw.riskPoints)
-          ? raw.riskPoints
-          : Array.isArray(raw.history)
-            ? raw.history
-            : Array.isArray(raw.series)
-              ? raw.series
-              : []);
-    const points = (sourcePoints || []).map(function (point) {
-      if (!point || typeof point !== "object") return null;
-      const date = safeString(point.date || point.as_of || point.asOf, 32);
-      if (!date || !parseDate(date)) return null;
-      const grossExposure = firstFinite(point, ["gross_exposure", "grossExposure", "total", "classified_gross_exposure", "classifiedGrossExposure"]);
-      const values = normalizeRiskHistoryValues(point.values || point.mix || point.allocation || point.risk_values || point.riskValues || point.categories, grossExposure);
-      if (!Object.keys(values).length) return null;
-      riskHistoryDefaults.forEach(function (category) {
-        if (!values[category.id]) values[category.id] = { value: 0, percent: 0 };
-      });
-      return {
-        date: date,
-        kind: safeString(point.kind || "nightly_risk_profile", 48),
-        sourceDate: safeString(point.source_date || point.sourceDate, 32) || date,
-        quality: safeString(point.quality || "historical_close", 48),
-        grossExposure: grossExposure,
-        values: values
-      };
-    }).filter(Boolean).sort(function (left, right) { return timestampRank(left.date) - timestampRank(right.date); });
-    return { categories: categories, points: points };
-  }
-
   function normalizeAnalytics(raw) {
     if (!raw || typeof raw !== "object") return null;
     const contributors = (Array.isArray(raw.contributors) ? raw.contributors : Array.isArray(raw.contribution_drivers) ? raw.contribution_drivers : [])
@@ -421,12 +333,11 @@
     const realizedTrades = (Array.isArray(raw.realized_trades) ? raw.realized_trades : Array.isArray(raw.realizedTrades) ? raw.realizedTrades : Array.isArray(raw.trades) ? raw.trades : [])
       .map(normalizeRealizedTrade).filter(Boolean);
     const exposureHistory = normalizeExposureHistory(raw.exposure_history || raw.exposureHistory || raw.exposures);
-    const riskHistory = normalizeRiskHistory(raw.risk_history || raw.riskHistory || raw.risk_profile_history || raw.riskProfileHistory);
     const methodology = typeof raw.methodology === "string"
       ? raw.methodology
       : raw.methodology && (raw.methodology.contribution || raw.methodology.summary || raw.methodology.description);
     const unattributed = raw.unattributed_pnl != null ? raw.unattributed_pnl : raw.unattributedPnl;
-    if (!contributors.length && !realizedTrades.length && !exposureHistory.points.length && !riskHistory.points.length) return null;
+    if (!contributors.length && !realizedTrades.length && !exposureHistory.points.length) return null;
     return {
       asOf: safeString(raw.as_of || raw.asOf || raw.generated_at, 40) || null,
       methodology: safeString(methodology, 400) || null,
@@ -434,7 +345,6 @@
       realizedTrades: realizedTrades,
       unattributedPnl: unattributed && typeof unattributed === "object" ? firstFinite(unattributed, ["total", "value", "amount"]) : finite(unattributed),
       reconciliation: raw.reconciliation && typeof raw.reconciliation === "object" ? Object.assign({}, raw.reconciliation) : null,
-      riskHistory: riskHistory,
       exposureHistory: exposureHistory
     };
   }
@@ -458,15 +368,6 @@
         values: Object.assign({}, existing && existing.values || {}, point.values || {})
       }));
     });
-    const riskCategories = mergeById(previous.riskHistory && previous.riskHistory.categories, next.riskHistory && next.riskHistory.categories);
-    const riskPointMap = new Map();
-    (previous.riskHistory && previous.riskHistory.points || []).forEach(function (point) { riskPointMap.set(point.date, point); });
-    (next.riskHistory && next.riskHistory.points || []).forEach(function (point) {
-      const existing = riskPointMap.get(point.date);
-      riskPointMap.set(point.date, Object.assign({}, existing || {}, point, {
-        values: Object.assign({}, existing && existing.values || {}, point.values || {})
-      }));
-    });
     return {
       asOf: next.asOf || previous.asOf,
       methodology: next.methodology || previous.methodology,
@@ -474,10 +375,6 @@
       realizedTrades: mergeById(previous.realizedTrades, next.realizedTrades),
       unattributedPnl: next.unattributedPnl == null ? previous.unattributedPnl : next.unattributedPnl,
       reconciliation: Object.assign({}, previous.reconciliation || {}, next.reconciliation || {}),
-      riskHistory: {
-        categories: riskCategories.length ? riskCategories : riskHistoryDefaults.map(function (category) { return Object.assign({}, category); }),
-        points: Array.from(riskPointMap.values()).sort(function (left, right) { return timestampRank(left.date) - timestampRank(right.date); })
-      },
       exposureHistory: {
         categories: exposureCategories,
         points: Array.from(exposurePointMap.values()).sort(function (left, right) { return timestampRank(left.date) - timestampRank(right.date); })
@@ -1709,205 +1606,8 @@
     shell.setAttribute("aria-label", "Gross marked-value exposure from " + formatDate(points[0].date) + " through the latest " + (latest.isNow ? "delayed Now snapshot" : "completed night") + ". Each vertical slice totals 100 percent. Latest mix: " + latestSummary + ". Use the Explore date control for a direct category breakdown.");
   }
 
-  function buildRiskHistoryView(view) {
-    const analytics = view.analytics;
-    const published = analytics && analytics.riskHistory;
-    const providedById = new Map((published && published.categories || []).map(function (category) {
-      return [canonicalRiskHistoryId(category.id || category.label), category];
-    }));
-    const categories = riskHistoryDefaults.map(function (fallback) {
-      const provided = providedById.get(fallback.id);
-      return {
-        id: fallback.id,
-        label: fallback.label,
-        color: fallback.color,
-        sourceLabel: provided && provided.label || null
-      };
-    });
-    const points = (published && published.points || []).map(function (point) {
-      return Object.assign({}, point, { values: Object.assign({}, point.values || {}) });
-    });
-    const riskByInstrument = new Map();
-    (analytics && analytics.contributors || []).forEach(function (contributor) {
-      const riskLevel = normalizeRiskLevel(contributor.riskLevel);
-      (contributor.instrumentIds || []).forEach(function (instrumentId) {
-        if (riskLevel) riskByInstrument.set(normalizedId(instrumentId, ""), riskLevel);
-      });
-    });
-    const currentCash = Number(view.cash || 0);
-    const currentTotals = { high: currentCash < 0 ? Math.abs(currentCash) : 0, medium: 0, low: currentCash > 0 ? currentCash : 0 };
-    (view.holdings || []).forEach(function (holding) {
-      const riskLevel = holding.cashEquivalent
-        ? holding.quantity < 0 ? "high" : "low"
-        : riskByInstrument.get(normalizedId(holding.id, "")) || "high";
-      currentTotals[riskLevel] += Math.abs(finite(holding.marketValue) || 0);
-    });
-    const grossExposure = currentTotals.high + currentTotals.medium + currentTotals.low;
-    if (grossExposure > 0) {
-      const values = {};
-      riskHistoryDefaults.forEach(function (category) {
-        values[category.id] = {
-          value: currentTotals[category.id],
-          percent: currentTotals[category.id] / grossExposure * 100
-        };
-      });
-      points.push({
-        date: view.generatedAt,
-        kind: view.modifiedAt ? "local_risk_now" : "intraday_risk_now",
-        sourceDate: view.generatedAt,
-        quality: view.modifiedAt ? "local_scenario" : "delayed_current",
-        grossExposure: grossExposure,
-        values: values,
-        isNow: true
-      });
-    }
-    return { categories: categories, points: points };
-  }
-
-  function renderRiskHistoryBreakdown(riskHistory, point, currency) {
-    const breakdown = byId("risk-history-breakdown");
-    if (!breakdown) return;
-    breakdown.replaceChildren();
-    if (!point) {
-      breakdown.append(analyticsEmpty("Risk detail is not available", "A classified gross-exposure snapshot has not been published for this portfolio."));
-      setText("risk-history-selected-date", "—");
-      return;
-    }
-    setText("risk-history-selected-date", point.isNow ? (point.kind === "local_risk_now" ? "Now · local scenario" : "Now · delayed marks") : formatDate(point.date));
-    riskHistory.categories.forEach(function (category) {
-      const item = point.values && point.values[category.id];
-      const row = document.createElement("div");
-      row.className = "exposure-legend-row risk-history-legend-row is-" + category.id;
-      row.setAttribute("role", "listitem");
-      const swatch = document.createElement("span");
-      swatch.className = "exposure-swatch risk-history-swatch";
-      swatch.style.backgroundColor = category.color;
-      swatch.setAttribute("aria-hidden", "true");
-      const label = document.createElement("span");
-      label.textContent = category.label;
-      const percent = document.createElement("strong");
-      percent.textContent = (item ? item.percent : 0).toFixed(1) + "%";
-      const value = document.createElement("span");
-      value.className = "exposure-dollar";
-      value.textContent = item && item.value != null ? formatCurrency(item.value, currency) : "—";
-      row.setAttribute("aria-label", category.label + ", " + percent.textContent + (item && item.value != null ? ", " + value.textContent : "") + ".");
-      row.append(swatch, label, percent, value);
-      breakdown.append(row);
-    });
-  }
-
-  function renderRiskHistoryAnalytics(view) {
-    const shell = byId("risk-history-chart");
-    const control = byId("risk-history-date-control");
-    if (!shell || !control) return;
-    const riskHistory = buildRiskHistoryView(view);
-    const points = riskHistory.points;
-    const historicCount = points.filter(function (point) { return !point.isNow; }).length;
-    shell.onclick = null;
-    setText("risk-history-freshness", historicCount
-      ? (view.modifiedAt ? "Nightly + local now" : "Nightly + now")
-      : "Current mix only");
-    if (!points.length) {
-      shell.replaceChildren(analyticsEmpty("Risk history is not available", "This portfolio has no published classified risk snapshots yet."));
-      shell.setAttribute("aria-label", "Historical risk profile is not available for this demonstration portfolio.");
-      control.disabled = true;
-      renderRiskHistoryBreakdown(riskHistory, null, view.currency);
-      return;
-    }
-    let selectionIndex = riskHistorySelectionKey === "now"
-      ? points.findIndex(function (point) { return point.isNow; })
-      : points.findIndex(function (point) { return point.date === riskHistorySelectionKey; });
-    if (selectionIndex < 0) selectionIndex = points.length - 1;
-    control.min = "0";
-    control.max = String(points.length - 1);
-    control.value = String(selectionIndex);
-    control.disabled = points.length < 2;
-    control.setAttribute("aria-valuetext", points[selectionIndex].isNow ? "Now" : formatDate(points[selectionIndex].date));
-    control.oninput = function () {
-      const selectedPoint = points[Number(control.value)];
-      riskHistorySelectionKey = selectedPoint && selectedPoint.isNow ? "now" : selectedPoint && selectedPoint.date;
-      renderRiskHistoryAnalytics(view);
-    };
-    renderRiskHistoryBreakdown(riskHistory, points[selectionIndex], view.currency);
-    if (historicCount < 2) {
-      shell.replaceChildren(analyticsEmpty("Historical risk profile is not available yet", "The latest classified Now snapshot is shown below; the chart will appear after two completed nightly observations."));
-      shell.setAttribute("aria-label", "Only the latest classified risk snapshot is available; historical comparison requires two completed nightly observations.");
-      return;
-    }
-    const box = shell.getBoundingClientRect();
-    const width = Math.max(300, Math.round(box.width || shell.clientWidth || 900));
-    const mobile = width < 520;
-    const height = mobile ? 280 : 330;
-    const pad = mobile ? { top: 28, right: 12, bottom: 45, left: 46 } : { top: 31, right: 18, bottom: 47, left: 54 };
-    const plotWidth = width - pad.left - pad.right;
-    const plotHeight = height - pad.top - pad.bottom;
-    function x(index) { return pad.left + (points.length === 1 ? plotWidth : index / (points.length - 1) * plotWidth); }
-    function y(percent) { return pad.top + (100 - percent) / 100 * plotHeight; }
-    const normalized = points.map(function (point) {
-      const total = riskHistory.categories.reduce(function (sum, category) { return sum + exposurePointPercent(point, category.id); }, 0) || 100;
-      const values = {};
-      riskHistory.categories.forEach(function (category) { values[category.id] = exposurePointPercent(point, category.id) / total * 100; });
-      return values;
-    });
-    const svg = svgNode("svg", { viewBox: "0 0 " + width + " " + height, preserveAspectRatio: "xMidYMid meet", "aria-hidden": "true", focusable: "false" });
-    svg.append(svgNode("rect", { x: 0, y: 0, width: width, height: height, fill: "#ffffff" }));
-    [0, 25, 50, 75, 100].forEach(function (tick) {
-      const lineY = y(tick);
-      svg.append(svgNode("line", { x1: pad.left, y1: lineY, x2: width - pad.right, y2: lineY, stroke: tick === 0 ? "#aeb8c1" : "#e5e9ed", "stroke-width": 1, "vector-effect": "non-scaling-stroke" }));
-      const label = svgNode("text", { x: pad.left - 8, y: lineY + 4, fill: "#617080", "font-size": mobile ? 10 : 11, "text-anchor": "end" });
-      label.textContent = tick + "%";
-      svg.append(label);
-    });
-    const cumulative = points.map(function () { return 0; });
-    riskHistory.categories.forEach(function (category) {
-      const lower = cumulative.slice();
-      const upper = cumulative.map(function (value, index) { return value + normalized[index][category.id]; });
-      const upperPath = upper.map(function (value, index) { return (index ? "L" : "M") + x(index).toFixed(2) + " " + y(value).toFixed(2); });
-      const lowerPath = lower.map(function (value, index) {
-        const reverseIndex = lower.length - index - 1;
-        return "L" + x(reverseIndex).toFixed(2) + " " + y(lower[reverseIndex]).toFixed(2);
-      });
-      svg.append(svgNode("path", {
-        d: upperPath.concat(lowerPath).join(" ") + " Z",
-        fill: category.color,
-        stroke: "rgba(255,255,255,0.82)",
-        "stroke-width": 1,
-        "vector-effect": "non-scaling-stroke"
-      }));
-      upper.forEach(function (value, index) { cumulative[index] = value; });
-    });
-    const tickIndexes = chartTickIndexes(points.length, mobile ? 6 : 7);
-    tickIndexes.forEach(function (index) {
-      const point = points[index];
-      const label = svgNode("text", { x: x(index), y: height - 16, fill: point.isNow ? "#735719" : "#617080", "font-size": mobile ? 9.5 : 10.5, "font-weight": point.isNow ? 800 : 600, "text-anchor": index === 0 ? "start" : index === points.length - 1 ? "end" : "middle" });
-      label.textContent = point.isNow ? "Now" : formatChartDate(parseDate(point.date), false);
-      svg.append(label);
-    });
-    const selectedX = x(selectionIndex);
-    svg.append(svgNode("line", { x1: selectedX, y1: pad.top, x2: selectedX, y2: height - pad.bottom, stroke: "#061422", "stroke-width": 1.4, opacity: 0.72, "vector-effect": "non-scaling-stroke" }));
-    const nowIndex = points.findIndex(function (point) { return point.isNow; });
-    if (nowIndex >= 0) {
-      svg.append(svgNode("line", { x1: x(nowIndex), y1: pad.top - 5, x2: x(nowIndex), y2: height - pad.bottom, stroke: "#c9a24f", "stroke-width": 2, "stroke-dasharray": "5 4", "vector-effect": "non-scaling-stroke" }));
-      svg.append(svgNode("circle", { cx: x(nowIndex), cy: pad.top - 8, r: 4.5, fill: "#fff", stroke: "#967638", "stroke-width": 2, "vector-effect": "non-scaling-stroke" }));
-    }
-    shell.replaceChildren(svg);
-    shell.onclick = function (event) {
-      const rect = shell.getBoundingClientRect();
-      const localX = (event.clientX - rect.left) / Math.max(1, rect.width) * width;
-      const selectedIndex = Math.max(0, Math.min(points.length - 1, Math.round((localX - pad.left) / Math.max(1, plotWidth) * (points.length - 1))));
-      riskHistorySelectionKey = points[selectedIndex].isNow ? "now" : points[selectedIndex].date;
-      renderRiskHistoryAnalytics(view);
-    };
-    const latest = points[points.length - 1];
-    const latestSummary = riskHistory.categories.map(function (category) {
-      return category.label + " " + exposurePointPercent(latest, category.id).toFixed(1) + "%";
-    }).join(", ");
-    shell.setAttribute("aria-label", "Classified gross marked risk exposure from " + formatDate(points[0].date) + " through the latest " + (latest.isNow ? "delayed Now snapshot" : "completed night") + ". Each vertical slice totals 100 percent. Latest risk profile: " + latestSummary + ". Use the Explore date control for a direct High, Medium, and Low Risk breakdown.");
-  }
-
   function renderAdvancedAnalytics(view) {
     renderContributionAnalytics(view);
-    renderRiskHistoryAnalytics(view);
     renderExposureAnalytics(view);
   }
 
@@ -2097,7 +1797,6 @@
       chartResizeTimer = root.setTimeout(function () {
         if (state.view) {
           renderChart(state.view.comparisonSeries, state.view.currency, state.view.openingNav);
-          renderRiskHistoryAnalytics(state.view);
           renderExposureAnalytics(state.view);
         }
       }, 120);

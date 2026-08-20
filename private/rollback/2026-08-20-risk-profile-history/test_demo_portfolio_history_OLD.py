@@ -405,61 +405,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.assertEqual(by_date[weekend_day]["gross_exposure"], by_date[prior_session]["gross_exposure"])
             self.assertEqual(by_date[weekend_day]["values"], by_date[prior_session]["values"])
 
-    def test_risk_history_uses_the_same_completed_nightly_gross_exposure(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 19)),
-            fetcher=self.fetcher,
-        )
-        analytics = payload["accounts"]["ahub"]["analytics"]
-        exposure = analytics["exposure_history"]
-        risk = analytics["risk_history"]
-        self.assertEqual(risk["basis"], "gross_marked_value")
-        self.assertEqual(risk["units"], "percent_of_gross_marked_value")
-        self.assertEqual([category["id"] for category in risk["categories"]], ["low", "medium", "high"])
-        self.assertEqual([category["label"] for category in risk["categories"]], ["Low", "Medium", "High"])
-        self.assertEqual(len({category["color"] for category in risk["categories"]}), 3)
-        self.assertEqual([point["date"] for point in risk["points"]], [point["date"] for point in self.points(payload)])
-        self.assertEqual(len(risk["points"]), len(exposure["points"]))
-
-        for risk_point, exposure_point in zip(risk["points"], exposure["points"]):
-            with self.subTest(date=risk_point["date"]):
-                self.assertEqual(
-                    (risk_point["date"], risk_point["kind"], risk_point["source_date"], risk_point["quality"]),
-                    (exposure_point["date"], exposure_point["kind"], exposure_point["source_date"], exposure_point["quality"]),
-                )
-                self.assertEqual(risk_point["gross_exposure"], exposure_point["gross_exposure"])
-                self.assertEqual(set(risk_point["values"]), {"low", "medium", "high"})
-                self.assertAlmostEqual(sum(value["value"] for value in risk_point["values"].values()), risk_point["gross_exposure"], places=2)
-                self.assertAlmostEqual(sum(value["percent"] for value in risk_point["values"].values()), 100.0, places=6)
-
-        by_date = {point["date"]: point for point in risk["points"]}
-        formation = by_date["2026-07-17"]
-        self.assertEqual(formation["gross_exposure"], 10532.0)
-        self.assertEqual(formation["values"]["low"]["value"], 3459.56)
-        self.assertEqual(formation["values"]["medium"]["value"], 2924.25)
-        self.assertEqual(formation["values"]["high"]["value"], 4148.19)
-        self.assertNotEqual(by_date["2026-08-04"]["values"], by_date["2026-08-03"]["values"])
-        for weekend_day, prior_session in (("2026-07-18", "2026-07-17"), ("2026-08-16", "2026-08-14")):
-            self.assertEqual(by_date[weekend_day]["kind"], "carry_forward")
-            self.assertEqual(by_date[weekend_day]["gross_exposure"], by_date[prior_session]["gross_exposure"])
-            self.assertEqual(by_date[weekend_day]["values"], by_date[prior_session]["values"])
-
-    def test_positive_cash_and_long_sgov_are_low_risk(self) -> None:
-        point = history.risk_point(
-            self.ledger,
-            {"cash": 50.0, "positions": {"SGOV": {"quantity": 1.0, "basis_price": 100.0}}},
-            {"SGOV": 101.0},
-            day=dt.date(2026, 8, 19),
-            kind="session_close",
-            source_date=dt.date(2026, 8, 19),
-            quality="complete",
-        )
-        self.assertEqual(point["gross_exposure"], 151.0)
-        self.assertEqual(point["values"]["low"], {"value": 151.0, "percent": 100.0})
-        self.assertEqual(point["values"]["medium"], {"value": 0.0, "percent": 0.0})
-        self.assertEqual(point["values"]["high"], {"value": 0.0, "percent": 0.0})
-
     def test_contributors_reconcile_and_keep_unattributed_adjustment_separate(self) -> None:
         payload = history.build_history(
             self.ledger,
@@ -498,7 +443,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(analytics["as_of"], "2026-08-18")
         self.assertNotIn("BULL", {trade["instrument_id"] for trade in analytics["realized_trades"]})
         self.assertEqual(analytics["exposure_history"]["points"][-1]["date"], "2026-08-18")
-        self.assertEqual(analytics["risk_history"]["points"][-1]["date"], "2026-08-18")
         self.assertEqual(analytics["reconciliation"]["residual"], 0.0)
 
     def test_external_cash_flow_is_reconciled_but_not_presented_as_pnl(self) -> None:
@@ -530,12 +474,10 @@ class PortfolioHistoryTests(unittest.TestCase):
 
     def test_negative_cash_and_short_cash_equivalent_are_financing_exposure(self) -> None:
         categories = history.exposure_categories(self.ledger, include_financing=True)
-        state = {"cash": -100.0, "positions": {"SGOV": {"quantity": -1.0, "basis_price": 100.0}}}
-        market_values = {"SGOV": -101.0}
         point = history.exposure_point(
             self.ledger,
-            state,
-            market_values,
+            {"cash": -100.0, "positions": {"SGOV": {"quantity": -1.0, "basis_price": 100.0}}},
+            {"SGOV": -101.0},
             categories,
             day=dt.date(2026, 8, 19),
             kind="session_close",
@@ -545,20 +487,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(point["gross_exposure"], 201.0)
         self.assertEqual(point["values"]["financing"], {"value": 201.0, "percent": 100.0})
         self.assertEqual(point["values"]["cash-cash-equivalents"], {"value": 0.0, "percent": 0.0})
-
-        risk = history.risk_point(
-            self.ledger,
-            state,
-            market_values,
-            day=dt.date(2026, 8, 19),
-            kind="session_close",
-            source_date=dt.date(2026, 8, 19),
-            quality="complete",
-        )
-        self.assertEqual(risk["gross_exposure"], point["gross_exposure"])
-        self.assertEqual(risk["values"]["low"], {"value": 0.0, "percent": 0.0})
-        self.assertEqual(risk["values"]["medium"], {"value": 0.0, "percent": 0.0})
-        self.assertEqual(risk["values"]["high"], {"value": 201.0, "percent": 100.0})
 
     def test_public_comparisons_are_normalized_to_formation_nav(self) -> None:
         payload = history.build_history(
@@ -814,9 +742,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(closing["quality"], "degraded")
         self.assertIn("IBM", closing["forward_filled_symbols"])
         self.assertTrue(math_is_positive(closing["value"]))
-        risk_closing = payload["accounts"]["ahub"]["analytics"]["risk_history"]["points"][-1]
-        self.assertEqual(risk_closing["date"], closing["date"])
-        self.assertEqual(risk_closing["quality"], "degraded")
 
     def test_missing_anchor_session_is_treated_as_holiday_carry_forward(self) -> None:
         omitted_day = dt.date(2026, 8, 6)
@@ -864,10 +789,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             recovered["accounts"]["ahub"]["analytics"]["exposure_history"]["points"],
             original["accounts"]["ahub"]["analytics"]["exposure_history"]["points"],
         )
-        self.assertEqual(
-            recovered["accounts"]["ahub"]["analytics"]["risk_history"]["points"],
-            original["accounts"]["ahub"]["analytics"]["risk_history"]["points"],
-        )
 
     def test_fallback_marks_extend_a_new_session_with_degraded_values(self) -> None:
         fallback = history.build_history(
@@ -893,9 +814,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertNotIn("SPY", closing["forward_filled_symbols"])
         self.assertIn("IBM", closing["forward_filled_symbols"])
         self.assertTrue(math_is_positive(closing["value"]))
-        risk_closing = payload["accounts"]["ahub"]["analytics"]["risk_history"]["points"][-1]
-        self.assertEqual(risk_closing["date"], "2026-08-13")
-        self.assertEqual(risk_closing["quality"], "degraded")
 
     def test_no_network_and_no_fallback_cannot_invent_session_calendar(self) -> None:
         def failing_fetcher(_symbol: str, _start: dt.date, _end: dt.date) -> dict[dt.date, float]:
@@ -954,27 +872,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(latest["values"]["options"]["value"], 365.92)
         self.assertEqual(latest["values"]["technology"]["value"], 1541.88)
         self.assertAlmostEqual(sum(value["percent"] for value in latest["values"].values()), 100.0, places=6)
-
-        risk = analytics["risk_history"]
-        self.assertEqual([category["id"] for category in risk["categories"]], ["low", "medium", "high"])
-        self.assertEqual([point["date"] for point in risk["points"]], [point["date"] for point in exposure["points"]])
-        risk_formation = risk["points"][0]
-        risk_latest = risk["points"][-1]
-        self.assertEqual(risk_formation["gross_exposure"], 10532.0)
-        self.assertEqual(risk_formation["values"], {
-            "low": {"value": 3459.56, "percent": 32.848082},
-            "medium": {"value": 2924.25, "percent": 27.765382},
-            "high": {"value": 4148.19, "percent": 39.386536},
-        })
-        self.assertEqual(risk_latest["date"], "2026-08-19")
-        self.assertEqual(risk_latest["gross_exposure"], 13476.52)
-        self.assertEqual(risk_latest["values"], {
-            "low": {"value": 7742.16, "percent": 57.449249},
-            "medium": {"value": 4825.69, "percent": 35.808138},
-            "high": {"value": 908.67, "percent": 6.742613},
-        })
-        self.assertEqual(sum(value["value"] for value in risk_latest["values"].values()), risk_latest["gross_exposure"])
-        self.assertAlmostEqual(sum(value["percent"] for value in risk_latest["values"].values()), 100.0, places=6)
 
 
 def math_is_positive(value: object) -> bool:

@@ -120,17 +120,6 @@ completed-night performance before that session closes.
   it is not calculated from P&L, volatility, liquidity, option delta, or investor
   suitability. The approved map is INFQ/TSSI/IVR high; BULL/PLTR/QBTS/IBM/SPY/
   NVDA/WMT medium; and PHYS/SGOV low.
-- `risk_history` replays those same administrator-assigned categories across
-  every completed-night portfolio state. Each point is a 100% gross marked-value
-  mix split into Low, Medium, and High risk; positive cash is Low risk, SGOV
-  remains Low risk while held long, negative cash or short SGOV is conservatively
-  placed in High risk, and other short positions contribute their absolute marked
-  value to the applicable administrator category. The dashboard renders the
-  categories as green, yellow, and red stacked bands with a selected-date dollar
-  and percentage breakdown. Its outlined `Now` endpoint uses the latest delayed
-  marks and browser-local scenario when present; the preceding points remain the
-  immutable published nightly record. Historical categories are restated whenever
-  the current administrator classification map changes.
 - The unassigned July 20 `$24.00` strategy-P&L adjustment remains separate in
   `unattributed_pnl`. Tagged SGOV and IVR dividends belong to their contributor
   groups. External-flow classifications are excluded from P&L. The published
@@ -156,11 +145,10 @@ to `$13,046.02` using Yahoo's final August 19 raw closes.
 
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving
-the PDF view. The performance-comparison chart and PDF use the latest completed
-end-of-day history point; they do not add an intraday performance point. The two
-advanced mix charts append a clearly outlined `Now` endpoint from the latest
-available delayed marks. Option rows distinguish the current model-valuation time
-from the delayed underlier observation used as the model input.
+the PDF view. The chart and PDF use the latest completed end-of-day history point;
+they do not add an intraday point. Option rows distinguish the current
+model-valuation time from the delayed underlier observation used as the model
+input.
 
 Each comparison starts at the `$9,900.00` formation NAV on July 17, 2026 and is
 normalized as `formation NAV × daily price ÷ formation-date price`; the first

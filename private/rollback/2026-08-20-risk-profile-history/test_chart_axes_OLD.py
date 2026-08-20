@@ -129,36 +129,10 @@ class ChartAxesTests(unittest.TestCase):
                 self.assertEqual(set(point["values"]), category_ids)
                 self.assertAlmostEqual(sum(float(item["percent"]) for item in point["values"].values()), 100.0, places=4)
 
-    def test_risk_history_schema_aligns_to_nightly_nav_and_totals_one_hundred_percent(self):
-        risk_history = self.account.get("analytics", {}).get("risk_history")
-        if risk_history is None:
-            self.skipTest("Risk-history backend output is being added independently.")
-        category_ids = {item["id"] for item in risk_history["categories"]}
-        self.assertEqual(category_ids, {"high", "medium", "low"})
-        self.assertEqual(
-            [point["date"] for point in risk_history["points"]],
-            [point["date"] for point in self.points],
-        )
-        for point in risk_history["points"]:
-            with self.subTest(date=point["date"]):
-                self.assertEqual(set(point["values"]), category_ids)
-                self.assertGreater(float(point["gross_exposure"]), 0)
-                self.assertTrue(point.get("kind"))
-                self.assertTrue(point.get("source_date"))
-                self.assertTrue(point.get("quality"))
-                self.assertAlmostEqual(
-                    sum(float(item["percent"]) for item in point["values"].values()),
-                    100.0,
-                    places=4,
-                )
-
     def test_advanced_view_exposes_semantic_attribution_and_exposure_controls(self):
         for identifier in [
             'id="contribution-chart"',
             'id="realized-trades-body"',
-            'id="risk-history-chart"',
-            'id="risk-history-date-control"',
-            'id="risk-history-breakdown"',
             'id="exposure-chart"',
             'id="exposure-date-control"',
             'id="exposure-breakdown"',
@@ -166,15 +140,6 @@ class ChartAxesTests(unittest.TestCase):
             self.assertIn(identifier, self.dashboard)
         self.assertIn("Portfolio analytics, exposure &amp; holdings", self.dashboard)
         self.assertIn("Return on closed basis", self.dashboard)
-        self.assertIn("How the risk profile changed", self.dashboard)
-        self.assertLess(
-            self.dashboard.index("How the risk profile changed"),
-            self.dashboard.index("How the exposure mix changed"),
-        )
-        self.assertIn("<strong>High Risk</strong> in red", self.dashboard)
-        self.assertIn("<strong>Medium Risk</strong> in yellow", self.dashboard)
-        self.assertIn("<strong>Low Risk</strong> in green", self.dashboard)
-        self.assertIn("local scenario edits are made; those edits affect only Now", self.dashboard)
         self.assertIn("not option delta, leverage, or notional exposure", self.dashboard)
 
     def test_advanced_renderers_preserve_rich_analytics_and_current_basis(self):
@@ -183,9 +148,6 @@ class ChartAxesTests(unittest.TestCase):
         self.assertIn("basisPrice: basisPrice", self.portal)
         self.assertIn("unrealizedPnl: marketValue - basisValue", self.portal)
         self.assertIn("renderAdvancedAnalytics(view)", self.portal)
-        self.assertIn("function normalizeRiskHistory(raw)", self.portal)
-        self.assertIn("function buildRiskHistoryView(view)", self.portal)
-        self.assertIn("renderRiskHistoryAnalytics(view)", self.portal)
         self.assertIn("renderExposureAnalytics(view)", self.portal)
         self.assertIn('risk.className = "contribution-risk is-" + riskLevel', self.portal)
         self.assertIn('riskLevel.toUpperCase() + " RISK"', self.portal)
@@ -199,36 +161,10 @@ class ChartAxesTests(unittest.TestCase):
             self.assertIn(tick, self.portal)
         self.assertIn('kind: view.modifiedAt ? "local_now" : "intraday_now"', self.portal)
 
-    def test_risk_history_renderer_is_semantic_live_and_mobile_ready(self):
-        for declaration in [
-            '{ id: "high", label: "High Risk", color: "#a43f43" }',
-            '{ id: "medium", label: "Medium Risk", color: "#c9a24f" }',
-            '{ id: "low", label: "Low Risk", color: "#27765a" }',
-        ]:
-            self.assertIn(declaration, self.portal)
-        self.assertIn("raw.risk_history || raw.riskHistory", self.portal)
-        self.assertIn("const riskPointMap = new Map();", self.portal)
-        self.assertIn('kind: view.modifiedAt ? "local_risk_now" : "intraday_risk_now"', self.portal)
-        self.assertIn("currentCash < 0 ? Math.abs(currentCash) : 0", self.portal)
-        self.assertIn('holding.quantity < 0 ? "high" : "low"', self.portal)
-        self.assertIn('riskByInstrument.get(normalizedId(holding.id, "")) || "high"', self.portal)
-        self.assertIn("chartTickIndexes(points.length, mobile ? 6 : 7)", self.portal)
-        self.assertIn('setAttribute("aria-valuetext"', self.portal)
-        self.assertIn('role="list" aria-label="Selected-date risk percentages"', self.dashboard)
-        for selector in [
-            ".risk-history-legend-row.is-high",
-            ".risk-history-legend-row.is-medium",
-            ".risk-history-legend-row.is-low",
-            ".risk-history-legend-row .exposure-dollar",
-        ]:
-            self.assertIn(selector, self.portal_css)
-        self.assertIn("@media (max-width: 490px)", self.portal_css)
-        self.assertIn("@media (max-width: 370px)", self.portal_css)
-
     def test_current_portal_pages_share_the_analytics_cache_version(self):
         for relative in ["investor_login/dashboard.html", "investor_login/index.html", "admin/index.html"]:
             page = (REPO / relative).read_text(encoding="utf-8")
-            self.assertIn("20260820-risk-history1", page)
+            self.assertIn("20260820-risk1", page)
 
 
 if __name__ == "__main__":

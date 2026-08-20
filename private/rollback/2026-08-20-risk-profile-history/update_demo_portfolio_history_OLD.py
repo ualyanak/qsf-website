@@ -61,12 +61,7 @@ BENCHMARK_SPECS: tuple[dict[str, Any], ...] = (
 )
 BENCHMARK_SOURCE = "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed."
 EXTERNAL_FLOW_CLASSIFICATIONS = frozenset({"contribution", "deposit", "external_flow", "redemption", "withdrawal"})
-RISK_CATEGORY_STYLES: tuple[dict[str, Any], ...] = (
-    {"id": "low", "label": "Low", "color": "#56816f"},
-    {"id": "medium", "label": "Medium", "color": "#c9a24f"},
-    {"id": "high", "label": "High", "color": "#8b5f63"},
-)
-RISK_LEVELS = frozenset(category["id"] for category in RISK_CATEGORY_STYLES)
+RISK_LEVELS = frozenset({"low", "medium", "high"})
 EXPOSURE_CATEGORY_STYLES: dict[str, tuple[str, str]] = {
     "cash-cash-equivalents": ("Cash & Cash Equivalents", "#15344f"),
     "financial-technology": ("Financial Technology", "#56816f"),
@@ -937,71 +932,6 @@ def exposure_point(
     }
 
 
-def risk_point(
-    ledger: Mapping[str, Any],
-    state: Mapping[str, Any],
-    market_values: Mapping[str, float],
-    *,
-    day: dt.date,
-    kind: str,
-    source_date: dt.date,
-    quality: str,
-) -> dict[str, Any]:
-    """Return one gross marked-value mix across the three approved risk levels."""
-    values = {str(category["id"]): 0.0 for category in RISK_CATEGORY_STYLES}
-    cash = finite_number(state.get("cash"), "risk-history cash")
-    # Positive cash is low risk. A negative balance is financing/leverage and
-    # stays inside the requested three-category view as high risk.
-    values["low" if cash >= 0 else "high"] += abs(cash)
-    for instrument_id, raw_market_value in market_values.items():
-        market_value = finite_number(raw_market_value, f"{instrument_id} risk-history market value")
-        instrument = ledger["instruments"][instrument_id]
-        group_id = str(instrument["attribution_group_id"])
-        group = ledger["attribution_groups"].get(group_id)
-        if not isinstance(group, Mapping):
-            raise HistoryError(f"{instrument_id} references unknown attribution group {group_id}")
-        risk_level = (
-            "high"
-            if instrument.get("cash_equivalent") is True and market_value < 0
-            else str(group.get("risk_level", "")).lower()
-        )
-        if risk_level not in RISK_LEVELS:
-            raise HistoryError(f"Attribution group {group_id} has unsupported risk level {risk_level or '<missing>'}")
-        values[risk_level] += abs(market_value)
-
-    gross_exposure = sum(values.values())
-    if gross_exposure <= EPSILON:
-        raise HistoryError(f"No positive gross risk exposure on {day}")
-    rounded_percentages = {
-        risk_level: round(value / gross_exposure * 100, 6)
-        for risk_level, value in values.items()
-    }
-    percentage_residual = round(100.0 - sum(rounded_percentages.values()), 6)
-    if abs(percentage_residual) > 0:
-        largest = max(values, key=values.get)
-        rounded_percentages[largest] = round(rounded_percentages[largest] + percentage_residual, 6)
-    rounded_values = {risk_level: round(value, 2) for risk_level, value in values.items()}
-    gross_exposure_rounded = round(gross_exposure, 2)
-    dollar_residual = round(gross_exposure_rounded - sum(rounded_values.values()), 2)
-    if abs(dollar_residual) > 0:
-        largest = max(values, key=values.get)
-        rounded_values[largest] = round(rounded_values[largest] + dollar_residual, 2)
-    return {
-        "date": day.isoformat(),
-        "kind": kind,
-        "source_date": source_date.isoformat(),
-        "quality": quality,
-        "gross_exposure": gross_exposure_rounded,
-        "values": {
-            str(category["id"]): {
-                "value": rounded_values[str(category["id"])],
-                "percent": rounded_percentages[str(category["id"])],
-            }
-            for category in RISK_CATEGORY_STYLES
-        },
-    }
-
-
 def build_analytics(
     ledger: Mapping[str, Any],
     *,
@@ -1010,7 +940,6 @@ def build_analytics(
     market_values: Mapping[str, float],
     latest_nav: float,
     exposure_history: Mapping[str, Any],
-    risk_history: Mapping[str, Any],
 ) -> dict[str, Any]:
     realized_trades = realized_trade_records(ledger, through)
     instrument_income, unattributed_pnl, external_flows = performance_cash_adjustments(ledger, through)
@@ -1112,7 +1041,6 @@ def build_analytics(
             "residual": residual,
         },
         "exposure_history": dict(exposure_history),
-        "risk_history": dict(risk_history),
     }
 
 
@@ -1200,7 +1128,6 @@ def build_history(
     points: list[dict[str, Any]] = []
     raw_exposure_categories = exposure_categories(ledger, include_financing=True)
     exposure_points: list[dict[str, Any]] = []
-    risk_points: list[dict[str, Any]] = []
     formation_nav = finite_number(ledger["formation"]["nav"], "formation NAV")
     formation_cash = finite_number(ledger["formation"]["cash"], "formation cash")
     formation_positions_value = formation_nav - formation_cash
@@ -1232,20 +1159,10 @@ def build_history(
         source_date=formation_date,
         quality="baseline",
     ))
-    risk_points.append(risk_point(
-        ledger,
-        formation_state,
-        formation_market_values,
-        day=formation_date,
-        kind="formation_baseline",
-        source_date=formation_date,
-        quality="baseline",
-    ))
     session_set = set(calculated_sessions)
     last_source_date = formation_date
     last_point = points[0]
     last_exposure_point = exposure_points[0]
-    last_risk_point = risk_points[0]
     analytics_state = formation_state
     analytics_market_values = formation_market_values
     analytics_nav = formation_nav
@@ -1271,15 +1188,6 @@ def build_history(
             })
             exposure_points.append(carried_exposure)
             last_exposure_point = carried_exposure
-            carried_risk = copy.deepcopy(last_risk_point)
-            carried_risk.update({
-                "date": day.isoformat(),
-                "kind": "carry_forward",
-                "source_date": last_source_date.isoformat(),
-                "quality": "carry_forward",
-            })
-            risk_points.append(carried_risk)
-            last_risk_point = carried_risk
             day += dt.timedelta(days=1)
             continue
 
@@ -1326,19 +1234,8 @@ def build_history(
             quality=point["quality"],
         )
         exposure_points.append(current_exposure)
-        current_risk = risk_point(
-            ledger,
-            state,
-            market_values,
-            day=day,
-            kind="session_close",
-            source_date=day,
-            quality=point["quality"],
-        )
-        risk_points.append(current_risk)
         last_point = point
         last_exposure_point = current_exposure
-        last_risk_point = current_risk
         last_source_date = day
         analytics_state = state
         analytics_market_values = market_values
@@ -1350,8 +1247,6 @@ def build_history(
         raise HistoryError("History points are not unique, sorted, and calendar-contiguous")
     if [point["date"] for point in exposure_points] != [day.isoformat() for day in expected_dates]:
         raise HistoryError("Exposure-history points are not unique, sorted, and calendar-contiguous")
-    if [point["date"] for point in risk_points] != [day.isoformat() for day in expected_dates]:
-        raise HistoryError("Risk-history points are not unique, sorted, and calendar-contiguous")
 
     used_exposure_categories = {
         category["id"]
@@ -1371,12 +1266,6 @@ def build_history(
         "units": "percent_of_gross_marked_value",
         "categories": final_exposure_categories,
         "points": exposure_points,
-    }
-    risk_history = {
-        "basis": "gross_marked_value",
-        "units": "percent_of_gross_marked_value",
-        "categories": [dict(category) for category in RISK_CATEGORY_STYLES],
-        "points": risk_points,
     }
 
     benchmark_fetch = benchmark_fetcher or fetcher
@@ -1458,7 +1347,6 @@ def build_history(
         market_values=analytics_market_values,
         latest_nav=analytics_nav,
         exposure_history=exposure_history,
-        risk_history=risk_history,
     )
 
     return {

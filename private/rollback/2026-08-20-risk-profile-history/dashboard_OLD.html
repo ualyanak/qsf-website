@@ -7,11 +7,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Demo Portfolio Overview | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=20260820-risk-history1">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260820-risk1">
   <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
-  <script defer src="../assets/js/portal-config.js?v=20260820-risk-history1"></script>
-  <script defer src="../assets/js/demo-pdf.js?v=20260820-risk-history1"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260820-risk-history1"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260820-risk1"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260820-risk1"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260820-risk1"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
   <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
@@ -202,31 +202,6 @@
                 <tbody id="realized-trades-body"><tr><td colspan="3" class="table-empty">Loading recorded closed trades…</td></tr></tbody>
               </table>
             </div>
-          </div>
-        </section>
-
-        <section class="analytics-section risk-history-section" aria-labelledby="risk-history-title">
-          <div class="analytics-heading">
-            <div>
-              <p class="eyebrow">Risk allocation through time</p>
-              <h2 id="risk-history-title">How the risk profile changed</h2>
-            </div>
-            <span id="risk-history-freshness" class="data-badge">Nightly + now</span>
-          </div>
-          <p class="analytics-lede">Every vertical slice equals 100% of classified gross marked exposure: <strong>High Risk</strong> in red, <strong>Medium Risk</strong> in yellow, and <strong>Low Risk</strong> in green. The outlined <strong>Now</strong> endpoint uses the latest available holdings, cash, and delayed marks.</p>
-          <div class="analytics-card exposure-card risk-history-card">
-            <div id="risk-history-chart" class="exposure-chart risk-history-chart" role="img" aria-label="Loading historical risk profile">
-              <div class="analytics-empty"><strong>Loading risk history</strong><span>The completed nightly High, Medium, and Low Risk mix and latest delayed snapshot will appear here.</span></div>
-            </div>
-            <div class="exposure-explorer risk-history-explorer">
-              <label for="risk-history-date-control">Explore date</label>
-              <input id="risk-history-date-control" type="range" min="0" max="0" value="0" step="1" disabled>
-              <output id="risk-history-selected-date" for="risk-history-date-control">—</output>
-            </div>
-            <div id="risk-history-breakdown" class="exposure-breakdown risk-history-breakdown" role="list" aria-label="Selected-date risk percentages">
-              <p class="muted-copy">Select a date to read each risk band without relying on color or hover.</p>
-            </div>
-            <p class="analytics-note">Risk bands are administrator-assigned qualitative categories for this public demonstration. Positive cash and long SGOV are Low Risk; negative cash, short SGOV, and any local holding without a published classification are conservatively included in High Risk at the Now endpoint. Published nightly history stays unchanged when local scenario edits are made; those edits affect only Now. These bands are not generated from performance, do not measure option delta or notional exposure, and are not suitability assessments.</p>
           </div>
         </section>
 

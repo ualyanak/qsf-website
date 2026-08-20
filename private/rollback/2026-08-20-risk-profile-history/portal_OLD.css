@@ -1309,22 +1309,6 @@ a { color: inherit; }
 .exposure-legend-row strong { color: var(--navy-900); font-variant-numeric: tabular-nums; }
 .exposure-dollar { color: var(--muted); font-size: 0.68rem; font-variant-numeric: tabular-nums; }
 
-.risk-history-card { border-top: 3px solid var(--navy-800); }
-
-.risk-history-swatch {
-  width: 10px;
-  height: 10px;
-  border: 1px solid rgba(6, 20, 34, 0.18);
-}
-
-.risk-history-legend-row > span:nth-child(2) { font-weight: 750; }
-.risk-history-legend-row.is-high > span:nth-child(2),
-.risk-history-legend-row.is-high strong { color: #941f2a; }
-.risk-history-legend-row.is-medium > span:nth-child(2),
-.risk-history-legend-row.is-medium strong { color: #684c00; }
-.risk-history-legend-row.is-low > span:nth-child(2),
-.risk-history-legend-row.is-low strong { color: #1d6544; }
-
 .holdings-heading { margin-bottom: 15px; }
 .holdings-table-wrap { border: 1px solid #e5e9ed; border-radius: 9px; }
 .holdings-section .table-note { margin-right: 0; margin-left: 0; }
@@ -1735,12 +1719,6 @@ td { color: #465564; }
   .contribution-metrics span { max-width: 126px; font-size: 0.61rem; }
   .exposure-dollar { display: none; }
   .exposure-legend-row { grid-template-columns: 11px minmax(0, 1fr) auto; }
-  .risk-history-legend-row .exposure-dollar {
-    display: block;
-    grid-column: 2 / 4;
-    justify-self: start;
-    margin-top: -3px;
-  }
   .form-grid { grid-template-columns: 1fr; }
   .trade-preview { display: grid; }
   .editor-summary { grid-template-columns: 1fr; }
