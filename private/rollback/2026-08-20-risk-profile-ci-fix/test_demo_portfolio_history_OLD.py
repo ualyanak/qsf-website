@@ -973,11 +973,7 @@ class PortfolioHistoryTests(unittest.TestCase):
             "medium": {"value": 4825.69, "percent": 35.808138},
             "high": {"value": 908.67, "percent": 6.742613},
         })
-        self.assertAlmostEqual(
-            sum(value["value"] for value in risk_latest["values"].values()),
-            risk_latest["gross_exposure"],
-            places=2,
-        )
+        self.assertEqual(sum(value["value"] for value in risk_latest["values"].values()), risk_latest["gross_exposure"])
         self.assertAlmostEqual(sum(value["percent"] for value in risk_latest["values"].values()), 100.0, places=6)
 
 
