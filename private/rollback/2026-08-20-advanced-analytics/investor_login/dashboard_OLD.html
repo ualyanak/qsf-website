@@ -7,11 +7,11 @@
   <meta name="robots" content="noindex, nofollow">
   <title>Demo Portfolio Overview | Quantum Strategy Fund</title>
   <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
-  <link rel="stylesheet" href="../assets/css/portal.css?v=20260820-analytics3">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260818-benchmark1">
   <script defer src="../assets/vendor/pdf-lib.min.js?v=1.17.1"></script>
-  <script defer src="../assets/js/portal-config.js?v=20260820-analytics3"></script>
-  <script defer src="../assets/js/demo-pdf.js?v=20260820-analytics3"></script>
-  <script defer src="../assets/js/portal-demo.js?v=20260820-analytics3"></script>
+  <script defer src="../assets/js/portal-config.js?v=20260818-benchmark1"></script>
+  <script defer src="../assets/js/demo-pdf.js?v=20260818-benchmark1"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260818-benchmark1"></script>
 </head>
 <body class="portal-shell dashboard-page" data-page="dashboard">
   <a class="skip-link" href="#dashboard-main">Skip to demo portfolio overview</a>
@@ -152,98 +152,17 @@
 
     <details class="panel advanced-panel" open>
       <summary>
-        <span><span class="eyebrow">Advanced view</span><strong>Portfolio analytics, exposure &amp; holdings</strong></span>
+        <span><span class="eyebrow">Advanced view</span><strong>Current demo holdings and marks</strong></span>
         <span class="summary-action">Collapse</span>
       </summary>
-
-      <div class="advanced-content">
-        <p id="analytics-scope-note" class="advanced-intro">Attribution combines realized results, current-mark unrealized results, and instrument-linked income from the published synthetic record. Local scenario edits are excluded from historical attribution.</p>
-
-        <section class="analytics-section" aria-labelledby="contribution-title">
-          <div class="analytics-heading">
-            <div>
-              <p class="eyebrow">Profit &amp; loss attribution</p>
-              <h2 id="contribution-title">What drove the result</h2>
-            </div>
-            <span class="data-badge">Latest delayed marks</span>
-          </div>
-          <div class="analytics-summary" aria-label="Contribution highlights">
-            <article><span>Biggest contributor</span><strong id="analytics-best-contributor">—</strong><small id="analytics-best-contributor-value">Waiting for analytics</small></article>
-            <article><span>Weakest contributor</span><strong id="analytics-weakest-contributor">—</strong><small id="analytics-weakest-contributor-value">Waiting for analytics</small></article>
-            <article><span>Closed trades tracked</span><strong id="analytics-trade-count">—</strong><small id="analytics-trade-total">Waiting for analytics</small></article>
-          </div>
-
-          <div class="analytics-card contribution-card">
-            <div class="analytics-card-heading">
-              <div>
-                <h3>Security &amp; strategy contribution</h3>
-                <p>Right of zero added value; left of zero reduced value.</p>
-              </div>
-              <span id="contribution-reconcile" class="analytics-meta">Published record</span>
-            </div>
-            <div class="contribution-axis" aria-hidden="true"><span>Loss</span><span>$0</span><span>Profit</span></div>
-            <div id="contribution-chart" class="contribution-chart" role="list" aria-label="Security and strategy profit and loss contribution ranking">
-              <div class="analytics-empty"><strong>Loading contribution analysis</strong><span>Recorded trades and current delayed marks will be ranked here.</span></div>
-            </div>
-            <p id="contribution-method" class="analytics-note">Return percentages use recorded gross basis. Portfolio contribution is the dollar result divided by the formation value. Figures do not represent delta or notional exposure.</p>
-          </div>
-
-          <div class="analytics-card trades-card">
-            <div class="analytics-card-heading">
-              <div>
-                <h3>Closed-trade ranking</h3>
-                <p>Realized exits ranked by recorded profit or loss.</p>
-              </div>
-            </div>
-            <div class="table-wrap analytics-table-wrap">
-              <table class="analytics-table">
-                <caption class="sr-only">Closed demonstration trades ranked by realized profit and loss</caption>
-                <thead><tr><th scope="col">Rank / trade</th><th scope="col">Realized P&amp;L</th><th scope="col">Return on closed basis</th></tr></thead>
-                <tbody id="realized-trades-body"><tr><td colspan="3" class="table-empty">Loading recorded closed trades…</td></tr></tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section class="analytics-section exposure-section" aria-labelledby="exposure-title">
-          <div class="analytics-heading">
-            <div>
-              <p class="eyebrow">Allocation through time</p>
-              <h2 id="exposure-title">How the exposure mix changed</h2>
-            </div>
-            <span id="exposure-freshness" class="data-badge">Nightly + now</span>
-          </div>
-          <p class="analytics-lede">Every vertical slice equals 100% of gross marked value. The outlined <strong>Now</strong> endpoint uses the latest available delayed marks; earlier points use completed nightly values.</p>
-          <div class="analytics-card exposure-card">
-            <div id="exposure-chart" class="exposure-chart" role="img" aria-label="Loading historical gross exposure mix">
-              <div class="analytics-empty"><strong>Loading exposure history</strong><span>The completed nightly mix and latest delayed snapshot will appear here.</span></div>
-            </div>
-            <div class="exposure-explorer">
-              <label for="exposure-date-control">Explore date</label>
-              <input id="exposure-date-control" type="range" min="0" max="0" value="0" step="1" disabled>
-              <output id="exposure-selected-date" for="exposure-date-control">—</output>
-            </div>
-            <div id="exposure-breakdown" class="exposure-breakdown" role="list" aria-label="Selected-date exposure percentages">
-              <p class="muted-copy">Select a date to read its exposure mix without relying on hover.</p>
-            </div>
-            <p class="analytics-note">Gross exposure uses absolute marked position values plus positive cash. Cash &amp; Cash Equivalents includes cash and SGOV. It is an allocation view, not option delta, leverage, or notional exposure.</p>
-          </div>
-        </section>
-
-        <section class="holdings-section" aria-labelledby="holdings-title">
-          <div class="holdings-heading">
-            <div><p class="eyebrow">Current detail</p><h2 id="holdings-title">Holdings and marks</h2></div>
-          </div>
-          <div class="table-wrap holdings-table-wrap">
+      <div class="table-wrap">
         <table>
           <caption class="sr-only">Current public demonstration holdings</caption>
-          <thead><tr><th scope="col">Instrument</th><th scope="col">Quantity</th><th scope="col">Basis</th><th scope="col">Latest mark</th><th scope="col">Market value</th><th scope="col">Weight</th><th scope="col">Mark status</th></tr></thead>
-          <tbody id="holdings-body"><tr><td colspan="7" class="table-empty">Loading public demonstration holdings…</td></tr></tbody>
+          <thead><tr><th scope="col">Instrument</th><th scope="col">Quantity</th><th scope="col">Latest mark</th><th scope="col">Market value</th><th scope="col">Weight</th><th scope="col">Mark status</th></tr></thead>
+          <tbody id="holdings-body"><tr><td colspan="6" class="table-empty">Loading public demonstration holdings…</td></tr></tbody>
         </table>
-          </div>
-          <p id="holdings-note" class="table-note">Every mark includes its source and timestamp.</p>
-        </section>
       </div>
+      <p id="holdings-note" class="table-note">Every mark includes its source and timestamp.</p>
     </details>
   </main>
 

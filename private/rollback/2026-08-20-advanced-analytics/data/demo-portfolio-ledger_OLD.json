@@ -31,7 +31,6 @@
       "kind": "cash_adjustment",
       "effective_at": "2026-07-20T09:30:00-04:00",
       "amount": 24.0,
-      "classification": "unattributed_strategy_pnl",
       "note": "User-provided illustrative realized-profit adjustment."
     },
     {
@@ -99,20 +98,20 @@
     }
   ],
   "instruments": {
-    "SGOV": { "kind": "equity", "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "multiplier": 1, "cash_equivalent": true, "attribution_group_id": "sgov", "attribution_group_label": "SGOV · Short-Term Treasuries", "exposure_group_id": "cash-cash-equivalents", "exposure_group_label": "Cash & Cash Equivalents" },
-    "BULL": { "kind": "equity", "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "multiplier": 1, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "financial-technology", "exposure_group_label": "Financial Technology" },
-    "BULL_P10_JAN2027": { "kind": "option_model", "model_spec_id": "BULL_P10_JAN2027", "underlying": "BULL", "name": "Short one BULL Jan 2027 $10 put", "multiplier": 100, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "options", "exposure_group_label": "Options" },
-    "IBM": { "kind": "equity", "symbol": "IBM", "name": "International Business Machines", "multiplier": 1, "attribution_group_id": "ibm", "attribution_group_label": "IBM", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "INFQ_C25_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C25_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $25 call", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
-    "INFQ_C10_C17_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_C17_5_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $10/$17.50 call vertical", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
-    "IVR": { "kind": "equity", "symbol": "IVR", "name": "Invesco Mortgage Capital", "multiplier": 1, "attribution_group_id": "ivr", "attribution_group_label": "IVR · Invesco Mortgage Capital", "exposure_group_id": "real-estate", "exposure_group_label": "Real Estate" },
-    "NVDA": { "kind": "equity", "symbol": "NVDA", "name": "NVIDIA", "multiplier": 1, "attribution_group_id": "nvda", "attribution_group_label": "NVDA · NVIDIA", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "PHYS": { "kind": "equity", "symbol": "PHYS", "name": "Sprott Physical Gold Trust", "multiplier": 1, "attribution_group_id": "phys", "attribution_group_label": "PHYS · Physical Gold Trust", "exposure_group_id": "precious-metals", "exposure_group_label": "Precious Metals" },
-    "PLTR": { "kind": "equity", "symbol": "PLTR", "name": "Palantir Technologies", "multiplier": 1, "attribution_group_id": "pltr", "attribution_group_label": "PLTR · Palantir", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "QBTS": { "kind": "equity", "symbol": "QBTS", "name": "D-Wave Quantum", "multiplier": 1, "attribution_group_id": "qbts", "attribution_group_label": "QBTS · D-Wave Quantum", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "SPY": { "kind": "equity", "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "multiplier": 1, "attribution_group_id": "spy", "attribution_group_label": "SPY · S&P 500 ETF", "exposure_group_id": "index-funds", "exposure_group_label": "Index Funds" },
-    "TSSI": { "kind": "equity", "symbol": "TSSI", "name": "TSS, Inc.", "multiplier": 1, "attribution_group_id": "tssi", "attribution_group_label": "TSSI · TSS, Inc.", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
+    "SGOV": { "kind": "equity", "symbol": "SGOV", "multiplier": 1 },
+    "BULL": { "kind": "equity", "symbol": "BULL", "multiplier": 1 },
+    "BULL_P10_JAN2027": { "kind": "option_model", "model_spec_id": "BULL_P10_JAN2027", "underlying": "BULL", "multiplier": 100 },
+    "IBM": { "kind": "equity", "symbol": "IBM", "multiplier": 1 },
+    "INFQ_C25_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C25_20270115", "underlying": "INFQ", "multiplier": 100 },
+    "INFQ_C10_C17_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_C17_5_20270115", "underlying": "INFQ", "multiplier": 100 },
+    "IVR": { "kind": "equity", "symbol": "IVR", "multiplier": 1 },
+    "NVDA": { "kind": "equity", "symbol": "NVDA", "multiplier": 1 },
+    "PHYS": { "kind": "equity", "symbol": "PHYS", "multiplier": 1 },
+    "PLTR": { "kind": "equity", "symbol": "PLTR", "multiplier": 1 },
+    "QBTS": { "kind": "equity", "symbol": "QBTS", "multiplier": 1 },
+    "SPY": { "kind": "equity", "symbol": "SPY", "multiplier": 1 },
+    "TSSI": { "kind": "equity", "symbol": "TSSI", "multiplier": 1 },
+    "WMT": { "kind": "equity", "symbol": "WMT", "multiplier": 1 }
   },
   "expected_current_snapshot": {
     "cash": 1787.91,

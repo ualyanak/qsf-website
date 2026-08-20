@@ -91,48 +91,6 @@ repository. They must never be reused for real investor accounts.
    holdings, allocation, return, nightly-history chart, local scenario, and
    report inputs from one calculation path.
 
-### Completed-night analytics
-
-The history snapshot also publishes `accounts.ahub.analytics`, calculated only
-through `last_completed_session` so a ledger event is never presented as
-completed-night performance before that session closes.
-
-- `realized_trades` uses average-cost lots and groups fills by ledger event and
-  instrument. A closing long earns `(exit price - prior basis) × closed quantity
-  × multiplier`; a closing short reverses that price difference. Reported fees
-  are deducted proportionally from the closing portion. The displayed percent
-  is realized P&L divided by the absolute closed basis. Same-direction trades
-  update weighted basis, partial closes preserve it, and a position flip splits
-  the transaction into closing and new-opening portions.
-- `contributors` combines each security or underlying strategy group's realized
-  P&L, tagged income, and completed-night unrealized P&L. Its return percent uses
-  cumulative tracked basis (disposed basis plus the remaining position basis),
-  while `portfolio_contribution_pct` divides the dollar contribution by the
-  `$9,900` formation NAV. BULL shares and the BULL put share one group; both INFQ
-  strategies share another. This is a security-and-strategy attribution, not a
-  claim that every row is an operating company.
-- The unassigned July 20 `$24.00` strategy-P&L adjustment remains separate in
-  `unattributed_pnl`. Tagged SGOV and IVR dividends belong to their contributor
-  groups. External-flow classifications are excluded from P&L. The published
-  reconciliation requires attributed P&L plus unattributed P&L and external
-  flows to explain the change from formation NAV to the completed-night NAV.
-- `exposure_history` replays the same ledger and marks used for nightly NAV.
-  Each point is a 100% gross marked-value mix: absolute position market values
-  plus absolute cash. Positive cash and long SGOV are combined as `Cash & Cash
-  Equivalents`; negative cash or a short cash-equivalent position is financing.
-  Formation uses supplied basis values, completed sessions use raw closes and
-  the seeded option models, and non-trading days carry the preceding mix exactly.
-  This is market-value exposure, not option delta or notional exposure.
-
-At the August 19 completed close, the five realized-trade rows are the combined
-INFQ vertical sale (`+$2,115.00`, `+77.19%`), the BULL partial sale (`+$150.00`,
-`+17.36%`), the INFQ `$25` call sale (`+$105.00`, `+46.67%`), the TSSI close
-(`-$8.70`, `-2.92%`), and the SGOV sale (`-$9.34`, `-0.40%`). INFQ is the largest
-completed-night contributor at `+$2,295.67`; IVR is the smallest at `-$39.99`.
-Attributed P&L of `$3,110.98` plus the separate `$24.00` adjustment reconciles
-exactly to the `$3,134.98` rise from `$9,900.00` to `$13,034.98` using Yahoo's
-final August 19 raw closes.
-
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving
 the PDF view. The chart and PDF use the latest completed end-of-day history point;

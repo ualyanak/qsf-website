@@ -60,19 +60,6 @@ BENCHMARK_SPECS: tuple[dict[str, Any], ...] = (
     },
 )
 BENCHMARK_SOURCE = "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed."
-EXTERNAL_FLOW_CLASSIFICATIONS = frozenset({"contribution", "deposit", "external_flow", "redemption", "withdrawal"})
-EXPOSURE_CATEGORY_STYLES: dict[str, tuple[str, str]] = {
-    "cash-cash-equivalents": ("Cash & Cash Equivalents", "#15344f"),
-    "financial-technology": ("Financial Technology", "#56816f"),
-    "options": ("Options", "#c9a24f"),
-    "technology": ("Technology", "#3d6f8c"),
-    "real-estate": ("Real Estate", "#8b5f63"),
-    "precious-metals": ("Precious Metals", "#967638"),
-    "index-funds": ("Index Funds", "#445467"),
-    "consumer": ("Consumer", "#7b8793"),
-    "financing": ("Financing", "#b45309"),
-    "other": ("Other", "#6b7280"),
-}
 
 
 class HistoryError(RuntimeError):
@@ -168,23 +155,15 @@ def initial_state(ledger: Mapping[str, Any]) -> dict[str, Any]:
     }
 
 
-def trade_leg_fee(leg: Mapping[str, Any], instrument_id: str) -> float:
-    fee = finite_number(leg.get("fees", 0), f"{instrument_id} trade fees")
-    if fee < 0:
-        raise HistoryError(f"Invalid negative trade fees for {instrument_id}")
-    return fee
-
-
 def apply_trade_leg(state: dict[str, Any], ledger: Mapping[str, Any], leg: Mapping[str, Any]) -> None:
     instrument_id = str(leg.get("instrument", ""))
     multiplier = instrument_multiplier(ledger, instrument_id)
     signed_quantity = finite_number(leg.get("signed_quantity"), f"{instrument_id} trade quantity")
     price = finite_number(leg.get("price"), f"{instrument_id} trade price")
-    fee = trade_leg_fee(leg, instrument_id)
     if abs(signed_quantity) < EPSILON or price < 0:
         raise HistoryError(f"Invalid trade leg for {instrument_id}")
 
-    state["cash"] -= signed_quantity * price * multiplier + fee
+    state["cash"] -= signed_quantity * price * multiplier
     old_lot = state["positions"].get(instrument_id)
     old_quantity = finite_number(old_lot.get("quantity"), "old quantity") if old_lot else 0.0
     old_basis = finite_number(old_lot.get("basis_price"), "old basis") if old_lot else price
@@ -193,22 +172,12 @@ def apply_trade_leg(state: dict[str, Any], ledger: Mapping[str, Any], leg: Mappi
     if abs(new_quantity) < EPSILON:
         state["positions"].pop(instrument_id, None)
         return
-    if abs(old_quantity) < EPSILON:
-        fee_per_unit = fee / (abs(signed_quantity) * multiplier)
-        new_basis = price + (fee_per_unit if signed_quantity > 0 else -fee_per_unit)
-    elif old_quantity * new_quantity < 0:
-        opening_quantity = abs(new_quantity)
-        opening_fee = fee * opening_quantity / abs(signed_quantity)
-        fee_per_unit = opening_fee / (opening_quantity * multiplier)
-        new_basis = price + (fee_per_unit if new_quantity > 0 else -fee_per_unit)
+    if abs(old_quantity) < EPSILON or old_quantity * new_quantity < 0:
+        new_basis = price
     elif old_quantity * signed_quantity > 0:
-        fee_per_unit = fee / (abs(signed_quantity) * multiplier)
-        effective_basis = price + (fee_per_unit if signed_quantity > 0 else -fee_per_unit)
-        new_basis = (abs(old_quantity) * old_basis + abs(signed_quantity) * effective_basis) / abs(new_quantity)
+        new_basis = (abs(old_quantity) * old_basis + abs(signed_quantity) * price) / abs(new_quantity)
     else:
         new_basis = old_basis
-    if new_basis < 0:
-        raise HistoryError(f"Trade fees exceed opening value for {instrument_id}")
     state["positions"][instrument_id] = {"quantity": new_quantity, "basis_price": new_basis}
 
 
@@ -253,18 +222,6 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
     formation = ledger.get("formation")
     if not isinstance(formation, Mapping):
         raise HistoryError("Missing formation")
-    instruments = ledger.get("instruments")
-    if not isinstance(instruments, Mapping) or not instruments:
-        raise HistoryError("Instrument metadata is missing")
-    for instrument_id, instrument in instruments.items():
-        if not isinstance(instrument, Mapping):
-            raise HistoryError(f"Invalid instrument metadata: {instrument_id}")
-        for key in ("name", "attribution_group_id", "attribution_group_label", "exposure_group_id", "exposure_group_label"):
-            if not str(instrument.get(key, "")).strip():
-                raise HistoryError(f"{instrument_id} is missing {key}")
-        exposure_group_id = str(instrument["exposure_group_id"])
-        if exposure_group_id not in EXPOSURE_CATEGORY_STYLES:
-            raise HistoryError(f"{instrument_id} has unsupported exposure group {exposure_group_id}")
     formation_state = initial_state(ledger)
     basis_value = formation_state["cash"]
     for instrument_id, lot in formation_state["positions"].items():
@@ -439,11 +396,7 @@ def normalize_observations(raw: Mapping[dt.date | str, float], start: dt.date, e
         except (ValueError, HistoryError):
             continue
         if start <= observed_date <= end and price > 0:
-            # Persisted fallback marks use six decimals. Quantizing fetched
-            # observations here makes a fallback-only rebuild cent-for-cent
-            # deterministic instead of letting binary float tails alter a
-            # rounded category value on the next run.
-            result[observed_date] = round(price, 6)
+            result[observed_date] = price
     return result
 
 
@@ -669,354 +622,33 @@ def active_symbols(ledger: Mapping[str, Any], state: Mapping[str, Any]) -> set[s
     return result
 
 
-def instrument_mark(
-    ledger: Mapping[str, Any],
-    instrument_id: str,
-    marks: Mapping[str, float],
-    valuation_time: dt.datetime,
-    volatility_cache: dict[str, float] | None = None,
-) -> float:
-    instrument = ledger["instruments"][instrument_id]
-    if instrument["kind"] == "equity":
-        mark = finite_number(marks[str(instrument["symbol"])], f"{instrument_id} mark")
-    else:
-        model_id = str(instrument["model_spec_id"])
-        spec = option_models.OPTION_MODEL_SPECS.get(model_id)
-        if not spec:
-            raise HistoryError(f"Missing option model specification: {model_id}")
-        underlier = str(instrument["underlying"])
-        cache = volatility_cache if volatility_cache is not None else {}
-        volatility = cache.setdefault(model_id, option_models.calibrated_volatility(spec))
-        mark = option_models.modeled_strategy_value(
-            spec,
-            finite_number(marks[underlier], f"{underlier} mark"),
-            valuation_time.astimezone(dt.timezone.utc),
-            volatility,
-        )
-    if not math.isfinite(mark) or mark < 0:
-        raise HistoryError(f"Invalid mark for {instrument_id}")
-    return mark
-
-
-def position_market_values(
-    ledger: Mapping[str, Any],
-    state: Mapping[str, Any],
-    marks: Mapping[str, float],
-    valuation_time: dt.datetime,
-) -> dict[str, float]:
-    values: dict[str, float] = {}
-    volatility_cache: dict[str, float] = {}
-    for instrument_id, lot in state["positions"].items():
-        quantity = finite_number(lot["quantity"], f"{instrument_id} quantity")
-        multiplier = instrument_multiplier(ledger, instrument_id)
-        mark = instrument_mark(ledger, instrument_id, marks, valuation_time, volatility_cache)
-        values[instrument_id] = quantity * multiplier * mark
-    return values
-
-
 def position_value(
     ledger: Mapping[str, Any],
     state: Mapping[str, Any],
     marks: Mapping[str, float],
     valuation_time: dt.datetime,
 ) -> float:
-    return sum(position_market_values(ledger, state, marks, valuation_time).values())
-
-
-def realized_trade_records(ledger: Mapping[str, Any], through: dt.datetime) -> list[dict[str, Any]]:
-    """Return average-cost realizations grouped by ledger event and instrument."""
-    state = initial_state(ledger)
-    grouped: dict[tuple[str, str], dict[str, Any]] = {}
-    events = sorted(ledger.get("events") or [], key=lambda event: (event_datetime(event), str(event.get("id", ""))))
-    for event in events:
-        effective = event_datetime(event)
-        if effective > through:
-            continue
-        if event.get("kind") == "cash_adjustment":
-            state["cash"] += finite_number(event.get("amount"), f"{event.get('id')} amount")
-            continue
-        if event.get("kind") != "trade":
-            raise HistoryError(f"Unsupported ledger event kind: {event.get('kind')}")
-        event_id = str(event.get("id", ""))
-        for leg in event.get("legs") or []:
-            if not isinstance(leg, Mapping):
-                raise HistoryError(f"Trade {event_id} has an invalid leg")
-            instrument_id = str(leg.get("instrument", ""))
-            signed_quantity = finite_number(leg.get("signed_quantity"), f"{instrument_id} trade quantity")
-            price = finite_number(leg.get("price"), f"{instrument_id} trade price")
-            multiplier = instrument_multiplier(ledger, instrument_id)
-            fee = trade_leg_fee(leg, instrument_id)
-            old_lot = state["positions"].get(instrument_id)
-            old_quantity = finite_number(old_lot.get("quantity"), f"{instrument_id} prior quantity") if old_lot else 0.0
-            old_basis = finite_number(old_lot.get("basis_price"), f"{instrument_id} prior basis") if old_lot else price
-            closed_quantity = min(abs(old_quantity), abs(signed_quantity)) if old_quantity * signed_quantity < 0 else 0.0
-            if closed_quantity > EPSILON:
-                closing_fee = fee * closed_quantity / abs(signed_quantity)
-                closing_value = closed_quantity * price * multiplier
-                closed_basis = closed_quantity * old_basis * multiplier
-                direction = 1.0 if old_quantity > 0 else -1.0
-                realized_pnl = direction * (closing_value - closed_basis) - closing_fee
-                key = (event_id, instrument_id)
-                instrument = ledger["instruments"][instrument_id]
-                record = grouped.setdefault(key, {
-                    "id": event_id + "::" + instrument_id,
-                    "event_id": event_id,
-                    "date": effective.astimezone(MARKET_ZONE).date().isoformat(),
-                    "instrument_id": instrument_id,
-                    "label": str(instrument["name"]),
-                    "attribution_group_id": str(instrument["attribution_group_id"]),
-                    "attribution_group_label": str(instrument["attribution_group_label"]),
-                    "closed_sides": set(),
-                    "closed_quantity": 0.0,
-                    "multiplier": multiplier,
-                    "fill_count": 0,
-                    "closing_value": 0.0,
-                    "closed_basis": 0.0,
-                    "fees": 0.0,
-                    "realized_pnl": 0.0,
-                })
-                record["closed_sides"].add("long" if old_quantity > 0 else "short")
-                record["closed_quantity"] += closed_quantity
-                record["fill_count"] += 1
-                record["closing_value"] += closing_value
-                record["closed_basis"] += abs(closed_basis)
-                record["fees"] += closing_fee
-                record["realized_pnl"] += realized_pnl
-            apply_trade_leg(state, ledger, leg)
-
-    records: list[dict[str, Any]] = []
-    for record in grouped.values():
-        quantity = float(record["closed_quantity"])
-        multiplier = float(record["multiplier"])
-        closed_basis = float(record["closed_basis"])
-        sides = sorted(record.pop("closed_sides"))
-        record["closed_side"] = sides[0] if len(sides) == 1 else "mixed"
-        record["average_exit_price"] = round(float(record["closing_value"]) / (quantity * multiplier), 6)
-        record["closed_quantity"] = round(quantity, 8)
-        record["closing_value"] = round(float(record["closing_value"]), 2)
-        record["closed_basis"] = round(closed_basis, 2)
-        record["fees"] = round(float(record["fees"]), 2)
-        record["realized_pnl"] = round(float(record["realized_pnl"]), 2)
-        record["return_pct"] = round(float(record["realized_pnl"]) / closed_basis * 100, 4) if closed_basis > EPSILON else None
-        records.append(record)
-    return sorted(records, key=lambda record: (-float(record["realized_pnl"]), str(record["date"]), str(record["id"])))
-
-
-def performance_cash_adjustments(
-    ledger: Mapping[str, Any],
-    through: dt.datetime,
-) -> tuple[dict[str, float], dict[str, Any], float]:
-    instrument_income: dict[str, float] = {}
-    unattributed_events: list[dict[str, Any]] = []
-    external_flows = 0.0
-    for event in sorted(ledger.get("events") or [], key=lambda item: (event_datetime(item), str(item.get("id", "")))):
-        effective = event_datetime(event)
-        if effective > through or event.get("kind") != "cash_adjustment":
-            continue
-        amount = finite_number(event.get("amount"), f"{event.get('id')} amount")
-        classification = str(event.get("classification") or "unattributed_strategy_pnl")
-        if classification in EXTERNAL_FLOW_CLASSIFICATIONS:
-            external_flows += amount
-            continue
-        instrument_id = str(event.get("instrument") or "")
-        if instrument_id:
-            instrument_multiplier(ledger, instrument_id)
-            instrument_income[instrument_id] = instrument_income.get(instrument_id, 0.0) + amount
-        else:
-            unattributed_events.append({
-                "id": str(event.get("id", "")),
-                "date": effective.astimezone(MARKET_ZONE).date().isoformat(),
-                "classification": classification,
-                "amount": round(amount, 2),
-                "note": str(event.get("note") or ""),
-            })
-    return instrument_income, {
-        "total": round(sum(float(event["amount"]) for event in unattributed_events), 2),
-        "events": unattributed_events,
-    }, round(external_flows, 2)
-
-
-def exposure_categories(ledger: Mapping[str, Any], *, include_financing: bool = False) -> list[dict[str, str]]:
-    requested = {"cash-cash-equivalents"}
-    for instrument in (ledger.get("instruments") or {}).values():
-        requested.add(str(instrument.get("exposure_group_id") or "other"))
-    if include_financing:
-        requested.add("financing")
-    categories: list[dict[str, str]] = []
-    for category_id, (default_label, color) in EXPOSURE_CATEGORY_STYLES.items():
-        if category_id not in requested:
-            continue
-        labels = {
-            str(instrument.get("exposure_group_label"))
-            for instrument in (ledger.get("instruments") or {}).values()
-            if str(instrument.get("exposure_group_id")) == category_id and instrument.get("exposure_group_label")
-        }
-        categories.append({
-            "id": category_id,
-            "label": sorted(labels)[0] if labels else default_label,
-            "color": color,
-        })
-    return categories
-
-
-def exposure_point(
-    ledger: Mapping[str, Any],
-    state: Mapping[str, Any],
-    market_values: Mapping[str, float],
-    categories: list[dict[str, str]],
-    *,
-    day: dt.date,
-    kind: str,
-    source_date: dt.date,
-    quality: str,
-) -> dict[str, Any]:
-    values = {category["id"]: 0.0 for category in categories}
-    cash = finite_number(state.get("cash"), "exposure cash")
-    if cash >= 0:
-        values["cash-cash-equivalents"] = values.get("cash-cash-equivalents", 0.0) + cash
-    else:
-        values["financing"] = values.get("financing", 0.0) + abs(cash)
-    for instrument_id, raw_market_value in market_values.items():
-        market_value = finite_number(raw_market_value, f"{instrument_id} market value")
-        instrument = ledger["instruments"][instrument_id]
-        if instrument.get("cash_equivalent") is True:
-            category_id = "cash-cash-equivalents" if market_value >= 0 else "financing"
-        else:
-            category_id = str(instrument.get("exposure_group_id") or "other")
-        values[category_id] = values.get(category_id, 0.0) + abs(market_value)
-    gross_exposure = sum(values.values())
-    if gross_exposure <= EPSILON:
-        raise HistoryError(f"No positive gross exposure on {day}")
-    rounded_percentages = {
-        category_id: round(value / gross_exposure * 100, 6)
-        for category_id, value in values.items()
-    }
-    percentage_residual = round(100.0 - sum(rounded_percentages.values()), 6)
-    if abs(percentage_residual) > 0:
-        largest = max(values, key=values.get)
-        rounded_percentages[largest] = round(rounded_percentages[largest] + percentage_residual, 6)
-    return {
-        "date": day.isoformat(),
-        "kind": kind,
-        "source_date": source_date.isoformat(),
-        "quality": quality,
-        "gross_exposure": round(gross_exposure, 2),
-        "values": {
-            category["id"]: {
-                "value": round(values.get(category["id"], 0.0), 2),
-                "percent": rounded_percentages.get(category["id"], 0.0),
-            }
-            for category in categories
-        },
-    }
-
-
-def build_analytics(
-    ledger: Mapping[str, Any],
-    *,
-    through: dt.datetime,
-    state: Mapping[str, Any],
-    market_values: Mapping[str, float],
-    latest_nav: float,
-    exposure_history: Mapping[str, Any],
-) -> dict[str, Any]:
-    realized_trades = realized_trade_records(ledger, through)
-    instrument_income, unattributed_pnl, external_flows = performance_cash_adjustments(ledger, through)
-    instrument_stats: dict[str, dict[str, float]] = {}
-    for trade in realized_trades:
-        instrument_id = str(trade["instrument_id"])
-        stats = instrument_stats.setdefault(instrument_id, {"realized_pnl": 0.0, "disposed_basis": 0.0})
-        stats["realized_pnl"] += float(trade["realized_pnl"])
-        stats["disposed_basis"] += float(trade["closed_basis"])
-    for instrument_id, amount in instrument_income.items():
-        stats = instrument_stats.setdefault(instrument_id, {"realized_pnl": 0.0, "disposed_basis": 0.0})
-        stats["income"] = stats.get("income", 0.0) + amount
-    for instrument_id, lot in (state.get("positions") or {}).items():
-        stats = instrument_stats.setdefault(instrument_id, {"realized_pnl": 0.0, "disposed_basis": 0.0})
-        quantity = finite_number(lot.get("quantity"), f"{instrument_id} analytics quantity")
-        basis = finite_number(lot.get("basis_price"), f"{instrument_id} analytics basis")
+    total = 0.0
+    instruments = ledger["instruments"]
+    volatility_cache: dict[str, float] = {}
+    for instrument_id, lot in state["positions"].items():
+        instrument = instruments[instrument_id]
+        quantity = finite_number(lot["quantity"], f"{instrument_id} quantity")
         multiplier = instrument_multiplier(ledger, instrument_id)
-        market_value = finite_number(market_values[instrument_id], f"{instrument_id} analytics market value")
-        stats["market_value"] = market_value
-        stats["current_basis"] = abs(quantity * basis * multiplier)
-        stats["unrealized_pnl"] = market_value - quantity * basis * multiplier
-
-    grouped: dict[str, dict[str, Any]] = {}
-    for instrument_id, stats in instrument_stats.items():
-        instrument = ledger["instruments"][instrument_id]
-        group_id = str(instrument["attribution_group_id"])
-        group = grouped.setdefault(group_id, {
-            "id": group_id,
-            "label": str(instrument["attribution_group_label"]),
-            "instrument_ids": [],
-            "realized_pnl": 0.0,
-            "unrealized_pnl": 0.0,
-            "income": 0.0,
-            "market_value": 0.0,
-            "tracked_basis": 0.0,
-        })
-        group["instrument_ids"].append(instrument_id)
-        group["realized_pnl"] += stats.get("realized_pnl", 0.0)
-        group["unrealized_pnl"] += stats.get("unrealized_pnl", 0.0)
-        group["income"] += stats.get("income", 0.0)
-        group["market_value"] += stats.get("market_value", 0.0)
-        group["tracked_basis"] += stats.get("disposed_basis", 0.0) + stats.get("current_basis", 0.0)
-
-    opening_nav = finite_number(ledger["formation"]["nav"], "analytics opening NAV")
-    contributors: list[dict[str, Any]] = []
-    attributed_pnl_exact = 0.0
-    for group in grouped.values():
-        total_pnl = float(group["realized_pnl"]) + float(group["unrealized_pnl"]) + float(group["income"])
-        attributed_pnl_exact += total_pnl
-        tracked_basis = float(group["tracked_basis"])
-        contributors.append({
-            "id": str(group["id"]),
-            "label": str(group["label"]),
-            "instrument_ids": sorted(group["instrument_ids"]),
-            "realized_pnl": round(float(group["realized_pnl"]), 2),
-            "unrealized_pnl": round(float(group["unrealized_pnl"]), 2),
-            "income": round(float(group["income"]), 2),
-            "total_pnl": round(total_pnl, 2),
-            "tracked_basis": round(tracked_basis, 2),
-            "return_pct": round(total_pnl / tracked_basis * 100, 4) if tracked_basis > EPSILON else None,
-            "portfolio_contribution_pct": round(total_pnl / opening_nav * 100, 4) if opening_nav > EPSILON else None,
-            "market_value": round(float(group["market_value"]), 2),
-        })
-    contributors.sort(key=lambda group: (-float(group["total_pnl"]), str(group["label"]), str(group["id"])))
-
-    unattributed_total = float(unattributed_pnl["total"])
-    nav_change_exact = latest_nav - opening_nav
-    explained_change_exact = attributed_pnl_exact + unattributed_total
-    residual_exact = nav_change_exact - external_flows - explained_change_exact
-    if abs(residual_exact) > 0.005:
-        raise HistoryError(f"Analytics contribution residual is {residual_exact:.6f}")
-    attributed_pnl = round(attributed_pnl_exact, 2)
-    nav_change = round(nav_change_exact, 2)
-    explained_change = round(explained_change_exact, 2)
-    residual = 0.0 if abs(residual_exact) <= 0.005 else round(residual_exact, 2)
-    return {
-        "schema_version": 1,
-        "as_of": through.astimezone(MARKET_ZONE).date().isoformat(),
-        "methodology": {
-            "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument.",
-            "contribution": "Realized P&L plus tagged income plus latest completed-night unrealized P&L. Return percentages use cumulative tracked basis; portfolio contribution uses formation NAV.",
-            "exposure": "Absolute marked market value plus absolute cash, grouped by asset class. Long SGOV and positive cash are Cash & Cash Equivalents; this is not delta or notional exposure.",
-        },
-        "realized_trades": realized_trades,
-        "contributors": contributors,
-        "unattributed_pnl": unattributed_pnl,
-        "reconciliation": {
-            "opening_nav": round(opening_nav, 2),
-            "latest_nav": round(latest_nav, 2),
-            "nav_change": nav_change,
-            "external_flows": external_flows,
-            "attributed_pnl": attributed_pnl,
-            "unattributed_pnl": round(unattributed_total, 2),
-            "explained_change": explained_change,
-            "residual": residual,
-        },
-        "exposure_history": dict(exposure_history),
-    }
+        if instrument["kind"] == "equity":
+            mark = marks[str(instrument["symbol"])]
+        else:
+            model_id = str(instrument["model_spec_id"])
+            spec = option_models.OPTION_MODEL_SPECS.get(model_id)
+            if not spec:
+                raise HistoryError(f"Missing option model specification: {model_id}")
+            underlier = str(instrument["underlying"])
+            volatility = volatility_cache.setdefault(model_id, option_models.calibrated_volatility(spec))
+            mark = option_models.modeled_strategy_value(spec, marks[underlier], valuation_time.astimezone(dt.timezone.utc), volatility)
+        if not math.isfinite(mark) or mark < 0:
+            raise HistoryError(f"Invalid mark for {instrument_id}")
+        total += quantity * multiplier * mark
+    return total
 
 
 def point_from_value(
@@ -1101,18 +733,10 @@ def build_history(
         raise HistoryError("Missing non-zero formation mark seeds: " + ", ".join(missing_seeds))
 
     points: list[dict[str, Any]] = []
-    raw_exposure_categories = exposure_categories(ledger, include_financing=True)
-    exposure_points: list[dict[str, Any]] = []
     formation_nav = finite_number(ledger["formation"]["nav"], "formation NAV")
     formation_cash = finite_number(ledger["formation"]["cash"], "formation cash")
     formation_positions_value = formation_nav - formation_cash
     formation_state = initial_state(ledger)
-    formation_market_values = {
-        instrument_id: finite_number(lot["quantity"], f"{instrument_id} formation quantity")
-        * instrument_multiplier(ledger, instrument_id)
-        * finite_number(lot["basis_price"], f"{instrument_id} formation basis")
-        for instrument_id, lot in formation_state["positions"].items()
-    }
     points.append(point_from_value(
         formation_date,
         kind="formation_baseline",
@@ -1124,23 +748,9 @@ def build_history(
         forward_filled_symbols=[],
         position_count=len(formation_state["positions"]),
     ))
-    exposure_points.append(exposure_point(
-        ledger,
-        formation_state,
-        formation_market_values,
-        raw_exposure_categories,
-        day=formation_date,
-        kind="formation_baseline",
-        source_date=formation_date,
-        quality="baseline",
-    ))
     session_set = set(calculated_sessions)
     last_source_date = formation_date
     last_point = points[0]
-    last_exposure_point = exposure_points[0]
-    analytics_state = formation_state
-    analytics_market_values = formation_market_values
-    analytics_nav = formation_nav
     day = formation_date + dt.timedelta(days=1)
     while day <= history_end:
         if day not in session_set:
@@ -1154,15 +764,6 @@ def build_history(
             })
             points.append(carried)
             last_point = carried
-            carried_exposure = copy.deepcopy(last_exposure_point)
-            carried_exposure.update({
-                "date": day.isoformat(),
-                "kind": "carry_forward",
-                "source_date": last_source_date.isoformat(),
-                "quality": "carry_forward",
-            })
-            exposure_points.append(carried_exposure)
-            last_exposure_point = carried_exposure
             day += dt.timedelta(days=1)
             continue
 
@@ -1181,8 +782,7 @@ def build_history(
                 forward_filled.append(symbol)
             if not math.isfinite(marks[symbol]) or marks[symbol] <= 0:
                 raise HistoryError(f"No positive mark can cover {symbol} on {day}")
-        market_values = position_market_values(ledger, state, marks, close_time)
-        positions_total = sum(market_values.values())
+        positions_total = position_value(ledger, state, marks, close_time)
         nav = state["cash"] + positions_total
         if not math.isfinite(nav):
             raise HistoryError(f"Non-finite NAV on {day}")
@@ -1198,50 +798,13 @@ def build_history(
             position_count=len(state["positions"]),
         )
         points.append(point)
-        current_exposure = exposure_point(
-            ledger,
-            state,
-            market_values,
-            raw_exposure_categories,
-            day=day,
-            kind="session_close",
-            source_date=day,
-            quality=point["quality"],
-        )
-        exposure_points.append(current_exposure)
         last_point = point
-        last_exposure_point = current_exposure
         last_source_date = day
-        analytics_state = state
-        analytics_market_values = market_values
-        analytics_nav = nav
         day += dt.timedelta(days=1)
 
     expected_dates = [formation_date + dt.timedelta(days=index) for index in range((history_end - formation_date).days + 1)]
     if [point["date"] for point in points] != [day.isoformat() for day in expected_dates]:
         raise HistoryError("History points are not unique, sorted, and calendar-contiguous")
-    if [point["date"] for point in exposure_points] != [day.isoformat() for day in expected_dates]:
-        raise HistoryError("Exposure-history points are not unique, sorted, and calendar-contiguous")
-
-    used_exposure_categories = {
-        category["id"]
-        for category in raw_exposure_categories
-        if any(float(point["values"][category["id"]]["value"]) > EPSILON for point in exposure_points)
-    }
-    final_exposure_categories = [
-        category for category in raw_exposure_categories if category["id"] in used_exposure_categories
-    ]
-    for exposure in exposure_points:
-        exposure["values"] = {
-            category["id"]: exposure["values"][category["id"]]
-            for category in final_exposure_categories
-        }
-    exposure_history = {
-        "basis": "gross_marked_value",
-        "units": "percent_of_gross_marked_value",
-        "categories": final_exposure_categories,
-        "points": exposure_points,
-    }
 
     benchmark_fetch = benchmark_fetcher or fetcher
     benchmark_failures: list[str] = []
@@ -1314,16 +877,6 @@ def build_history(
             if observed <= last_session
         ]
 
-    analytics_through = dt.datetime.combine(last_session, MARKET_CLOSE, MARKET_ZONE)
-    analytics = build_analytics(
-        ledger,
-        through=analytics_through,
-        state=analytics_state,
-        market_values=analytics_market_values,
-        latest_nav=analytics_nav,
-        exposure_history=exposure_history,
-    )
-
     return {
         "schema_version": 1,
         "demo": True,
@@ -1344,7 +897,6 @@ def build_history(
                 "opening_nav": formation_nav,
                 "points": points,
                 "comparisons": comparisons,
-                "analytics": analytics,
             }
         },
         "mark_history": mark_history,

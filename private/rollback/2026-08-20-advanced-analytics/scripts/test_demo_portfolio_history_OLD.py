@@ -3,7 +3,6 @@
 
 from __future__ import annotations
 
-import copy
 import datetime as dt
 import pathlib
 import sys
@@ -198,86 +197,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(history.position_quantities(after)["BULL"], 200)
         self.assertAlmostEqual(after["positions"]["BULL"]["basis_price"], 7.2, places=2)
 
-    def test_realized_trade_leaderboard_uses_average_cost_and_groups_fills(self) -> None:
-        records = history.realized_trade_records(
-            self.ledger,
-            dt.datetime(2026, 8, 19, 16, 0, tzinfo=history.MARKET_ZONE),
-        )
-        self.assertEqual(
-            [record["instrument_id"] for record in records],
-            ["INFQ_C10_C17_5_20270115", "BULL", "INFQ_C25_20270115", "TSSI", "SGOV"],
-        )
-        by_instrument = {record["instrument_id"]: record for record in records}
-
-        vertical = by_instrument["INFQ_C10_C17_5_20270115"]
-        self.assertEqual(vertical["fill_count"], 2)
-        self.assertEqual(vertical["closed_quantity"], 20)
-        self.assertAlmostEqual(vertical["average_exit_price"], 2.4275, places=6)
-        self.assertEqual(vertical["closing_value"], 4855.0)
-        self.assertEqual(vertical["closed_basis"], 2740.0)
-        self.assertEqual(vertical["realized_pnl"], 2115.0)
-        self.assertAlmostEqual(vertical["return_pct"], 77.1898, places=4)
-
-        bull = by_instrument["BULL"]
-        self.assertEqual(bull["closed_quantity"], 120)
-        self.assertEqual(bull["closing_value"], 1014.0)
-        self.assertEqual(bull["closed_basis"], 864.0)
-        self.assertEqual(bull["realized_pnl"], 150.0)
-        self.assertAlmostEqual(bull["return_pct"], 17.3611, places=4)
-
-        call = by_instrument["INFQ_C25_20270115"]
-        self.assertEqual(call["realized_pnl"], 105.0)
-        self.assertAlmostEqual(call["return_pct"], 46.6667, places=4)
-        self.assertEqual(by_instrument["TSSI"]["realized_pnl"], -8.7)
-        self.assertAlmostEqual(by_instrument["TSSI"]["return_pct"], -2.9175, places=4)
-        self.assertEqual(by_instrument["SGOV"]["realized_pnl"], -9.34)
-        self.assertAlmostEqual(by_instrument["SGOV"]["return_pct"], -0.4037, places=4)
-
-    def test_realized_trade_math_handles_partial_flip_short_cover_and_fees(self) -> None:
-        ledger = copy.deepcopy(self.ledger)
-        ledger["formation"] = {
-            "as_of": "2026-07-17T09:30:00-04:00",
-            "nav": 100.0,
-            "cash": 0.0,
-            "positions": [{"instrument": "BULL", "quantity": 10, "basis_price": 10.0}],
-        }
-        ledger["events"] = [
-            {
-                "id": "partial-long-close",
-                "kind": "trade",
-                "effective_date": "2026-07-20",
-                "timing": "before_close",
-                "legs": [{"instrument": "BULL", "signed_quantity": -4, "price": 12.0, "fees": 4.0}],
-            },
-            {
-                "id": "long-to-short-flip",
-                "kind": "trade",
-                "effective_date": "2026-07-21",
-                "timing": "before_close",
-                "legs": [{"instrument": "BULL", "signed_quantity": -10, "price": 8.0, "fees": 10.0}],
-            },
-            {
-                "id": "partial-short-cover",
-                "kind": "trade",
-                "effective_date": "2026-07-22",
-                "timing": "before_close",
-                "legs": [{"instrument": "BULL", "signed_quantity": 2, "price": 5.0, "fees": 2.0}],
-            },
-        ]
-        through = dt.datetime(2026, 7, 22, 16, 0, tzinfo=history.MARKET_ZONE)
-        records = {record["event_id"]: record for record in history.realized_trade_records(ledger, through)}
-
-        self.assertEqual(records["partial-long-close"]["realized_pnl"], 4.0)
-        self.assertEqual(records["long-to-short-flip"]["closed_quantity"], 6)
-        self.assertEqual(records["long-to-short-flip"]["fees"], 6.0)
-        self.assertEqual(records["long-to-short-flip"]["realized_pnl"], -18.0)
-        self.assertEqual(records["partial-short-cover"]["closed_side"], "short")
-        self.assertEqual(records["partial-short-cover"]["realized_pnl"], 2.0)
-
-        ending = history.replay_ledger(ledger, through)
-        self.assertEqual(ending["positions"]["BULL"]["quantity"], -2)
-        self.assertAlmostEqual(ending["positions"]["BULL"]["basis_price"], 7.0, places=6)
-
     def test_date_only_august_four_event_is_applied_before_close(self) -> None:
         before = history.replay_ledger(
             self.ledger,
@@ -317,131 +236,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.assertEqual(by_date[sunday]["value"], by_date[friday]["value"])
             self.assertEqual(by_date[sunday]["positions_value"], by_date[friday]["positions_value"])
         self.assertEqual(payload["generated_at"], "2026-08-13T20:30:00Z")
-
-    def test_exposure_history_is_gross_percent_complete_and_carries_weekends_exactly(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 19)),
-            fetcher=self.fetcher,
-        )
-        exposure = payload["accounts"]["ahub"]["analytics"]["exposure_history"]
-        self.assertEqual(exposure["basis"], "gross_marked_value")
-        self.assertEqual(exposure["units"], "percent_of_gross_marked_value")
-        category_ids = [category["id"] for category in exposure["categories"]]
-        self.assertEqual(category_ids, [
-            "cash-cash-equivalents",
-            "financial-technology",
-            "options",
-            "technology",
-            "real-estate",
-            "precious-metals",
-            "index-funds",
-            "consumer",
-        ])
-        self.assertEqual(len({category["color"] for category in exposure["categories"]}), len(category_ids))
-        points = exposure["points"]
-        self.assertEqual([point["date"] for point in points], [point["date"] for point in self.points(payload)])
-        for point in points:
-            self.assertAlmostEqual(sum(value["percent"] for value in point["values"].values()), 100.0, places=6)
-            self.assertGreater(point["gross_exposure"], 0)
-
-        by_date = {point["date"]: point for point in points}
-        formation = by_date["2026-07-17"]
-        self.assertEqual(formation["gross_exposure"], 10532.0)
-        self.assertEqual(formation["values"]["cash-cash-equivalents"]["value"], 3004.91)
-        self.assertEqual(formation["values"]["options"]["value"], 3356.0)
-        self.assertEqual(formation["values"]["technology"]["value"], 1589.05)
-        self.assertEqual(formation["values"]["financial-technology"]["value"], 0.0)
-        self.assertNotEqual(
-            by_date["2026-08-04"]["values"]["financial-technology"]["percent"],
-            by_date["2026-08-03"]["values"]["financial-technology"]["percent"],
-        )
-        for weekend_day, prior_session in (("2026-07-18", "2026-07-17"), ("2026-08-16", "2026-08-14")):
-            self.assertEqual(by_date[weekend_day]["kind"], "carry_forward")
-            self.assertEqual(by_date[weekend_day]["gross_exposure"], by_date[prior_session]["gross_exposure"])
-            self.assertEqual(by_date[weekend_day]["values"], by_date[prior_session]["values"])
-
-    def test_contributors_reconcile_and_keep_unattributed_adjustment_separate(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 19)),
-            fetcher=self.fetcher,
-        )
-        analytics = payload["accounts"]["ahub"]["analytics"]
-        self.assertEqual(analytics["as_of"], "2026-08-19")
-        self.assertEqual(analytics["schema_version"], 1)
-        self.assertEqual(analytics["unattributed_pnl"]["total"], 24.0)
-        self.assertEqual([event["id"] for event in analytics["unattributed_pnl"]["events"]], ["2026-07-20-cash-adjustment"])
-        reconciliation = analytics["reconciliation"]
-        self.assertEqual(reconciliation["external_flows"], 0.0)
-        self.assertEqual(reconciliation["residual"], 0.0)
-        self.assertAlmostEqual(
-            reconciliation["attributed_pnl"] + reconciliation["unattributed_pnl"],
-            reconciliation["nav_change"],
-            places=2,
-        )
-        contributors = {contributor["id"]: contributor for contributor in analytics["contributors"]}
-        self.assertEqual(contributors["infq"]["realized_pnl"], 2220.0)
-        self.assertEqual(contributors["bull"]["realized_pnl"], 150.0)
-        self.assertEqual(contributors["ivr"]["income"], 12.0)
-        self.assertEqual(contributors["sgov"]["income"], 0.61)
-        self.assertEqual(contributors["infq"]["tracked_basis"], 3040.0)
-        self.assertEqual(contributors["bull"]["tracked_basis"], 2620.0)
-
-    def test_analytics_excludes_ledger_events_after_last_completed_session(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 18)),
-            fetcher=self.fetcher,
-        )
-        analytics = payload["accounts"]["ahub"]["analytics"]
-        self.assertEqual(analytics["as_of"], "2026-08-18")
-        self.assertNotIn("BULL", {trade["instrument_id"] for trade in analytics["realized_trades"]})
-        self.assertEqual(analytics["exposure_history"]["points"][-1]["date"], "2026-08-18")
-        self.assertEqual(analytics["reconciliation"]["residual"], 0.0)
-
-    def test_external_cash_flow_is_reconciled_but_not_presented_as_pnl(self) -> None:
-        ledger = copy.deepcopy(self.ledger)
-        ledger["events"].append({
-            "id": "2026-08-18-test-contribution",
-            "kind": "cash_adjustment",
-            "effective_date": "2026-08-18",
-            "timing": "before_close",
-            "amount": 100.0,
-            "classification": "contribution",
-            "note": "Synthetic unit-test flow.",
-        })
-        ledger["expected_current_snapshot"]["cash"] += 100.0
-        payload = history.build_history(
-            ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 19)),
-            fetcher=self.fetcher,
-        )
-        analytics = payload["accounts"]["ahub"]["analytics"]
-        self.assertEqual(analytics["reconciliation"]["external_flows"], 100.0)
-        self.assertEqual(analytics["unattributed_pnl"]["total"], 24.0)
-        self.assertEqual(analytics["reconciliation"]["residual"], 0.0)
-        self.assertAlmostEqual(
-            analytics["reconciliation"]["nav_change"],
-            analytics["reconciliation"]["explained_change"] + 100.0,
-            places=2,
-        )
-
-    def test_negative_cash_and_short_cash_equivalent_are_financing_exposure(self) -> None:
-        categories = history.exposure_categories(self.ledger, include_financing=True)
-        point = history.exposure_point(
-            self.ledger,
-            {"cash": -100.0, "positions": {"SGOV": {"quantity": -1.0, "basis_price": 100.0}}},
-            {"SGOV": -101.0},
-            categories,
-            day=dt.date(2026, 8, 19),
-            kind="session_close",
-            source_date=dt.date(2026, 8, 19),
-            quality="complete",
-        )
-        self.assertEqual(point["gross_exposure"], 201.0)
-        self.assertEqual(point["values"]["financing"], {"value": 201.0, "percent": 100.0})
-        self.assertEqual(point["values"]["cash-cash-equivalents"], {"value": 0.0, "percent": 0.0})
 
     def test_public_comparisons_are_normalized_to_formation_nav(self) -> None:
         payload = history.build_history(
@@ -736,14 +530,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(recovered["last_completed_session"], "2026-08-12")
         self.assertEqual(len(recovered["failures"]), len(self.symbols))
         self.assertEqual(recovered["coverage_status"], "degraded")
-        self.assertEqual(
-            recovered["accounts"]["ahub"]["analytics"]["contributors"],
-            original["accounts"]["ahub"]["analytics"]["contributors"],
-        )
-        self.assertEqual(
-            recovered["accounts"]["ahub"]["analytics"]["exposure_history"]["points"],
-            original["accounts"]["ahub"]["analytics"]["exposure_history"]["points"],
-        )
 
     def test_fallback_marks_extend_a_new_session_with_degraded_values(self) -> None:
         fallback = history.build_history(
@@ -780,52 +566,6 @@ class PortfolioHistoryTests(unittest.TestCase):
                 as_of=self.after_close(dt.date(2026, 8, 13)),
                 fetcher=failing_fetcher,
             )
-
-    def test_packaged_august_nineteenth_analytics_match_published_fixtures(self) -> None:
-        payload = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
-        analytics = payload["accounts"]["ahub"].get("analytics")
-        self.assertIsInstance(analytics, dict, "Regenerate the packaged history after analytics changes")
-        self.assertEqual(analytics["as_of"], "2026-08-19")
-
-        trades = {trade["instrument_id"]: trade for trade in analytics["realized_trades"]}
-        self.assertEqual(trades["INFQ_C10_C17_5_20270115"]["realized_pnl"], 2115.0)
-        self.assertEqual(trades["BULL"]["realized_pnl"], 150.0)
-        self.assertEqual(trades["INFQ_C25_20270115"]["realized_pnl"], 105.0)
-        self.assertEqual(trades["TSSI"]["realized_pnl"], -8.7)
-        self.assertEqual(trades["SGOV"]["realized_pnl"], -9.34)
-
-        contributors = analytics["contributors"]
-        self.assertEqual(contributors[0]["id"], "infq")
-        self.assertEqual(contributors[0]["total_pnl"], 2295.67)
-        self.assertAlmostEqual(contributors[0]["return_pct"], 75.5154, places=4)
-        self.assertEqual(contributors[-1]["id"], "ivr")
-        self.assertEqual(contributors[-1]["total_pnl"], -39.99)
-        self.assertAlmostEqual(contributors[-1]["return_pct"], -4.9371, places=4)
-        bull = next(contributor for contributor in contributors if contributor["id"] == "bull")
-        self.assertEqual(bull["total_pnl"], 538.75)
-        self.assertAlmostEqual(bull["return_pct"], 20.5629, places=4)
-        self.assertEqual(analytics["unattributed_pnl"]["total"], 24.0)
-        self.assertEqual(analytics["reconciliation"], {
-            "opening_nav": 9900.0,
-            "latest_nav": 13034.98,
-            "nav_change": 3134.98,
-            "external_flows": 0.0,
-            "attributed_pnl": 3110.98,
-            "unattributed_pnl": 24.0,
-            "explained_change": 3134.98,
-            "residual": 0.0,
-        })
-
-        exposure = analytics["exposure_history"]
-        formation = exposure["points"][0]
-        latest = exposure["points"][-1]
-        self.assertEqual(formation["gross_exposure"], 10532.0)
-        self.assertEqual(latest["date"], "2026-08-19")
-        self.assertEqual(latest["gross_exposure"], 13465.48)
-        self.assertEqual(latest["values"]["cash-cash-equivalents"]["value"], 7219.77)
-        self.assertEqual(latest["values"]["options"]["value"], 365.92)
-        self.assertEqual(latest["values"]["technology"]["value"], 1541.88)
-        self.assertAlmostEqual(sum(value["percent"] for value in latest["values"].values()), 100.0, places=6)
 
 
 def math_is_positive(value: object) -> bool:

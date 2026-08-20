@@ -23,8 +23,6 @@
 
   const page = document.body && document.body.dataset.page;
   const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467"];
-  const exposureFallbackColors = ["#15344f", "#c9a24f", "#3d6f8c", "#56816f", "#967638", "#8b5f63", "#445467", "#7b8793"];
-  let exposureSelectionKey = "now";
   const state = {
     data: null,
     quotes: null,
@@ -114,19 +112,6 @@
     return (number >= 0 ? "+" : "") + number.toFixed(2) + "%";
   }
 
-  function formatSignedCurrency(value, currency) {
-    const number = finite(value);
-    if (number == null) return "—";
-    const formatted = formatCurrency(Math.abs(number), currency);
-    return number > 0 ? "+" + formatted : number < 0 ? "−" + formatted : formatted;
-  }
-
-  function formatPoints(value) {
-    const number = finite(value);
-    if (number == null) return "—";
-    return (number > 0 ? "+" : number < 0 ? "−" : "") + Math.abs(number).toFixed(2) + " pp";
-  }
-
   function parseDate(value) {
     if (!value) return null;
     const date = /^\d{4}-\d{2}-\d{2}$/.test(String(value))
@@ -196,182 +181,6 @@
 
   function validDemoData(payload) {
     return payload && payload.demo === true && payload.accounts && payload.credentials && payload.instruments;
-  }
-
-  function firstFinite(source, names) {
-    for (const name of names) {
-      const value = finite(source && source[name]);
-      if (value != null) return value;
-    }
-    return null;
-  }
-
-  function normalizedId(value, fallback) {
-    return safeString(value || fallback, 80).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
-  }
-
-  function normalizeContributor(item, index) {
-    if (!item || typeof item !== "object") return null;
-    const instrumentIds = Array.isArray(item.instrument_ids)
-      ? item.instrument_ids
-      : Array.isArray(item.instrumentIds)
-        ? item.instrumentIds
-        : [];
-    const label = safeString(item.label || item.name || item.symbol || item.id, 100);
-    const id = normalizedId(item.id || item.attribution_group_id || item.group_id || label, "contributor-" + index);
-    if (!id || !label) return null;
-    return {
-      id: id,
-      label: label,
-      instrumentIds: instrumentIds.map(function (value) { return safeString(value, 64); }).filter(Boolean),
-      realizedPnl: firstFinite(item, ["realized_pnl", "realizedPnl", "realized"]),
-      unrealizedPnl: firstFinite(item, ["unrealized_pnl", "unrealizedPnl", "unrealized"]),
-      income: firstFinite(item, ["income", "dividends", "cash_income"]),
-      totalPnl: firstFinite(item, ["total_pnl", "totalPnl", "pnl", "value"]),
-      trackedBasis: firstFinite(item, ["tracked_basis", "trackedBasis", "gross_basis", "basis"]),
-      returnPct: firstFinite(item, ["return_pct", "returnPct", "return_percent", "percent"]),
-      portfolioContributionPct: firstFinite(item, ["portfolio_contribution_pct", "portfolioContributionPct", "contribution_pct", "contribution"]),
-      marketValue: firstFinite(item, ["market_value", "marketValue"])
-    };
-  }
-
-  function normalizeRealizedTrade(item, index) {
-    if (!item || typeof item !== "object") return null;
-    const label = safeString(item.label || item.name || item.instrument_id || item.instrumentId || item.event_id || item.id, 120);
-    const id = safeString(item.id || item.event_id || (safeString(item.date, 10) + "-" + label) || ("trade-" + index), 120);
-    const pnl = firstFinite(item, ["realized_pnl", "realizedPnl", "pnl", "value"]);
-    if (!id || !label || pnl == null) return null;
-    return {
-      id: id,
-      eventId: safeString(item.event_id || item.eventId, 120) || null,
-      date: safeString(item.date || item.effective_date || item.effectiveDate, 10) || null,
-      instrumentId: safeString(item.instrument_id || item.instrumentId, 64) || null,
-      label: label,
-      attributionGroupId: normalizedId(item.attribution_group_id || item.attributionGroupId || item.group_id, "") || null,
-      attributionGroupLabel: safeString(item.attribution_group_label || item.attributionGroupLabel || item.group_label, 100) || null,
-      closedSide: safeString(item.closed_side || item.closedSide, 24) || null,
-      closedQuantity: firstFinite(item, ["closed_quantity", "closedQuantity", "quantity"]),
-      multiplier: firstFinite(item, ["multiplier"]),
-      fillCount: firstFinite(item, ["fill_count", "fillCount"]),
-      averageExitPrice: firstFinite(item, ["average_exit_price", "averageExitPrice", "exit_price"]),
-      closingValue: firstFinite(item, ["closing_value", "closingValue", "proceeds"]),
-      closedBasis: firstFinite(item, ["closed_basis", "closedBasis", "basis"]),
-      fees: firstFinite(item, ["fees", "fee"]),
-      realizedPnl: pnl,
-      returnPct: firstFinite(item, ["return_pct", "returnPct", "return_percent", "percent"])
-    };
-  }
-
-  function normalizeExposureValues(rawValues, grossExposure) {
-    const result = {};
-    const entries = Array.isArray(rawValues)
-      ? rawValues.map(function (item, index) {
-        return [item && (item.id || item.category_id || item.categoryId || item.name || item.label) || ("category-" + index), item];
-      })
-      : rawValues && typeof rawValues === "object"
-        ? Object.entries(rawValues)
-        : [];
-    entries.forEach(function (entry) {
-      const raw = entry[1];
-      const id = normalizedId(entry[0], "");
-      if (!id) return;
-      const value = raw && typeof raw === "object" ? firstFinite(raw, ["value", "market_value", "marketValue", "amount"]) : null;
-      let percent = raw && typeof raw === "object" ? firstFinite(raw, ["percent", "percentage", "weight", "pct"]) : finite(raw);
-      if (percent == null && value != null && grossExposure > 0) percent = value / grossExposure * 100;
-      if (percent == null) return;
-      result[id] = {
-        value: value,
-        percent: Math.max(0, percent),
-        label: raw && typeof raw === "object" ? safeString(raw.label || raw.name, 100) || null : null
-      };
-    });
-    return result;
-  }
-
-  function normalizeExposureHistory(raw) {
-    if (!raw || typeof raw !== "object") return { categories: [], points: [] };
-    const rawCategories = Array.isArray(raw.categories) ? raw.categories : Array.isArray(raw.groups) ? raw.groups : [];
-    const categories = rawCategories.map(function (item, index) {
-      if (!item || typeof item !== "object") return null;
-      const label = safeString(item.label || item.name || item.id, 100);
-      const id = normalizedId(item.id || item.category_id || label, "category-" + index);
-      if (!id || !label) return null;
-      return { id: id, label: label, color: safeString(item.color, 32) || exposureFallbackColors[index % exposureFallbackColors.length] };
-    }).filter(Boolean);
-    const sourcePoints = Array.isArray(raw.points) ? raw.points : Array.isArray(raw.history) ? raw.history : [];
-    const points = sourcePoints.map(function (point) {
-      if (!point || typeof point !== "object") return null;
-      const date = safeString(point.date || point.as_of || point.asOf, 32);
-      if (!date || !parseDate(date)) return null;
-      const grossExposure = firstFinite(point, ["gross_exposure", "grossExposure", "total"]);
-      const values = normalizeExposureValues(point.values || point.mix || point.allocation || point.exposures || point.categories, grossExposure);
-      if (!Object.keys(values).length) return null;
-      return {
-        date: date,
-        kind: safeString(point.kind || "nightly_exposure", 48),
-        sourceDate: safeString(point.source_date || point.sourceDate, 32) || date,
-        quality: safeString(point.quality || "historical_close", 48),
-        grossExposure: grossExposure,
-        values: values
-      };
-    }).filter(Boolean).sort(function (left, right) { return timestampRank(left.date) - timestampRank(right.date); });
-    return { categories: categories, points: points };
-  }
-
-  function normalizeAnalytics(raw) {
-    if (!raw || typeof raw !== "object") return null;
-    const contributors = (Array.isArray(raw.contributors) ? raw.contributors : Array.isArray(raw.contribution_drivers) ? raw.contribution_drivers : [])
-      .map(normalizeContributor).filter(Boolean);
-    const realizedTrades = (Array.isArray(raw.realized_trades) ? raw.realized_trades : Array.isArray(raw.realizedTrades) ? raw.realizedTrades : Array.isArray(raw.trades) ? raw.trades : [])
-      .map(normalizeRealizedTrade).filter(Boolean);
-    const exposureHistory = normalizeExposureHistory(raw.exposure_history || raw.exposureHistory || raw.exposures);
-    const methodology = typeof raw.methodology === "string"
-      ? raw.methodology
-      : raw.methodology && (raw.methodology.contribution || raw.methodology.summary || raw.methodology.description);
-    const unattributed = raw.unattributed_pnl != null ? raw.unattributed_pnl : raw.unattributedPnl;
-    if (!contributors.length && !realizedTrades.length && !exposureHistory.points.length) return null;
-    return {
-      asOf: safeString(raw.as_of || raw.asOf || raw.generated_at, 40) || null,
-      methodology: safeString(methodology, 400) || null,
-      contributors: contributors,
-      realizedTrades: realizedTrades,
-      unattributedPnl: unattributed && typeof unattributed === "object" ? firstFinite(unattributed, ["total", "value", "amount"]) : finite(unattributed),
-      reconciliation: raw.reconciliation && typeof raw.reconciliation === "object" ? Object.assign({}, raw.reconciliation) : null,
-      exposureHistory: exposureHistory
-    };
-  }
-
-  function mergeById(previous, next) {
-    const merged = new Map();
-    (previous || []).forEach(function (item) { merged.set(item.id, item); });
-    (next || []).forEach(function (item) { merged.set(item.id, Object.assign({}, merged.get(item.id) || {}, item)); });
-    return Array.from(merged.values());
-  }
-
-  function mergeAnalytics(previous, next) {
-    if (!previous) return next;
-    if (!next) return previous;
-    const exposureCategories = mergeById(previous.exposureHistory && previous.exposureHistory.categories, next.exposureHistory && next.exposureHistory.categories);
-    const exposurePointMap = new Map();
-    (previous.exposureHistory && previous.exposureHistory.points || []).forEach(function (point) { exposurePointMap.set(point.date, point); });
-    (next.exposureHistory && next.exposureHistory.points || []).forEach(function (point) {
-      const existing = exposurePointMap.get(point.date);
-      exposurePointMap.set(point.date, Object.assign({}, existing || {}, point, {
-        values: Object.assign({}, existing && existing.values || {}, point.values || {})
-      }));
-    });
-    return {
-      asOf: next.asOf || previous.asOf,
-      methodology: next.methodology || previous.methodology,
-      contributors: mergeById(previous.contributors, next.contributors),
-      realizedTrades: mergeById(previous.realizedTrades, next.realizedTrades),
-      unattributedPnl: next.unattributedPnl == null ? previous.unattributedPnl : next.unattributedPnl,
-      reconciliation: Object.assign({}, previous.reconciliation || {}, next.reconciliation || {}),
-      exposureHistory: {
-        categories: exposureCategories,
-        points: Array.from(exposurePointMap.values()).sort(function (left, right) { return timestampRank(left.date) - timestampRank(right.date); })
-      }
-    };
   }
 
   async function loadData() {
@@ -473,11 +282,7 @@
           points: comparisonPoints
         };
       }).filter(Boolean);
-      if (accountId) accounts[accountId] = {
-        points: points,
-        comparisons: comparisons,
-        analytics: normalizeAnalytics(account && (account.analytics || account.portfolio_analytics || account))
-      };
+      if (accountId) accounts[accountId] = { points: points, comparisons: comparisons };
     });
     return {
       schema_version: Number(payload.schema_version || 1),
@@ -515,13 +320,8 @@
         const accountId = entry[0];
         const points = entry[1] && Array.isArray(entry[1].points) ? entry[1].points : [];
         const comparisons = entry[1] && Array.isArray(entry[1].comparisons) ? entry[1].comparisons : [];
-        const analytics = entry[1] && entry[1].analytics;
-        if (!merged[accountId]) merged[accountId] = { points: new Map(), comparisons: new Map(), analytics: null };
-        points.forEach(function (point) {
-          const previousPoint = merged[accountId].points.get(point.date);
-          merged[accountId].points.set(point.date, Object.assign({}, previousPoint || {}, point));
-        });
-        merged[accountId].analytics = mergeAnalytics(merged[accountId].analytics, analytics);
+        if (!merged[accountId]) merged[accountId] = { points: new Map(), comparisons: new Map() };
+        points.forEach(function (point) { merged[accountId].points.set(point.date, point); });
         comparisons.forEach(function (comparison) {
           const previous = merged[accountId].comparisons.get(comparison.id);
           const comparisonPoints = previous ? previous.points : new Map();
@@ -539,8 +339,7 @@
       }).sort(function (a, b) { return comparisonOrder.indexOf(a.id) - comparisonOrder.indexOf(b.id); });
       accounts[entry[0]] = {
         points: Array.from(entry[1].points.values()).sort(function (a, b) { return a.date.localeCompare(b.date); }),
-        comparisons: comparisons,
-        analytics: entry[1].analytics
+        comparisons: comparisons
       };
     });
     const newest = ordered[ordered.length - 1];
@@ -668,21 +467,11 @@
     const local = state.local || emptyLocalState();
     const instruments = Object.assign({}, state.data.instruments);
     const quantities = new Map();
-    const basisPrices = new Map();
+    const fallbackBasis = new Map();
 
     (account.positions || []).forEach(function (position) {
-      const id = position.instrument;
-      const addedQuantity = Number(position.quantity || 0);
-      const addedBasis = Number(position.basis_price || 0);
-      const oldQuantity = quantities.get(id) || 0;
-      const newQuantity = oldQuantity + addedQuantity;
-      const oldBasis = basisPrices.get(id);
-      if (!oldQuantity || oldBasis == null || oldQuantity * addedQuantity <= 0) {
-        basisPrices.set(id, addedBasis);
-      } else if (Math.abs(newQuantity) > 0.00000001) {
-        basisPrices.set(id, (Math.abs(oldQuantity) * oldBasis + Math.abs(addedQuantity) * addedBasis) / Math.abs(newQuantity));
-      }
-      quantities.set(id, newQuantity);
+      quantities.set(position.instrument, (quantities.get(position.instrument) || 0) + Number(position.quantity || 0));
+      fallbackBasis.set(position.instrument, Number(position.basis_price));
     });
 
     let cash = Number(account.cash || 0);
@@ -701,20 +490,9 @@
           mark_mode: "local"
         };
       }
-      const oldQuantity = quantities.get(id) || 0;
-      const oldBasis = basisPrices.get(id);
-      const tradePrice = Number(event.price);
-      const newQuantity = oldQuantity + quantity;
-      if (Number.isFinite(tradePrice)) {
-        if (Math.abs(oldQuantity) < 0.00000001 || oldQuantity * newQuantity < 0) {
-          basisPrices.set(id, tradePrice);
-        } else if (oldQuantity * quantity > 0 && Math.abs(newQuantity) > 0.00000001) {
-          basisPrices.set(id, (Math.abs(oldQuantity) * Number(oldBasis == null ? tradePrice : oldBasis) + Math.abs(quantity) * tradePrice) / Math.abs(newQuantity));
-        }
-      }
-      if (Math.abs(newQuantity) < 0.00000001) basisPrices.delete(id);
-      quantities.set(id, newQuantity);
+      quantities.set(id, (quantities.get(id) || 0) + quantity);
       cash += cashEffect;
+      if (Number.isFinite(Number(event.price))) fallbackBasis.set(id, Number(event.price));
     });
 
     const holdings = [];
@@ -764,7 +542,7 @@
         };
       } else {
         mark = {
-          price: Number(basisPrices.get(id) || 0),
+          price: Number(fallbackBasis.get(id) || 0),
           asOf: account.opening_as_of,
           inputAsOf: account.opening_as_of,
           source: "Published opening-basis fallback",
@@ -776,8 +554,6 @@
       if (date && (!latestMarkDate || date > latestMarkDate)) latestMarkDate = date;
       const multiplier = Number(instrument.multiplier) || 1;
       const marketValue = quantity * multiplier * Number(mark.price || 0);
-      const basisPrice = Number(basisPrices.get(id) || 0);
-      const basisValue = quantity * multiplier * basisPrice;
       positionsValue += marketValue;
       holdings.push({
         id: id,
@@ -787,12 +563,8 @@
         cashEquivalent: instrument.cash_equivalent === true,
         quantity: quantity,
         multiplier: multiplier,
-        basisPrice: basisPrice,
-        basisValue: basisValue,
         price: Number(mark.price || 0),
         marketValue: marketValue,
-        unrealizedPnl: marketValue - basisValue,
-        attributionId: safeString(instrument.attribution_group_id || instrument.underlying_symbol || instrument.symbol || id, 64),
         markAsOf: mark.asOf,
         markInputAsOf: mark.inputAsOf,
         markSource: mark.source,
@@ -897,7 +669,6 @@
       positionsValue: positionsValue,
       holdings: holdings,
       allocation: allocation,
-      analytics: publishedHistory && publishedHistory.analytics || null,
       history: history,
       comparisonSeries: comparisonSeries,
       historySnapshotGeneratedAt: state.history && state.history.generated_at,
@@ -1242,359 +1013,6 @@
     });
   }
 
-  function analyticsEmpty(title, note) {
-    const empty = document.createElement("div");
-    empty.className = "analytics-empty";
-    const heading = document.createElement("strong");
-    heading.textContent = title;
-    const copy = document.createElement("span");
-    copy.textContent = note;
-    empty.append(heading, copy);
-    return empty;
-  }
-
-  function currentContributors(view) {
-    const analytics = view.analytics;
-    if (!analytics) return [];
-    const contributors = (analytics.contributors || []).map(function (item) { return Object.assign({}, item); });
-    if (!view.modifiedAt) {
-      contributors.forEach(function (contributor) {
-        const ids = new Set((contributor.instrumentIds || []).map(function (id) { return safeString(id, 64); }));
-        const matching = view.holdings.filter(function (holding) {
-          return ids.has(holding.id) || (!ids.size && normalizedId(holding.attributionId, "") === contributor.id);
-        });
-        if (matching.length || ids.size) {
-          contributor.unrealizedPnl = matching.reduce(function (sum, holding) { return sum + holding.unrealizedPnl; }, 0);
-          contributor.marketValue = matching.reduce(function (sum, holding) { return sum + holding.marketValue; }, 0);
-          contributor.totalPnl = Number(contributor.realizedPnl || 0) + Number(contributor.unrealizedPnl || 0) + Number(contributor.income || 0);
-          contributor.returnPct = contributor.trackedBasis
-            ? contributor.totalPnl / Math.abs(contributor.trackedBasis) * 100
-            : contributor.returnPct;
-          contributor.portfolioContributionPct = view.openingNav
-            ? contributor.totalPnl / view.openingNav * 100
-            : contributor.portfolioContributionPct;
-        }
-      });
-    }
-    return contributors.filter(function (item) { return finite(item.totalPnl) != null; }).sort(function (left, right) {
-      return right.totalPnl - left.totalPnl;
-    });
-  }
-
-  function renderContributionAnalytics(view) {
-    const chart = byId("contribution-chart");
-    const tradesBody = byId("realized-trades-body");
-    if (!chart || !tradesBody) return;
-    const analytics = view.analytics;
-    const contributors = currentContributors(view);
-    const trades = analytics && analytics.realizedTrades
-      ? analytics.realizedTrades.slice().sort(function (left, right) { return right.realizedPnl - left.realizedPnl; })
-      : [];
-    setText("analytics-scope-note", view.modifiedAt
-      ? "Published attribution and completed-night exposure history exclude this browser’s local scenario edits. The outlined Now exposure endpoint reflects the locally modified holdings."
-      : "Attribution combines realized results, current-mark unrealized results, and instrument-linked income from the published synthetic record.");
-    setText("analytics-trade-count", trades.length ? String(trades.length) : "0");
-    const totalRealized = trades.reduce(function (sum, item) { return sum + item.realizedPnl; }, 0);
-    setText("analytics-trade-total", trades.length ? formatSignedCurrency(totalRealized, view.currency) + " realized" : "No closed trades recorded");
-    if (!contributors.length) {
-      setText("analytics-best-contributor", "Not available");
-      setText("analytics-best-contributor-value", "No published attribution history");
-      setText("analytics-weakest-contributor", "Not available");
-      setText("analytics-weakest-contributor-value", "No published attribution history");
-      setText("contribution-reconcile", "Awaiting history");
-      chart.replaceChildren(analyticsEmpty("Contribution history is not available", "This portfolio does not yet have enough published trade history for a ranked attribution view."));
-    } else {
-      const best = contributors[0];
-      const weakest = contributors[contributors.length - 1];
-      setText("analytics-best-contributor", best.label);
-      setText("analytics-best-contributor-value", formatSignedCurrency(best.totalPnl, view.currency) + " · " + formatPercent(best.returnPct));
-      setText("analytics-weakest-contributor", weakest.label);
-      setText("analytics-weakest-contributor-value", formatSignedCurrency(weakest.totalPnl, view.currency) + " · " + formatPercent(weakest.returnPct));
-      const attributionAsOf = !view.modifiedAt && view.latestMarkAsOf
-        ? "Marks " + formatDate(view.latestMarkAsOf, true)
-        : analytics && analytics.asOf
-          ? "Published through " + formatDate(analytics.asOf, String(analytics.asOf).includes("T"))
-          : "Published record";
-      const unassignedNote = analytics && analytics.unattributedPnl != null && Math.abs(analytics.unattributedPnl) >= 0.005
-        ? " · " + formatSignedCurrency(analytics.unattributedPnl, view.currency) + " unassigned adjustment excluded"
-        : "";
-      setText("contribution-reconcile", attributionAsOf + unassignedNote);
-      const maxMagnitude = Math.max.apply(null, contributors.map(function (item) { return Math.abs(item.totalPnl); }).concat([1]));
-      const fragment = document.createDocumentFragment();
-      contributors.forEach(function (item, index) {
-        const row = document.createElement("article");
-        const positive = item.totalPnl >= 0;
-        row.className = "contribution-row " + (positive ? "is-positive" : "is-negative");
-        row.setAttribute("role", "listitem");
-        row.setAttribute("aria-label", (index + 1) + ". " + item.label + ", " + formatSignedCurrency(item.totalPnl, view.currency) + ", " + (item.returnPct == null ? "recorded-basis return unavailable" : formatPercent(item.returnPct) + " return on recorded gross basis") + ", " + formatPoints(item.portfolioContributionPct) + " of formation value.");
-        const identity = document.createElement("div");
-        identity.className = "contribution-identity";
-        const rank = document.createElement("span");
-        rank.className = "contribution-rank";
-        rank.textContent = String(index + 1).padStart(2, "0");
-        const label = document.createElement("strong");
-        label.textContent = item.label;
-        identity.append(rank, label);
-        const track = document.createElement("div");
-        track.className = "contribution-track";
-        track.setAttribute("aria-hidden", "true");
-        const zero = document.createElement("span");
-        zero.className = "contribution-zero";
-        const bar = document.createElement("span");
-        bar.className = "contribution-bar";
-        bar.style.width = (Math.abs(item.totalPnl) / maxMagnitude * 49).toFixed(2) + "%";
-        track.append(zero, bar);
-        const metrics = document.createElement("div");
-        metrics.className = "contribution-metrics";
-        const dollars = document.createElement("strong");
-        dollars.textContent = formatSignedCurrency(item.totalPnl, view.currency);
-        const percentages = document.createElement("span");
-        percentages.textContent = (item.returnPct == null ? "Basis return —" : formatPercent(item.returnPct) + " on basis") + " · " + formatPoints(item.portfolioContributionPct);
-        metrics.append(dollars, percentages);
-        row.append(identity, track, metrics);
-        fragment.append(row);
-      });
-      chart.replaceChildren(fragment);
-    }
-
-    tradesBody.replaceChildren();
-    if (!trades.length) {
-      const row = document.createElement("tr");
-      const cell = textCell("No closed trades are available for this demonstration portfolio.", "table-empty");
-      cell.colSpan = 3;
-      row.append(cell);
-      tradesBody.append(row);
-    } else {
-      trades.forEach(function (trade, index) {
-        const row = document.createElement("tr");
-        const tradeCell = document.createElement("td");
-        const line = document.createElement("span");
-        line.className = "trade-rank-line";
-        const rank = document.createElement("span");
-        rank.className = "trade-rank";
-        rank.textContent = String(index + 1);
-        const label = document.createElement("strong");
-        label.textContent = trade.label;
-        line.append(rank, label);
-        const detail = document.createElement("span");
-        detail.className = "trade-detail";
-        detail.textContent = [trade.date ? formatDate(trade.date) : null, trade.closedQuantity == null ? null : formatNumber(trade.closedQuantity, 4) + " " + (trade.closedSide || "closed"), trade.fillCount && trade.fillCount > 1 ? trade.fillCount + " fills" : null].filter(Boolean).join(" · ");
-        tradeCell.append(line, detail);
-        const pnlCell = textCell(formatSignedCurrency(trade.realizedPnl, view.currency), "pnl-value " + (trade.realizedPnl >= 0 ? "is-positive" : "is-negative"));
-        const returnCell = textCell(formatPercent(trade.returnPct), "pnl-value " + (trade.returnPct >= 0 ? "is-positive" : "is-negative"));
-        row.append(tradeCell, pnlCell, returnCell);
-        tradesBody.append(row);
-      });
-    }
-    const unassignedDisclosure = analytics && analytics.unattributedPnl != null && Math.abs(analytics.unattributedPnl) >= 0.005
-      ? " The " + formatSignedCurrency(analytics.unattributedPnl, view.currency) + " unassigned cash adjustment remains outside the security and strategy ranking."
-      : "";
-    const attributionMethod = !view.modifiedAt
-      ? "Realized P&L and income use the published synthetic ledger; unrealized P&L uses the current delayed marks shown on this page."
-      : analytics && analytics.methodology;
-    setText("contribution-method", attributionMethod
-      ? attributionMethod + unassignedDisclosure + " Return percentages use recorded gross basis; portfolio contribution is measured against formation value. Figures are marked value, not delta or notional exposure."
-      : "Return percentages use recorded gross basis. Portfolio contribution is the dollar result divided by the formation value. Figures do not represent delta or notional exposure.");
-  }
-
-  function exposurePointPercent(point, categoryId) {
-    const value = point && point.values && point.values[categoryId];
-    return value && finite(value.percent) != null ? Math.max(0, Number(value.percent)) : 0;
-  }
-
-  function buildExposureView(view) {
-    const analytics = view.analytics;
-    const published = analytics && analytics.exposureHistory;
-    const categories = (published && published.categories || []).map(function (category, index) {
-      return Object.assign({ color: exposureFallbackColors[index % exposureFallbackColors.length] }, category);
-    });
-    const categoryById = new Map(categories.map(function (category) { return [category.id, category]; }));
-    const points = (published && published.points || []).map(function (point) {
-      return Object.assign({}, point, { values: Object.assign({}, point.values || {}) });
-    });
-    points.forEach(function (point) {
-      Object.entries(point.values || {}).forEach(function (entry) {
-        if (!categoryById.has(entry[0])) {
-          const category = {
-            id: entry[0],
-            label: safeString(entry[1] && entry[1].label, 100) || entry[0].replace(/-/g, " ").replace(/\b\w/g, function (letter) { return letter.toUpperCase(); }),
-            color: exposureFallbackColors[categories.length % exposureFallbackColors.length]
-          };
-          categories.push(category);
-          categoryById.set(category.id, category);
-        }
-      });
-    });
-    const currentValues = {};
-    (view.allocation || []).forEach(function (item) {
-      const itemId = normalizedId(item.name, "other");
-      let category = categoryById.get(itemId) || categories.find(function (candidate) {
-        return normalizedId(candidate.label, "") === itemId;
-      });
-      if (!category) {
-        category = { id: itemId, label: item.name, color: exposureFallbackColors[categories.length % exposureFallbackColors.length] };
-        categories.push(category);
-        categoryById.set(category.id, category);
-      }
-      currentValues[category.id] = { value: item.value, percent: item.percent, label: category.label };
-    });
-    if (Object.keys(currentValues).length) {
-      points.push({
-        date: view.generatedAt,
-        kind: view.modifiedAt ? "local_now" : "intraday_now",
-        sourceDate: view.generatedAt,
-        quality: view.modifiedAt ? "local_scenario" : "delayed_current",
-        grossExposure: (view.allocation || []).reduce(function (sum, item) { return sum + item.value; }, 0),
-        values: currentValues,
-        isNow: true
-      });
-    }
-    return { categories: categories, points: points };
-  }
-
-  function renderExposureBreakdown(exposure, point, currency) {
-    const breakdown = byId("exposure-breakdown");
-    if (!breakdown) return;
-    breakdown.replaceChildren();
-    if (!point) {
-      breakdown.append(analyticsEmpty("Exposure detail is not available", "A dated gross-exposure snapshot has not been published for this portfolio."));
-      setText("exposure-selected-date", "—");
-      return;
-    }
-    setText("exposure-selected-date", point.isNow ? (point.kind === "local_now" ? "Now · local scenario" : "Now · delayed marks") : formatDate(point.date));
-    exposure.categories.forEach(function (category) {
-      const item = point.values && point.values[category.id];
-      const row = document.createElement("div");
-      row.className = "exposure-legend-row";
-      row.setAttribute("role", "listitem");
-      const swatch = document.createElement("span");
-      swatch.className = "exposure-swatch";
-      swatch.style.backgroundColor = category.color;
-      swatch.setAttribute("aria-hidden", "true");
-      const label = document.createElement("span");
-      label.textContent = category.label;
-      const percent = document.createElement("strong");
-      percent.textContent = (item ? item.percent : 0).toFixed(1) + "%";
-      const value = document.createElement("span");
-      value.className = "exposure-dollar";
-      value.textContent = item && item.value != null ? formatCurrency(item.value, currency) : "—";
-      row.setAttribute("aria-label", category.label + ", " + percent.textContent + (item && item.value != null ? ", " + value.textContent : "") + ".");
-      row.append(swatch, label, percent, value);
-      breakdown.append(row);
-    });
-  }
-
-  function renderExposureAnalytics(view) {
-    const shell = byId("exposure-chart");
-    const control = byId("exposure-date-control");
-    if (!shell || !control) return;
-    const exposure = buildExposureView(view);
-    const points = exposure.points;
-    const historicCount = points.filter(function (point) { return !point.isNow; }).length;
-    setText("exposure-freshness", view.modifiedAt ? "Nightly + local now" : "Nightly + now");
-    if (!points.length) {
-      shell.replaceChildren(analyticsEmpty("Exposure history is not available", "This portfolio has no published exposure snapshots yet."));
-      shell.setAttribute("aria-label", "Historical gross exposure mix is not available for this demonstration portfolio.");
-      control.disabled = true;
-      renderExposureBreakdown(exposure, null, view.currency);
-      return;
-    }
-    let selectionIndex = exposureSelectionKey === "now"
-      ? points.findIndex(function (point) { return point.isNow; })
-      : points.findIndex(function (point) { return point.date === exposureSelectionKey; });
-    if (selectionIndex < 0) selectionIndex = points.length - 1;
-    control.min = "0";
-    control.max = String(points.length - 1);
-    control.value = String(selectionIndex);
-    control.disabled = points.length < 2;
-    control.setAttribute("aria-valuetext", points[selectionIndex].isNow ? "Now" : formatDate(points[selectionIndex].date));
-    control.oninput = function () {
-      const selectedPoint = points[Number(control.value)];
-      exposureSelectionKey = selectedPoint && selectedPoint.isNow ? "now" : selectedPoint && selectedPoint.date;
-      renderExposureAnalytics(view);
-    };
-    renderExposureBreakdown(exposure, points[selectionIndex], view.currency);
-    if (historicCount < 2) {
-      shell.replaceChildren(analyticsEmpty("Historical mix is not available yet", "The latest gross-exposure snapshot is shown below; the chart will appear after two completed nightly observations."));
-      shell.setAttribute("aria-label", "Only the latest gross exposure snapshot is available; historical comparison requires two completed nightly observations.");
-      return;
-    }
-    const box = shell.getBoundingClientRect();
-    const width = Math.max(300, Math.round(box.width || shell.clientWidth || 900));
-    const mobile = width < 520;
-    const height = mobile ? 280 : 330;
-    const pad = mobile ? { top: 28, right: 12, bottom: 45, left: 46 } : { top: 31, right: 18, bottom: 47, left: 54 };
-    const plotWidth = width - pad.left - pad.right;
-    const plotHeight = height - pad.top - pad.bottom;
-    function x(index) { return pad.left + (points.length === 1 ? plotWidth : index / (points.length - 1) * plotWidth); }
-    function y(percent) { return pad.top + (100 - percent) / 100 * plotHeight; }
-    const normalized = points.map(function (point) {
-      const total = exposure.categories.reduce(function (sum, category) { return sum + exposurePointPercent(point, category.id); }, 0) || 100;
-      const values = {};
-      exposure.categories.forEach(function (category) { values[category.id] = exposurePointPercent(point, category.id) / total * 100; });
-      return values;
-    });
-    const svg = svgNode("svg", { viewBox: "0 0 " + width + " " + height, preserveAspectRatio: "xMidYMid meet", "aria-hidden": "true", focusable: "false" });
-    svg.append(svgNode("rect", { x: 0, y: 0, width: width, height: height, fill: "#ffffff" }));
-    [0, 25, 50, 75, 100].forEach(function (tick) {
-      const lineY = y(tick);
-      svg.append(svgNode("line", { x1: pad.left, y1: lineY, x2: width - pad.right, y2: lineY, stroke: tick === 0 ? "#aeb8c1" : "#e5e9ed", "stroke-width": 1, "vector-effect": "non-scaling-stroke" }));
-      const label = svgNode("text", { x: pad.left - 8, y: lineY + 4, fill: "#617080", "font-size": mobile ? 10 : 11, "text-anchor": "end" });
-      label.textContent = tick + "%";
-      svg.append(label);
-    });
-    const cumulative = points.map(function () { return 0; });
-    exposure.categories.forEach(function (category) {
-      const lower = cumulative.slice();
-      const upper = cumulative.map(function (value, index) { return value + normalized[index][category.id]; });
-      const upperPath = upper.map(function (value, index) { return (index ? "L" : "M") + x(index).toFixed(2) + " " + y(value).toFixed(2); });
-      const lowerPath = lower.map(function (value, index) {
-        const reverseIndex = lower.length - index - 1;
-        return "L" + x(reverseIndex).toFixed(2) + " " + y(lower[reverseIndex]).toFixed(2);
-      });
-      svg.append(svgNode("path", {
-        d: upperPath.concat(lowerPath).join(" ") + " Z",
-        fill: category.color,
-        stroke: "rgba(255,255,255,0.72)",
-        "stroke-width": 0.8,
-        "vector-effect": "non-scaling-stroke"
-      }));
-      upper.forEach(function (value, index) { cumulative[index] = value; });
-    });
-    const tickIndexes = chartTickIndexes(points.length, mobile ? 6 : 7);
-    tickIndexes.forEach(function (index) {
-      const point = points[index];
-      const label = svgNode("text", { x: x(index), y: height - 16, fill: point.isNow ? "#735719" : "#617080", "font-size": mobile ? 9.5 : 10.5, "font-weight": point.isNow ? 800 : 600, "text-anchor": index === 0 ? "start" : index === points.length - 1 ? "end" : "middle" });
-      label.textContent = point.isNow ? "Now" : formatChartDate(parseDate(point.date), false);
-      svg.append(label);
-    });
-    const selectedX = x(selectionIndex);
-    svg.append(svgNode("line", { x1: selectedX, y1: pad.top, x2: selectedX, y2: height - pad.bottom, stroke: "#061422", "stroke-width": 1.4, opacity: 0.72, "vector-effect": "non-scaling-stroke" }));
-    const nowIndex = points.findIndex(function (point) { return point.isNow; });
-    if (nowIndex >= 0) {
-      svg.append(svgNode("line", { x1: x(nowIndex), y1: pad.top - 5, x2: x(nowIndex), y2: height - pad.bottom, stroke: "#c9a24f", "stroke-width": 2, "stroke-dasharray": "5 4", "vector-effect": "non-scaling-stroke" }));
-      svg.append(svgNode("circle", { cx: x(nowIndex), cy: pad.top - 8, r: 4.5, fill: "#fff", stroke: "#967638", "stroke-width": 2, "vector-effect": "non-scaling-stroke" }));
-    }
-    shell.replaceChildren(svg);
-    shell.onclick = function (event) {
-      const rect = shell.getBoundingClientRect();
-      const localX = (event.clientX - rect.left) / Math.max(1, rect.width) * width;
-      const selectedIndex = Math.max(0, Math.min(points.length - 1, Math.round((localX - pad.left) / Math.max(1, plotWidth) * (points.length - 1))));
-      exposureSelectionKey = points[selectedIndex].isNow ? "now" : points[selectedIndex].date;
-      renderExposureAnalytics(view);
-    };
-    const latest = points[points.length - 1];
-    const latestSummary = exposure.categories.map(function (category) {
-      return category.label + " " + exposurePointPercent(latest, category.id).toFixed(1) + "%";
-    }).join(", ");
-    shell.setAttribute("aria-label", "Gross marked-value exposure from " + formatDate(points[0].date) + " through the latest " + (latest.isNow ? "delayed Now snapshot" : "completed night") + ". Each vertical slice totals 100 percent. Latest mix: " + latestSummary + ". Use the Explore date control for a direct category breakdown.");
-  }
-
-  function renderAdvancedAnalytics(view) {
-    renderContributionAnalytics(view);
-    renderExposureAnalytics(view);
-  }
-
   function renderHoldings(view) {
     const body = byId("holdings-body");
     if (!body) return;
@@ -1625,7 +1043,6 @@
       row.append(
         instrumentCell,
         textCell(formatNumber(holding.quantity, 6)),
-        textCell(formatCurrency(holding.basisPrice, view.currency)),
         textCell(formatCurrency(holding.price, view.currency)),
         textCell(formatCurrency(holding.marketValue, view.currency)),
         textCell(view.nav ? formatPercent(holding.marketValue / view.nav * 100) : "—"),
@@ -1655,7 +1072,6 @@
     setText("scenario-state", view.modifiedAt ? "Locally modified" : "Published sample");
     renderChart(view.comparisonSeries, view.currency, view.openingNav);
     renderAllocation(view);
-    renderAdvancedAnalytics(view);
     renderHoldings(view);
     setStatus("ready", view.modifiedAt
       ? "Public demo loaded with local scenario edits from this browser; source badges identify any manual or fallback marks."
@@ -1779,10 +1195,7 @@
     root.addEventListener("resize", function () {
       root.clearTimeout(chartResizeTimer);
       chartResizeTimer = root.setTimeout(function () {
-        if (state.view) {
-          renderChart(state.view.comparisonSeries, state.view.currency, state.view.openingNav);
-          renderExposureAnalytics(state.view);
-        }
+        if (state.view) renderChart(state.view.comparisonSeries, state.view.currency, state.view.openingNav);
       }, 120);
     });
     root.setInterval(async function () {
