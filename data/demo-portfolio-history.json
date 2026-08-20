@@ -1755,6 +1755,743 @@
           "residual": 0.0,
           "unattributed_pnl": 24.0
         },
+        "risk_history": {
+          "basis": "gross_marked_value",
+          "categories": [
+            {
+              "color": "#56816f",
+              "id": "low",
+              "label": "Low"
+            },
+            {
+              "color": "#c9a24f",
+              "id": "medium",
+              "label": "Medium"
+            },
+            {
+              "color": "#8b5f63",
+              "id": "high",
+              "label": "High"
+            }
+          ],
+          "points": [
+            {
+              "date": "2026-07-17",
+              "gross_exposure": 10532.0,
+              "kind": "formation_baseline",
+              "quality": "baseline",
+              "source_date": "2026-07-17",
+              "values": {
+                "high": {
+                  "percent": 39.386536,
+                  "value": 4148.19
+                },
+                "low": {
+                  "percent": 32.848082,
+                  "value": 3459.56
+                },
+                "medium": {
+                  "percent": 27.765382,
+                  "value": 2924.25
+                }
+              }
+            },
+            {
+              "date": "2026-07-18",
+              "gross_exposure": 10532.0,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-17",
+              "values": {
+                "high": {
+                  "percent": 39.386536,
+                  "value": 4148.19
+                },
+                "low": {
+                  "percent": 32.848082,
+                  "value": 3459.56
+                },
+                "medium": {
+                  "percent": 27.765382,
+                  "value": 2924.25
+                }
+              }
+            },
+            {
+              "date": "2026-07-19",
+              "gross_exposure": 10532.0,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-17",
+              "values": {
+                "high": {
+                  "percent": 39.386536,
+                  "value": 4148.19
+                },
+                "low": {
+                  "percent": 32.848082,
+                  "value": 3459.56
+                },
+                "medium": {
+                  "percent": 27.765382,
+                  "value": 2924.25
+                }
+              }
+            },
+            {
+              "date": "2026-07-20",
+              "gross_exposure": 10630.64,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-20",
+              "values": {
+                "high": {
+                  "percent": 40.200982,
+                  "value": 4273.62
+                },
+                "low": {
+                  "percent": 32.761607,
+                  "value": 3482.77
+                },
+                "medium": {
+                  "percent": 27.037411,
+                  "value": 2874.25
+                }
+              }
+            },
+            {
+              "date": "2026-07-21",
+              "gross_exposure": 11156.55,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-21",
+              "values": {
+                "high": {
+                  "percent": 43.085291,
+                  "value": 4806.83
+                },
+                "low": {
+                  "percent": 31.300268,
+                  "value": 3492.03
+                },
+                "medium": {
+                  "percent": 25.614441,
+                  "value": 2857.69
+                }
+              }
+            },
+            {
+              "date": "2026-07-22",
+              "gross_exposure": 11335.57,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-22",
+              "values": {
+                "high": {
+                  "percent": 44.329901,
+                  "value": 5025.05
+                },
+                "low": {
+                  "percent": 30.856238,
+                  "value": 3497.73
+                },
+                "medium": {
+                  "percent": 24.813861,
+                  "value": 2812.79
+                }
+              }
+            },
+            {
+              "date": "2026-07-23",
+              "gross_exposure": 10963.05,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-23",
+              "values": {
+                "high": {
+                  "percent": 42.619347,
+                  "value": 4672.38
+                },
+                "low": {
+                  "percent": 31.822259,
+                  "value": 3488.69
+                },
+                "medium": {
+                  "percent": 25.558394,
+                  "value": 2801.98
+                }
+              }
+            },
+            {
+              "date": "2026-07-24",
+              "gross_exposure": 10506.57,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-24",
+              "values": {
+                "high": {
+                  "percent": 39.979466,
+                  "value": 4200.47
+                },
+                "low": {
+                  "percent": 33.217987,
+                  "value": 3490.07
+                },
+                "medium": {
+                  "percent": 26.802547,
+                  "value": 2816.03
+                }
+              }
+            },
+            {
+              "date": "2026-07-25",
+              "gross_exposure": 10506.57,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-24",
+              "values": {
+                "high": {
+                  "percent": 39.979466,
+                  "value": 4200.47
+                },
+                "low": {
+                  "percent": 33.217987,
+                  "value": 3490.07
+                },
+                "medium": {
+                  "percent": 26.802547,
+                  "value": 2816.03
+                }
+              }
+            },
+            {
+              "date": "2026-07-26",
+              "gross_exposure": 10506.57,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-24",
+              "values": {
+                "high": {
+                  "percent": 39.979466,
+                  "value": 4200.47
+                },
+                "low": {
+                  "percent": 33.217987,
+                  "value": 3490.07
+                },
+                "medium": {
+                  "percent": 26.802547,
+                  "value": 2816.03
+                }
+              }
+            },
+            {
+              "date": "2026-07-27",
+              "gross_exposure": 11076.11,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-27",
+              "values": {
+                "high": {
+                  "percent": 42.136619,
+                  "value": 4667.1
+                },
+                "low": {
+                  "percent": 31.539314,
+                  "value": 3493.33
+                },
+                "medium": {
+                  "percent": 26.324067,
+                  "value": 2915.68
+                }
+              }
+            },
+            {
+              "date": "2026-07-28",
+              "gross_exposure": 10902.11,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-28",
+              "values": {
+                "high": {
+                  "percent": 41.556401,
+                  "value": 4530.53
+                },
+                "low": {
+                  "percent": 31.987301,
+                  "value": 3487.29
+                },
+                "medium": {
+                  "percent": 26.456298,
+                  "value": 2884.29
+                }
+              }
+            },
+            {
+              "date": "2026-07-29",
+              "gross_exposure": 10399.1,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-29",
+              "values": {
+                "high": {
+                  "percent": 38.964339,
+                  "value": 4051.94
+                },
+                "low": {
+                  "percent": 33.561168,
+                  "value": 3490.06
+                },
+                "medium": {
+                  "percent": 27.474493,
+                  "value": 2857.1
+                }
+              }
+            },
+            {
+              "date": "2026-07-30",
+              "gross_exposure": 11167.11,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-30",
+              "values": {
+                "high": {
+                  "percent": 42.911705,
+                  "value": 4792.0
+                },
+                "low": {
+                  "percent": 31.325212,
+                  "value": 3498.12
+                },
+                "medium": {
+                  "percent": 25.763083,
+                  "value": 2876.99
+                }
+              }
+            },
+            {
+              "date": "2026-07-31",
+              "gross_exposure": 11094.45,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-07-31",
+              "values": {
+                "high": {
+                  "percent": 42.377422,
+                  "value": 4701.54
+                },
+                "low": {
+                  "percent": 31.467436,
+                  "value": 3491.14
+                },
+                "medium": {
+                  "percent": 26.155142,
+                  "value": 2901.77
+                }
+              }
+            },
+            {
+              "date": "2026-08-01",
+              "gross_exposure": 11094.45,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-31",
+              "values": {
+                "high": {
+                  "percent": 42.377422,
+                  "value": 4701.54
+                },
+                "low": {
+                  "percent": 31.467436,
+                  "value": 3491.14
+                },
+                "medium": {
+                  "percent": 26.155142,
+                  "value": 2901.77
+                }
+              }
+            },
+            {
+              "date": "2026-08-02",
+              "gross_exposure": 11094.45,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-07-31",
+              "values": {
+                "high": {
+                  "percent": 42.377422,
+                  "value": 4701.54
+                },
+                "low": {
+                  "percent": 31.467436,
+                  "value": 3491.14
+                },
+                "medium": {
+                  "percent": 26.155142,
+                  "value": 2901.77
+                }
+              }
+            },
+            {
+              "date": "2026-08-03",
+              "gross_exposure": 11879.95,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-03",
+              "values": {
+                "high": {
+                  "percent": 45.815273,
+                  "value": 5442.83
+                },
+                "low": {
+                  "percent": 29.334713,
+                  "value": 3484.95
+                },
+                "medium": {
+                  "percent": 24.850014,
+                  "value": 2952.17
+                }
+              }
+            },
+            {
+              "date": "2026-08-04",
+              "gross_exposure": 12523.95,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-04",
+              "values": {
+                "high": {
+                  "percent": 46.004396,
+                  "value": 5761.57
+                },
+                "low": {
+                  "percent": 9.496761,
+                  "value": 1189.37
+                },
+                "medium": {
+                  "percent": 44.498843,
+                  "value": 5573.01
+                }
+              }
+            },
+            {
+              "date": "2026-08-05",
+              "gross_exposure": 12090.2,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-05",
+              "values": {
+                "high": {
+                  "percent": 44.457976,
+                  "value": 5375.06
+                },
+                "low": {
+                  "percent": 9.994125,
+                  "value": 1208.31
+                },
+                "medium": {
+                  "percent": 45.547899,
+                  "value": 5506.83
+                }
+              }
+            },
+            {
+              "date": "2026-08-06",
+              "gross_exposure": 12145.07,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-06",
+              "values": {
+                "high": {
+                  "percent": 45.486123,
+                  "value": 5524.32
+                },
+                "low": {
+                  "percent": 9.957783,
+                  "value": 1209.38
+                },
+                "medium": {
+                  "percent": 44.556094,
+                  "value": 5411.37
+                }
+              }
+            },
+            {
+              "date": "2026-08-07",
+              "gross_exposure": 12818.14,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-07",
+              "values": {
+                "high": {
+                  "percent": 47.265794,
+                  "value": 6058.6
+                },
+                "low": {
+                  "percent": 9.51363,
+                  "value": 1219.47
+                },
+                "medium": {
+                  "percent": 43.220576,
+                  "value": 5540.07
+                }
+              }
+            },
+            {
+              "date": "2026-08-08",
+              "gross_exposure": 12818.14,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-07",
+              "values": {
+                "high": {
+                  "percent": 47.265794,
+                  "value": 6058.6
+                },
+                "low": {
+                  "percent": 9.51363,
+                  "value": 1219.47
+                },
+                "medium": {
+                  "percent": 43.220576,
+                  "value": 5540.07
+                }
+              }
+            },
+            {
+              "date": "2026-08-09",
+              "gross_exposure": 12818.14,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-07",
+              "values": {
+                "high": {
+                  "percent": 47.265794,
+                  "value": 6058.6
+                },
+                "low": {
+                  "percent": 9.51363,
+                  "value": 1219.47
+                },
+                "medium": {
+                  "percent": 43.220576,
+                  "value": 5540.07
+                }
+              }
+            },
+            {
+              "date": "2026-08-10",
+              "gross_exposure": 12665.28,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-10",
+              "values": {
+                "high": {
+                  "percent": 46.72388,
+                  "value": 5917.71
+                },
+                "low": {
+                  "percent": 9.67495,
+                  "value": 1225.36
+                },
+                "medium": {
+                  "percent": 43.60117,
+                  "value": 5522.21
+                }
+              }
+            },
+            {
+              "date": "2026-08-11",
+              "gross_exposure": 12828.13,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-11",
+              "values": {
+                "high": {
+                  "percent": 46.784153,
+                  "value": 6001.53
+                },
+                "low": {
+                  "percent": 9.544106,
+                  "value": 1224.33
+                },
+                "medium": {
+                  "percent": 43.671741,
+                  "value": 5602.27
+                }
+              }
+            },
+            {
+              "date": "2026-08-12",
+              "gross_exposure": 13242.42,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-12",
+              "values": {
+                "high": {
+                  "percent": 48.113887,
+                  "value": 6371.44
+                },
+                "low": {
+                  "percent": 9.281912,
+                  "value": 1229.15
+                },
+                "medium": {
+                  "percent": 42.604201,
+                  "value": 5641.83
+                }
+              }
+            },
+            {
+              "date": "2026-08-13",
+              "gross_exposure": 13415.45,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-13",
+              "values": {
+                "high": {
+                  "percent": 9.349362,
+                  "value": 1254.26
+                },
+                "low": {
+                  "percent": 47.754801,
+                  "value": 6406.52
+                },
+                "medium": {
+                  "percent": 42.895837,
+                  "value": 5754.67
+                }
+              }
+            },
+            {
+              "date": "2026-08-14",
+              "gross_exposure": 13374.76,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-14",
+              "values": {
+                "high": {
+                  "percent": 6.858734,
+                  "value": 917.34
+                },
+                "low": {
+                  "percent": 50.102274,
+                  "value": 6701.06
+                },
+                "medium": {
+                  "percent": 43.038992,
+                  "value": 5756.36
+                }
+              }
+            },
+            {
+              "date": "2026-08-15",
+              "gross_exposure": 13374.76,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-14",
+              "values": {
+                "high": {
+                  "percent": 6.858734,
+                  "value": 917.34
+                },
+                "low": {
+                  "percent": 50.102274,
+                  "value": 6701.06
+                },
+                "medium": {
+                  "percent": 43.038992,
+                  "value": 5756.36
+                }
+              }
+            },
+            {
+              "date": "2026-08-16",
+              "gross_exposure": 13374.76,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-14",
+              "values": {
+                "high": {
+                  "percent": 6.858734,
+                  "value": 917.34
+                },
+                "low": {
+                  "percent": 50.102274,
+                  "value": 6701.06
+                },
+                "medium": {
+                  "percent": 43.038992,
+                  "value": 5756.36
+                }
+              }
+            },
+            {
+              "date": "2026-08-17",
+              "gross_exposure": 13404.33,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-17",
+              "values": {
+                "high": {
+                  "percent": 6.990607,
+                  "value": 937.04
+                },
+                "low": {
+                  "percent": 50.034283,
+                  "value": 6706.77
+                },
+                "medium": {
+                  "percent": 42.97511,
+                  "value": 5760.52
+                }
+              }
+            },
+            {
+              "date": "2026-08-18",
+              "gross_exposure": 13291.48,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-18",
+              "values": {
+                "high": {
+                  "percent": 6.867985,
+                  "value": 912.86
+                },
+                "low": {
+                  "percent": 50.491358,
+                  "value": 6711.04
+                },
+                "medium": {
+                  "percent": 42.640657,
+                  "value": 5667.58
+                }
+              }
+            },
+            {
+              "date": "2026-08-19",
+              "gross_exposure": 13476.52,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-19",
+              "values": {
+                "high": {
+                  "percent": 6.742613,
+                  "value": 908.67
+                },
+                "low": {
+                  "percent": 57.449249,
+                  "value": 7742.16
+                },
+                "medium": {
+                  "percent": 35.808138,
+                  "value": 4825.69
+                }
+              }
+            }
+          ],
+          "units": "percent_of_gross_marked_value"
+        },
         "schema_version": 1,
         "unattributed_pnl": {
           "events": [
@@ -3016,7 +3753,7 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-20T13:36:57Z",
+  "generated_at": "2026-08-20T14:12:21Z",
   "last_completed_session": "2026-08-19",
   "mark_history": {
     "BULL": [
@@ -4568,7 +5305,7 @@
       {
         "date": "2026-07-31",
         "price": 9.92,
-        "source": "yahoo"
+        "source": "fallback"
       },
       {
         "date": "2026-08-03",
