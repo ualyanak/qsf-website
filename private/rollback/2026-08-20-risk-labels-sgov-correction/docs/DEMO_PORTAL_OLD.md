@@ -20,31 +20,30 @@ repository. They must never be reused for real investor accounts.
   (`$8.0999` per share), rather than as a per-share price.
 - The supplied `$75` INFQ call cost is treated as `$0.75` per option share,
   with the standard 100x contract multiplier.
-- The corrected August 4 test reallocation records two SGOV fills: 23 shares at
-  `$100.65` and one share at `$100.68`. Total proceeds are `$2,415.63`; 320 BULL
-  shares are then purchased at `$7.20` for `$2,304.00`. Two SGOV shares remain,
-  and the difference increases raw cash from `$413.83` to `$525.46`.
+- The August 4 test reallocation treats `$2,304` as the proceeds from selling
+  23 of the original 26 SGOV shares and immediately purchases 320 BULL shares
+  at `$7.20`. Three SGOV shares remain and the cash balance is unchanged.
 - The August 13, 10:00 a.m. CDT update sells three INFQ `$25` calls at `$1.10`,
   five INFQ `$10/$17.50` call verticals at `$2.42`, and the remaining fifteen
   verticals at `$2.43`. Gross proceeds are `$5,185.00`. It then purchases 51
-  SGOV shares at `$100.53` for `$5,127.03`; net proceeds of `$57.97` increase
-  the existing `$525.46` cash balance to `$583.43`. Together with the two
-  existing shares, the account now holds 53 SGOV shares at a
-  `$100.5318867925` weighted basis. One INFQ `$25` call remains and
+  SGOV shares at the interpreted `$100.53` price for `$5,127.03`; net proceeds
+  of `$57.97` increase the existing `$413.83` cash balance to `$471.80`.
+  Together with the three existing shares, the account now holds 54 SGOV
+  shares at a `$100.5327777778` weighted basis. One INFQ `$25` call remains and
   the vertical position is closed.
 - The August 14 date-only update sells all 30 TSSI shares at `$9.65` with no
   reported fees. Gross and net proceeds are `$289.50`; the supplied `$9.94`
   per-share basis totals `$298.20`, producing an illustrative realized loss of
-  `$8.70`. The proceeds increase raw cash from `$583.43` to `$872.93`, and the
+  `$8.70`. The proceeds increase raw cash from `$471.80` to `$761.30`, and the
   current TSSI position is closed. TSSI remains in the formation ledger and
   instrument catalog so prior nightly history can still be reconstructed.
 - The August 18 update records two user-provided total cash dividends: `$0.61`
   from SGOV and `$12.00` from IVR. The combined `$12.61` credit increases raw
-  cash from `$872.93` to `$885.54`; holdings and cost bases are unchanged.
+  cash from `$761.30` to `$773.91`; holdings and cost bases are unchanged.
 - The August 19 date-only update sells 120 of the 320 BULL shares at `$8.45`
   with no reported fees. Gross and net proceeds are `$1,014.00`; the sold
   shares' `$7.20` basis totals `$864.00`, producing an illustrative realized
-  gain of `$150.00`. Proceeds increase raw cash from `$885.54` to `$1,899.54`.
+  gain of `$150.00`. Proceeds increase raw cash from `$773.91` to `$1,787.91`.
   The remaining 200 BULL shares retain their `$7.20` per-share basis.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
@@ -112,14 +111,6 @@ completed-night performance before that session closes.
   `$9,900` formation NAV. BULL shares and the BULL put share one group; both INFQ
   strategies share another. This is a security-and-strategy attribution, not a
   claim that every row is an operating company.
-- Each attribution group has an administrator-assigned `risk_level` restricted
-  to `low`, `medium`, or `high`. The dashboard displays the category directly
-  below every contributor name using green, yellow, or red text and background,
-  while retaining the words “LOW RISK,” “MEDIUM RISK,” or “HIGH RISK” for users
-  who cannot distinguish color. The category is illustrative and qualitative;
-  it is not calculated from P&L, volatility, liquidity, option delta, or investor
-  suitability. The approved map is INFQ/TSSI/IVR high; BULL/PLTR/QBTS/IBM/SPY/
-  NVDA/WMT medium; and PHYS/SGOV low.
 - The unassigned July 20 `$24.00` strategy-P&L adjustment remains separate in
   `unattributed_pnl`. Tagged SGOV and IVR dividends belong to their contributor
   groups. External-flow classifications are excluded from P&L. The published
@@ -135,13 +126,12 @@ completed-night performance before that session closes.
 
 At the August 19 completed close, the five realized-trade rows are the combined
 INFQ vertical sale (`+$2,115.00`, `+77.19%`), the BULL partial sale (`+$150.00`,
-`+17.36%`), the INFQ `$25` call sale (`+$105.00`, `+46.67%`), the combined SGOV
-sale fills (`+$1.71`, `+0.07%`), and the TSSI close (`-$8.70`, `-2.92%`). SGOV's
-completed-night contribution is `+$5.40` after its recorded `$0.61` dividend
-and current unrealized result. INFQ is the largest contributor at `+$2,295.67`;
-IVR is the smallest at `-$39.99`. Attributed P&L of `$3,122.02` plus the separate
-`$24.00` adjustment reconciles exactly to the `$3,146.02` rise from `$9,900.00`
-to `$13,046.02` using Yahoo's final August 19 raw closes.
+`+17.36%`), the INFQ `$25` call sale (`+$105.00`, `+46.67%`), the TSSI close
+(`-$8.70`, `-2.92%`), and the SGOV sale (`-$9.34`, `-0.40%`). INFQ is the largest
+completed-night contributor at `+$2,295.67`; IVR is the smallest at `-$39.99`.
+Attributed P&L of `$3,110.98` plus the separate `$24.00` adjustment reconciles
+exactly to the `$3,134.98` rise from `$9,900.00` to `$13,034.98` using Yahoo's
+final August 19 raw closes.
 
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving

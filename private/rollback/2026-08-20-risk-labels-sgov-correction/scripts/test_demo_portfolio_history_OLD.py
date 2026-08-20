@@ -15,20 +15,6 @@ import update_demo_portfolio_history as history  # noqa: E402
 
 
 REPOSITORY = pathlib.Path(__file__).resolve().parents[1]
-APPROVED_RISK_LEVELS = {
-    "infq": "high",
-    "bull": "medium",
-    "pltr": "medium",
-    "phys": "low",
-    "qbts": "medium",
-    "ibm": "medium",
-    "spy": "medium",
-    "nvda": "medium",
-    "wmt": "medium",
-    "sgov": "low",
-    "tssi": "high",
-    "ivr": "high",
-}
 
 
 class PortfolioHistoryTests(unittest.TestCase):
@@ -91,31 +77,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertAlmostEqual(opening["cash"], 389.83, places=2)
         self.assertAlmostEqual(basis_value, 9900.0, places=2)
 
-    def test_attribution_groups_have_complete_approved_risk_levels(self) -> None:
-        groups = self.ledger["attribution_groups"]
-        self.assertEqual({group_id: group["risk_level"] for group_id, group in groups.items()}, APPROVED_RISK_LEVELS)
-        referenced = {instrument["attribution_group_id"] for instrument in self.ledger["instruments"].values()}
-        self.assertEqual(referenced, set(APPROVED_RISK_LEVELS))
-
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 19)),
-            fetcher=self.fetcher,
-        )
-        contributors = payload["accounts"]["ahub"]["analytics"]["contributors"]
-        self.assertEqual({item["id"]: item["risk_level"] for item in contributors}, APPROVED_RISK_LEVELS)
-
-    def test_invalid_or_mismatched_attribution_risk_metadata_is_rejected(self) -> None:
-        invalid_risk = copy.deepcopy(self.ledger)
-        invalid_risk["attribution_groups"]["bull"]["risk_level"] = "extreme"
-        with self.assertRaisesRegex(history.HistoryError, "unsupported risk level"):
-            history.validate_ledger(invalid_risk)
-
-        mismatched_label = copy.deepcopy(self.ledger)
-        mismatched_label["instruments"]["BULL"]["attribution_group_label"] = "Different label"
-        with self.assertRaisesRegex(history.HistoryError, "attribution label does not match"):
-            history.validate_ledger(mismatched_label)
-
     def test_ledger_replays_each_supplied_portfolio_state(self) -> None:
         july_17 = history.replay_ledger(
             self.ledger,
@@ -165,24 +126,24 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertAlmostEqual(july_17["cash"], 389.83, places=2)
         self.assertAlmostEqual(july_20["cash"], 413.83, places=2)
         self.assertEqual(history.position_quantities(july_20)["SGOV"], 26)
-        self.assertAlmostEqual(august_4["cash"], 525.46, places=2)
-        self.assertEqual(history.position_quantities(august_4)["SGOV"], 2)
+        self.assertAlmostEqual(august_4["cash"], 413.83, places=2)
+        self.assertEqual(history.position_quantities(august_4)["SGOV"], 3)
         self.assertEqual(history.position_quantities(august_4)["BULL"], 320)
         self.assertEqual(history.position_quantities(before_august_13)["INFQ_C25_20270115"], 4)
         self.assertEqual(history.position_quantities(before_august_13)["INFQ_C10_C17_5_20270115"], 20)
-        self.assertAlmostEqual(august_13["cash"], 583.43, places=2)
+        self.assertAlmostEqual(august_13["cash"], 471.8, places=2)
         self.assertEqual(history.position_quantities(august_13)["TSSI"], 30)
-        self.assertAlmostEqual(before_august_14["cash"], 583.43, places=2)
+        self.assertAlmostEqual(before_august_14["cash"], 471.8, places=2)
         self.assertEqual(history.position_quantities(before_august_14)["TSSI"], 30)
-        self.assertAlmostEqual(august_14["cash"], 872.93, places=2)
+        self.assertAlmostEqual(august_14["cash"], 761.3, places=2)
         self.assertNotIn("TSSI", history.position_quantities(august_14))
         self.assertEqual(history.position_quantities(august_14)["BULL"], 320)
-        self.assertAlmostEqual(before_august_18["cash"], 872.93, places=2)
-        self.assertAlmostEqual(august_18["cash"], 885.54, places=2)
+        self.assertAlmostEqual(before_august_18["cash"], 761.3, places=2)
+        self.assertAlmostEqual(august_18["cash"], 773.91, places=2)
         self.assertEqual(history.position_quantities(august_18), history.position_quantities(august_14))
-        self.assertAlmostEqual(before_august_19["cash"], 885.54, places=2)
+        self.assertAlmostEqual(before_august_19["cash"], 773.91, places=2)
         self.assertEqual(history.position_quantities(before_august_19)["BULL"], 320)
-        self.assertAlmostEqual(august_19["cash"], 1899.54, places=2)
+        self.assertAlmostEqual(august_19["cash"], 1787.91, places=2)
         self.assertEqual(history.position_quantities(august_19)["BULL"], 200)
         self.assertEqual(history.position_quantities(august_19), self.ledger["expected_current_snapshot"]["positions"])
 
@@ -198,7 +159,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 289.5, places=2)
         self.assertAlmostEqual(basis, 298.2, places=2)
         self.assertAlmostEqual(realized_pnl, -8.7, places=2)
-        self.assertAlmostEqual(current["cash"], 583.43 + proceeds, places=2)
+        self.assertAlmostEqual(current["cash"], 471.8 + proceeds, places=2)
         self.assertNotIn("TSSI", history.position_quantities(current))
         self.assertEqual(len(history.position_quantities(current)), 12)
 
@@ -212,8 +173,8 @@ class PortfolioHistoryTests(unittest.TestCase):
             dt.datetime(2026, 8, 18, 9, 30, tzinfo=history.MARKET_ZONE),
         )
 
-        self.assertAlmostEqual(before["cash"], 872.93, places=2)
-        self.assertAlmostEqual(after["cash"], 885.54, places=2)
+        self.assertAlmostEqual(before["cash"], 761.3, places=2)
+        self.assertAlmostEqual(after["cash"], 773.91, places=2)
         self.assertAlmostEqual(after["cash"] - before["cash"], 0.61 + 12.0, places=2)
         self.assertEqual(history.position_quantities(after), history.position_quantities(before))
 
@@ -229,8 +190,8 @@ class PortfolioHistoryTests(unittest.TestCase):
         proceeds = 120 * 8.45
         realized_pnl = proceeds - 120 * 7.2
 
-        self.assertAlmostEqual(before["cash"], 885.54, places=2)
-        self.assertAlmostEqual(after["cash"], 1899.54, places=2)
+        self.assertAlmostEqual(before["cash"], 773.91, places=2)
+        self.assertAlmostEqual(after["cash"], 1787.91, places=2)
         self.assertAlmostEqual(after["cash"] - before["cash"], proceeds, places=2)
         self.assertAlmostEqual(realized_pnl, 150.0, places=2)
         self.assertEqual(history.position_quantities(before)["BULL"], 320)
@@ -244,7 +205,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         )
         self.assertEqual(
             [record["instrument_id"] for record in records],
-            ["INFQ_C10_C17_5_20270115", "BULL", "INFQ_C25_20270115", "SGOV", "TSSI"],
+            ["INFQ_C10_C17_5_20270115", "BULL", "INFQ_C25_20270115", "TSSI", "SGOV"],
         )
         by_instrument = {record["instrument_id"]: record for record in records}
 
@@ -269,12 +230,8 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertAlmostEqual(call["return_pct"], 46.6667, places=4)
         self.assertEqual(by_instrument["TSSI"]["realized_pnl"], -8.7)
         self.assertAlmostEqual(by_instrument["TSSI"]["return_pct"], -2.9175, places=4)
-        self.assertEqual(by_instrument["SGOV"]["fill_count"], 2)
-        self.assertEqual(by_instrument["SGOV"]["closed_quantity"], 24)
-        self.assertEqual(by_instrument["SGOV"]["closing_value"], 2415.63)
-        self.assertEqual(by_instrument["SGOV"]["closed_basis"], 2413.92)
-        self.assertEqual(by_instrument["SGOV"]["realized_pnl"], 1.71)
-        self.assertAlmostEqual(by_instrument["SGOV"]["return_pct"], 0.0708, places=4)
+        self.assertEqual(by_instrument["SGOV"]["realized_pnl"], -9.34)
+        self.assertAlmostEqual(by_instrument["SGOV"]["return_pct"], -0.4037, places=4)
 
     def test_realized_trade_math_handles_partial_flip_short_cover_and_fees(self) -> None:
         ledger = copy.deepcopy(self.ledger)
@@ -332,8 +289,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         )
         self.assertNotIn("BULL", history.position_quantities(before))
         self.assertEqual(history.position_quantities(after)["BULL"], 320)
-        self.assertEqual(history.position_quantities(after)["SGOV"], 2)
-        self.assertAlmostEqual(after["cash"] - before["cash"], 111.63, places=2)
+        self.assertAlmostEqual(before["cash"], after["cash"], places=2)
 
     def test_history_is_calendar_contiguous_and_carries_weekends(self) -> None:
         payload = history.build_history(
@@ -425,7 +381,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             places=2,
         )
         contributors = {contributor["id"]: contributor for contributor in analytics["contributors"]}
-        self.assertEqual({group_id: item["risk_level"] for group_id, item in contributors.items()}, APPROVED_RISK_LEVELS)
         self.assertEqual(contributors["infq"]["realized_pnl"], 2220.0)
         self.assertEqual(contributors["bull"]["realized_pnl"], 150.0)
         self.assertEqual(contributors["ivr"]["income"], 12.0)
@@ -654,7 +609,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(payload["last_completed_session"], "2026-08-14")
         self.assertEqual(points[-1]["date"], "2026-08-16")
         self.assertEqual(by_date["2026-08-14"]["kind"], "session_close")
-        self.assertAlmostEqual(by_date["2026-08-14"]["cash"], 872.93, places=2)
+        self.assertAlmostEqual(by_date["2026-08-14"]["cash"], 761.3, places=2)
         self.assertEqual(by_date["2026-08-14"]["position_count"], 12)
         self.assertEqual(by_date["2026-08-15"]["value"], by_date["2026-08-14"]["value"])
         self.assertEqual(by_date["2026-08-16"]["value"], by_date["2026-08-14"]["value"])
@@ -666,7 +621,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         points = self.points(payload)
         self.assertEqual(points[-1]["date"], "2026-08-12")
         self.assertNotIn("2026-08-13", {point["date"] for point in points})
-        self.assertAlmostEqual(points[-1]["cash"], 525.46, places=2)
+        self.assertAlmostEqual(points[-1]["cash"], 413.83, places=2)
 
     def test_august_thirteen_close_uses_updated_holdings_and_cash(self) -> None:
         payload = history.build_history(
@@ -676,7 +631,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         )
         closing = self.points(payload)[-1]
         self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 583.43, places=2)
+        self.assertAlmostEqual(closing["cash"], 471.8, places=2)
         self.assertEqual(closing["position_count"], 13)
         self.assertTrue(math_is_positive(closing["value"]))
 
@@ -689,7 +644,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         closing = self.points(payload)[-1]
         self.assertEqual(closing["date"], "2026-08-14")
         self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 872.93, places=2)
+        self.assertAlmostEqual(closing["cash"], 761.3, places=2)
         self.assertEqual(closing["position_count"], 12)
         self.assertNotIn("TSSI", closing["forward_filled_symbols"])
         self.assertTrue(math_is_positive(closing["value"]))
@@ -704,8 +659,8 @@ class PortfolioHistoryTests(unittest.TestCase):
 
         self.assertEqual(closing["date"], "2026-08-18")
         self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 885.54, places=2)
-        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 885.54, places=2)
+        self.assertAlmostEqual(closing["cash"], 773.91, places=2)
+        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 773.91, places=2)
         self.assertEqual(closing["position_count"], 12)
         self.assertNotIn("TSSI", closing["forward_filled_symbols"])
 
@@ -719,8 +674,8 @@ class PortfolioHistoryTests(unittest.TestCase):
 
         self.assertEqual(closing["date"], "2026-08-19")
         self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 1899.54, places=2)
-        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 1899.54, places=2)
+        self.assertAlmostEqual(closing["cash"], 1787.91, places=2)
+        self.assertAlmostEqual(closing["value"] - closing["positions_value"], 1787.91, places=2)
         self.assertEqual(closing["position_count"], 12)
         self.assertNotIn("BULL", closing["forward_filled_symbols"])
 
@@ -837,10 +792,9 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(trades["BULL"]["realized_pnl"], 150.0)
         self.assertEqual(trades["INFQ_C25_20270115"]["realized_pnl"], 105.0)
         self.assertEqual(trades["TSSI"]["realized_pnl"], -8.7)
-        self.assertEqual(trades["SGOV"]["realized_pnl"], 1.71)
+        self.assertEqual(trades["SGOV"]["realized_pnl"], -9.34)
 
         contributors = analytics["contributors"]
-        self.assertEqual({item["id"]: item["risk_level"] for item in contributors}, APPROVED_RISK_LEVELS)
         self.assertEqual(contributors[0]["id"], "infq")
         self.assertEqual(contributors[0]["total_pnl"], 2295.67)
         self.assertAlmostEqual(contributors[0]["return_pct"], 75.5154, places=4)
@@ -853,12 +807,12 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(analytics["unattributed_pnl"]["total"], 24.0)
         self.assertEqual(analytics["reconciliation"], {
             "opening_nav": 9900.0,
-            "latest_nav": 13046.02,
-            "nav_change": 3146.02,
+            "latest_nav": 13034.98,
+            "nav_change": 3134.98,
             "external_flows": 0.0,
-            "attributed_pnl": 3122.02,
+            "attributed_pnl": 3110.98,
             "unattributed_pnl": 24.0,
-            "explained_change": 3146.02,
+            "explained_change": 3134.98,
             "residual": 0.0,
         })
 
@@ -867,8 +821,8 @@ class PortfolioHistoryTests(unittest.TestCase):
         latest = exposure["points"][-1]
         self.assertEqual(formation["gross_exposure"], 10532.0)
         self.assertEqual(latest["date"], "2026-08-19")
-        self.assertEqual(latest["gross_exposure"], 13476.52)
-        self.assertEqual(latest["values"]["cash-cash-equivalents"]["value"], 7230.81)
+        self.assertEqual(latest["gross_exposure"], 13465.48)
+        self.assertEqual(latest["values"]["cash-cash-equivalents"]["value"], 7219.77)
         self.assertEqual(latest["values"]["options"]["value"], 365.92)
         self.assertEqual(latest["values"]["technology"]["value"], 1541.88)
         self.assertAlmostEqual(sum(value["percent"] for value in latest["values"].values()), 100.0, places=6)

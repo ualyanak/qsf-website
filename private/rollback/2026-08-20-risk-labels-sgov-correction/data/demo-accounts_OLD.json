@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-20",
+  "published_at": "2026-08-19",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1899.54,
+      "cash": 1787.91,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -24,22 +24,22 @@
         },
         {
           "date": "2026-08-04",
-          "amount": 111.63,
+          "amount": 0.0,
           "kind": "illustrative_reallocation",
-          "note": "User-provided test reallocation: sold 23 SGOV shares at $100.65 and one SGOV share at $100.68 for $2,415.63 total proceeds, then purchased 320 BULL shares at $7.20 for $2,304.00. Two SGOV shares remained and $111.63 was added to cash."
+          "note": "User-provided test reallocation: proceeds from 23 SGOV shares ($2,304 total) were used immediately to purchase 320 BULL shares at $7.20. Three SGOV shares remain and the cash balance is unchanged."
         },
         {
           "date": "2026-08-13",
           "as_of": "2026-08-13T10:00:00-05:00",
           "amount": 57.97,
           "kind": "illustrative_trade_update",
-          "note": "User-provided 10:00 a.m. CDT test update: sold three INFQ $25 calls at $1.10 and all twenty INFQ $10/$17.50 call verticals (five at $2.42 and fifteen at $2.43) for $5,185.00 total proceeds; purchased 51 SGOV shares at $100.53 for $5,127.03; net proceeds of $57.97 increased cash from $525.46 to $583.43."
+          "note": "User-provided 10:00 a.m. CDT test update: sold three INFQ $25 calls at $1.10 and all twenty INFQ $10/$17.50 call verticals (five at $2.42 and fifteen at $2.43) for $5,185.00 total proceeds; purchased 51 SGOV shares at the interpreted $100.53 price for $5,127.03; net proceeds of $57.97 were added to the existing $413.83 cash balance."
         },
         {
           "date": "2026-08-14",
           "amount": 289.5,
           "kind": "illustrative_trade_update",
-          "note": "User-provided date-only test update: sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. Against the $9.94 per-share basis, the illustrative realized loss is $8.70. Proceeds increased the cash balance from $583.43 to $872.93."
+          "note": "User-provided date-only test update: sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. Against the $9.94 per-share basis, the illustrative realized loss is $8.70. Proceeds increased the cash balance from $471.80 to $761.30."
         },
         {
           "date": "2026-08-18",
@@ -60,11 +60,11 @@
           "amount": 1014.0,
           "kind": "illustrative_trade_update",
           "instrument": "BULL",
-          "note": "User-provided date-only test update: sold 120 of 320 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $150.00. Proceeds increased cash from $885.54 to $1,899.54; 200 BULL shares remain at the unchanged $7.20 basis."
+          "note": "User-provided date-only test update: sold 120 of 320 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $150.00. Proceeds increased cash from $773.91 to $1,787.91; 200 BULL shares remain at the unchanged $7.20 basis."
         }
       ],
       "positions": [
-        { "instrument": "SGOV", "quantity": 53, "basis_price": 100.5318867925 },
+        { "instrument": "SGOV", "quantity": 54, "basis_price": 100.5327777778 },
         { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
         { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },

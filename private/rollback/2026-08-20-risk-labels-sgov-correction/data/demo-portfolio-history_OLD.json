@@ -17,7 +17,6 @@
             "portfolio_contribution_pct": 23.1886,
             "realized_pnl": 2220.0,
             "return_pct": 75.5154,
-            "risk_level": "high",
             "total_pnl": 2295.67,
             "tracked_basis": 3040.0,
             "unrealized_pnl": 75.67
@@ -34,7 +33,6 @@
             "portfolio_contribution_pct": 5.4419,
             "realized_pnl": 150.0,
             "return_pct": 20.5629,
-            "risk_level": "medium",
             "total_pnl": 538.75,
             "tracked_basis": 2620.0,
             "unrealized_pnl": 388.75
@@ -50,7 +48,6 @@
             "portfolio_contribution_pct": 1.7123,
             "realized_pnl": 0.0,
             "return_pct": 31.9102,
-            "risk_level": "medium",
             "total_pnl": 169.52,
             "tracked_basis": 531.24,
             "unrealized_pnl": 169.52
@@ -66,7 +63,6 @@
             "portfolio_contribution_pct": 0.5727,
             "realized_pnl": 0.0,
             "return_pct": 12.4711,
-            "risk_level": "low",
             "total_pnl": 56.7,
             "tracked_basis": 454.65,
             "unrealized_pnl": 56.7
@@ -82,7 +78,6 @@
             "portfolio_contribution_pct": 0.4626,
             "realized_pnl": 0.0,
             "return_pct": 13.4469,
-            "risk_level": "medium",
             "total_pnl": 45.8,
             "tracked_basis": 340.6,
             "unrealized_pnl": 45.8
@@ -98,7 +93,6 @@
             "portfolio_contribution_pct": 0.2367,
             "realized_pnl": 0.0,
             "return_pct": 10.9624,
-            "risk_level": "medium",
             "total_pnl": 23.43,
             "tracked_basis": 213.73,
             "unrealized_pnl": 23.43
@@ -114,7 +108,6 @@
             "portfolio_contribution_pct": 0.2365,
             "realized_pnl": 0.0,
             "return_pct": 3.1395,
-            "risk_level": "medium",
             "total_pnl": 23.41,
             "tracked_basis": 745.65,
             "unrealized_pnl": 23.41
@@ -130,26 +123,9 @@
             "portfolio_contribution_pct": 0.124,
             "realized_pnl": 0.0,
             "return_pct": 5.9821,
-            "risk_level": "medium",
             "total_pnl": 12.28,
             "tracked_basis": 205.28,
             "unrealized_pnl": 12.28
-          },
-          {
-            "id": "sgov",
-            "income": 0.61,
-            "instrument_ids": [
-              "SGOV"
-            ],
-            "label": "SGOV \u00b7 Short-Term Treasuries",
-            "market_value": 5331.27,
-            "portfolio_contribution_pct": 0.0545,
-            "realized_pnl": 1.71,
-            "return_pct": 0.0697,
-            "risk_level": "low",
-            "total_pnl": 5.4,
-            "tracked_basis": 7742.11,
-            "unrealized_pnl": 3.08
           },
           {
             "id": "wmt",
@@ -162,10 +138,24 @@
             "portfolio_contribution_pct": -0.0025,
             "realized_pnl": 0.0,
             "return_pct": -0.0437,
-            "risk_level": "medium",
             "total_pnl": -0.25,
             "tracked_basis": 571.75,
             "unrealized_pnl": -0.25
+          },
+          {
+            "id": "sgov",
+            "income": 0.61,
+            "instrument_ids": [
+              "SGOV"
+            ],
+            "label": "SGOV \u00b7 Short-Term Treasuries",
+            "market_value": 5431.86,
+            "portfolio_contribution_pct": -0.057,
+            "realized_pnl": -9.34,
+            "return_pct": -0.0729,
+            "total_pnl": -5.64,
+            "tracked_basis": 7742.11,
+            "unrealized_pnl": 3.09
           },
           {
             "id": "tssi",
@@ -178,7 +168,6 @@
             "portfolio_contribution_pct": -0.0879,
             "realized_pnl": -8.7,
             "return_pct": -2.9175,
-            "risk_level": "high",
             "total_pnl": -8.7,
             "tracked_basis": 298.2,
             "unrealized_pnl": 0.0
@@ -194,7 +183,6 @@
             "portfolio_contribution_pct": -0.4039,
             "realized_pnl": 0.0,
             "return_pct": -4.9371,
-            "risk_level": "high",
             "total_pnl": -39.99,
             "tracked_basis": 809.99,
             "unrealized_pnl": -51.99
@@ -985,656 +973,656 @@
             },
             {
               "date": "2026-08-04",
-              "gross_exposure": 12523.95,
+              "gross_exposure": 12512.75,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-04",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.799446,
-                  "value": 726.32
+                  "percent": 5.715129,
+                  "value": 715.12
                 },
                 "consumer": {
-                  "percent": 4.453466,
+                  "percent": 4.457452,
                   "value": 557.75
                 },
                 "financial-technology": {
-                  "percent": 19.367685,
+                  "percent": 19.38502,
                   "value": 2425.6
                 },
                 "index-funds": {
-                  "percent": 6.158838,
+                  "percent": 6.16435,
                   "value": 771.33
                 },
                 "options": {
-                  "percent": 39.687738,
+                  "percent": 39.723263,
                   "value": 4970.47
                 },
                 "precious-metals": {
-                  "percent": 3.697315,
+                  "percent": 3.700624,
                   "value": 463.05
                 },
                 "real-estate": {
-                  "percent": 5.908677,
+                  "percent": 5.913966,
                   "value": 740.0
                 },
                 "technology": {
-                  "percent": 14.926835,
+                  "percent": 14.940196,
                   "value": 1869.43
                 }
               }
             },
             {
               "date": "2026-08-05",
-              "gross_exposure": 12090.2,
+              "gross_exposure": 12079.02,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-05",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 6.007839,
-                  "value": 726.36
+                  "percent": 5.920843,
+                  "value": 715.18
                 },
                 "consumer": {
-                  "percent": 4.64591,
+                  "percent": 4.65021,
                   "value": 561.7
                 },
                 "financial-technology": {
-                  "percent": 19.53317,
+                  "percent": 19.551249,
                   "value": 2361.6
                 },
                 "index-funds": {
-                  "percent": 6.367056,
+                  "percent": 6.372949,
                   "value": 769.79
                 },
                 "options": {
-                  "percent": 38.000549,
+                  "percent": 38.035721,
                   "value": 4594.34
                 },
                 "precious-metals": {
-                  "percent": 3.986285,
+                  "percent": 3.989975,
                   "value": 481.95
                 },
                 "real-estate": {
-                  "percent": 6.145471,
+                  "percent": 6.151159,
                   "value": 743.0
                 },
                 "technology": {
-                  "percent": 15.31372,
+                  "percent": 15.327894,
                   "value": 1851.46
                 }
               }
             },
             {
               "date": "2026-08-06",
-              "gross_exposure": 12145.07,
+              "gross_exposure": 12133.9,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-06",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.980861,
-                  "value": 726.38
+                  "percent": 5.894311,
+                  "value": 715.21
                 },
                 "consumer": {
-                  "percent": 4.613805,
+                  "percent": 4.618052,
                   "value": 560.35
                 },
                 "financial-technology": {
-                  "percent": 19.023351,
+                  "percent": 19.040863,
                   "value": 2310.4
                 },
                 "index-funds": {
-                  "percent": 6.328163,
+                  "percent": 6.333988,
                   "value": 768.56
                 },
                 "options": {
-                  "percent": 39.272578,
+                  "percent": 39.308731,
                   "value": 4769.68
                 },
                 "precious-metals": {
-                  "percent": 3.976921,
+                  "percent": 3.980582,
                   "value": 483.0
                 },
                 "real-estate": {
-                  "percent": 6.093006,
+                  "percent": 6.098615,
                   "value": 740.0
                 },
                 "technology": {
-                  "percent": 14.711315,
+                  "percent": 14.724858,
                   "value": 1786.7
                 }
               }
             },
             {
               "date": "2026-08-07",
-              "gross_exposure": 12818.14,
+              "gross_exposure": 12806.99,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-07",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.667127,
-                  "value": 726.42
+                  "percent": 5.584999,
+                  "value": 715.27
                 },
                 "consumer": {
-                  "percent": 4.362959,
+                  "percent": 4.366757,
                   "value": 559.25
                 },
                 "financial-technology": {
-                  "percent": 18.274108,
+                  "percent": 18.290018,
                   "value": 2342.4
                 },
                 "index-funds": {
-                  "percent": 6.032547,
+                  "percent": 6.037799,
                   "value": 773.26
                 },
                 "options": {
-                  "percent": 41.140738,
+                  "percent": 41.176556,
                   "value": 5273.48
                 },
                 "precious-metals": {
-                  "percent": 3.846503,
+                  "percent": 3.849852,
                   "value": 493.05
                 },
                 "real-estate": {
-                  "percent": 5.835482,
+                  "percent": 5.840563,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 14.840536,
+                  "percent": 14.853456,
                   "value": 1902.28
                 }
               }
             },
             {
               "date": "2026-08-08",
-              "gross_exposure": 12818.14,
+              "gross_exposure": 12806.99,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-08-07",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.667127,
-                  "value": 726.42
+                  "percent": 5.584999,
+                  "value": 715.27
                 },
                 "consumer": {
-                  "percent": 4.362959,
+                  "percent": 4.366757,
                   "value": 559.25
                 },
                 "financial-technology": {
-                  "percent": 18.274108,
+                  "percent": 18.290018,
                   "value": 2342.4
                 },
                 "index-funds": {
-                  "percent": 6.032547,
+                  "percent": 6.037799,
                   "value": 773.26
                 },
                 "options": {
-                  "percent": 41.140738,
+                  "percent": 41.176556,
                   "value": 5273.48
                 },
                 "precious-metals": {
-                  "percent": 3.846503,
+                  "percent": 3.849852,
                   "value": 493.05
                 },
                 "real-estate": {
-                  "percent": 5.835482,
+                  "percent": 5.840563,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 14.840536,
+                  "percent": 14.853456,
                   "value": 1902.28
                 }
               }
             },
             {
               "date": "2026-08-09",
-              "gross_exposure": 12818.14,
+              "gross_exposure": 12806.99,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-08-07",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.667127,
-                  "value": 726.42
+                  "percent": 5.584999,
+                  "value": 715.27
                 },
                 "consumer": {
-                  "percent": 4.362959,
+                  "percent": 4.366757,
                   "value": 559.25
                 },
                 "financial-technology": {
-                  "percent": 18.274108,
+                  "percent": 18.290018,
                   "value": 2342.4
                 },
                 "index-funds": {
-                  "percent": 6.032547,
+                  "percent": 6.037799,
                   "value": 773.26
                 },
                 "options": {
-                  "percent": 41.140738,
+                  "percent": 41.176556,
                   "value": 5273.48
                 },
                 "precious-metals": {
-                  "percent": 3.846503,
+                  "percent": 3.849852,
                   "value": 493.05
                 },
                 "real-estate": {
-                  "percent": 5.835482,
+                  "percent": 5.840563,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 14.840536,
+                  "percent": 14.853456,
                   "value": 1902.28
                 }
               }
             },
             {
               "date": "2026-08-10",
-              "gross_exposure": 12665.28,
+              "gross_exposure": 12654.15,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-10",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.735836,
-                  "value": 726.46
+                  "percent": 5.652926,
+                  "value": 715.33
                 },
                 "consumer": {
-                  "percent": 4.447591,
+                  "percent": 4.451503,
                   "value": 563.3
                 },
                 "financial-technology": {
-                  "percent": 18.343054,
+                  "percent": 18.359188,
                   "value": 2323.2
                 },
                 "index-funds": {
-                  "percent": 6.103535,
+                  "percent": 6.108903,
                   "value": 773.03
                 },
                 "options": {
-                  "percent": 40.544802,
+                  "percent": 40.580463,
                   "value": 5135.11
                 },
                 "precious-metals": {
-                  "percent": 3.939114,
+                  "percent": 3.942578,
                   "value": 498.9
                 },
                 "real-estate": {
-                  "percent": 5.834847,
+                  "percent": 5.839979,
                   "value": 739.0
                 },
                 "technology": {
-                  "percent": 15.051221,
+                  "percent": 15.06446,
                   "value": 1906.28
                 }
               }
             },
             {
               "date": "2026-08-11",
-              "gross_exposure": 12828.13,
+              "gross_exposure": 12817.01,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-11",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.663181,
-                  "value": 726.48
+                  "percent": 5.581335,
+                  "value": 715.36
                 },
                 "consumer": {
-                  "percent": 4.414519,
+                  "percent": 4.418349,
                   "value": 566.3
                 },
                 "financial-technology": {
-                  "percent": 18.883506,
+                  "percent": 18.89989,
                   "value": 2422.4
                 },
                 "index-funds": {
-                  "percent": 6.006801,
+                  "percent": 6.012012,
                   "value": 770.56
                 },
                 "options": {
-                  "percent": 40.514539,
+                  "percent": 40.549688,
                   "value": 5197.26
                 },
                 "precious-metals": {
-                  "percent": 3.880925,
+                  "percent": 3.884292,
                   "value": 497.85
                 },
                 "real-estate": {
-                  "percent": 5.807551,
+                  "percent": 5.81259,
                   "value": 745.0
                 },
                 "technology": {
-                  "percent": 14.828978,
+                  "percent": 14.841844,
                   "value": 1902.28
                 }
               }
             },
             {
               "date": "2026-08-12",
-              "gross_exposure": 13242.42,
+              "gross_exposure": 13231.31,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-12",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 5.486157,
-                  "value": 726.5
+                  "percent": 5.406796,
+                  "value": 715.39
                 },
                 "consumer": {
-                  "percent": 4.380241,
+                  "percent": 4.383919,
                   "value": 580.05
                 },
                 "financial-technology": {
-                  "percent": 18.534375,
+                  "percent": 18.549937,
                   "value": 2454.4
                 },
                 "index-funds": {
-                  "percent": 5.83345,
+                  "percent": 5.838348,
                   "value": 772.49
                 },
                 "options": {
-                  "percent": 41.827708,
+                  "percent": 41.862831,
                   "value": 5539.0
                 },
                 "precious-metals": {
-                  "percent": 3.795756,
+                  "percent": 3.798943,
                   "value": 502.65
                 },
                 "real-estate": {
-                  "percent": 5.625859,
+                  "percent": 5.630583,
                   "value": 745.0
                 },
                 "technology": {
-                  "percent": 14.516454,
+                  "percent": 14.528643,
                   "value": 1922.33
                 }
               }
             },
             {
               "date": "2026-08-13",
-              "gross_exposure": 13415.45,
+              "gross_exposure": 13404.35,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-13",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 44.065025,
-                  "value": 5911.52
+                  "percent": 44.018706,
+                  "value": 5900.42
                 },
                 "consumer": {
-                  "percent": 4.312939,
+                  "percent": 4.31651,
                   "value": 578.6
                 },
                 "financial-technology": {
-                  "percent": 18.963215,
+                  "percent": 18.978918,
                   "value": 2544.0
                 },
                 "index-funds": {
-                  "percent": 5.798391,
+                  "percent": 5.803192,
                   "value": 777.88
                 },
                 "options": {
-                  "percent": 3.020152,
+                  "percent": 3.022653,
                   "value": 405.17
                 },
                 "precious-metals": {
-                  "percent": 3.689776,
+                  "percent": 3.692832,
                   "value": 495.0
                 },
                 "real-estate": {
-                  "percent": 5.575662,
+                  "percent": 5.580279,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 14.57484,
+                  "percent": 14.58691,
                   "value": 1955.28
                 }
               }
             },
             {
               "date": "2026-08-14",
-              "gross_exposure": 13374.76,
+              "gross_exposure": 13363.69,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-14",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 46.375479,
-                  "value": 6202.61
+                  "percent": 46.331058,
+                  "value": 6191.54
                 },
                 "consumer": {
-                  "percent": 4.309235,
+                  "percent": 4.312805,
                   "value": 576.35
                 },
                 "financial-technology": {
-                  "percent": 19.23623,
+                  "percent": 19.252165,
                   "value": 2572.8
                 },
                 "index-funds": {
-                  "percent": 5.804515,
+                  "percent": 5.809323,
                   "value": 776.34
                 },
                 "options": {
-                  "percent": 3.149006,
+                  "percent": 3.151615,
                   "value": 421.17
                 },
                 "precious-metals": {
-                  "percent": 3.726795,
+                  "percent": 3.729882,
                   "value": 498.45
                 },
                 "real-estate": {
-                  "percent": 5.592623,
+                  "percent": 5.597256,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 11.806117,
+                  "percent": 11.815896,
                   "value": 1579.04
                 }
               }
             },
             {
               "date": "2026-08-15",
-              "gross_exposure": 13374.76,
+              "gross_exposure": 13363.69,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-08-14",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 46.375479,
-                  "value": 6202.61
+                  "percent": 46.331058,
+                  "value": 6191.54
                 },
                 "consumer": {
-                  "percent": 4.309235,
+                  "percent": 4.312805,
                   "value": 576.35
                 },
                 "financial-technology": {
-                  "percent": 19.23623,
+                  "percent": 19.252165,
                   "value": 2572.8
                 },
                 "index-funds": {
-                  "percent": 5.804515,
+                  "percent": 5.809323,
                   "value": 776.34
                 },
                 "options": {
-                  "percent": 3.149006,
+                  "percent": 3.151615,
                   "value": 421.17
                 },
                 "precious-metals": {
-                  "percent": 3.726795,
+                  "percent": 3.729882,
                   "value": 498.45
                 },
                 "real-estate": {
-                  "percent": 5.592623,
+                  "percent": 5.597256,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 11.806117,
+                  "percent": 11.815896,
                   "value": 1579.04
                 }
               }
             },
             {
               "date": "2026-08-16",
-              "gross_exposure": 13374.76,
+              "gross_exposure": 13363.69,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-08-14",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 46.375479,
-                  "value": 6202.61
+                  "percent": 46.331058,
+                  "value": 6191.54
                 },
                 "consumer": {
-                  "percent": 4.309235,
+                  "percent": 4.312805,
                   "value": 576.35
                 },
                 "financial-technology": {
-                  "percent": 19.23623,
+                  "percent": 19.252165,
                   "value": 2572.8
                 },
                 "index-funds": {
-                  "percent": 5.804515,
+                  "percent": 5.809323,
                   "value": 776.34
                 },
                 "options": {
-                  "percent": 3.149006,
+                  "percent": 3.151615,
                   "value": 421.17
                 },
                 "precious-metals": {
-                  "percent": 3.726795,
+                  "percent": 3.729882,
                   "value": 498.45
                 },
                 "real-estate": {
-                  "percent": 5.592623,
+                  "percent": 5.597256,
                   "value": 748.0
                 },
                 "technology": {
-                  "percent": 11.806117,
+                  "percent": 11.815896,
                   "value": 1579.04
                 }
               }
             },
             {
               "date": "2026-08-17",
-              "gross_exposure": 13404.33,
+              "gross_exposure": 13393.26,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-17",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 46.273185,
-                  "value": 6202.61
+                  "percent": 46.228779,
+                  "value": 6191.54
                 },
                 "consumer": {
-                  "percent": 4.264667,
+                  "percent": 4.268192,
                   "value": 571.65
                 },
                 "financial-technology": {
-                  "percent": 19.480274,
+                  "percent": 19.496375,
                   "value": 2611.2
                 },
                 "index-funds": {
-                  "percent": 5.764332,
+                  "percent": 5.769096,
                   "value": 772.67
                 },
                 "options": {
-                  "percent": 3.197391,
+                  "percent": 3.200034,
                   "value": 428.59
                 },
                 "precious-metals": {
-                  "percent": 3.761099,
+                  "percent": 3.764207,
                   "value": 504.15
                 },
                 "real-estate": {
-                  "percent": 5.610128,
+                  "percent": 5.614765,
                   "value": 752.0
                 },
                 "technology": {
-                  "percent": 11.648924,
+                  "percent": 11.658552,
                   "value": 1561.46
                 }
               }
             },
             {
               "date": "2026-08-18",
-              "gross_exposure": 13291.48,
+              "gross_exposure": 13280.42,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-18",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 46.76491,
-                  "value": 6215.75
+                  "percent": 46.720578,
+                  "value": 6204.69
                 },
                 "consumer": {
-                  "percent": 4.333602,
+                  "percent": 4.337211,
                   "value": 576.0
                 },
                 "financial-technology": {
-                  "percent": 19.091926,
+                  "percent": 19.107826,
                   "value": 2537.6
                 },
                 "index-funds": {
-                  "percent": 5.773999,
+                  "percent": 5.778807,
                   "value": 767.45
                 },
                 "options": {
-                  "percent": 3.184088,
+                  "percent": 3.186739,
                   "value": 423.21
                 },
                 "precious-metals": {
-                  "percent": 3.726447,
+                  "percent": 3.72955,
                   "value": 495.3
                 },
                 "real-estate": {
-                  "percent": 5.620141,
+                  "percent": 5.624821,
                   "value": 747.0
                 },
                 "technology": {
-                  "percent": 11.504887,
+                  "percent": 11.514468,
                   "value": 1529.17
                 }
               }
             },
             {
               "date": "2026-08-19",
-              "gross_exposure": 13476.52,
+              "gross_exposure": 13465.48,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-08-19",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 53.654873,
-                  "value": 7230.81
+                  "percent": 53.616874,
+                  "value": 7219.77
                 },
                 "consumer": {
-                  "percent": 4.240709,
+                  "percent": 4.244186,
                   "value": 571.5
                 },
                 "financial-technology": {
-                  "percent": 12.822301,
+                  "percent": 12.832814,
                   "value": 1728.0
                 },
                 "index-funds": {
-                  "percent": 5.706666,
+                  "percent": 5.711345,
                   "value": 769.06
                 },
                 "options": {
-                  "percent": 2.715245,
+                  "percent": 2.717471,
                   "value": 365.92
                 },
                 "precious-metals": {
-                  "percent": 3.794377,
+                  "percent": 3.797488,
                   "value": 511.35
                 },
                 "real-estate": {
-                  "percent": 5.624597,
+                  "percent": 5.629209,
                   "value": 758.0
                 },
                 "technology": {
-                  "percent": 11.441232,
+                  "percent": 11.450613,
                   "value": 1541.88
                 }
               }
@@ -1645,8 +1633,7 @@
         "methodology": {
           "contribution": "Realized P&L plus tagged income plus latest completed-night unrealized P&L. Return percentages use cumulative tracked basis; portfolio contribution uses formation NAV.",
           "exposure": "Absolute marked market value plus absolute cash, grouped by asset class. Long SGOV and positive cash are Cash & Cash Equivalents; this is not delta or notional exposure.",
-          "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument.",
-          "risk_classification": "Administrator-assigned illustrative category; not calculated from return, volatility, liquidity, delta, or investor suitability."
+          "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument."
         },
         "realized_trades": [
           {
@@ -1707,25 +1694,6 @@
             "return_pct": 46.6667
           },
           {
-            "attribution_group_id": "sgov",
-            "attribution_group_label": "SGOV \u00b7 Short-Term Treasuries",
-            "average_exit_price": 100.65125,
-            "closed_basis": 2413.92,
-            "closed_quantity": 24.0,
-            "closed_side": "long",
-            "closing_value": 2415.63,
-            "date": "2026-08-04",
-            "event_id": "2026-08-04-sgov-to-bull",
-            "fees": 0.0,
-            "fill_count": 2,
-            "id": "2026-08-04-sgov-to-bull::SGOV",
-            "instrument_id": "SGOV",
-            "label": "iShares 0-3 Month Treasury Bond ETF",
-            "multiplier": 1.0,
-            "realized_pnl": 1.71,
-            "return_pct": 0.0708
-          },
-          {
             "attribution_group_id": "tssi",
             "attribution_group_label": "TSSI \u00b7 TSS, Inc.",
             "average_exit_price": 9.65,
@@ -1743,14 +1711,33 @@
             "multiplier": 1.0,
             "realized_pnl": -8.7,
             "return_pct": -2.9175
+          },
+          {
+            "attribution_group_id": "sgov",
+            "attribution_group_label": "SGOV \u00b7 Short-Term Treasuries",
+            "average_exit_price": 100.173913,
+            "closed_basis": 2313.34,
+            "closed_quantity": 23.0,
+            "closed_side": "long",
+            "closing_value": 2304.0,
+            "date": "2026-08-04",
+            "event_id": "2026-08-04-sgov-to-bull",
+            "fees": 0.0,
+            "fill_count": 1,
+            "id": "2026-08-04-sgov-to-bull::SGOV",
+            "instrument_id": "SGOV",
+            "label": "iShares 0-3 Month Treasury Bond ETF",
+            "multiplier": 1.0,
+            "realized_pnl": -9.34,
+            "return_pct": -0.4037
           }
         ],
         "reconciliation": {
-          "attributed_pnl": 3122.02,
-          "explained_change": 3146.02,
+          "attributed_pnl": 3110.98,
+          "explained_change": 3134.98,
           "external_flows": 0.0,
-          "latest_nav": 13046.02,
-          "nav_change": 3146.02,
+          "latest_nav": 13034.98,
+          "nav_change": 3134.98,
           "opening_nav": 9900.0,
           "residual": 0.0,
           "unattributed_pnl": 24.0
@@ -1789,7 +1776,7 @@
               "date": "2026-07-18",
               "kind": "carry_forward",
               "market_price": 743.289978,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-17",
               "value": 9900.0
             },
@@ -1797,7 +1784,7 @@
               "date": "2026-07-19",
               "kind": "carry_forward",
               "market_price": 743.289978,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-17",
               "value": 9900.0
             },
@@ -1805,7 +1792,7 @@
               "date": "2026-07-20",
               "kind": "daily_close",
               "market_price": 742.090027,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-20",
               "value": 9884.02
             },
@@ -1813,7 +1800,7 @@
               "date": "2026-07-21",
               "kind": "daily_close",
               "market_price": 748.280029,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-21",
               "value": 9966.46
             },
@@ -1821,7 +1808,7 @@
               "date": "2026-07-22",
               "kind": "daily_close",
               "market_price": 747.409973,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-22",
               "value": 9954.87
             },
@@ -1829,7 +1816,7 @@
               "date": "2026-07-23",
               "kind": "daily_close",
               "market_price": 738.179993,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-23",
               "value": 9831.94
             },
@@ -1837,7 +1824,7 @@
               "date": "2026-07-24",
               "kind": "daily_close",
               "market_price": 738.929993,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-24",
               "value": 9841.93
             },
@@ -1845,7 +1832,7 @@
               "date": "2026-07-25",
               "kind": "carry_forward",
               "market_price": 738.929993,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-24",
               "value": 9841.93
             },
@@ -1853,7 +1840,7 @@
               "date": "2026-07-26",
               "kind": "carry_forward",
               "market_price": 738.929993,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-24",
               "value": 9841.93
             },
@@ -1861,7 +1848,7 @@
               "date": "2026-07-27",
               "kind": "daily_close",
               "market_price": 739.090027,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-27",
               "value": 9844.06
             },
@@ -1869,7 +1856,7 @@
               "date": "2026-07-28",
               "kind": "daily_close",
               "market_price": 740.859985,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-28",
               "value": 9867.63
             },
@@ -1877,7 +1864,7 @@
               "date": "2026-07-29",
               "kind": "daily_close",
               "market_price": 729.460022,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-29",
               "value": 9715.8
             },
@@ -1885,7 +1872,7 @@
               "date": "2026-07-30",
               "kind": "daily_close",
               "market_price": 741.690002,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-30",
               "value": 9878.69
             },
@@ -1893,7 +1880,7 @@
               "date": "2026-07-31",
               "kind": "daily_close",
               "market_price": 747.030029,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-31",
               "value": 9949.81
             },
@@ -1901,7 +1888,7 @@
               "date": "2026-08-01",
               "kind": "carry_forward",
               "market_price": 747.030029,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-31",
               "value": 9949.81
             },
@@ -1909,7 +1896,7 @@
               "date": "2026-08-02",
               "kind": "carry_forward",
               "market_price": 747.030029,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-31",
               "value": 9949.81
             },
@@ -1917,7 +1904,7 @@
               "date": "2026-08-03",
               "kind": "daily_close",
               "market_price": 757.669983,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-03",
               "value": 10091.53
             },
@@ -1925,7 +1912,7 @@
               "date": "2026-08-04",
               "kind": "daily_close",
               "market_price": 771.330017,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-04",
               "value": 10273.47
             },
@@ -1933,7 +1920,7 @@
               "date": "2026-08-05",
               "kind": "daily_close",
               "market_price": 769.789978,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-05",
               "value": 10252.96
             },
@@ -1941,7 +1928,7 @@
               "date": "2026-08-06",
               "kind": "daily_close",
               "market_price": 768.559998,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-06",
               "value": 10236.58
             },
@@ -1949,7 +1936,7 @@
               "date": "2026-08-07",
               "kind": "daily_close",
               "market_price": 773.26001,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-07",
               "value": 10299.18
             },
@@ -1957,7 +1944,7 @@
               "date": "2026-08-08",
               "kind": "carry_forward",
               "market_price": 773.26001,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-07",
               "value": 10299.18
             },
@@ -1965,7 +1952,7 @@
               "date": "2026-08-09",
               "kind": "carry_forward",
               "market_price": 773.26001,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-07",
               "value": 10299.18
             },
@@ -1973,7 +1960,7 @@
               "date": "2026-08-10",
               "kind": "daily_close",
               "market_price": 773.030029,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-10",
               "value": 10296.11
             },
@@ -1981,7 +1968,7 @@
               "date": "2026-08-11",
               "kind": "daily_close",
               "market_price": 770.559998,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-11",
               "value": 10263.21
             },
@@ -1989,7 +1976,7 @@
               "date": "2026-08-12",
               "kind": "daily_close",
               "market_price": 772.48999,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-12",
               "value": 10288.92
             },
@@ -1997,7 +1984,7 @@
               "date": "2026-08-13",
               "kind": "daily_close",
               "market_price": 777.880005,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-13",
               "value": 10360.71
             },
@@ -2005,7 +1992,7 @@
               "date": "2026-08-14",
               "kind": "daily_close",
               "market_price": 776.340027,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-14",
               "value": 10340.2
             },
@@ -2013,7 +2000,7 @@
               "date": "2026-08-15",
               "kind": "carry_forward",
               "market_price": 776.340027,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-14",
               "value": 10340.2
             },
@@ -2021,7 +2008,7 @@
               "date": "2026-08-16",
               "kind": "carry_forward",
               "market_price": 776.340027,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-14",
               "value": 10340.2
             },
@@ -2029,7 +2016,7 @@
               "date": "2026-08-17",
               "kind": "daily_close",
               "market_price": 772.669983,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-17",
               "value": 10291.32
             },
@@ -2037,7 +2024,7 @@
               "date": "2026-08-18",
               "kind": "daily_close",
               "market_price": 767.450012,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-18",
               "value": 10221.79
             },
@@ -2045,14 +2032,14 @@
               "date": "2026-08-19",
               "kind": "daily_close",
               "market_price": 769.059998,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-19",
               "value": 10243.24
             }
           ],
           "price_basis": "adjusted_close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "SPY",
           "units": "normalized_account_value_usd"
         },
@@ -2075,7 +2062,7 @@
               "date": "2026-07-18",
               "kind": "carry_forward",
               "market_price": 368.410004,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-17",
               "value": 9900.0
             },
@@ -2083,7 +2070,7 @@
               "date": "2026-07-19",
               "kind": "carry_forward",
               "market_price": 368.410004,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-17",
               "value": 9900.0
             },
@@ -2091,7 +2078,7 @@
               "date": "2026-07-20",
               "kind": "daily_close",
               "market_price": 367.600006,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-20",
               "value": 9878.23
             },
@@ -2099,7 +2086,7 @@
               "date": "2026-07-21",
               "kind": "daily_close",
               "market_price": 374.809998,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-21",
               "value": 10071.98
             },
@@ -2107,7 +2094,7 @@
               "date": "2026-07-22",
               "kind": "daily_close",
               "market_price": 379.119995,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-22",
               "value": 10187.8
             },
@@ -2115,7 +2102,7 @@
               "date": "2026-07-23",
               "kind": "daily_close",
               "market_price": 371.519989,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-23",
               "value": 9983.57
             },
@@ -2123,7 +2110,7 @@
               "date": "2026-07-24",
               "kind": "daily_close",
               "market_price": 371.899994,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-24",
               "value": 9993.78
             },
@@ -2131,7 +2118,7 @@
               "date": "2026-07-25",
               "kind": "carry_forward",
               "market_price": 371.899994,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-24",
               "value": 9993.78
             },
@@ -2139,7 +2126,7 @@
               "date": "2026-07-26",
               "kind": "carry_forward",
               "market_price": 371.899994,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-24",
               "value": 9993.78
             },
@@ -2147,7 +2134,7 @@
               "date": "2026-07-27",
               "kind": "daily_close",
               "market_price": 374.630005,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-27",
               "value": 10067.15
             },
@@ -2155,7 +2142,7 @@
               "date": "2026-07-28",
               "kind": "daily_close",
               "market_price": 369.369995,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-28",
               "value": 9925.8
             },
@@ -2163,7 +2150,7 @@
               "date": "2026-07-29",
               "kind": "daily_close",
               "market_price": 371.079987,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-29",
               "value": 9971.75
             },
@@ -2171,7 +2158,7 @@
               "date": "2026-07-30",
               "kind": "daily_close",
               "market_price": 377.160004,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-30",
               "value": 10135.13
             },
@@ -2179,7 +2166,7 @@
               "date": "2026-07-31",
               "kind": "daily_close",
               "market_price": 371.540009,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-31",
               "value": 9984.11
             },
@@ -2187,7 +2174,7 @@
               "date": "2026-08-01",
               "kind": "carry_forward",
               "market_price": 371.540009,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-31",
               "value": 9984.11
             },
@@ -2195,7 +2182,7 @@
               "date": "2026-08-02",
               "kind": "carry_forward",
               "market_price": 371.540009,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-07-31",
               "value": 9984.11
             },
@@ -2203,7 +2190,7 @@
               "date": "2026-08-03",
               "kind": "daily_close",
               "market_price": 371.709991,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-03",
               "value": 9988.68
             },
@@ -2211,7 +2198,7 @@
               "date": "2026-08-04",
               "kind": "daily_close",
               "market_price": 374.160004,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-04",
               "value": 10054.52
             },
@@ -2219,7 +2206,7 @@
               "date": "2026-08-05",
               "kind": "daily_close",
               "market_price": 389.640015,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-05",
               "value": 10470.5
             },
@@ -2227,7 +2214,7 @@
               "date": "2026-08-06",
               "kind": "daily_close",
               "market_price": 389.670013,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-06",
               "value": 10471.3
             },
@@ -2235,7 +2222,7 @@
               "date": "2026-08-07",
               "kind": "daily_close",
               "market_price": 398.470001,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-07",
               "value": 10707.78
             },
@@ -2243,7 +2230,7 @@
               "date": "2026-08-08",
               "kind": "carry_forward",
               "market_price": 398.470001,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-07",
               "value": 10707.78
             },
@@ -2251,7 +2238,7 @@
               "date": "2026-08-09",
               "kind": "carry_forward",
               "market_price": 398.470001,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-07",
               "value": 10707.78
             },
@@ -2259,7 +2246,7 @@
               "date": "2026-08-10",
               "kind": "daily_close",
               "market_price": 402.540009,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-10",
               "value": 10817.15
             },
@@ -2267,7 +2254,7 @@
               "date": "2026-08-11",
               "kind": "daily_close",
               "market_price": 400.959991,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-11",
               "value": 10774.69
             },
@@ -2275,7 +2262,7 @@
               "date": "2026-08-12",
               "kind": "daily_close",
               "market_price": 404.920013,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-12",
               "value": 10881.11
             },
@@ -2283,7 +2270,7 @@
               "date": "2026-08-13",
               "kind": "daily_close",
               "market_price": 398.959991,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-13",
               "value": 10720.95
             },
@@ -2291,7 +2278,7 @@
               "date": "2026-08-14",
               "kind": "daily_close",
               "market_price": 401.480011,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-14",
               "value": 10788.66
             },
@@ -2299,7 +2286,7 @@
               "date": "2026-08-15",
               "kind": "carry_forward",
               "market_price": 401.480011,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-14",
               "value": 10788.66
             },
@@ -2307,7 +2294,7 @@
               "date": "2026-08-16",
               "kind": "carry_forward",
               "market_price": 401.480011,
-              "quality": "stale_fallback",
+              "quality": "carry_forward",
               "source_date": "2026-08-14",
               "value": 10788.66
             },
@@ -2315,7 +2302,7 @@
               "date": "2026-08-17",
               "kind": "daily_close",
               "market_price": 405.48999,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-17",
               "value": 10896.42
             },
@@ -2323,7 +2310,7 @@
               "date": "2026-08-18",
               "kind": "daily_close",
               "market_price": 398.549988,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-18",
               "value": 10709.93
             },
@@ -2331,14 +2318,14 @@
               "date": "2026-08-19",
               "kind": "daily_close",
               "market_price": 413.839996,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-19",
               "value": 11120.81
             }
           ],
           "price_basis": "adjusted_close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "GLD",
           "units": "normalized_account_value_usd"
         },
@@ -2361,7 +2348,7 @@
               "date": "2026-07-18",
               "kind": "daily_close",
               "market_price": 64796.601562,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-18",
               "value": 10038.99
             },
@@ -2369,7 +2356,7 @@
               "date": "2026-07-19",
               "kind": "daily_close",
               "market_price": 64690.804688,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-19",
               "value": 10022.6
             },
@@ -2377,7 +2364,7 @@
               "date": "2026-07-20",
               "kind": "daily_close",
               "market_price": 65230.027344,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-20",
               "value": 10106.15
             },
@@ -2385,7 +2372,7 @@
               "date": "2026-07-21",
               "kind": "daily_close",
               "market_price": 66505.125,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-21",
               "value": 10303.7
             },
@@ -2393,7 +2380,7 @@
               "date": "2026-07-22",
               "kind": "daily_close",
               "market_price": 66100.796875,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-22",
               "value": 10241.05
             },
@@ -2401,7 +2388,7 @@
               "date": "2026-07-23",
               "kind": "daily_close",
               "market_price": 65044.8125,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-23",
               "value": 10077.45
             },
@@ -2409,7 +2396,7 @@
               "date": "2026-07-24",
               "kind": "daily_close",
               "market_price": 64098.496094,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-24",
               "value": 9930.84
             },
@@ -2417,7 +2404,7 @@
               "date": "2026-07-25",
               "kind": "daily_close",
               "market_price": 64311.8125,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-25",
               "value": 9963.89
             },
@@ -2425,7 +2412,7 @@
               "date": "2026-07-26",
               "kind": "daily_close",
               "market_price": 65340.300781,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-26",
               "value": 10123.23
             },
@@ -2433,7 +2420,7 @@
               "date": "2026-07-27",
               "kind": "daily_close",
               "market_price": 63724.898438,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-27",
               "value": 9872.95
             },
@@ -2441,7 +2428,7 @@
               "date": "2026-07-28",
               "kind": "daily_close",
               "market_price": 63871.363281,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-28",
               "value": 9895.65
             },
@@ -2449,7 +2436,7 @@
               "date": "2026-07-29",
               "kind": "daily_close",
               "market_price": 63908.167969,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-29",
               "value": 9901.35
             },
@@ -2457,7 +2444,7 @@
               "date": "2026-07-30",
               "kind": "daily_close",
               "market_price": 64725.308594,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-30",
               "value": 10027.95
             },
@@ -2465,7 +2452,7 @@
               "date": "2026-07-31",
               "kind": "daily_close",
               "market_price": 62813.746094,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-07-31",
               "value": 9731.79
             },
@@ -2473,7 +2460,7 @@
               "date": "2026-08-01",
               "kind": "daily_close",
               "market_price": 62763.320312,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-01",
               "value": 9723.98
             },
@@ -2481,7 +2468,7 @@
               "date": "2026-08-02",
               "kind": "daily_close",
               "market_price": 63482.0,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-02",
               "value": 9835.32
             },
@@ -2489,7 +2476,7 @@
               "date": "2026-08-03",
               "kind": "daily_close",
               "market_price": 63460.898438,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-03",
               "value": 9832.05
             },
@@ -2497,7 +2484,7 @@
               "date": "2026-08-04",
               "kind": "daily_close",
               "market_price": 64055.953125,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-04",
               "value": 9924.25
             },
@@ -2505,7 +2492,7 @@
               "date": "2026-08-05",
               "kind": "daily_close",
               "market_price": 64597.5,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-05",
               "value": 10008.15
             },
@@ -2513,7 +2500,7 @@
               "date": "2026-08-06",
               "kind": "daily_close",
               "market_price": 64262.113281,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-06",
               "value": 9956.19
             },
@@ -2521,7 +2508,7 @@
               "date": "2026-08-07",
               "kind": "daily_close",
               "market_price": 64880.191406,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-07",
               "value": 10051.95
             },
@@ -2529,7 +2516,7 @@
               "date": "2026-08-08",
               "kind": "daily_close",
               "market_price": 64904.6875,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-08",
               "value": 10055.74
             },
@@ -2537,7 +2524,7 @@
               "date": "2026-08-09",
               "kind": "daily_close",
               "market_price": 64844.886719,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-09",
               "value": 10046.48
             },
@@ -2545,7 +2532,7 @@
               "date": "2026-08-10",
               "kind": "daily_close",
               "market_price": 63910.585938,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-10",
               "value": 9901.72
             },
@@ -2553,7 +2540,7 @@
               "date": "2026-08-11",
               "kind": "daily_close",
               "market_price": 63551.875,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-11",
               "value": 9846.15
             },
@@ -2561,7 +2548,7 @@
               "date": "2026-08-12",
               "kind": "daily_close",
               "market_price": 63402.433594,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-12",
               "value": 9823.0
             },
@@ -2569,7 +2556,7 @@
               "date": "2026-08-13",
               "kind": "daily_close",
               "market_price": 63402.171875,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-13",
               "value": 9822.95
             },
@@ -2577,7 +2564,7 @@
               "date": "2026-08-14",
               "kind": "daily_close",
               "market_price": 62975.59375,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-14",
               "value": 9756.86
             },
@@ -2585,7 +2572,7 @@
               "date": "2026-08-15",
               "kind": "daily_close",
               "market_price": 63024.320312,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-15",
               "value": 9764.41
             },
@@ -2593,7 +2580,7 @@
               "date": "2026-08-16",
               "kind": "daily_close",
               "market_price": 62818.652344,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-16",
               "value": 9732.55
             },
@@ -2601,7 +2588,7 @@
               "date": "2026-08-17",
               "kind": "daily_close",
               "market_price": 64506.253906,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-17",
               "value": 9994.01
             },
@@ -2609,7 +2596,7 @@
               "date": "2026-08-18",
               "kind": "daily_close",
               "market_price": 64680.710938,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-18",
               "value": 10021.04
             },
@@ -2617,14 +2604,14 @@
               "date": "2026-08-19",
               "kind": "daily_close",
               "market_price": 69266.1875,
-              "quality": "retained",
+              "quality": "complete",
               "source_date": "2026-08-19",
               "value": 10731.47
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -2831,1756 +2818,1739 @@
           "value": 11268.35
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-04",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 11430.48,
+          "positions_value": 11530.91,
           "quality": "complete",
           "source_date": "2026-08-04",
-          "value": 11955.94
+          "value": 11944.74
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-05",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 10970.58,
+          "positions_value": 11071.03,
           "quality": "complete",
           "source_date": "2026-08-05",
-          "value": 11496.04
+          "value": 11484.86
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-06",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 11003.89,
+          "positions_value": 11104.35,
           "quality": "complete",
           "source_date": "2026-08-06",
-          "value": 11529.35
+          "value": 11518.18
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-07",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 11691.31,
+          "positions_value": 11791.79,
           "quality": "complete",
           "source_date": "2026-08-07",
-          "value": 12216.77
+          "value": 12205.62
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-08",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 14,
-          "positions_value": 11691.31,
+          "positions_value": 11791.79,
           "quality": "carry_forward",
           "source_date": "2026-08-07",
-          "value": 12216.77
+          "value": 12205.62
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-09",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 14,
-          "positions_value": 11691.31,
+          "positions_value": 11791.79,
           "quality": "carry_forward",
           "source_date": "2026-08-07",
-          "value": 12216.77
+          "value": 12205.62
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-10",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 11531.62,
+          "positions_value": 11632.12,
           "quality": "complete",
           "source_date": "2026-08-10",
-          "value": 12057.08
+          "value": 12045.95
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-11",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 11737.21,
+          "positions_value": 11837.72,
           "quality": "complete",
           "source_date": "2026-08-11",
-          "value": 12262.67
+          "value": 12251.55
         },
         {
-          "cash": 525.46,
+          "cash": 413.83,
           "date": "2026-08-12",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 14,
-          "positions_value": 12165.25,
+          "positions_value": 12265.77,
           "quality": "complete",
           "source_date": "2026-08-12",
-          "value": 12690.71
+          "value": 12679.6
         },
         {
-          "cash": 583.43,
+          "cash": 471.8,
           "date": "2026-08-13",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 13,
-          "positions_value": 12316.6,
+          "positions_value": 12417.13,
           "quality": "complete",
           "source_date": "2026-08-13",
-          "value": 12900.03
+          "value": 12888.93
         },
         {
-          "cash": 872.93,
+          "cash": 761.3,
           "date": "2026-08-14",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 12,
-          "positions_value": 11998.17,
+          "positions_value": 12098.73,
           "quality": "complete",
           "source_date": "2026-08-14",
-          "value": 12871.1
+          "value": 12860.03
         },
         {
-          "cash": 872.93,
+          "cash": 761.3,
           "date": "2026-08-15",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 12,
-          "positions_value": 11998.17,
+          "positions_value": 12098.73,
           "quality": "carry_forward",
           "source_date": "2026-08-14",
-          "value": 12871.1
+          "value": 12860.03
         },
         {
-          "cash": 872.93,
+          "cash": 761.3,
           "date": "2026-08-16",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
           "position_count": 12,
-          "positions_value": 11998.17,
+          "positions_value": 12098.73,
           "quality": "carry_forward",
           "source_date": "2026-08-14",
-          "value": 12871.1
+          "value": 12860.03
         },
         {
-          "cash": 872.93,
+          "cash": 761.3,
           "date": "2026-08-17",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 12,
-          "positions_value": 12044.31,
+          "positions_value": 12144.87,
           "quality": "complete",
           "source_date": "2026-08-17",
-          "value": 12917.24
+          "value": 12906.17
         },
         {
-          "cash": 885.54,
+          "cash": 773.91,
           "date": "2026-08-18",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 12,
-          "positions_value": 11891.23,
+          "positions_value": 11991.8,
           "quality": "complete",
           "source_date": "2026-08-18",
-          "value": 12776.77
+          "value": 12765.71
         },
         {
-          "cash": 1899.54,
+          "cash": 1787.91,
           "date": "2026-08-19",
           "forward_filled_symbols": [],
           "kind": "session_close",
           "position_count": 12,
-          "positions_value": 11146.48,
+          "positions_value": 11247.07,
           "quality": "complete",
           "source_date": "2026-08-19",
-          "value": 13046.02
+          "value": 13034.98
         }
       ]
     }
   },
-  "benchmark_coverage_status": "degraded",
-  "benchmark_failures": [
-    "btc-usd: HistoryError",
-    "gold-gld: HistoryError",
-    "spy: HistoryError"
-  ],
-  "coverage_status": "degraded",
+  "benchmark_coverage_status": "complete",
+  "benchmark_failures": [],
+  "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
-  "failures": [
-    "BULL: HistoryError",
-    "IBM: HistoryError",
-    "INFQ: HistoryError",
-    "IVR: HistoryError",
-    "NVDA: HistoryError",
-    "PHYS: HistoryError",
-    "PLTR: HistoryError",
-    "QBTS: HistoryError",
-    "SGOV: HistoryError",
-    "SPY: HistoryError",
-    "TSSI: HistoryError",
-    "WMT: HistoryError"
-  ],
+  "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-20T13:30:00Z",
+  "generated_at": "2026-08-20T09:53:44Z",
   "last_completed_session": "2026-08-19",
   "mark_history": {
     "BULL": [
       {
         "date": "2026-07-10",
         "price": 7.38,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 7.28,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 7.53,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 7.69,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 7.52,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 7.23,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 7.69,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 8.15,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 8.1,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 7.84,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 7.49,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 7.54,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 7.27,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 7.01,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 7.15,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 7.06,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 7.26,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 7.58,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 7.38,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 7.22,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 7.32,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 7.26,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 7.57,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 7.67,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 7.95,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 8.04,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 8.16,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 7.93,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 8.64,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "IBM": [
       {
         "date": "2026-07-10",
         "price": 287.559998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 290.230011,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 217.070007,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 211.199997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 219.050003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 212.669998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 213.0,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 210.5,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 205.770004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 206.649994,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 214.190002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 216.279999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 227.550003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 226.440002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 221.740005,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 223.649994,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 226.309998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 235.149994,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 235.919998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 233.429993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 237.279999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 236.309998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 238.419998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 235.979996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 237.139999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 234.320007,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 228.850006,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 232.669998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 237.160004,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "INFQ": [
       {
         "date": "2026-07-10",
         "price": 11.17,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 10.13,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 10.45,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 9.87,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 9.06,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 9.09,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 9.05,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 9.89,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 10.24,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 9.69,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 8.97,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 9.76,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 9.56,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 8.83,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 9.98,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 9.83,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 10.98,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 11.46,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 10.85,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 11.11,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 11.91,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 11.69,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 11.82,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 12.36,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 12.18,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 12.86,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 13.41,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 12.91,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 12.5,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "IVR": [
       {
         "date": "2026-07-10",
         "price": 7.94,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 7.86,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 8.1,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 8.14,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 8.19,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 8.1,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 7.9,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 7.91,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 7.85,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 7.64,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 7.58,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 7.44,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 7.51,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 7.41,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 7.41,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 7.41,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 7.39,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 7.4,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 7.43,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 7.4,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 7.48,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 7.39,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 7.45,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 7.45,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 7.48,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 7.48,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 7.52,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 7.47,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 7.58,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "NVDA": [
       {
         "date": "2026-07-10",
         "price": 210.960007,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 203.529999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 211.800003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 212.5,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 207.399994,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 202.809998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 203.279999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 207.289993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 212.059998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 208.759995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 206.839996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 196.509995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 197.009995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 190.009995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 195.039993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 200.75,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 206.639999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 211.940002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 219.220001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 218.990005,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 223.960007,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 217.550003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 217.5,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 224.089996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 225.300003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 225.160004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 225.009995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 219.740005,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 217.559998,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "PHYS": [
       {
         "date": "2026-07-10",
         "price": 30.99,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 30.16,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 30.58,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 30.57,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 30.0,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 30.309999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 30.24,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 30.84,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 31.219999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 30.6,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 30.639999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 30.84,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 30.42,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 30.57,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 31.09,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 30.59,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 30.68,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 30.870001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 32.130001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 32.200001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 32.869999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 33.259998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 33.189999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 33.509998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 33.0,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 33.23,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 33.610001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 33.02,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 34.09,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "PLTR": [
       {
         "date": "2026-07-10",
         "price": 126.790001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 130.039993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 133.720001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 133.759995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 134.440002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 132.380005,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 134.850006,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 132.660004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 124.57,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 123.370003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 122.919998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 131.529999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 123.529999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 123.0,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 122.260002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 123.059998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 125.650002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 162.660004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 158.429993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 155.919998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 172.009995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 175.229996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 174.940002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 171.039993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 179.009995,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 174.039993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 172.550003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 171.539993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 175.190002,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "QBTS": [
       {
         "date": "2026-07-10",
         "price": 20.09,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 18.66,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 18.950001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 18.27,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 16.92,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 16.73,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 16.719999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 17.799999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 17.35,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 17.1,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 16.209999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 19.51,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 17.635,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 16.18,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 17.98,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 18.08,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 19.98,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 21.83,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 21.389999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 19.405001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 20.76,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 20.190001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 20.23,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 20.74,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 20.9,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 21.17,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 20.870001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 19.530001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 19.32,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "SGOV": [
       {
         "date": "2026-07-10",
         "price": 100.5,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 100.519997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 100.519997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 100.540001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 100.550003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 100.580002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 100.589996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 100.599998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 100.599998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 100.610001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 100.639999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 100.650002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 100.660004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 100.68,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 100.690002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 100.709999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 100.419998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 100.43,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 100.449997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 100.459999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 100.480003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 100.5,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 100.510002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 100.519997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 100.529999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 100.559998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 100.559998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 100.57,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 100.589996,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "SPY": [
       {
         "date": "2026-07-10",
         "price": 754.950012,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 749.169983,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 751.830017,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 754.809998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 750.719971,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 743.289978,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 742.090027,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 748.280029,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 747.409973,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 738.179993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 738.929993,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 739.090027,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 740.859985,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 729.460022,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 741.690002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 747.030029,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 757.669983,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 771.330017,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 769.789978,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 768.559998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 773.26001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 773.030029,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 770.559998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 772.48999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 777.880005,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 776.340027,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 772.669983,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 767.450012,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 769.059998,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "TSSI": [
       {
         "date": "2026-07-10",
         "price": 11.44,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 11.21,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 10.83,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 10.63,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 9.86,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 9.76,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 9.08,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 9.81,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 10.15,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 10.47,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 9.7,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 9.82,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 9.24,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 8.66,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 9.74,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
@@ -4590,214 +4560,214 @@
       {
         "date": "2026-08-03",
         "price": 10.72,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 11.17,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 11.16,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 10.75,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 11.26,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 11.59,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 11.4,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 12.11,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 11.96,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 9.68,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 9.48,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 9.44,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 9.14,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ],
     "WMT": [
       {
         "date": "2026-07-10",
         "price": 113.900002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-13",
         "price": 114.779999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-14",
         "price": 113.699997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-15",
         "price": 112.529999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-16",
         "price": 114.949997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-17",
         "price": 114.239998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-20",
         "price": 112.199997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-21",
         "price": 110.389999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-22",
         "price": 109.330002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-23",
         "price": 108.400002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-24",
         "price": 109.470001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-27",
         "price": 111.739998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-28",
         "price": 113.099998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-29",
         "price": 114.220001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-30",
         "price": 111.099998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-07-31",
         "price": 111.199997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
         "price": 110.709999,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-04",
         "price": 111.550003,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-05",
         "price": 112.339996,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-06",
         "price": 112.07,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-07",
         "price": 111.849998,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-10",
         "price": 112.660004,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-11",
         "price": 113.260002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-12",
         "price": 116.010002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-13",
         "price": 115.720001,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-14",
         "price": 115.269997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-17",
         "price": 114.330002,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-18",
         "price": 115.199997,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-19",
         "price": 114.300003,
-        "source": "fallback"
+        "source": "yahoo"
       }
     ]
   },

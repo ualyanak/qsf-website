@@ -154,13 +154,7 @@ class OptionModelTests(unittest.TestCase):
 
         self.assertEqual(positions["BULL"]["quantity"], 200)
         self.assertEqual(positions["BULL"]["basis_price"], 7.2)
-        sgov_sale_proceeds = 23 * 100.65 + 1 * 100.68
-        bull_purchase_cost = 320 * 7.2
-        self.assertAlmostEqual(sgov_sale_proceeds, 2415.63, places=2)
-        self.assertEqual(bull_purchase_cost, 2304.0)
-        self.assertAlmostEqual(sgov_sale_proceeds - bull_purchase_cost, 111.63, places=2)
-        reallocation_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-04")
-        self.assertAlmostEqual(reallocation_note["amount"], 111.63, places=2)
+        self.assertEqual(320 * 7.2, 2304.0)
         self.assertEqual(data["instruments"]["BULL"]["mark_mode"], "public_delayed")
         for instrument_id in positions:
             self.assertIn(instrument_id, data["instruments"])
@@ -174,15 +168,15 @@ class OptionModelTests(unittest.TestCase):
         infq_sale_proceeds = 3 * 100 * 1.10 + 5 * 100 * 2.42 + 15 * 100 * 2.43
         sgov_purchase_cost = 51 * 100.53
         net_cash_change = infq_sale_proceeds - sgov_purchase_cost
-        weighted_sgov_basis = (2 * 100.58 + sgov_purchase_cost) / 53
+        weighted_sgov_basis = (3 * 100.58 + sgov_purchase_cost) / 54
 
         self.assertAlmostEqual(infq_sale_proceeds, 5185.0, places=2)
         self.assertAlmostEqual(sgov_purchase_cost, 5127.03, places=2)
         self.assertAlmostEqual(net_cash_change, 57.97, places=2)
-        self.assertAlmostEqual(525.46 + net_cash_change, 583.43, places=2)
+        self.assertAlmostEqual(413.83 + net_cash_change, 471.8, places=2)
         self.assertEqual(positions["INFQ_C25_20270115"]["quantity"], 1)
         self.assertNotIn("INFQ_C10_C17_5_20270115", positions)
-        self.assertEqual(positions["SGOV"]["quantity"], 53)
+        self.assertEqual(positions["SGOV"]["quantity"], 54)
         self.assertAlmostEqual(positions["SGOV"]["basis_price"], weighted_sgov_basis, places=10)
         self.assertEqual(data["instruments"]["SGOV"]["mark_mode"], "public_delayed")
         self.assertIn("SGOV", quotes.SYMBOLS)
@@ -211,7 +205,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 289.5, places=2)
         self.assertAlmostEqual(basis, 298.2, places=2)
         self.assertAlmostEqual(realized_pnl, -8.7, places=2)
-        self.assertAlmostEqual(583.43 + proceeds, 872.93, places=2)
+        self.assertAlmostEqual(471.8 + proceeds, 761.3, places=2)
         self.assertNotIn("TSSI", positions)
         self.assertEqual(len(positions), 12)
 
@@ -230,12 +224,12 @@ class OptionModelTests(unittest.TestCase):
             if note.get("date") == "2026-08-18" and note.get("kind") == "illustrative_dividend"
         }
 
-        self.assertEqual(data["published_at"], "2026-08-20")
+        self.assertEqual(data["published_at"], "2026-08-19")
         self.assertEqual(set(dividend_notes), {"SGOV", "IVR"})
         self.assertAlmostEqual(dividend_notes["SGOV"]["amount"], 0.61, places=2)
         self.assertAlmostEqual(dividend_notes["IVR"]["amount"], 12.0, places=2)
-        self.assertAlmostEqual(872.93 + 0.61 + 12.0, 885.54, places=2)
-        self.assertEqual(positions["SGOV"]["quantity"], 53)
+        self.assertAlmostEqual(761.3 + 0.61 + 12.0, 773.91, places=2)
+        self.assertEqual(positions["SGOV"]["quantity"], 54)
         self.assertEqual(positions["IVR"]["quantity"], 100)
         self.assertEqual(len(positions), 12)
 
@@ -251,7 +245,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 1014.0, places=2)
         self.assertAlmostEqual(sold_basis, 864.0, places=2)
         self.assertAlmostEqual(realized_pnl, 150.0, places=2)
-        self.assertAlmostEqual(account["cash"], 885.54 + proceeds, places=2)
+        self.assertAlmostEqual(account["cash"], 773.91 + proceeds, places=2)
         self.assertEqual(positions["BULL"]["quantity"], 200)
         self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
         self.assertEqual(len(positions), 12)

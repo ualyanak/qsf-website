@@ -61,7 +61,6 @@ BENCHMARK_SPECS: tuple[dict[str, Any], ...] = (
 )
 BENCHMARK_SOURCE = "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed."
 EXTERNAL_FLOW_CLASSIFICATIONS = frozenset({"contribution", "deposit", "external_flow", "redemption", "withdrawal"})
-RISK_LEVELS = frozenset({"low", "medium", "high"})
 EXPOSURE_CATEGORY_STYLES: dict[str, tuple[str, str]] = {
     "cash-cash-equivalents": ("Cash & Cash Equivalents", "#15344f"),
     "financial-technology": ("Financial Technology", "#56816f"),
@@ -257,16 +256,6 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
     instruments = ledger.get("instruments")
     if not isinstance(instruments, Mapping) or not instruments:
         raise HistoryError("Instrument metadata is missing")
-    attribution_groups = ledger.get("attribution_groups")
-    if not isinstance(attribution_groups, Mapping) or not attribution_groups:
-        raise HistoryError("Attribution-group metadata is missing")
-    for group_id, group in attribution_groups.items():
-        if not isinstance(group, Mapping) or not str(group.get("label", "")).strip():
-            raise HistoryError(f"Invalid attribution group: {group_id}")
-        risk_level = str(group.get("risk_level", "")).strip().lower()
-        if risk_level not in RISK_LEVELS:
-            raise HistoryError(f"Attribution group {group_id} has unsupported risk level {risk_level or '<missing>'}")
-    referenced_groups: set[str] = set()
     for instrument_id, instrument in instruments.items():
         if not isinstance(instrument, Mapping):
             raise HistoryError(f"Invalid instrument metadata: {instrument_id}")
@@ -276,16 +265,6 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
         exposure_group_id = str(instrument["exposure_group_id"])
         if exposure_group_id not in EXPOSURE_CATEGORY_STYLES:
             raise HistoryError(f"{instrument_id} has unsupported exposure group {exposure_group_id}")
-        attribution_group_id = str(instrument["attribution_group_id"])
-        attribution_group = attribution_groups.get(attribution_group_id)
-        if not isinstance(attribution_group, Mapping):
-            raise HistoryError(f"{instrument_id} references unknown attribution group {attribution_group_id}")
-        if str(instrument["attribution_group_label"]) != str(attribution_group["label"]):
-            raise HistoryError(f"{instrument_id} attribution label does not match group {attribution_group_id}")
-        referenced_groups.add(attribution_group_id)
-    unreferenced_groups = sorted(set(str(group_id) for group_id in attribution_groups) - referenced_groups)
-    if unreferenced_groups:
-        raise HistoryError("Unreferenced attribution groups: " + ", ".join(unreferenced_groups))
     formation_state = initial_state(ledger)
     basis_value = formation_state["cash"]
     for instrument_id, lot in formation_state["positions"].items():
@@ -966,11 +945,9 @@ def build_analytics(
     for instrument_id, stats in instrument_stats.items():
         instrument = ledger["instruments"][instrument_id]
         group_id = str(instrument["attribution_group_id"])
-        group_metadata = ledger["attribution_groups"][group_id]
         group = grouped.setdefault(group_id, {
             "id": group_id,
-            "label": str(group_metadata["label"]),
-            "risk_level": str(group_metadata["risk_level"]).lower(),
+            "label": str(instrument["attribution_group_label"]),
             "instrument_ids": [],
             "realized_pnl": 0.0,
             "unrealized_pnl": 0.0,
@@ -995,7 +972,6 @@ def build_analytics(
         contributors.append({
             "id": str(group["id"]),
             "label": str(group["label"]),
-            "risk_level": str(group["risk_level"]),
             "instrument_ids": sorted(group["instrument_ids"]),
             "realized_pnl": round(float(group["realized_pnl"]), 2),
             "unrealized_pnl": round(float(group["unrealized_pnl"]), 2),
@@ -1024,7 +1000,6 @@ def build_analytics(
         "methodology": {
             "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument.",
             "contribution": "Realized P&L plus tagged income plus latest completed-night unrealized P&L. Return percentages use cumulative tracked basis; portfolio contribution uses formation NAV.",
-            "risk_classification": "Administrator-assigned illustrative category; not calculated from return, volatility, liquidity, delta, or investor suitability.",
             "exposure": "Absolute marked market value plus absolute cash, grouped by asset class. Long SGOV and positive cash are Cash & Cash Equivalents; this is not delta or notional exposure.",
         },
         "realized_trades": realized_trades,

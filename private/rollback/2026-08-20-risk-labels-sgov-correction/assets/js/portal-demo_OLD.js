@@ -210,11 +210,6 @@
     return safeString(value || fallback, 80).toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   }
 
-  function normalizeRiskLevel(value) {
-    const riskLevel = safeString(value, 16).toLowerCase();
-    return ["low", "medium", "high"].includes(riskLevel) ? riskLevel : null;
-  }
-
   function normalizeContributor(item, index) {
     if (!item || typeof item !== "object") return null;
     const instrumentIds = Array.isArray(item.instrument_ids)
@@ -225,7 +220,7 @@
     const label = safeString(item.label || item.name || item.symbol || item.id, 100);
     const id = normalizedId(item.id || item.attribution_group_id || item.group_id || label, "contributor-" + index);
     if (!id || !label) return null;
-    const contributor = {
+    return {
       id: id,
       label: label,
       instrumentIds: instrumentIds.map(function (value) { return safeString(value, 64); }).filter(Boolean),
@@ -238,9 +233,6 @@
       portfolioContributionPct: firstFinite(item, ["portfolio_contribution_pct", "portfolioContributionPct", "contribution_pct", "contribution"]),
       marketValue: firstFinite(item, ["market_value", "marketValue"])
     };
-    const riskLevel = normalizeRiskLevel(item.risk_level || item.riskLevel || item.risk);
-    if (riskLevel) contributor.riskLevel = riskLevel;
-    return contributor;
   }
 
   function normalizeRealizedTrade(item, index) {
@@ -1332,11 +1324,9 @@
       contributors.forEach(function (item, index) {
         const row = document.createElement("article");
         const positive = item.totalPnl >= 0;
-        const riskLevel = normalizeRiskLevel(item.riskLevel) || "unclassified";
-        const riskLabel = riskLevel === "unclassified" ? "RISK UNCLASSIFIED" : riskLevel.toUpperCase() + " RISK";
         row.className = "contribution-row " + (positive ? "is-positive" : "is-negative");
         row.setAttribute("role", "listitem");
-        row.setAttribute("aria-label", (index + 1) + ". " + item.label + ", " + riskLabel.toLowerCase() + ", " + formatSignedCurrency(item.totalPnl, view.currency) + ", " + (item.returnPct == null ? "recorded-basis return unavailable" : formatPercent(item.returnPct) + " return on recorded gross basis") + ", " + formatPoints(item.portfolioContributionPct) + " of formation value.");
+        row.setAttribute("aria-label", (index + 1) + ". " + item.label + ", " + formatSignedCurrency(item.totalPnl, view.currency) + ", " + (item.returnPct == null ? "recorded-basis return unavailable" : formatPercent(item.returnPct) + " return on recorded gross basis") + ", " + formatPoints(item.portfolioContributionPct) + " of formation value.");
         const identity = document.createElement("div");
         identity.className = "contribution-identity";
         const rank = document.createElement("span");
@@ -1344,13 +1334,7 @@
         rank.textContent = String(index + 1).padStart(2, "0");
         const label = document.createElement("strong");
         label.textContent = item.label;
-        const identityCopy = document.createElement("div");
-        identityCopy.className = "contribution-copy";
-        const risk = document.createElement("span");
-        risk.className = "contribution-risk is-" + riskLevel;
-        risk.textContent = riskLabel;
-        identityCopy.append(label, risk);
-        identity.append(rank, identityCopy);
+        identity.append(rank, label);
         const track = document.createElement("div");
         track.className = "contribution-track";
         track.setAttribute("aria-hidden", "true");
@@ -1409,8 +1393,8 @@
       ? "Realized P&L and income use the published synthetic ledger; unrealized P&L uses the current delayed marks shown on this page."
       : analytics && analytics.methodology;
     setText("contribution-method", attributionMethod
-      ? attributionMethod + unassignedDisclosure + " Return percentages use recorded gross basis; portfolio contribution is measured against formation value. Figures are marked value, not delta or notional exposure. Risk labels are administrator-assigned qualitative categories for this public demonstration; they are not generated from performance and are not suitability assessments."
-      : "Return percentages use recorded gross basis. Portfolio contribution is the dollar result divided by the formation value. Figures do not represent delta or notional exposure. Risk labels are administrator-assigned qualitative categories for this public demonstration; they are not generated from performance and are not suitability assessments.");
+      ? attributionMethod + unassignedDisclosure + " Return percentages use recorded gross basis; portfolio contribution is measured against formation value. Figures are marked value, not delta or notional exposure."
+      : "Return percentages use recorded gross basis. Portfolio contribution is the dollar result divided by the formation value. Figures do not represent delta or notional exposure.");
   }
 
   function exposurePointPercent(point, categoryId) {

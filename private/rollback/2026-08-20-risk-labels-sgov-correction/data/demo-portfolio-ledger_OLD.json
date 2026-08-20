@@ -5,20 +5,6 @@
   "currency": "USD",
   "market_timezone": "America/New_York",
   "notice": "PUBLIC DEMONSTRATION ONLY. This ledger contains intentionally public synthetic test data and is not an official investor record.",
-  "attribution_groups": {
-    "infq": { "label": "INFQ Strategies", "risk_level": "high" },
-    "bull": { "label": "BULL · Webull", "risk_level": "medium" },
-    "pltr": { "label": "PLTR · Palantir", "risk_level": "medium" },
-    "phys": { "label": "PHYS · Physical Gold Trust", "risk_level": "low" },
-    "qbts": { "label": "QBTS · D-Wave Quantum", "risk_level": "medium" },
-    "ibm": { "label": "IBM", "risk_level": "medium" },
-    "spy": { "label": "SPY · S&P 500 ETF", "risk_level": "medium" },
-    "nvda": { "label": "NVDA · NVIDIA", "risk_level": "medium" },
-    "wmt": { "label": "WMT · Walmart", "risk_level": "medium" },
-    "sgov": { "label": "SGOV · Short-Term Treasuries", "risk_level": "low" },
-    "tssi": { "label": "TSSI · TSS, Inc.", "risk_level": "high" },
-    "ivr": { "label": "IVR · Invesco Mortgage Capital", "risk_level": "high" }
-  },
   "formation": {
     "as_of": "2026-07-17T09:30:00-04:00",
     "nav": 9900.0,
@@ -53,10 +39,9 @@
       "kind": "trade",
       "effective_date": "2026-08-04",
       "timing": "before_close",
-      "note": "Date-only user update; sold 23 SGOV shares at $100.65 and one SGOV share at $100.68, then purchased 320 BULL shares at $7.20. The two SGOV fills produced $2,415.63, the BULL purchase cost $2,304.00, and $111.63 remained as cash.",
+      "note": "Date-only user update; apply all legs before the August 4 close.",
       "legs": [
-        { "instrument": "SGOV", "signed_quantity": -23, "price": 100.65 },
-        { "instrument": "SGOV", "signed_quantity": -1, "price": 100.68 },
+        { "instrument": "SGOV", "signed_quantity": -23, "price": 100.17391304347827 },
         { "instrument": "BULL", "signed_quantity": 320, "price": 7.2 }
       ]
     },
@@ -130,9 +115,9 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
   },
   "expected_current_snapshot": {
-    "cash": 1899.54,
+    "cash": 1787.91,
     "positions": {
-      "SGOV": 53,
+      "SGOV": 54,
       "BULL": 200,
       "BULL_P10_JAN2027": -1,
       "IBM": 1,

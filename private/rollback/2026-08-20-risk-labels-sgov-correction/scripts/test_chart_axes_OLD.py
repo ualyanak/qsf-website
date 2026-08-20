@@ -7,20 +7,6 @@ from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
 BENCHMARK_IDS = ["spy", "gold-gld", "btc-usd"]
-APPROVED_RISK_LEVELS = {
-    "infq": "high",
-    "bull": "medium",
-    "pltr": "medium",
-    "phys": "low",
-    "qbts": "medium",
-    "ibm": "medium",
-    "spy": "medium",
-    "nvda": "medium",
-    "wmt": "medium",
-    "sgov": "low",
-    "tssi": "high",
-    "ivr": "high",
-}
 
 
 def tick_indexes(length, maximum):
@@ -40,7 +26,6 @@ def tick_indexes(length, maximum):
 class ChartAxesTests(unittest.TestCase):
     def setUp(self):
         self.portal = (REPO / "assets/js/portal-demo.js").read_text(encoding="utf-8")
-        self.portal_css = (REPO / "assets/css/portal.css").read_text(encoding="utf-8")
         self.dashboard = (REPO / "investor_login/dashboard.html").read_text(encoding="utf-8")
         history = json.loads((REPO / "data/demo-portfolio-history.json").read_text(encoding="utf-8"))
         self.account = history["accounts"]["ahub"]
@@ -108,10 +93,6 @@ class ChartAxesTests(unittest.TestCase):
         self.assertIsInstance(analytics, dict)
         self.assertGreater(len(analytics.get("contributors", [])), 0)
         self.assertGreater(len(analytics.get("realized_trades", [])), 0)
-        self.assertEqual(
-            {item["id"]: item["risk_level"] for item in analytics["contributors"]},
-            APPROVED_RISK_LEVELS,
-        )
         reconciliation = analytics["reconciliation"]
         attributed = sum(float(item["total_pnl"]) for item in analytics["contributors"])
         self.assertAlmostEqual(attributed, float(reconciliation["attributed_pnl"]), places=2)
@@ -149,13 +130,6 @@ class ChartAxesTests(unittest.TestCase):
         self.assertIn("unrealizedPnl: marketValue - basisValue", self.portal)
         self.assertIn("renderAdvancedAnalytics(view)", self.portal)
         self.assertIn("renderExposureAnalytics(view)", self.portal)
-        self.assertIn('risk.className = "contribution-risk is-" + riskLevel', self.portal)
-        self.assertIn('riskLevel.toUpperCase() + " RISK"', self.portal)
-        self.assertIn("riskLabel.toLowerCase()", self.portal)
-        self.assertIn("Risk labels are administrator-assigned qualitative categories", self.portal)
-        for class_name in [".contribution-risk.is-high", ".contribution-risk.is-medium", ".contribution-risk.is-low"]:
-            self.assertIn(class_name, self.portal_css)
-        self.assertIn("@media (max-width: 370px)", self.portal_css)
         self.assertIn("chartTickIndexes(points.length, mobile ? 6 : 7)", self.portal)
         for tick in ["0", "25", "50", "75", "100"]:
             self.assertIn(tick, self.portal)
@@ -164,7 +138,7 @@ class ChartAxesTests(unittest.TestCase):
     def test_current_portal_pages_share_the_analytics_cache_version(self):
         for relative in ["investor_login/dashboard.html", "investor_login/index.html", "admin/index.html"]:
             page = (REPO / relative).read_text(encoding="utf-8")
-            self.assertIn("20260820-risk1", page)
+            self.assertIn("20260820-analytics3", page)
 
 
 if __name__ == "__main__":
