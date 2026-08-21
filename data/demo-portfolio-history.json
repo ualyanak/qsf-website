@@ -1686,7 +1686,7 @@
         "methodology": {
           "contribution": "Realized P&L plus tagged income plus latest completed-night unrealized P&L. Return percentages use cumulative tracked basis; portfolio contribution uses formation NAV.",
           "exposure": "Absolute marked market value plus absolute cash, grouped by asset class. Long SGOV and positive cash are Cash & Cash Equivalents; this is not delta or notional exposure.",
-          "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument.",
+          "realized_pnl": "Average-cost closed-lot P&L net of reported fees, except where a ledger event supplies a validated explicit basis allocation; fills are grouped by ledger event and instrument.",
           "risk_classification": "Administrator-assigned illustrative category; not calculated from return, volatility, liquidity, delta, or investor suitability."
         },
         "realized_trades": [
@@ -3438,16 +3438,16 @@
             },
             {
               "date": "2026-08-20",
-              "kind": "carry_forward",
-              "market_price": 69266.1875,
-              "quality": "stale_fallback",
-              "source_date": "2026-08-19",
-              "value": 10731.47
+              "kind": "daily_close",
+              "market_price": 73032.757812,
+              "quality": "complete",
+              "source_date": "2026-08-20",
+              "value": 11315.03
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -3843,14 +3843,14 @@
       ]
     }
   },
-  "benchmark_coverage_status": "degraded",
+  "benchmark_coverage_status": "complete",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-21T02:09:19Z",
+  "generated_at": "2026-08-21T14:28:41Z",
   "last_completed_session": "2026-08-20",
   "mark_history": {
     "BULL": [
@@ -5452,7 +5452,7 @@
       {
         "date": "2026-07-31",
         "price": 9.92,
-        "source": "fallback"
+        "source": "yahoo"
       },
       {
         "date": "2026-08-03",
