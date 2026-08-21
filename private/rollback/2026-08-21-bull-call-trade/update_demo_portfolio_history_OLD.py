@@ -218,132 +218,6 @@ def apply_trade_leg(state: dict[str, Any], ledger: Mapping[str, Any], leg: Mappi
     state["positions"][instrument_id] = {"quantity": new_quantity, "basis_price": new_basis}
 
 
-def trade_basis_allocation_overrides(event: Mapping[str, Any]) -> dict[str, dict[str, Any]]:
-    """Parse explicit event-level basis reallocations without changing trade fills."""
-    raw_overrides = event.get("basis_allocation_overrides")
-    if raw_overrides is None:
-        return {}
-    event_id = str(event.get("id", "<unknown>"))
-    if not isinstance(raw_overrides, list) or not raw_overrides:
-        raise HistoryError(f"Trade {event_id} has invalid basis allocation overrides")
-    legs = event.get("legs")
-    leg_instruments = {
-        str(leg.get("instrument", ""))
-        for leg in legs
-        if isinstance(leg, Mapping)
-    } if isinstance(legs, list) else set()
-    parsed: dict[str, dict[str, Any]] = {}
-    for raw_override in raw_overrides:
-        if not isinstance(raw_override, Mapping):
-            raise HistoryError(f"Trade {event_id} has an invalid basis allocation override")
-        instrument_id = str(raw_override.get("instrument", ""))
-        if not instrument_id or instrument_id not in leg_instruments:
-            raise HistoryError(f"Trade {event_id} basis allocation references an instrument without a fill")
-        if instrument_id in parsed:
-            raise HistoryError(f"Trade {event_id} has duplicate basis allocation overrides for {instrument_id}")
-        closed_basis = finite_number(raw_override.get("closed_basis"), f"{instrument_id} allocated closed basis")
-        remaining_basis = finite_number(
-            raw_override.get("remaining_basis_price"),
-            f"{instrument_id} allocated remaining basis",
-        )
-        reason = str(raw_override.get("reason", "")).strip()
-        if closed_basis < 0 or remaining_basis < 0 or not reason:
-            raise HistoryError(f"Trade {event_id} has an invalid basis allocation override for {instrument_id}")
-        parsed[instrument_id] = {
-            "closed_basis": closed_basis,
-            "remaining_basis_price": remaining_basis,
-            "reason": reason,
-        }
-    return parsed
-
-
-def apply_trade_event(
-    state: dict[str, Any],
-    ledger: Mapping[str, Any],
-    event: Mapping[str, Any],
-) -> dict[str, dict[str, Any]]:
-    """Apply one trade and return its closed-lot metrics by instrument."""
-    event_id = str(event.get("id", "<unknown>"))
-    legs = event.get("legs")
-    if not isinstance(legs, list) or not legs:
-        raise HistoryError(f"Trade {event_id} has no legs")
-    realizations: dict[str, dict[str, Any]] = {}
-    for leg in legs:
-        if not isinstance(leg, Mapping):
-            raise HistoryError(f"Trade {event_id} has an invalid leg")
-        instrument_id = str(leg.get("instrument", ""))
-        signed_quantity = finite_number(leg.get("signed_quantity"), f"{instrument_id} trade quantity")
-        price = finite_number(leg.get("price"), f"{instrument_id} trade price")
-        multiplier = instrument_multiplier(ledger, instrument_id)
-        fee = trade_leg_fee(leg, instrument_id)
-        old_lot = state["positions"].get(instrument_id)
-        old_quantity = finite_number(old_lot.get("quantity"), f"{instrument_id} prior quantity") if old_lot else 0.0
-        old_basis = finite_number(old_lot.get("basis_price"), f"{instrument_id} prior basis") if old_lot else price
-        closed_quantity = min(abs(old_quantity), abs(signed_quantity)) if old_quantity * signed_quantity < 0 else 0.0
-        if closed_quantity > EPSILON:
-            closing_fee = fee * closed_quantity / abs(signed_quantity)
-            closing_value = closed_quantity * price * multiplier
-            closed_basis = closed_quantity * old_basis * multiplier
-            direction = 1.0 if old_quantity > 0 else -1.0
-            record = realizations.setdefault(instrument_id, {
-                "closed_sides": set(),
-                "closed_quantity": 0.0,
-                "multiplier": multiplier,
-                "fill_count": 0,
-                "closing_value": 0.0,
-                "closed_basis": 0.0,
-                "fees": 0.0,
-                "realized_pnl": 0.0,
-            })
-            record["closed_sides"].add("long" if old_quantity > 0 else "short")
-            record["closed_quantity"] += closed_quantity
-            record["fill_count"] += 1
-            record["closing_value"] += closing_value
-            record["closed_basis"] += abs(closed_basis)
-            record["fees"] += closing_fee
-            record["realized_pnl"] += direction * (closing_value - closed_basis) - closing_fee
-        apply_trade_leg(state, ledger, leg)
-
-    for instrument_id, override in trade_basis_allocation_overrides(event).items():
-        record = realizations.get(instrument_id)
-        if record is None:
-            raise HistoryError(f"Trade {event_id} basis allocation does not correspond to a closed lot")
-        if len(record["closed_sides"]) != 1:
-            raise HistoryError(f"Trade {event_id} cannot override mixed-side basis for {instrument_id}")
-        remaining_lot = state["positions"].get(instrument_id)
-        if not isinstance(remaining_lot, Mapping):
-            raise HistoryError(f"Trade {event_id} basis allocation requires a remaining {instrument_id} position")
-        remaining_quantity = finite_number(remaining_lot.get("quantity"), f"{instrument_id} remaining quantity")
-        standard_remaining_basis = finite_number(
-            remaining_lot.get("basis_price"),
-            f"{instrument_id} standard remaining basis",
-        )
-        multiplier = instrument_multiplier(ledger, instrument_id)
-        standard_total_basis = float(record["closed_basis"]) + abs(
-            remaining_quantity * standard_remaining_basis * multiplier
-        )
-        allocated_total_basis = float(override["closed_basis"]) + abs(
-            remaining_quantity * float(override["remaining_basis_price"]) * multiplier
-        )
-        if not math.isclose(standard_total_basis, allocated_total_basis, abs_tol=0.005):
-            raise HistoryError(
-                f"Trade {event_id} basis allocation for {instrument_id} does not conserve basis "
-                f"({allocated_total_basis:.2f} allocated vs {standard_total_basis:.2f} available)"
-            )
-        remaining_lot["basis_price"] = float(override["remaining_basis_price"])
-        record["closed_basis"] = float(override["closed_basis"])
-        direction = 1.0 if record["closed_sides"] == {"long"} else -1.0
-        record["realized_pnl"] = direction * (
-            float(record["closing_value"]) - float(record["closed_basis"])
-        ) - float(record["fees"])
-        record["basis_allocation_override"] = {
-            "closed_basis": round(float(override["closed_basis"]), 2),
-            "remaining_basis_price": round(float(override["remaining_basis_price"]), 8),
-            "reason": str(override["reason"]),
-        }
-    return realizations
-
-
 def replay_ledger(ledger: Mapping[str, Any], through: dt.datetime | None = None) -> dict[str, Any]:
     state = initial_state(ledger)
     events = ledger.get("events")
@@ -358,7 +232,13 @@ def replay_ledger(ledger: Mapping[str, Any], through: dt.datetime | None = None)
         if kind == "cash_adjustment":
             state["cash"] += finite_number(event.get("amount"), f"{event.get('id')} amount")
         elif kind == "trade":
-            apply_trade_event(state, ledger, event)
+            legs = event.get("legs")
+            if not isinstance(legs, list) or not legs:
+                raise HistoryError(f"Trade {event.get('id')} has no legs")
+            for leg in legs:
+                if not isinstance(leg, Mapping):
+                    raise HistoryError(f"Trade {event.get('id')} has an invalid leg")
+                apply_trade_leg(state, ledger, leg)
         else:
             raise HistoryError(f"Unsupported ledger event kind: {kind}")
     state["cash"] = round(float(state["cash"]), 10)
@@ -884,21 +764,51 @@ def realized_trade_records(ledger: Mapping[str, Any], through: dt.datetime) -> l
         if event.get("kind") != "trade":
             raise HistoryError(f"Unsupported ledger event kind: {event.get('kind')}")
         event_id = str(event.get("id", ""))
-        for instrument_id, metrics in apply_trade_event(state, ledger, event).items():
-            key = (event_id, instrument_id)
-            if key in grouped:
-                raise HistoryError(f"Duplicate ledger trade id and instrument: {event_id}::{instrument_id}")
-            instrument = ledger["instruments"][instrument_id]
-            grouped[key] = {
-                "id": event_id + "::" + instrument_id,
-                "event_id": event_id,
-                "date": effective.astimezone(MARKET_ZONE).date().isoformat(),
-                "instrument_id": instrument_id,
-                "label": str(instrument["name"]),
-                "attribution_group_id": str(instrument["attribution_group_id"]),
-                "attribution_group_label": str(instrument["attribution_group_label"]),
-                **metrics,
-            }
+        for leg in event.get("legs") or []:
+            if not isinstance(leg, Mapping):
+                raise HistoryError(f"Trade {event_id} has an invalid leg")
+            instrument_id = str(leg.get("instrument", ""))
+            signed_quantity = finite_number(leg.get("signed_quantity"), f"{instrument_id} trade quantity")
+            price = finite_number(leg.get("price"), f"{instrument_id} trade price")
+            multiplier = instrument_multiplier(ledger, instrument_id)
+            fee = trade_leg_fee(leg, instrument_id)
+            old_lot = state["positions"].get(instrument_id)
+            old_quantity = finite_number(old_lot.get("quantity"), f"{instrument_id} prior quantity") if old_lot else 0.0
+            old_basis = finite_number(old_lot.get("basis_price"), f"{instrument_id} prior basis") if old_lot else price
+            closed_quantity = min(abs(old_quantity), abs(signed_quantity)) if old_quantity * signed_quantity < 0 else 0.0
+            if closed_quantity > EPSILON:
+                closing_fee = fee * closed_quantity / abs(signed_quantity)
+                closing_value = closed_quantity * price * multiplier
+                closed_basis = closed_quantity * old_basis * multiplier
+                direction = 1.0 if old_quantity > 0 else -1.0
+                realized_pnl = direction * (closing_value - closed_basis) - closing_fee
+                key = (event_id, instrument_id)
+                instrument = ledger["instruments"][instrument_id]
+                record = grouped.setdefault(key, {
+                    "id": event_id + "::" + instrument_id,
+                    "event_id": event_id,
+                    "date": effective.astimezone(MARKET_ZONE).date().isoformat(),
+                    "instrument_id": instrument_id,
+                    "label": str(instrument["name"]),
+                    "attribution_group_id": str(instrument["attribution_group_id"]),
+                    "attribution_group_label": str(instrument["attribution_group_label"]),
+                    "closed_sides": set(),
+                    "closed_quantity": 0.0,
+                    "multiplier": multiplier,
+                    "fill_count": 0,
+                    "closing_value": 0.0,
+                    "closed_basis": 0.0,
+                    "fees": 0.0,
+                    "realized_pnl": 0.0,
+                })
+                record["closed_sides"].add("long" if old_quantity > 0 else "short")
+                record["closed_quantity"] += closed_quantity
+                record["fill_count"] += 1
+                record["closing_value"] += closing_value
+                record["closed_basis"] += abs(closed_basis)
+                record["fees"] += closing_fee
+                record["realized_pnl"] += realized_pnl
+            apply_trade_leg(state, ledger, leg)
 
     records: list[dict[str, Any]] = []
     for record in grouped.values():
@@ -1183,7 +1093,7 @@ def build_analytics(
         "schema_version": 1,
         "as_of": through.astimezone(MARKET_ZONE).date().isoformat(),
         "methodology": {
-            "realized_pnl": "Average-cost closed-lot P&L net of reported fees, except where a ledger event supplies a validated explicit basis allocation; fills are grouped by ledger event and instrument.",
+            "realized_pnl": "Average-cost closed-lot P&L net of reported fees; fills are grouped by ledger event and instrument.",
             "contribution": "Realized P&L plus tagged income plus latest completed-night unrealized P&L. Return percentages use cumulative tracked basis; portfolio contribution uses formation NAV.",
             "risk_classification": "Administrator-assigned illustrative category; not calculated from return, volatility, liquidity, delta, or investor suitability.",
             "exposure": "Absolute marked market value plus absolute cash, grouped by asset class. Long SGOV and positive cash are Cash & Cash Equivalents; this is not delta or notional exposure.",

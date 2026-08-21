@@ -35,23 +35,6 @@ MODEL_MAX_VOLATILITY = 5.0
 # OCC identifiers below have been verified.  Each strategy's volatility is
 # re-calibrated deterministically to its supplied opening premium.
 OPTION_MODEL_SPECS: dict[str, dict[str, object]] = {
-    "BULL_C10_20261218": {
-        "underlying": "BULL",
-        "expiry": "2026-12-18T21:00:00Z",
-        "opening_as_of": "2026-08-21T13:30:00Z",
-        # The trade supplied an $0.89 premium but no contemporaneous underlier
-        # fill.  $8.85 is the latest completed public BULL close available when
-        # the date-only Aug. 21 position was registered, so it is an explicit
-        # calibration seed rather than a claimed execution-time stock price.
-        "opening_spot": 8.85,
-        "opening_spot_source": (
-            "Aug. 20, 2026 completed public close proxy; "
-            "no Aug. 21 execution-time underlier spot was supplied"
-        ),
-        "opening_mark": 0.89,
-        "option_symbols": ["BULL261218C00010000"],
-        "legs": [{"type": "call", "strike": 10.0, "ratio": 1.0}],
-    },
     "BULL_P10_JAN2027": {
         "underlying": "BULL",
         "expiry": "2027-01-15T21:00:00Z",
@@ -271,9 +254,6 @@ def build_model_quote(instrument_id: str, spec: dict[str, object], underlying_qu
         "option_symbols": list(spec["option_symbols"]),
         "model": "Black-Scholes approximation with opening-premium calibration",
         "calibration_as_of": str(spec["opening_as_of"]),
-        "calibration_opening_spot": round(float(spec["opening_spot"]), 6),
-        "calibration_opening_mark": round(float(spec["opening_mark"]), 6),
-        "calibration_spot_source": str(spec.get("opening_spot_source", "Published opening underlier anchor")),
         "calibrated_volatility": round(volatility, 6),
         "calibration_scale": round(scale, 6),
         "risk_free_rate": MODEL_RISK_FREE_RATE,

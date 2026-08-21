@@ -46,15 +46,6 @@ repository. They must never be reused for real investor accounts.
   shares' `$7.20` basis totals `$864.00`, producing an illustrative realized
   gain of `$150.00`. Proceeds increase raw cash from `$885.54` to `$1,899.54`.
   The remaining 200 BULL shares retain their `$7.20` per-share basis.
-- The August 21 date-only update buys ten BULL December 18, 2026 `$10` call
-  contracts at `$0.89` and sells 7.5 contracts at `$1.21`, with no reported
-  fees. Purchase cost is `$890.00`, sale proceeds are `$907.50`, and raw cash
-  increases by exactly `$17.50`, from `$1,899.54` to `$1,917.04`. Per the
-  supplied bookkeeping instruction, the full `$890.00` purchase cost is
-  allocated to the sale: realized P&L is therefore `$17.50`, while the remaining
-  2.5 contracts have zero allocated basis and their full current modeled value
-  is unrealized P&L. This is an explicit test-data basis allocation, not the
-  engine's ordinary average-cost treatment.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains
@@ -63,20 +54,13 @@ repository. They must never be reused for real investor accounts.
 - The INFQ call vertical uses the supplied `$1.37` net mark per option share
   and a 100x multiplier.
 - "JAN 27" is interpreted as January 2027. The seeded listed contracts are
-  `BULL261218C00010000`, `BULL270115P00010000`,
-  `INFQ270115C00010000`, `INFQ270115C00017500`, and
-  `INFQ270115C00025000`. The BULL call expires December 18, 2026; the others
-  expire January 15, 2027.
+  `BULL270115P00010000`, `INFQ270115C00010000`,
+  `INFQ270115C00017500`, and `INFQ270115C00025000`, all expiring January 15,
+  2027.
 - A public no-key OPRA feed with redistribution permission is not available.
   The portal therefore publishes clearly labeled automatic model estimates,
   not listed-option quotes. Each estimate is anchored to the supplied July 17
-  opening premium, or to the supplied August 21 `$0.89` BULL-call purchase
-  premium, and moves with the delayed BULL or INFQ price and time decay. Because
-  no contemporaneous BULL share price was supplied for the August 21 option
-  trade, that call model is calibrated with the August 20 completed public
-  `$8.85` BULL close as an explicit proxy. Its account-level manual fallback is
-  the latest supplied same-day transaction premium of `$1.21`; automatic model
-  output takes precedence whenever a usable underlier mark is available.
+  opening premium and moves with the delayed BULL or INFQ price and time decay.
 
 ## Data flow
 
@@ -100,10 +84,10 @@ repository. They must never be reused for real investor accounts.
    close and after the prior UTC Bitcoin daily candle has closed. Both write to
    the `market-data` branch. Main-branch copies are packaged fallbacks when a
    remote snapshot is unavailable.
-5. The updater calculates the four seeded option strategy marks with a
+5. The updater calculates the three seeded option strategy marks with a
    Black-Scholes estimate calibrated to the supplied opening premium. The
-   model uses a 4% annual risk-free assumption, no dividend yield, each
-   contract's registered expiry, and the newest delayed underlier observation.
+   model uses a 4% annual risk-free assumption, no dividend yield, the verified
+   January 15, 2027 expiry, and the newest delayed underlier observation.
 6. `assets/js/portal-demo.js` derives the dashboard, cash-equivalents metric,
    holdings, allocation, return, nightly-history chart, local scenario, and
    report inputs from one calculation path.
@@ -114,18 +98,13 @@ The history snapshot also publishes `accounts.ahub.analytics`, calculated only
 through `last_completed_session` so a ledger event is never presented as
 completed-night performance before that session closes.
 
-- `realized_trades` ordinarily uses average-cost lots and groups fills by ledger event and
+- `realized_trades` uses average-cost lots and groups fills by ledger event and
   instrument. A closing long earns `(exit price - prior basis) × closed quantity
   × multiplier`; a closing short reverses that price difference. Reported fees
   are deducted proportionally from the closing portion. The displayed percent
   is realized P&L divided by the absolute closed basis. Same-direction trades
   update weighted basis, partial closes preserve it, and a position flip splits
   the transaction into closing and new-opening portions.
-  The August 21 BULL-call event carries a separately validated explicit basis
-  allocation: `$890.00` of closed basis and zero remaining basis. The ledger
-  retains both actual fill prices, verifies that the allocated basis is
-  conserved to the cent, and therefore reports only `$17.50` as realized P&L;
-  the open calls' modeled value is unrealized.
 - `contributors` combines each security or underlying strategy group's realized
   P&L, tagged income, and completed-night unrealized P&L. Its return percent uses
   cumulative tracked basis (disposed basis plus the remaining position basis),
@@ -152,8 +131,6 @@ completed-night performance before that session closes.
   marks and browser-local scenario when present; the preceding points remain the
   immutable published nightly record. Historical categories are restated whenever
   the current administrator classification map changes.
-  The BULL December 2026 call strategy is assigned High risk separately from
-  the existing Medium-risk BULL shares and put grouping.
 - The unassigned July 20 `$24.00` strategy-P&L adjustment remains separate in
   `unattributed_pnl`. Tagged SGOV and IVR dividends belong to their contributor
   groups. External-flow classifications are excluded from P&L. The published
@@ -176,11 +153,6 @@ and current unrealized result. INFQ is the largest contributor at `+$2,295.67`;
 IVR is the smallest at `-$39.99`. Attributed P&L of `$3,122.02` plus the separate
 `$24.00` adjustment reconciles exactly to the `$3,146.02` rise from `$9,900.00`
 to `$13,046.02` using Yahoo's final August 19 raw closes.
-
-The August 21 call trade appears immediately in current holdings, cash, and the
-outlined `Now` risk mix. It enters realized-trade, contributor, and historical
-risk analytics only after the August 21 session becomes a completed nightly
-point, preventing an intraday event from leaking into end-of-day history.
 
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving

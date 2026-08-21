@@ -8,7 +8,6 @@
   "attribution_groups": {
     "infq": { "label": "INFQ Strategies", "risk_level": "high" },
     "bull": { "label": "BULL · Webull", "risk_level": "medium" },
-    "bull-dec2026-call": { "label": "BULL Dec 2026 $10 Calls", "risk_level": "high" },
     "pltr": { "label": "PLTR · Palantir", "risk_level": "medium" },
     "phys": { "label": "PHYS · Physical Gold Trust", "risk_level": "low" },
     "qbts": { "label": "QBTS · D-Wave Quantum", "risk_level": "medium" },
@@ -112,32 +111,12 @@
       "legs": [
         { "instrument": "BULL", "signed_quantity": -120, "price": 8.45 }
       ]
-    },
-    {
-      "id": "2026-08-21-bull-dec2026-call-trades",
-      "kind": "trade",
-      "effective_date": "2026-08-21",
-      "timing": "before_close",
-      "note": "Date-only user update; purchased 10 BULL Dec 18 2026 $10 calls at $0.89 and sold 7.5 at $1.21 with no fees. Under the user-specified bookkeeping convention, the full $890.00 purchase cost is allocated to the sale, producing $17.50 realized profit while the remaining 2.5 contracts carry zero basis.",
-      "legs": [
-        { "instrument": "BULL_C10_20261218", "signed_quantity": 10, "price": 0.89, "fees": 0 },
-        { "instrument": "BULL_C10_20261218", "signed_quantity": -7.5, "price": 1.21, "fees": 0 }
-      ],
-      "basis_allocation_overrides": [
-        {
-          "instrument": "BULL_C10_20261218",
-          "closed_basis": 890.0,
-          "remaining_basis_price": 0.0,
-          "reason": "User-specified bookkeeping allocates the full purchase cost to the same-day sale and zero basis to the remaining 2.5 contracts."
-        }
-      ]
     }
   ],
   "instruments": {
     "SGOV": { "kind": "equity", "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "multiplier": 1, "cash_equivalent": true, "attribution_group_id": "sgov", "attribution_group_label": "SGOV · Short-Term Treasuries", "exposure_group_id": "cash-cash-equivalents", "exposure_group_label": "Cash & Cash Equivalents" },
     "BULL": { "kind": "equity", "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "multiplier": 1, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "financial-technology", "exposure_group_label": "Financial Technology" },
     "BULL_P10_JAN2027": { "kind": "option_model", "model_spec_id": "BULL_P10_JAN2027", "underlying": "BULL", "name": "Short one BULL Jan 2027 $10 put", "multiplier": 100, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "options", "exposure_group_label": "Options" },
-    "BULL_C10_20261218": { "kind": "option_model", "model_spec_id": "BULL_C10_20261218", "underlying": "BULL", "name": "BULL Dec 18 2026 $10 call contracts", "multiplier": 100, "attribution_group_id": "bull-dec2026-call", "attribution_group_label": "BULL Dec 2026 $10 Calls", "exposure_group_id": "options", "exposure_group_label": "Options" },
     "IBM": { "kind": "equity", "symbol": "IBM", "name": "International Business Machines", "multiplier": 1, "attribution_group_id": "ibm", "attribution_group_label": "IBM", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
     "INFQ_C25_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C25_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $25 call", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
     "INFQ_C10_C17_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_C17_5_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $10/$17.50 call vertical", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
@@ -151,12 +130,11 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
   },
   "expected_current_snapshot": {
-    "cash": 1917.04,
+    "cash": 1899.54,
     "positions": {
       "SGOV": 53,
       "BULL": 200,
       "BULL_P10_JAN2027": -1,
-      "BULL_C10_20261218": 2.5,
       "IBM": 1,
       "INFQ_C25_20270115": 1,
       "IVR": 100,

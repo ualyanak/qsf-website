@@ -18,7 +18,6 @@ REPOSITORY = pathlib.Path(__file__).resolve().parents[1]
 APPROVED_RISK_LEVELS = {
     "infq": "high",
     "bull": "medium",
-    "bull-dec2026-call": "high",
     "pltr": "medium",
     "phys": "low",
     "qbts": "medium",
@@ -30,11 +29,6 @@ APPROVED_RISK_LEVELS = {
     "tssi": "high",
     "ivr": "high",
 }
-PRE_AUGUST_21_RISK_LEVELS = {
-    group_id: risk_level
-    for group_id, risk_level in APPROVED_RISK_LEVELS.items()
-    if group_id != "bull-dec2026-call"
-}
 
 
 class PortfolioHistoryTests(unittest.TestCase):
@@ -45,7 +39,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         cls.symbols = history.required_symbols(cls.ledger)
         cls.sessions = [
             dt.date(2026, 7, 17) + dt.timedelta(days=offset)
-            for offset in range((dt.date(2026, 8, 21) - dt.date(2026, 7, 17)).days + 1)
+            for offset in range((dt.date(2026, 8, 19) - dt.date(2026, 7, 17)).days + 1)
             if (dt.date(2026, 7, 17) + dt.timedelta(days=offset)).weekday() < 5
         ]
         seeds = history.seed_marks(cls.ledger)
@@ -62,7 +56,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         }
         calendar_dates = [
             dt.date(2026, 7, 17) + dt.timedelta(days=offset)
-            for offset in range((dt.date(2026, 8, 21) - dt.date(2026, 7, 17)).days + 1)
+            for offset in range((dt.date(2026, 8, 19) - dt.date(2026, 7, 17)).days + 1)
         ]
         cls.prices["BTC-USD"] = {
             day: 60000.0 + day_index * 275.0
@@ -109,7 +103,7 @@ class PortfolioHistoryTests(unittest.TestCase):
             fetcher=self.fetcher,
         )
         contributors = payload["accounts"]["ahub"]["analytics"]["contributors"]
-        self.assertEqual({item["id"]: item["risk_level"] for item in contributors}, PRE_AUGUST_21_RISK_LEVELS)
+        self.assertEqual({item["id"]: item["risk_level"] for item in contributors}, APPROVED_RISK_LEVELS)
 
     def test_invalid_or_mismatched_attribution_risk_metadata_is_rejected(self) -> None:
         invalid_risk = copy.deepcopy(self.ledger)
@@ -167,14 +161,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             self.ledger,
             dt.datetime(2026, 8, 19, 9, 30, tzinfo=history.MARKET_ZONE),
         )
-        before_august_21 = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 21, 9, 29, tzinfo=history.MARKET_ZONE),
-        )
-        august_21 = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 21, 9, 30, tzinfo=history.MARKET_ZONE),
-        )
 
         self.assertAlmostEqual(july_17["cash"], 389.83, places=2)
         self.assertAlmostEqual(july_20["cash"], 413.83, places=2)
@@ -198,12 +184,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(history.position_quantities(before_august_19)["BULL"], 320)
         self.assertAlmostEqual(august_19["cash"], 1899.54, places=2)
         self.assertEqual(history.position_quantities(august_19)["BULL"], 200)
-        self.assertAlmostEqual(before_august_21["cash"], 1899.54, places=2)
-        self.assertNotIn("BULL_C10_20261218", history.position_quantities(before_august_21))
-        self.assertAlmostEqual(august_21["cash"], 1917.04, places=2)
-        self.assertEqual(history.position_quantities(august_21)["BULL_C10_20261218"], 2.5)
-        self.assertEqual(august_21["positions"]["BULL_C10_20261218"]["basis_price"], 0.0)
-        self.assertEqual(history.position_quantities(august_21), self.ledger["expected_current_snapshot"]["positions"])
+        self.assertEqual(history.position_quantities(august_19), self.ledger["expected_current_snapshot"]["positions"])
 
     def test_august_fourteenth_tssi_sale_cash_and_loss(self) -> None:
         proceeds = 30 * 9.65
@@ -255,91 +236,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(history.position_quantities(before)["BULL"], 320)
         self.assertEqual(history.position_quantities(after)["BULL"], 200)
         self.assertAlmostEqual(after["positions"]["BULL"]["basis_price"], 7.2, places=2)
-
-    def test_august_twenty_first_bull_call_uses_explicit_basis_allocation(self) -> None:
-        before = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 21, 9, 29, tzinfo=history.MARKET_ZONE),
-        )
-        after = history.replay_ledger(
-            self.ledger,
-            dt.datetime(2026, 8, 21, 9, 30, tzinfo=history.MARKET_ZONE),
-        )
-        buy_cost = 10 * 0.89 * 100
-        sale_proceeds = 7.5 * 1.21 * 100
-
-        self.assertEqual(buy_cost, 890.0)
-        self.assertAlmostEqual(sale_proceeds, 907.5, places=2)
-        self.assertAlmostEqual(before["cash"], 1899.54, places=2)
-        self.assertAlmostEqual(after["cash"] - before["cash"], 17.5, places=2)
-        self.assertAlmostEqual(after["cash"], 1917.04, places=2)
-        self.assertEqual(after["positions"]["BULL_C10_20261218"], {
-            "quantity": 2.5,
-            "basis_price": 0.0,
-        })
-        account_call = next(
-            position
-            for position in self.accounts["accounts"]["ahub"]["positions"]
-            if position["instrument"] == "BULL_C10_20261218"
-        )
-        self.assertEqual(account_call, {
-            "instrument": "BULL_C10_20261218",
-            "quantity": 2.5,
-            "basis_price": 0.0,
-        })
-        catalog = self.accounts["instruments"]["BULL_C10_20261218"]
-        self.assertEqual(catalog["option_symbol"], "BULL261218C00010000")
-        self.assertEqual(catalog["expiry"], "2026-12-18")
-        self.assertEqual(catalog["manual_mark"], 1.21)
-        self.assertEqual(
-            catalog["manual_source"],
-            "User-supplied Aug 21 same-day sale premium; automatic model fallback",
-        )
-        self.assertEqual(catalog["attribution_group_id"], "bull-dec2026-call")
-        self.assertEqual(catalog["risk_level"], "high")
-
-        before_records = history.realized_trade_records(
-            self.ledger,
-            dt.datetime(2026, 8, 20, 16, 0, tzinfo=history.MARKET_ZONE),
-        )
-        self.assertNotIn("BULL_C10_20261218", {record["instrument_id"] for record in before_records})
-        records = history.realized_trade_records(
-            self.ledger,
-            dt.datetime(2026, 8, 21, 16, 0, tzinfo=history.MARKET_ZONE),
-        )
-        call = next(record for record in records if record["instrument_id"] == "BULL_C10_20261218")
-        self.assertEqual(call["event_id"], "2026-08-21-bull-dec2026-call-trades")
-        self.assertEqual(call["closed_side"], "long")
-        self.assertEqual(call["closed_quantity"], 7.5)
-        self.assertEqual(call["fill_count"], 1)
-        self.assertEqual(call["average_exit_price"], 1.21)
-        self.assertEqual(call["closing_value"], 907.5)
-        self.assertEqual(call["closed_basis"], 890.0)
-        self.assertEqual(call["fees"], 0.0)
-        self.assertEqual(call["realized_pnl"], 17.5)
-        self.assertEqual(call["return_pct"], 1.9663)
-        self.assertEqual(call["basis_allocation_override"]["remaining_basis_price"], 0.0)
-
-    def test_inconsistent_basis_allocation_override_is_rejected(self) -> None:
-        inconsistent = copy.deepcopy(self.ledger)
-        event = next(
-            item
-            for item in inconsistent["events"]
-            if item["id"] == "2026-08-21-bull-dec2026-call-trades"
-        )
-        event["basis_allocation_overrides"][0]["closed_basis"] = 889.0
-        with self.assertRaisesRegex(history.HistoryError, "does not conserve basis"):
-            history.validate_ledger(inconsistent)
-
-        duplicate = copy.deepcopy(self.ledger)
-        event = next(
-            item
-            for item in duplicate["events"]
-            if item["id"] == "2026-08-21-bull-dec2026-call-trades"
-        )
-        event["basis_allocation_overrides"].append(copy.deepcopy(event["basis_allocation_overrides"][0]))
-        with self.assertRaisesRegex(history.HistoryError, "duplicate basis allocation"):
-            history.validate_ledger(duplicate)
 
     def test_realized_trade_leaderboard_uses_average_cost_and_groups_fills(self) -> None:
         records = history.realized_trade_records(
@@ -584,10 +480,7 @@ class PortfolioHistoryTests(unittest.TestCase):
             places=2,
         )
         contributors = {contributor["id"]: contributor for contributor in analytics["contributors"]}
-        self.assertEqual(
-            {group_id: item["risk_level"] for group_id, item in contributors.items()},
-            PRE_AUGUST_21_RISK_LEVELS,
-        )
+        self.assertEqual({group_id: item["risk_level"] for group_id, item in contributors.items()}, APPROVED_RISK_LEVELS)
         self.assertEqual(contributors["infq"]["realized_pnl"], 2220.0)
         self.assertEqual(contributors["bull"]["realized_pnl"], 150.0)
         self.assertEqual(contributors["ivr"]["income"], 12.0)
@@ -903,74 +796,6 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(closing["position_count"], 12)
         self.assertNotIn("BULL", closing["forward_filled_symbols"])
 
-    def test_august_twentieth_completed_history_remains_pre_trade(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 20)),
-            fetcher=self.fetcher,
-        )
-        closing = self.points(payload)[-1]
-        analytics = payload["accounts"]["ahub"]["analytics"]
-
-        self.assertEqual(payload["last_completed_session"], "2026-08-20")
-        self.assertEqual(closing["date"], "2026-08-20")
-        self.assertEqual(closing["kind"], "session_close")
-        self.assertAlmostEqual(closing["cash"], 1899.54, places=2)
-        self.assertEqual(closing["position_count"], 12)
-        self.assertEqual(analytics["as_of"], "2026-08-20")
-        self.assertNotIn(
-            "BULL_C10_20261218",
-            {trade["instrument_id"] for trade in analytics["realized_trades"]},
-        )
-        self.assertNotIn(
-            "bull-dec2026-call",
-            {contributor["id"] for contributor in analytics["contributors"]},
-        )
-
-    def test_august_twenty_first_close_includes_call_analytics_and_high_risk(self) -> None:
-        payload = history.build_history(
-            self.ledger,
-            as_of=self.after_all_daily_closes(dt.date(2026, 8, 21)),
-            fetcher=self.fetcher,
-        )
-        closing = self.points(payload)[-1]
-        analytics = payload["accounts"]["ahub"]["analytics"]
-
-        self.assertEqual(payload["last_completed_session"], "2026-08-21")
-        self.assertEqual(closing["date"], "2026-08-21")
-        self.assertAlmostEqual(closing["cash"], 1917.04, places=2)
-        self.assertEqual(closing["position_count"], 13)
-        call_trade = next(
-            trade
-            for trade in analytics["realized_trades"]
-            if trade["instrument_id"] == "BULL_C10_20261218"
-        )
-        self.assertEqual(call_trade["realized_pnl"], 17.5)
-        self.assertEqual(call_trade["closed_basis"], 890.0)
-        self.assertEqual(call_trade["return_pct"], 1.9663)
-        contributor = next(
-            item
-            for item in analytics["contributors"]
-            if item["id"] == "bull-dec2026-call"
-        )
-        self.assertEqual(contributor["risk_level"], "high")
-        self.assertEqual(contributor["instrument_ids"], ["BULL_C10_20261218"])
-        self.assertEqual(contributor["realized_pnl"], 17.5)
-        self.assertEqual(contributor["tracked_basis"], 890.0)
-        self.assertEqual(contributor["unrealized_pnl"], contributor["market_value"])
-        self.assertEqual(
-            contributor["total_pnl"],
-            round(contributor["realized_pnl"] + contributor["unrealized_pnl"], 2),
-        )
-        exposure_latest = analytics["exposure_history"]["points"][-1]
-        risk_latest = analytics["risk_history"]["points"][-1]
-        self.assertEqual(risk_latest["gross_exposure"], exposure_latest["gross_exposure"])
-        self.assertAlmostEqual(
-            sum(value["percent"] for value in risk_latest["values"].values()),
-            100.0,
-            places=6,
-        )
-
     def test_missing_individual_mark_is_forward_filled_and_degraded(self) -> None:
         missing_day = dt.date(2026, 8, 6)
 
@@ -1083,12 +908,11 @@ class PortfolioHistoryTests(unittest.TestCase):
                 fetcher=failing_fetcher,
             )
 
-    def test_packaged_august_twentieth_analytics_match_published_fixtures(self) -> None:
+    def test_packaged_august_nineteenth_analytics_match_published_fixtures(self) -> None:
         payload = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
         analytics = payload["accounts"]["ahub"].get("analytics")
         self.assertIsInstance(analytics, dict, "Regenerate the packaged history after analytics changes")
-        self.assertEqual(payload["last_completed_session"], "2026-08-20")
-        self.assertEqual(analytics["as_of"], "2026-08-20")
+        self.assertEqual(analytics["as_of"], "2026-08-19")
 
         trades = {trade["instrument_id"]: trade for trade in analytics["realized_trades"]}
         self.assertEqual(trades["INFQ_C10_C17_5_20270115"]["realized_pnl"], 2115.0)
@@ -1096,31 +920,27 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertEqual(trades["INFQ_C25_20270115"]["realized_pnl"], 105.0)
         self.assertEqual(trades["TSSI"]["realized_pnl"], -8.7)
         self.assertEqual(trades["SGOV"]["realized_pnl"], 1.71)
-        self.assertNotIn("BULL_C10_20261218", trades)
 
         contributors = analytics["contributors"]
-        self.assertEqual(
-            {item["id"]: item["risk_level"] for item in contributors},
-            PRE_AUGUST_21_RISK_LEVELS,
-        )
+        self.assertEqual({item["id"]: item["risk_level"] for item in contributors}, APPROVED_RISK_LEVELS)
         self.assertEqual(contributors[0]["id"], "infq")
-        self.assertEqual(contributors[0]["total_pnl"], 2296.07)
-        self.assertAlmostEqual(contributors[0]["return_pct"], 75.5285, places=4)
-        self.assertEqual(contributors[-1]["id"], "wmt")
-        self.assertEqual(contributors[-1]["total_pnl"], -52.55)
-        self.assertAlmostEqual(contributors[-1]["return_pct"], -9.1911, places=4)
+        self.assertEqual(contributors[0]["total_pnl"], 2295.67)
+        self.assertAlmostEqual(contributors[0]["return_pct"], 75.5154, places=4)
+        self.assertEqual(contributors[-1]["id"], "ivr")
+        self.assertEqual(contributors[-1]["total_pnl"], -39.99)
+        self.assertAlmostEqual(contributors[-1]["return_pct"], -4.9371, places=4)
         bull = next(contributor for contributor in contributors if contributor["id"] == "bull")
-        self.assertEqual(bull["total_pnl"], 592.4)
-        self.assertAlmostEqual(bull["return_pct"], 22.6108, places=4)
+        self.assertEqual(bull["total_pnl"], 538.75)
+        self.assertAlmostEqual(bull["return_pct"], 20.5629, places=4)
         self.assertEqual(analytics["unattributed_pnl"]["total"], 24.0)
         self.assertEqual(analytics["reconciliation"], {
             "opening_nav": 9900.0,
-            "latest_nav": 13022.26,
-            "nav_change": 3122.26,
+            "latest_nav": 13046.02,
+            "nav_change": 3146.02,
             "external_flows": 0.0,
-            "attributed_pnl": 3098.26,
+            "attributed_pnl": 3122.02,
             "unattributed_pnl": 24.0,
-            "explained_change": 3122.26,
+            "explained_change": 3146.02,
             "residual": 0.0,
         })
 
@@ -1128,11 +948,11 @@ class PortfolioHistoryTests(unittest.TestCase):
         formation = exposure["points"][0]
         latest = exposure["points"][-1]
         self.assertEqual(formation["gross_exposure"], 10532.0)
-        self.assertEqual(latest["date"], "2026-08-20")
-        self.assertEqual(latest["gross_exposure"], 13429.45)
+        self.assertEqual(latest["date"], "2026-08-19")
+        self.assertEqual(latest["gross_exposure"], 13476.52)
         self.assertEqual(latest["values"]["cash-cash-equivalents"]["value"], 7230.81)
-        self.assertEqual(latest["values"]["options"]["value"], 354.66)
-        self.assertEqual(latest["values"]["technology"]["value"], 1522.38)
+        self.assertEqual(latest["values"]["options"]["value"], 365.92)
+        self.assertEqual(latest["values"]["technology"]["value"], 1541.88)
         self.assertAlmostEqual(sum(value["percent"] for value in latest["values"].values()), 100.0, places=6)
 
         risk = analytics["risk_history"]
@@ -1146,12 +966,12 @@ class PortfolioHistoryTests(unittest.TestCase):
             "medium": {"value": 2924.25, "percent": 27.765382},
             "high": {"value": 4148.19, "percent": 39.386536},
         })
-        self.assertEqual(risk_latest["date"], "2026-08-20")
-        self.assertEqual(risk_latest["gross_exposure"], 13429.45)
+        self.assertEqual(risk_latest["date"], "2026-08-19")
+        self.assertEqual(risk_latest["gross_exposure"], 13476.52)
         self.assertEqual(risk_latest["values"], {
-            "low": {"value": 7745.6, "percent": 57.676289},
-            "medium": {"value": 4777.78, "percent": 35.57685},
-            "high": {"value": 906.07, "percent": 6.746861},
+            "low": {"value": 7742.16, "percent": 57.449249},
+            "medium": {"value": 4825.69, "percent": 35.808138},
+            "high": {"value": 908.67, "percent": 6.742613},
         })
         self.assertAlmostEqual(
             sum(value["value"] for value in risk_latest["values"].values()),
@@ -1159,31 +979,6 @@ class PortfolioHistoryTests(unittest.TestCase):
             places=2,
         )
         self.assertAlmostEqual(sum(value["percent"] for value in risk_latest["values"].values()), 100.0, places=6)
-
-    def test_packaged_fallback_before_august_twenty_first_close_excludes_trade(self) -> None:
-        fallback = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
-
-        def failing_fetcher(_symbol: str, _start: dt.date, _end: dt.date) -> dict[dt.date, float]:
-            raise TimeoutError("offline test")
-
-        payload = history.build_history(
-            self.ledger,
-            as_of=dt.datetime(2026, 8, 21, 12, 0, tzinfo=history.MARKET_ZONE),
-            fetcher=failing_fetcher,
-            fallback=fallback,
-        )
-        analytics = payload["accounts"]["ahub"]["analytics"]
-        self.assertEqual(payload["last_completed_session"], "2026-08-20")
-        self.assertEqual(self.points(payload)[-1]["date"], "2026-08-20")
-        self.assertEqual(self.points(payload)[-1]["cash"], 1899.54)
-        self.assertNotIn(
-            "BULL_C10_20261218",
-            {trade["instrument_id"] for trade in analytics["realized_trades"]},
-        )
-        self.assertNotIn(
-            "bull-dec2026-call",
-            {contributor["id"] for contributor in analytics["contributors"]},
-        )
 
 
 def math_is_positive(value: object) -> bool:

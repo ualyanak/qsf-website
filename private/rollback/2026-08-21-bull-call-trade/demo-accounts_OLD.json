@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-21",
+  "published_at": "2026-08-20",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1917.04,
+      "cash": 1899.54,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -61,20 +61,12 @@
           "kind": "illustrative_trade_update",
           "instrument": "BULL",
           "note": "User-provided date-only test update: sold 120 of 320 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $150.00. Proceeds increased cash from $885.54 to $1,899.54; 200 BULL shares remain at the unchanged $7.20 basis."
-        },
-        {
-          "date": "2026-08-21",
-          "amount": 17.5,
-          "kind": "illustrative_trade_update",
-          "instrument": "BULL_C10_20261218",
-          "note": "User-provided date-only test update: bought 10 BULL Dec 18 2026 $10 calls at $0.89 and sold 7.5 at $1.21 with no fees. Net cash increased from $1,899.54 to $1,917.04. Under the supplied bookkeeping convention, realized profit is $17.50 because the full $890.00 purchase cost is allocated to the sale; the remaining 2.5 contracts carry zero basis."
         }
       ],
       "positions": [
         { "instrument": "SGOV", "quantity": 53, "basis_price": 100.5318867925 },
         { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
-        { "instrument": "BULL_C10_20261218", "quantity": 2.5, "basis_price": 0.0 },
         { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
         { "instrument": "INFQ_C25_20270115", "quantity": 1, "basis_price": 0.75 },
         { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
@@ -110,7 +102,6 @@
     "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "cash_equivalent": true, "multiplier": 1, "mark_mode": "public_delayed" },
     "BULL": { "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "asset_class": "Financial Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "BULL_P10_JAN2027": { "symbol": "BULL Jan 15 2027 $10 Put", "quote_symbol": "BULL_P10_JAN2027", "option_symbol": "BULL270115P00010000", "underlying_symbol": "BULL", "expiry": "2027-01-15", "name": "Short one BULL $10 put", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 3.16, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
-    "BULL_C10_20261218": { "symbol": "BULL Dec 18 2026 $10 Call", "quote_symbol": "BULL_C10_20261218", "option_symbol": "BULL261218C00010000", "underlying_symbol": "BULL", "expiry": "2026-12-18", "name": "BULL Dec 18 2026 $10 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 1.21, "manual_as_of": "2026-08-21T09:30:00-04:00", "manual_source": "User-supplied Aug 21 same-day sale premium; automatic model fallback", "attribution_group_id": "bull-dec2026-call", "attribution_group_label": "BULL Dec 2026 $10 Calls", "risk_level": "high" },
     "IBM": { "symbol": "IBM", "name": "International Business Machines", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "INFQ_C25_20270115": { "symbol": "INFQ Jan 15 2027 $25 Call", "quote_symbol": "INFQ_C25_20270115", "option_symbol": "INFQ270115C00025000", "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ $25 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 0.75, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
     "INFQ_C10_C17_5_20270115": { "symbol": "INFQ Jan 15 2027 $10/$17.50 Call Vertical", "quote_symbol": "INFQ_C10_C17_5_20270115", "option_symbols": ["INFQ270115C00010000", "INFQ270115C00017500"], "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ $10/$17.50 call verticals", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 1.37, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening net premium; automatic model fallback anchor" },
