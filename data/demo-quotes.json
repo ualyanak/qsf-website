@@ -1,7 +1,7 @@
 {
   "demo": true,
   "failures": [],
-  "generated_at": "2026-08-24T04:30:21Z",
+  "generated_at": "2026-08-24T05:20:33Z",
   "missing": [],
   "quotes": {
     "BULL": {
@@ -23,13 +23,13 @@
       "option_symbols": [
         "BULL261218C00010000"
       ],
-      "price": 0.844002,
+      "price": 0.843805,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
       "underlying_price": 8.78,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-08-24T04:30:21Z"
+      "valuation_as_of": "2026-08-24T05:20:33Z"
     },
     "BULL_P10_JAN2027": {
       "as_of": "2026-08-21T20:00:00Z",
@@ -44,13 +44,13 @@
       "option_symbols": [
         "BULL270115P00010000"
       ],
-      "price": 2.059433,
+      "price": 2.059292,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
       "underlying_price": 8.78,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-08-24T04:30:21Z"
+      "valuation_as_of": "2026-08-24T05:20:33Z"
     },
     "IBM": {
       "as_of": "2026-08-21T20:00:00Z",
@@ -78,13 +78,13 @@
         "INFQ270115C00010000",
         "INFQ270115C00017500"
       ],
-      "price": 2.807506,
+      "price": 2.807664,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 14.12,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-08-24T04:30:21Z"
+      "valuation_as_of": "2026-08-24T05:20:33Z"
     },
     "INFQ_C25_20270115": {
       "as_of": "2026-08-21T20:00:00Z",
@@ -99,13 +99,13 @@
       "option_symbols": [
         "INFQ270115C00025000"
       ],
-      "price": 2.023573,
+      "price": 2.023046,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 14.12,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-08-24T04:30:21Z"
+      "valuation_as_of": "2026-08-24T05:20:33Z"
     },
     "IVR": {
       "as_of": "2026-08-21T20:00:00Z",
