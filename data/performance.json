@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-08-25T16:20:32Z",
+  "generated_at": "2026-08-25T17:00:11Z",
   "methodology": {
     "baseline": "Last available January 2020 observation (displayed as 0%).",
     "benchmark_frequency": "Completed calendar month-end observations plus the latest available delayed observation.",
@@ -1307,7 +1307,7 @@
       "default_hidden": true,
       "freshness": {
         "age_minutes_at_check": 0.0,
-        "as_of": "2026-08-25T16:20:30Z",
+        "as_of": "2026-08-25T17:00:09Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
       },
@@ -1315,9 +1315,9 @@
       "label": "SPY (adjusted)",
       "latest": {
         "kind": "intraday_15m",
-        "market_price": 765.460022,
-        "timestamp": "2026-08-25T16:20:30Z",
-        "value": 161.0148
+        "market_price": 765.710022,
+        "timestamp": "2026-08-25T17:00:09Z",
+        "value": 161.1
       },
       "points": [
         {
@@ -1360,7 +1360,7 @@
           "date": "2020-07-31",
           "kind": "month_end",
           "period": "2020-07",
-          "value": 2.5348
+          "value": 2.5349
         },
         {
           "date": "2020-08-31",
@@ -1390,7 +1390,7 @@
           "date": "2020-12-31",
           "kind": "month_end",
           "period": "2020-12",
-          "value": 18.3794
+          "value": 18.3795
         },
         {
           "date": "2021-01-29",
@@ -1516,7 +1516,7 @@
           "date": "2022-09-30",
           "kind": "month_end",
           "period": "2022-09",
-          "value": 15.9261
+          "value": 15.9262
         },
         {
           "date": "2022-10-31",
@@ -1540,7 +1540,7 @@
           "date": "2023-01-31",
           "kind": "month_end",
           "period": "2023-01",
-          "value": 32.5327
+          "value": 32.5328
         },
         {
           "date": "2023-02-28",
@@ -1606,7 +1606,7 @@
           "date": "2023-12-29",
           "kind": "month_end",
           "period": "2023-12",
-          "value": 57.3301
+          "value": 57.3302
         },
         {
           "date": "2024-01-31",
@@ -1648,7 +1648,7 @@
           "date": "2024-07-31",
           "kind": "month_end",
           "period": "2024-07",
-          "value": 83.4775
+          "value": 83.4776
         },
         {
           "date": "2024-08-30",
@@ -1660,7 +1660,7 @@
           "date": "2024-09-30",
           "kind": "month_end",
           "period": "2024-09",
-          "value": 91.7085
+          "value": 91.7086
         },
         {
           "date": "2024-10-31",
@@ -1672,7 +1672,7 @@
           "date": "2024-11-29",
           "kind": "month_end",
           "period": "2024-11",
-          "value": 101.328
+          "value": 101.3281
         },
         {
           "date": "2024-12-31",
@@ -1696,7 +1696,7 @@
           "date": "2025-03-31",
           "kind": "month_end",
           "period": "2025-03",
-          "value": 88.1003
+          "value": 88.1004
         },
         {
           "date": "2025-04-30",
@@ -1720,7 +1720,7 @@
           "date": "2025-07-31",
           "kind": "month_end",
           "period": "2025-07",
-          "value": 113.1714
+          "value": 113.1715
         },
         {
           "date": "2025-08-29",
@@ -1732,7 +1732,7 @@
           "date": "2025-09-30",
           "kind": "month_end",
           "period": "2025-09",
-          "value": 125.2946
+          "value": 125.2947
         },
         {
           "date": "2025-10-31",
@@ -1756,7 +1756,7 @@
           "date": "2026-01-30",
           "kind": "month_end",
           "period": "2026-01",
-          "value": 134.708
+          "value": 134.7081
         },
         {
           "date": "2026-02-27",
@@ -1786,7 +1786,7 @@
           "date": "2026-06-30",
           "kind": "month_end",
           "period": "2026-06",
-          "value": 154.6416
+          "value": 154.6417
         },
         {
           "date": "2026-07-31",
@@ -1797,7 +1797,7 @@
       ],
       "provenance": {
         "adjustment": "Yahoo adjusted close",
-        "as_of": "2026-08-25T16:20:30Z",
+        "as_of": "2026-08-25T17:00:09Z",
         "live": true,
         "source": "Yahoo Finance chart endpoint",
         "symbol": "SPY"
@@ -1811,7 +1811,7 @@
       "default_hidden": true,
       "freshness": {
         "age_minutes_at_check": 0.0,
-        "as_of": "2026-08-25T16:20:31Z",
+        "as_of": "2026-08-25T17:00:09Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
       },
@@ -1819,9 +1819,9 @@
       "label": "Gold (GLD proxy, adjusted)",
       "latest": {
         "kind": "intraday_15m",
-        "market_price": 425.700012,
-        "timestamp": "2026-08-25T16:20:31Z",
-        "value": 185.0733
+        "market_price": 425.75,
+        "timestamp": "2026-08-25T17:00:09Z",
+        "value": 185.1068
       },
       "points": [
         {
@@ -2301,7 +2301,7 @@
       ],
       "provenance": {
         "adjustment": "Yahoo adjusted close",
-        "as_of": "2026-08-25T16:20:31Z",
+        "as_of": "2026-08-25T17:00:09Z",
         "live": true,
         "source": "Yahoo Finance chart endpoint",
         "symbol": "GLD"
@@ -2314,8 +2314,8 @@
       "color": "#f7931a",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 0.1,
-        "as_of": "2026-08-25T16:20:29Z",
+        "age_minutes_at_check": 0.0,
+        "as_of": "2026-08-25T17:00:09Z",
         "max_age_minutes": 180,
         "within_expected_window": true
       },
@@ -2323,9 +2323,9 @@
       "label": "Bitcoin (BTC-USD)",
       "latest": {
         "kind": "intraday_15m",
-        "market_price": 79268.070312,
-        "timestamp": "2026-08-25T16:20:29Z",
-        "value": 747.7389
+        "market_price": 79122.648438,
+        "timestamp": "2026-08-25T17:00:09Z",
+        "value": 746.1836
       },
       "points": [
         {
@@ -2805,7 +2805,7 @@
       ],
       "provenance": {
         "adjustment": "Yahoo BTC-USD close",
-        "as_of": "2026-08-25T16:20:29Z",
+        "as_of": "2026-08-25T17:00:09Z",
         "live": true,
         "source": "Yahoo Finance chart endpoint",
         "symbol": "BTC-USD"
@@ -2818,7 +2818,7 @@
       "color": "#93a8c4",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 6740.5,
+        "age_minutes_at_check": 6780.2,
         "as_of": "2026-08-21T00:00:00Z",
         "max_age_minutes": 14400,
         "within_expected_window": true
@@ -3318,9 +3318,9 @@
     }
   ],
   "snapshot": {
-    "benchmark_as_of": "2026-08-25T16:20:31Z",
+    "benchmark_as_of": "2026-08-25T17:00:09Z",
     "benchmark_status": "current_public_sources",
-    "checked_at": "2026-08-25T16:20:32Z",
+    "checked_at": "2026-08-25T17:00:11Z",
     "delay_notice": "Best-effort public data and workflow runs can be delayed beyond 15 minutes. FRED generally updates once per business day; each series retains its own as-of time.",
     "failed_sources": [],
     "fund_as_of": "2025-09-30",
