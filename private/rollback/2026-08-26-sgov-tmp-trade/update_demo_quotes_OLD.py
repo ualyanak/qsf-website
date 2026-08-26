@@ -23,7 +23,7 @@ import urllib.parse
 import urllib.request
 
 
-SYMBOLS = ("SGOV", "BULL", "IBM", "INFQ", "IVR", "NVDA", "PHYS", "PLTR", "QBTS", "SPY", "TMP", "TSSI", "WMT")
+SYMBOLS = ("SGOV", "BULL", "IBM", "INFQ", "IVR", "NVDA", "PHYS", "PLTR", "QBTS", "SPY", "TSSI", "WMT")
 ENDPOINT = "https://query1.finance.yahoo.com/v8/finance/chart/{symbol}"
 USER_AGENT = "Mozilla/5.0 (compatible; QSF-Public-Demo-Quote-Refresh/1.0)"
 MAX_EXPECTED_QUOTE_AGE_SECONDS = 4 * 24 * 60 * 60

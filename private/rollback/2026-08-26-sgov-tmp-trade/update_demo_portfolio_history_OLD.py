@@ -70,7 +70,6 @@ RISK_LEVELS = frozenset(category["id"] for category in RISK_CATEGORY_STYLES)
 EXPOSURE_CATEGORY_STYLES: dict[str, tuple[str, str]] = {
     "cash-cash-equivalents": ("Cash & Cash Equivalents", "#15344f"),
     "financial-technology": ("Financial Technology", "#56816f"),
-    "regional-banking": ("Regional Banking", "#6f4f73"),
     "options": ("Options", "#c9a24f"),
     "technology": ("Technology", "#3d6f8c"),
     "real-estate": ("Real Estate", "#8b5f63"),
@@ -149,24 +148,6 @@ def instrument_multiplier(ledger: Mapping[str, Any], instrument_id: str) -> floa
     if multiplier <= 0:
         raise HistoryError(f"Invalid non-positive multiplier for {instrument_id}")
     return multiplier
-
-
-def instrument_history_seed(instrument_id: str, instrument: Mapping[str, Any]) -> tuple[float, dt.date, str] | None:
-    """Return a validated explicit seed for an equity added after formation."""
-    raw_seed = instrument.get("history_seed")
-    if raw_seed is None:
-        return None
-    if instrument.get("kind") != "equity" or not isinstance(raw_seed, Mapping):
-        raise HistoryError(f"{instrument_id} has invalid history seed metadata")
-    price = finite_number(raw_seed.get("price"), f"{instrument_id} history seed price")
-    try:
-        day = dt.date.fromisoformat(str(raw_seed.get("date", "")))
-    except ValueError as error:
-        raise HistoryError(f"{instrument_id} has invalid history seed date") from error
-    source = str(raw_seed.get("source", "")).strip()
-    if price <= 0 or not source:
-        raise HistoryError(f"{instrument_id} has invalid history seed metadata")
-    return price, day, source
 
 
 def initial_state(ledger: Mapping[str, Any]) -> dict[str, Any]:
@@ -411,7 +392,6 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
         if risk_level not in RISK_LEVELS:
             raise HistoryError(f"Attribution group {group_id} has unsupported risk level {risk_level or '<missing>'}")
     referenced_groups: set[str] = set()
-    explicit_history_seeds: dict[str, tuple[float, dt.date, str]] = {}
     for instrument_id, instrument in instruments.items():
         if not isinstance(instrument, Mapping):
             raise HistoryError(f"Invalid instrument metadata: {instrument_id}")
@@ -427,48 +407,10 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
             raise HistoryError(f"{instrument_id} references unknown attribution group {attribution_group_id}")
         if str(instrument["attribution_group_label"]) != str(attribution_group["label"]):
             raise HistoryError(f"{instrument_id} attribution label does not match group {attribution_group_id}")
-        history_seed = instrument_history_seed(str(instrument_id), instrument)
-        if history_seed is not None:
-            explicit_history_seeds[str(instrument_id)] = history_seed
         referenced_groups.add(attribution_group_id)
     unreferenced_groups = sorted(set(str(group_id) for group_id in attribution_groups) - referenced_groups)
     if unreferenced_groups:
         raise HistoryError("Unreferenced attribution groups: " + ", ".join(unreferenced_groups))
-
-    formation_instruments = {
-        str(position.get("instrument", ""))
-        for position in (formation.get("positions") or [])
-        if isinstance(position, Mapping)
-    }
-    first_trade_fills: dict[str, tuple[dt.date, float]] = {}
-    for event in sorted(ledger.get("events") or [], key=lambda item: (event_datetime(item), str(item.get("id", "")))):
-        if not isinstance(event, Mapping) or event.get("kind") != "trade":
-            continue
-        event_day = event_datetime(event).astimezone(MARKET_ZONE).date()
-        for leg in event.get("legs") or []:
-            if not isinstance(leg, Mapping):
-                continue
-            instrument_id = str(leg.get("instrument", ""))
-            if instrument_id in explicit_history_seeds and instrument_id not in first_trade_fills:
-                first_trade_fills[instrument_id] = (
-                    event_day,
-                    finite_number(leg.get("price"), f"{instrument_id} first trade price"),
-                )
-    for instrument_id, (seed_price, seed_date, _seed_source) in explicit_history_seeds.items():
-        if instrument_id in formation_instruments:
-            formation_date = parse_datetime(formation.get("as_of")).astimezone(MARKET_ZONE).date()
-            if seed_date != formation_date:
-                raise HistoryError(f"{instrument_id} history seed date must match its formation date")
-            continue
-        first_fill = first_trade_fills.get(instrument_id)
-        if first_fill is None:
-            raise HistoryError(f"{instrument_id} history seed requires a dated opening trade")
-        first_trade_date, first_trade_price = first_fill
-        if seed_date != first_trade_date:
-            raise HistoryError(f"{instrument_id} history seed date must match its first trade date")
-        if not math.isclose(seed_price, first_trade_price, abs_tol=1e-9):
-            raise HistoryError(f"{instrument_id} history seed price must match its first trade price")
-
     formation_state = initial_state(ledger)
     basis_value = formation_state["cash"]
     for instrument_id, lot in formation_state["positions"].items():
@@ -476,10 +418,6 @@ def validate_ledger(ledger: Mapping[str, Any]) -> None:
     formation_nav = finite_number(formation.get("nav"), "formation NAV")
     if not math.isclose(basis_value, formation_nav, abs_tol=0.005):
         raise HistoryError(f"Formation basis value {basis_value:.2f} does not reconcile to {formation_nav:.2f}")
-    seeded_symbols = seed_marks(ledger)
-    missing_seed_symbols = [symbol for symbol in required_symbols(ledger) if symbol not in seeded_symbols]
-    if missing_seed_symbols:
-        raise HistoryError("Missing historical seed marks: " + ", ".join(missing_seed_symbols))
 
     expected = ledger.get("expected_current_snapshot")
     if not isinstance(expected, Mapping):
@@ -635,20 +573,6 @@ def seed_marks(ledger: Mapping[str, Any]) -> dict[str, tuple[float, dt.date]]:
             if symbol in seeds and not math.isclose(seeds[symbol][0], candidate[0], rel_tol=1e-9):
                 raise HistoryError(f"Conflicting formation seeds for {symbol}")
             seeds[symbol] = candidate
-    for instrument_id, instrument in instruments.items():
-        if not isinstance(instrument, Mapping):
-            raise HistoryError(f"Invalid instrument metadata: {instrument_id}")
-        explicit_seed = instrument_history_seed(str(instrument_id), instrument)
-        if explicit_seed is None:
-            continue
-        price, day, _source = explicit_seed
-        symbol = str(instrument.get("symbol") or instrument_id)
-        candidate = (price, day)
-        existing = seeds.get(symbol)
-        if existing is None or day < existing[1]:
-            seeds[symbol] = candidate
-        elif day == existing[1] and not math.isclose(existing[0], price, rel_tol=1e-9):
-            raise HistoryError(f"Conflicting historical seeds for {symbol}")
     return seeds
 
 
@@ -1361,7 +1285,7 @@ def build_history(
     seeds = seed_marks(ledger)
     missing_seeds = [symbol for symbol in symbols if symbol not in seeds]
     if missing_seeds:
-        raise HistoryError("Missing historical seed marks: " + ", ".join(missing_seeds))
+        raise HistoryError("Missing non-zero formation mark seeds: " + ", ".join(missing_seeds))
 
     points: list[dict[str, Any]] = []
     raw_exposure_categories = exposure_categories(ledger, include_financing=True)
@@ -1455,16 +1379,12 @@ def build_history(
         forward_filled: list[str] = []
         for symbol in sorted(active_symbols(ledger, state)):
             eligible = [observed for observed in observations.get(symbol, {}) if observed <= day]
-            used_seed = False
             if eligible:
                 mark_date = max(eligible)
                 marks[symbol] = observations[symbol][mark_date]
             else:
                 marks[symbol], mark_date = seeds[symbol]
-                if mark_date > day:
-                    raise HistoryError(f"No non-future mark can cover {symbol} on {day}")
-                used_seed = True
-            if used_seed or mark_date != day:
+            if mark_date != day:
                 forward_filled.append(symbol)
             if not math.isfinite(marks[symbol]) or marks[symbol] <= 0:
                 raise HistoryError(f"No positive mark can cover {symbol} on {day}")

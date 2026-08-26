@@ -22,8 +22,8 @@
   });
 
   const page = document.body && document.body.dataset.page;
-  const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467", "#6f4f73"];
-  const exposureFallbackColors = ["#15344f", "#c9a24f", "#3d6f8c", "#56816f", "#967638", "#8b5f63", "#445467", "#7b8793", "#6f4f73"];
+  const colors = ["#15344f", "#c9a24f", "#3d6f8c", "#7b8793", "#967638", "#56816f", "#8b5f63", "#445467"];
+  const exposureFallbackColors = ["#15344f", "#c9a24f", "#3d6f8c", "#56816f", "#967638", "#8b5f63", "#445467", "#7b8793"];
   const riskHistoryDefaults = Object.freeze([
     { id: "high", label: "High Risk", color: "#a43f43" },
     { id: "medium", label: "Medium Risk", color: "#c9a24f" },
@@ -904,7 +904,6 @@
         marketValue: marketValue,
         unrealizedPnl: marketValue - basisValue,
         attributionId: safeString(instrument.attribution_group_id || instrument.underlying_symbol || instrument.symbol || id, 64),
-        riskLevel: normalizeRiskLevel(instrument.risk_level),
         markAsOf: mark.asOf,
         markInputAsOf: mark.inputAsOf,
         markSource: mark.source,
@@ -1740,9 +1739,7 @@
     (view.holdings || []).forEach(function (holding) {
       const riskLevel = holding.cashEquivalent
         ? holding.quantity < 0 ? "high" : "low"
-        : normalizeRiskLevel(holding.riskLevel)
-          || riskByInstrument.get(normalizedId(holding.id, ""))
-          || "high";
+        : riskByInstrument.get(normalizedId(holding.id, "")) || "high";
       currentTotals[riskLevel] += Math.abs(finite(holding.marketValue) || 0);
     });
     const grossExposure = currentTotals.high + currentTotals.medium + currentTotals.low;

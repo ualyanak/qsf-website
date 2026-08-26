@@ -18,8 +18,7 @@
     "wmt": { "label": "WMT · Walmart", "risk_level": "medium" },
     "sgov": { "label": "SGOV · Short-Term Treasuries", "risk_level": "low" },
     "tssi": { "label": "TSSI · TSS, Inc.", "risk_level": "high" },
-    "ivr": { "label": "IVR · Invesco Mortgage Capital", "risk_level": "high" },
-    "tmp": { "label": "TMP · Tompkins Financial", "risk_level": "medium" }
+    "ivr": { "label": "IVR · Invesco Mortgage Capital", "risk_level": "high" }
   },
   "formation": {
     "as_of": "2026-07-17T09:30:00-04:00",
@@ -132,16 +131,6 @@
           "reason": "User-specified bookkeeping allocates the full purchase cost to the same-day sale and zero basis to the remaining 2.5 contracts."
         }
       ]
-    },
-    {
-      "id": "2026-08-26-sgov-to-tmp",
-      "kind": "trade",
-      "effective_at": "2026-08-26T09:06:00-05:00",
-      "note": "User update recorded at 9:06 a.m. CDT; sold 5 SGOV shares at $100.65 for $503.25 and purchased 5 TMP shares at $98.00 for $490.00 with no fees. Net proceeds added $13.25 to cash; 48 SGOV shares remain at the unchanged $100.5318867925 basis and 5 TMP shares carry a $98.00 basis.",
-      "legs": [
-        { "instrument": "SGOV", "signed_quantity": -5, "price": 100.65, "fees": 0 },
-        { "instrument": "TMP", "signed_quantity": 5, "price": 98.0, "fees": 0 }
-      ]
     }
   ],
   "instruments": {
@@ -159,13 +148,12 @@
     "QBTS": { "kind": "equity", "symbol": "QBTS", "name": "D-Wave Quantum", "multiplier": 1, "attribution_group_id": "qbts", "attribution_group_label": "QBTS · D-Wave Quantum", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
     "SPY": { "kind": "equity", "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "multiplier": 1, "attribution_group_id": "spy", "attribution_group_label": "SPY · S&P 500 ETF", "exposure_group_id": "index-funds", "exposure_group_label": "Index Funds" },
     "TSSI": { "kind": "equity", "symbol": "TSSI", "name": "TSS, Inc.", "multiplier": 1, "attribution_group_id": "tssi", "attribution_group_label": "TSSI · TSS, Inc.", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
-    "TMP": { "kind": "equity", "symbol": "TMP", "name": "Tompkins Financial Corporation", "multiplier": 1, "history_seed": { "price": 98.0, "date": "2026-08-26", "source": "User-supplied opening trade price" }, "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "exposure_group_id": "regional-banking", "exposure_group_label": "Regional Banking" },
     "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
   },
   "expected_current_snapshot": {
-    "cash": 1930.29,
+    "cash": 1917.04,
     "positions": {
-      "SGOV": 48,
+      "SGOV": 53,
       "BULL": 200,
       "BULL_P10_JAN2027": -1,
       "BULL_C10_20261218": 2.5,
@@ -177,7 +165,6 @@
       "PLTR": 4,
       "QBTS": 20,
       "SPY": 1,
-      "TMP": 5,
       "WMT": 5
     }
   }

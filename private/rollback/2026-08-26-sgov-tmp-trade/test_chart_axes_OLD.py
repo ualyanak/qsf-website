@@ -10,7 +10,6 @@ BENCHMARK_IDS = ["spy", "gold-gld", "btc-usd"]
 APPROVED_RISK_LEVELS = {
     "infq": "high",
     "bull": "medium",
-    "bull-dec2026-call": "high",
     "pltr": "medium",
     "phys": "low",
     "qbts": "medium",
@@ -41,7 +40,6 @@ def tick_indexes(length, maximum):
 class ChartAxesTests(unittest.TestCase):
     def setUp(self):
         self.portal = (REPO / "assets/js/portal-demo.js").read_text(encoding="utf-8")
-        self.demo_pdf = (REPO / "assets/js/demo-pdf.js").read_text(encoding="utf-8")
         self.portal_css = (REPO / "assets/css/portal.css").read_text(encoding="utf-8")
         self.dashboard = (REPO / "investor_login/dashboard.html").read_text(encoding="utf-8")
         history = json.loads((REPO / "data/demo-portfolio-history.json").read_text(encoding="utf-8"))
@@ -213,11 +211,7 @@ class ChartAxesTests(unittest.TestCase):
         self.assertIn('kind: view.modifiedAt ? "local_risk_now" : "intraday_risk_now"', self.portal)
         self.assertIn("currentCash < 0 ? Math.abs(currentCash) : 0", self.portal)
         self.assertIn('holding.quantity < 0 ? "high" : "low"', self.portal)
-        self.assertIn("riskLevel: normalizeRiskLevel(instrument.risk_level)", self.portal)
-        self.assertIn("normalizeRiskLevel(holding.riskLevel)", self.portal)
-        self.assertIn('riskByInstrument.get(normalizedId(holding.id, ""))', self.portal)
-        self.assertIn('"#6f4f73"', self.portal)
-        self.assertIn("[0.435, 0.310, 0.451]", self.demo_pdf)
+        self.assertIn('riskByInstrument.get(normalizedId(holding.id, "")) || "high"', self.portal)
         self.assertIn("chartTickIndexes(points.length, mobile ? 6 : 7)", self.portal)
         self.assertIn('setAttribute("aria-valuetext"', self.portal)
         self.assertIn('role="list" aria-label="Selected-date risk percentages"', self.dashboard)
@@ -234,7 +228,7 @@ class ChartAxesTests(unittest.TestCase):
     def test_current_portal_pages_share_the_analytics_cache_version(self):
         for relative in ["investor_login/dashboard.html", "investor_login/index.html", "admin/index.html"]:
             page = (REPO / relative).read_text(encoding="utf-8")
-            self.assertIn("20260826-tmp1", page)
+            self.assertIn("20260820-risk-history1", page)
 
 
 if __name__ == "__main__":

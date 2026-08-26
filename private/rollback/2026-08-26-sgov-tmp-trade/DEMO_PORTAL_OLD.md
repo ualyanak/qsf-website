@@ -55,15 +55,6 @@ repository. They must never be reused for real investor accounts.
   2.5 contracts have zero allocated basis and their full current modeled value
   is unrealized P&L. This is an explicit test-data basis allocation, not the
   engine's ordinary average-cost treatment.
-- The August 26, 9:06 a.m. CDT update sells five SGOV shares at `$100.65` for
-  `$503.25` and buys five Tompkins Financial Corporation (`TMP`) shares at
-  `$98.00` for `$490.00`, with no reported fees. The `$13.25` net proceeds
-  increase raw cash from `$1,917.04` to `$1,930.29`; 48 SGOV shares remain at
-  the unchanged `$100.5318867925` weighted basis, and the new TMP position has
-  a `$98.00` per-share basis. TMP receives an automatic delayed public-equity
-  mark, a Medium-Risk classification, and a Regional Banking exposure label.
-  Its historical fallback seed begins on the purchase date, so the history
-  engine does not invent a TMP holding or mark before August 26.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains
@@ -92,8 +83,8 @@ repository. They must never be reused for real investor accounts.
 1. `data/demo-accounts.json` contains the published test portfolios and only a
    formation-value fallback for dated history.
 2. `scripts/update_demo_quotes.py` retrieves an allowlisted set of best-effort
-   delayed equity and ETF snapshots, including SGOV, TMP, and the BULL and INFQ
-   underliers.
+   delayed equity and ETF snapshots, including the SGOV holding and the BULL
+   and INFQ underliers.
 3. `data/demo-portfolio-ledger.json` records the formation portfolio and each
    supplied cash or trade event. `scripts/update_demo_portfolio_history.py`
    replays that ledger against raw daily closes and writes prior completed-night
@@ -149,7 +140,7 @@ completed-night performance before that session closes.
   who cannot distinguish color. The category is illustrative and qualitative;
   it is not calculated from P&L, volatility, liquidity, option delta, or investor
   suitability. The approved map is INFQ/TSSI/IVR high; BULL/PLTR/QBTS/IBM/SPY/
-  NVDA/WMT/TMP medium; and PHYS/SGOV low.
+  NVDA/WMT medium; and PHYS/SGOV low.
 - `risk_history` replays those same administrator-assigned categories across
   every completed-night portfolio state. Each point is a 100% gross marked-value
   mix split into Low, Medium, and High risk; positive cash is Low risk, SGOV
@@ -190,11 +181,6 @@ The August 21 call trade appears immediately in current holdings, cash, and the
 outlined `Now` risk mix. It enters realized-trade, contributor, and historical
 risk analytics only after the August 21 session becomes a completed nightly
 point, preventing an intraday event from leaking into end-of-day history.
-
-The August 26 SGOV/TMP reallocation likewise appears immediately in current
-holdings, cash, the `Now` risk mix, and the `Now` exposure mix. Its realized
-SGOV result, TMP contributor, and historical risk/exposure bands first enter
-completed-night analytics after the August 26 market session closes.
 
 An open dashboard or local editor rechecks the quote and history snapshots every
 15 minutes, and report generation performs another forced check before deriving

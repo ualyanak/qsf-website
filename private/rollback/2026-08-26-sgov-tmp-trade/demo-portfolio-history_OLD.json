@@ -3,7 +3,7 @@
   "accounts": {
     "ahub": {
       "analytics": {
-        "as_of": "2026-08-25",
+        "as_of": "2026-08-20",
         "contributors": [
           {
             "id": "infq",
@@ -13,14 +13,14 @@
               "INFQ_C25_20270115"
             ],
             "label": "INFQ Strategies",
-            "market_value": 189.03,
-            "portfolio_contribution_pct": 23.5761,
+            "market_value": 151.07,
+            "portfolio_contribution_pct": 23.1926,
             "realized_pnl": 2220.0,
-            "return_pct": 76.7773,
+            "return_pct": 75.5285,
             "risk_level": "high",
-            "total_pnl": 2334.03,
+            "total_pnl": 2296.07,
             "tracked_basis": 3040.0,
-            "unrealized_pnl": 114.03
+            "unrealized_pnl": 76.07
           },
           {
             "id": "bull",
@@ -30,30 +30,14 @@
               "BULL_P10_JAN2027"
             ],
             "label": "BULL \u00b7 Webull",
-            "market_value": 1591.16,
-            "portfolio_contribution_pct": 6.234,
+            "market_value": 1566.4,
+            "portfolio_contribution_pct": 5.9839,
             "realized_pnl": 150.0,
-            "return_pct": 23.5558,
+            "return_pct": 22.6108,
             "risk_level": "medium",
-            "total_pnl": 617.16,
+            "total_pnl": 592.4,
             "tracked_basis": 2620.0,
-            "unrealized_pnl": 467.16
-          },
-          {
-            "id": "bull-dec2026-call",
-            "income": 0.0,
-            "instrument_ids": [
-              "BULL_C10_20261218"
-            ],
-            "label": "BULL Dec 2026 $10 Calls",
-            "market_value": 226.63,
-            "portfolio_contribution_pct": 2.4659,
-            "realized_pnl": 17.5,
-            "return_pct": 27.43,
-            "risk_level": "high",
-            "total_pnl": 244.13,
-            "tracked_basis": 890.0,
-            "unrealized_pnl": 226.63
+            "unrealized_pnl": 442.4
           },
           {
             "id": "pltr",
@@ -62,14 +46,14 @@
               "PLTR"
             ],
             "label": "PLTR \u00b7 Palantir",
-            "market_value": 690.92,
-            "portfolio_contribution_pct": 1.6129,
+            "market_value": 695.84,
+            "portfolio_contribution_pct": 1.6626,
             "realized_pnl": 0.0,
-            "return_pct": 30.058,
+            "return_pct": 30.9841,
             "risk_level": "medium",
-            "total_pnl": 159.68,
+            "total_pnl": 164.6,
             "tracked_basis": 531.24,
-            "unrealized_pnl": 159.68
+            "unrealized_pnl": 164.6
           },
           {
             "id": "phys",
@@ -78,14 +62,14 @@
               "PHYS"
             ],
             "label": "PHYS \u00b7 Physical Gold Trust",
-            "market_value": 531.75,
-            "portfolio_contribution_pct": 0.7788,
+            "market_value": 514.8,
+            "portfolio_contribution_pct": 0.6076,
             "realized_pnl": 0.0,
-            "return_pct": 16.9581,
+            "return_pct": 13.23,
             "risk_level": "low",
-            "total_pnl": 77.1,
+            "total_pnl": 60.15,
             "tracked_basis": 454.65,
-            "unrealized_pnl": 77.1
+            "unrealized_pnl": 60.15
           },
           {
             "id": "qbts",
@@ -94,14 +78,14 @@
               "QBTS"
             ],
             "label": "QBTS \u00b7 D-Wave Quantum",
-            "market_value": 387.0,
-            "portfolio_contribution_pct": 0.4687,
+            "market_value": 376.0,
+            "portfolio_contribution_pct": 0.3576,
             "realized_pnl": 0.0,
-            "return_pct": 13.623,
+            "return_pct": 10.3934,
             "risk_level": "medium",
-            "total_pnl": 46.4,
+            "total_pnl": 35.4,
             "tracked_basis": 340.6,
-            "unrealized_pnl": 46.4
+            "unrealized_pnl": 35.4
           },
           {
             "id": "ibm",
@@ -110,14 +94,14 @@
               "IBM"
             ],
             "label": "IBM",
-            "market_value": 234.19,
-            "portfolio_contribution_pct": 0.2067,
+            "market_value": 233.69,
+            "portfolio_contribution_pct": 0.2016,
             "realized_pnl": 0.0,
-            "return_pct": 9.5728,
+            "return_pct": 9.3389,
             "risk_level": "medium",
-            "total_pnl": 20.46,
+            "total_pnl": 19.96,
             "tracked_basis": 213.73,
-            "unrealized_pnl": 20.46
+            "unrealized_pnl": 19.96
           },
           {
             "id": "spy",
@@ -126,30 +110,14 @@
               "SPY"
             ],
             "label": "SPY \u00b7 S&P 500 ETF",
-            "market_value": 765.91,
-            "portfolio_contribution_pct": 0.2046,
+            "market_value": 762.6,
+            "portfolio_contribution_pct": 0.1712,
             "realized_pnl": 0.0,
-            "return_pct": 2.7171,
+            "return_pct": 2.2732,
             "risk_level": "medium",
-            "total_pnl": 20.26,
+            "total_pnl": 16.95,
             "tracked_basis": 745.65,
-            "unrealized_pnl": 20.26
-          },
-          {
-            "id": "sgov",
-            "income": 0.61,
-            "instrument_ids": [
-              "SGOV"
-            ],
-            "label": "SGOV \u00b7 Short-Term Treasuries",
-            "market_value": 5333.92,
-            "portfolio_contribution_pct": 0.0813,
-            "realized_pnl": 1.71,
-            "return_pct": 0.104,
-            "risk_level": "low",
-            "total_pnl": 8.05,
-            "tracked_basis": 7742.11,
-            "unrealized_pnl": 5.73
+            "unrealized_pnl": 16.95
           },
           {
             "id": "nvda",
@@ -158,14 +126,30 @@
               "NVDA"
             ],
             "label": "NVDA \u00b7 NVIDIA",
-            "market_value": 213.05,
-            "portfolio_contribution_pct": 0.0785,
+            "market_value": 216.85,
+            "portfolio_contribution_pct": 0.1169,
             "realized_pnl": 0.0,
-            "return_pct": 3.7851,
+            "return_pct": 5.6362,
             "risk_level": "medium",
-            "total_pnl": 7.77,
+            "total_pnl": 11.57,
             "tracked_basis": 205.28,
-            "unrealized_pnl": 7.77
+            "unrealized_pnl": 11.57
+          },
+          {
+            "id": "sgov",
+            "income": 0.61,
+            "instrument_ids": [
+              "SGOV"
+            ],
+            "label": "SGOV \u00b7 Short-Term Treasuries",
+            "market_value": 5331.27,
+            "portfolio_contribution_pct": 0.0545,
+            "realized_pnl": 1.71,
+            "return_pct": 0.0697,
+            "risk_level": "low",
+            "total_pnl": 5.4,
+            "tracked_basis": 7742.11,
+            "unrealized_pnl": 3.08
           },
           {
             "id": "tssi",
@@ -184,36 +168,36 @@
             "unrealized_pnl": 0.0
           },
           {
-            "id": "wmt",
-            "income": 0.0,
-            "instrument_ids": [
-              "WMT"
-            ],
-            "label": "WMT \u00b7 Walmart",
-            "market_value": 526.9,
-            "portfolio_contribution_pct": -0.453,
-            "realized_pnl": 0.0,
-            "return_pct": -7.8443,
-            "risk_level": "medium",
-            "total_pnl": -44.85,
-            "tracked_basis": 571.75,
-            "unrealized_pnl": -44.85
-          },
-          {
             "id": "ivr",
             "income": 12.0,
             "instrument_ids": [
               "IVR"
             ],
             "label": "IVR \u00b7 Invesco Mortgage Capital",
-            "market_value": 744.0,
-            "portfolio_contribution_pct": -0.5454,
+            "market_value": 755.0,
+            "portfolio_contribution_pct": -0.4342,
             "realized_pnl": 0.0,
-            "return_pct": -6.6655,
+            "return_pct": -5.3075,
             "risk_level": "high",
-            "total_pnl": -53.99,
+            "total_pnl": -42.99,
             "tracked_basis": 809.99,
-            "unrealized_pnl": -65.99
+            "unrealized_pnl": -54.99
+          },
+          {
+            "id": "wmt",
+            "income": 0.0,
+            "instrument_ids": [
+              "WMT"
+            ],
+            "label": "WMT \u00b7 Walmart",
+            "market_value": 519.2,
+            "portfolio_contribution_pct": -0.5308,
+            "realized_pnl": 0.0,
+            "return_pct": -9.1911,
+            "risk_level": "medium",
+            "total_pnl": -52.55,
+            "tracked_basis": 571.75,
+            "unrealized_pnl": -52.55
           }
         ],
         "exposure_history": {
@@ -1695,211 +1679,6 @@
                   "value": 1522.38
                 }
               }
-            },
-            {
-              "date": "2026-08-21",
-              "gross_exposure": 13772.71,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-21",
-              "values": {
-                "cash-cash-equivalents": {
-                  "percent": 52.643442,
-                  "value": 7250.43
-                },
-                "consumer": {
-                  "percent": 3.76469,
-                  "value": 518.5
-                },
-                "financial-technology": {
-                  "percent": 12.749849,
-                  "value": 1756.0
-                },
-                "index-funds": {
-                  "percent": 5.559689,
-                  "value": 765.72
-                },
-                "options": {
-                  "percent": 4.553226,
-                  "value": 627.1
-                },
-                "precious-metals": {
-                  "percent": 3.811885,
-                  "value": 525.0
-                },
-                "real-estate": {
-                  "percent": 5.460072,
-                  "value": 752.0
-                },
-                "technology": {
-                  "percent": 11.457147,
-                  "value": 1577.96
-                }
-              }
-            },
-            {
-              "date": "2026-08-22",
-              "gross_exposure": 13772.71,
-              "kind": "carry_forward",
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "values": {
-                "cash-cash-equivalents": {
-                  "percent": 52.643442,
-                  "value": 7250.43
-                },
-                "consumer": {
-                  "percent": 3.76469,
-                  "value": 518.5
-                },
-                "financial-technology": {
-                  "percent": 12.749849,
-                  "value": 1756.0
-                },
-                "index-funds": {
-                  "percent": 5.559689,
-                  "value": 765.72
-                },
-                "options": {
-                  "percent": 4.553226,
-                  "value": 627.1
-                },
-                "precious-metals": {
-                  "percent": 3.811885,
-                  "value": 525.0
-                },
-                "real-estate": {
-                  "percent": 5.460072,
-                  "value": 752.0
-                },
-                "technology": {
-                  "percent": 11.457147,
-                  "value": 1577.96
-                }
-              }
-            },
-            {
-              "date": "2026-08-23",
-              "gross_exposure": 13772.71,
-              "kind": "carry_forward",
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "values": {
-                "cash-cash-equivalents": {
-                  "percent": 52.643442,
-                  "value": 7250.43
-                },
-                "consumer": {
-                  "percent": 3.76469,
-                  "value": 518.5
-                },
-                "financial-technology": {
-                  "percent": 12.749849,
-                  "value": 1756.0
-                },
-                "index-funds": {
-                  "percent": 5.559689,
-                  "value": 765.72
-                },
-                "options": {
-                  "percent": 4.553226,
-                  "value": 627.1
-                },
-                "precious-metals": {
-                  "percent": 3.811885,
-                  "value": 525.0
-                },
-                "real-estate": {
-                  "percent": 5.460072,
-                  "value": 752.0
-                },
-                "technology": {
-                  "percent": 11.457147,
-                  "value": 1577.96
-                }
-              }
-            },
-            {
-              "date": "2026-08-24",
-              "gross_exposure": 13613.24,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-24",
-              "values": {
-                "cash-cash-equivalents": {
-                  "percent": 53.264032,
-                  "value": 7250.96
-                },
-                "consumer": {
-                  "percent": 3.911266,
-                  "value": 532.45
-                },
-                "financial-technology": {
-                  "percent": 12.531918,
-                  "value": 1706.0
-                },
-                "index-funds": {
-                  "percent": 5.60829,
-                  "value": 763.47
-                },
-                "options": {
-                  "percent": 4.155728,
-                  "value": 565.73
-                },
-                "precious-metals": {
-                  "percent": 3.892902,
-                  "value": 529.95
-                },
-                "real-estate": {
-                  "percent": 5.494651,
-                  "value": 748.0
-                },
-                "technology": {
-                  "percent": 11.141213,
-                  "value": 1516.68
-                }
-              }
-            },
-            {
-              "date": "2026-08-25",
-              "gross_exposure": 13745.17,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-25",
-              "values": {
-                "cash-cash-equivalents": {
-                  "percent": 52.752771,
-                  "value": 7250.96
-                },
-                "consumer": {
-                  "percent": 3.833345,
-                  "value": 526.9
-                },
-                "financial-technology": {
-                  "percent": 13.008203,
-                  "value": 1788.0
-                },
-                "index-funds": {
-                  "percent": 5.57221,
-                  "value": 765.91
-                },
-                "options": {
-                  "percent": 4.456063,
-                  "value": 612.49
-                },
-                "precious-metals": {
-                  "percent": 3.868631,
-                  "value": 531.75
-                },
-                "real-estate": {
-                  "percent": 5.412809,
-                  "value": 744.0
-                },
-                "technology": {
-                  "percent": 11.095968,
-                  "value": 1525.16
-                }
-              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -1969,30 +1748,6 @@
             "return_pct": 46.6667
           },
           {
-            "attribution_group_id": "bull-dec2026-call",
-            "attribution_group_label": "BULL Dec 2026 $10 Calls",
-            "average_exit_price": 1.21,
-            "basis_allocation_override": {
-              "closed_basis": 890.0,
-              "reason": "User-specified bookkeeping allocates the full purchase cost to the same-day sale and zero basis to the remaining 2.5 contracts.",
-              "remaining_basis_price": 0.0
-            },
-            "closed_basis": 890.0,
-            "closed_quantity": 7.5,
-            "closed_side": "long",
-            "closing_value": 907.5,
-            "date": "2026-08-21",
-            "event_id": "2026-08-21-bull-dec2026-call-trades",
-            "fees": 0.0,
-            "fill_count": 1,
-            "id": "2026-08-21-bull-dec2026-call-trades::BULL_C10_20261218",
-            "instrument_id": "BULL_C10_20261218",
-            "label": "BULL Dec 18 2026 $10 call contracts",
-            "multiplier": 100.0,
-            "realized_pnl": 17.5,
-            "return_pct": 1.9663
-          },
-          {
             "attribution_group_id": "sgov",
             "attribution_group_label": "SGOV \u00b7 Short-Term Treasuries",
             "average_exit_price": 100.65125,
@@ -2032,11 +1787,11 @@
           }
         ],
         "reconciliation": {
-          "attributed_pnl": 3427.5,
-          "explained_change": 3451.5,
+          "attributed_pnl": 3098.26,
+          "explained_change": 3122.26,
           "external_flows": 0.0,
-          "latest_nav": 13351.5,
-          "nav_change": 3451.5,
+          "latest_nav": 13022.26,
+          "nav_change": 3122.26,
           "opening_nav": 9900.0,
           "residual": 0.0,
           "unattributed_pnl": 24.0
@@ -2795,111 +2550,6 @@
                   "value": 4777.78
                 }
               }
-            },
-            {
-              "date": "2026-08-21",
-              "gross_exposure": 13772.71,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-21",
-              "values": {
-                "high": {
-                  "percent": 8.51109,
-                  "value": 1172.21
-                },
-                "low": {
-                  "percent": 56.455327,
-                  "value": 7775.43
-                },
-                "medium": {
-                  "percent": 35.033583,
-                  "value": 4825.07
-                }
-              }
-            },
-            {
-              "date": "2026-08-22",
-              "gross_exposure": 13772.71,
-              "kind": "carry_forward",
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "values": {
-                "high": {
-                  "percent": 8.51109,
-                  "value": 1172.21
-                },
-                "low": {
-                  "percent": 56.455327,
-                  "value": 7775.43
-                },
-                "medium": {
-                  "percent": 35.033583,
-                  "value": 4825.07
-                }
-              }
-            },
-            {
-              "date": "2026-08-23",
-              "gross_exposure": 13772.71,
-              "kind": "carry_forward",
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "values": {
-                "high": {
-                  "percent": 8.51109,
-                  "value": 1172.21
-                },
-                "low": {
-                  "percent": 56.455327,
-                  "value": 7775.43
-                },
-                "medium": {
-                  "percent": 35.033583,
-                  "value": 4825.07
-                }
-              }
-            },
-            {
-              "date": "2026-08-24",
-              "gross_exposure": 13613.24,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-24",
-              "values": {
-                "high": {
-                  "percent": 8.038499,
-                  "value": 1094.3
-                },
-                "low": {
-                  "percent": 57.156934,
-                  "value": 7780.91
-                },
-                "medium": {
-                  "percent": 34.804567,
-                  "value": 4738.03
-                }
-              }
-            },
-            {
-              "date": "2026-08-25",
-              "gross_exposure": 13745.17,
-              "kind": "session_close",
-              "quality": "complete",
-              "source_date": "2026-08-25",
-              "values": {
-                "high": {
-                  "percent": 8.436826,
-                  "value": 1159.66
-                },
-                "low": {
-                  "percent": 56.621402,
-                  "value": 7782.7
-                },
-                "medium": {
-                  "percent": 34.941772,
-                  "value": 4802.81
-                }
-              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -3205,46 +2855,6 @@
               "quality": "complete",
               "source_date": "2026-08-20",
               "value": 10157.19
-            },
-            {
-              "date": "2026-08-21",
-              "kind": "daily_close",
-              "market_price": 765.719971,
-              "quality": "complete",
-              "source_date": "2026-08-21",
-              "value": 10198.75
-            },
-            {
-              "date": "2026-08-22",
-              "kind": "carry_forward",
-              "market_price": 765.719971,
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "value": 10198.75
-            },
-            {
-              "date": "2026-08-23",
-              "kind": "carry_forward",
-              "market_price": 765.719971,
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "value": 10198.75
-            },
-            {
-              "date": "2026-08-24",
-              "kind": "daily_close",
-              "market_price": 763.469971,
-              "quality": "complete",
-              "source_date": "2026-08-24",
-              "value": 10168.78
-            },
-            {
-              "date": "2026-08-25",
-              "kind": "daily_close",
-              "market_price": 765.909973,
-              "quality": "complete",
-              "source_date": "2026-08-25",
-              "value": 10201.28
             }
           ],
           "price_basis": "adjusted_close",
@@ -3539,46 +3149,6 @@
               "quality": "complete",
               "source_date": "2026-08-20",
               "value": 11158.96
-            },
-            {
-              "date": "2026-08-21",
-              "kind": "daily_close",
-              "market_price": 423.359985,
-              "quality": "complete",
-              "source_date": "2026-08-21",
-              "value": 11376.63
-            },
-            {
-              "date": "2026-08-22",
-              "kind": "carry_forward",
-              "market_price": 423.359985,
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "value": 11376.63
-            },
-            {
-              "date": "2026-08-23",
-              "kind": "carry_forward",
-              "market_price": 423.359985,
-              "quality": "carry_forward",
-              "source_date": "2026-08-21",
-              "value": 11376.63
-            },
-            {
-              "date": "2026-08-24",
-              "kind": "daily_close",
-              "market_price": 426.690002,
-              "quality": "complete",
-              "source_date": "2026-08-24",
-              "value": 11466.11
-            },
-            {
-              "date": "2026-08-25",
-              "kind": "daily_close",
-              "market_price": 428.070007,
-              "quality": "complete",
-              "source_date": "2026-08-25",
-              "value": 11503.2
             }
           ],
           "price_basis": "adjusted_close",
@@ -3873,46 +3443,6 @@
               "quality": "complete",
               "source_date": "2026-08-20",
               "value": 11315.03
-            },
-            {
-              "date": "2026-08-21",
-              "kind": "daily_close",
-              "market_price": 78335.1875,
-              "quality": "complete",
-              "source_date": "2026-08-21",
-              "value": 12136.54
-            },
-            {
-              "date": "2026-08-22",
-              "kind": "daily_close",
-              "market_price": 77083.414062,
-              "quality": "complete",
-              "source_date": "2026-08-22",
-              "value": 11942.6
-            },
-            {
-              "date": "2026-08-23",
-              "kind": "daily_close",
-              "market_price": 77755.265625,
-              "quality": "complete",
-              "source_date": "2026-08-23",
-              "value": 12046.69
-            },
-            {
-              "date": "2026-08-24",
-              "kind": "daily_close",
-              "market_price": 78964.484375,
-              "quality": "complete",
-              "source_date": "2026-08-24",
-              "value": 12234.04
-            },
-            {
-              "date": "2026-08-25",
-              "kind": "daily_close",
-              "market_price": 78564.976562,
-              "quality": "complete",
-              "source_date": "2026-08-25",
-              "value": 12172.14
             }
           ],
           "price_basis": "close",
@@ -4309,61 +3839,6 @@
           "quality": "complete",
           "source_date": "2026-08-20",
           "value": 13022.26
-        },
-        {
-          "cash": 1917.04,
-          "date": "2026-08-21",
-          "forward_filled_symbols": [],
-          "kind": "session_close",
-          "position_count": 13,
-          "positions_value": 11441.88,
-          "quality": "complete",
-          "source_date": "2026-08-21",
-          "value": 13358.92
-        },
-        {
-          "cash": 1917.04,
-          "date": "2026-08-22",
-          "forward_filled_symbols": [],
-          "kind": "carry_forward",
-          "position_count": 13,
-          "positions_value": 11441.88,
-          "quality": "carry_forward",
-          "source_date": "2026-08-21",
-          "value": 13358.92
-        },
-        {
-          "cash": 1917.04,
-          "date": "2026-08-23",
-          "forward_filled_symbols": [],
-          "kind": "carry_forward",
-          "position_count": 13,
-          "positions_value": 11441.88,
-          "quality": "carry_forward",
-          "source_date": "2026-08-21",
-          "value": 13358.92
-        },
-        {
-          "cash": 1917.04,
-          "date": "2026-08-24",
-          "forward_filled_symbols": [],
-          "kind": "session_close",
-          "position_count": 13,
-          "positions_value": 11257.34,
-          "quality": "complete",
-          "source_date": "2026-08-24",
-          "value": 13174.38
-        },
-        {
-          "cash": 1917.04,
-          "date": "2026-08-25",
-          "forward_filled_symbols": [],
-          "kind": "session_close",
-          "position_count": 13,
-          "positions_value": 11434.46,
-          "quality": "complete",
-          "source_date": "2026-08-25",
-          "value": 13351.5
         }
       ]
     }
@@ -4375,8 +3850,8 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-26T14:20:22Z",
-  "last_completed_session": "2026-08-25",
+  "generated_at": "2026-08-21T14:18:07Z",
+  "last_completed_session": "2026-08-20",
   "mark_history": {
     "BULL": [
       {
@@ -4527,21 +4002,6 @@
       {
         "date": "2026-08-20",
         "price": 8.85,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 8.78,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 8.53,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 8.94,
         "source": "yahoo"
       }
     ],
@@ -4695,21 +4155,6 @@
         "date": "2026-08-20",
         "price": 233.690002,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 235.679993,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 231.039993,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 234.190002,
-        "source": "yahoo"
       }
     ],
     "INFQ": [
@@ -4861,21 +4306,6 @@
       {
         "date": "2026-08-20",
         "price": 12.55,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 14.12,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 13.05,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 13.83,
         "source": "yahoo"
       }
     ],
@@ -5029,21 +4459,6 @@
         "date": "2026-08-20",
         "price": 7.55,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 7.52,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 7.48,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 7.44,
-        "source": "yahoo"
       }
     ],
     "NVDA": [
@@ -5195,21 +4610,6 @@
       {
         "date": "2026-08-20",
         "price": 216.850006,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 214.720001,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 208.479996,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 213.050003,
         "source": "yahoo"
       }
     ],
@@ -5363,21 +4763,6 @@
         "date": "2026-08-20",
         "price": 34.32,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 35.0,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 35.330002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 35.450001,
-        "source": "yahoo"
       }
     ],
     "PLTR": [
@@ -5529,21 +4914,6 @@
       {
         "date": "2026-08-20",
         "price": 173.960007,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 179.940002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 175.889999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 172.729996,
         "source": "yahoo"
       }
     ],
@@ -5697,21 +5067,6 @@
         "date": "2026-08-20",
         "price": 18.799999,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 20.389999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 18.68,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 19.35,
-        "source": "yahoo"
       }
     ],
     "SGOV": [
@@ -5863,21 +5218,6 @@
       {
         "date": "2026-08-20",
         "price": 100.589996,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 100.629997,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 100.639999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 100.639999,
         "source": "yahoo"
       }
     ],
@@ -6031,188 +5371,6 @@
         "date": "2026-08-20",
         "price": 762.599976,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 765.719971,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 763.469971,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 765.909973,
-        "source": "yahoo"
-      }
-    ],
-    "TMP": [
-      {
-        "date": "2026-07-10",
-        "price": 91.480003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-13",
-        "price": 91.510002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-14",
-        "price": 91.279999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-15",
-        "price": 92.93,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-16",
-        "price": 95.300003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-17",
-        "price": 94.040001,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-20",
-        "price": 93.309998,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-21",
-        "price": 94.330002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-22",
-        "price": 93.089996,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-23",
-        "price": 92.650002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-24",
-        "price": 101.120003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-27",
-        "price": 99.68,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-28",
-        "price": 101.25,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-29",
-        "price": 99.440002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-30",
-        "price": 99.370003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-07-31",
-        "price": 99.839996,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-03",
-        "price": 100.919998,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-04",
-        "price": 101.540001,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-05",
-        "price": 100.800003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-06",
-        "price": 99.889999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-07",
-        "price": 98.730003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-10",
-        "price": 97.510002,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-11",
-        "price": 99.099998,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-12",
-        "price": 100.32,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-13",
-        "price": 101.129997,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-14",
-        "price": 101.209999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-17",
-        "price": 100.279999,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-18",
-        "price": 100.25,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-19",
-        "price": 97.07,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-20",
-        "price": 97.120003,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 97.910004,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 97.910004,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 97.699997,
-        "source": "yahoo"
       }
     ],
     "TSSI": [
@@ -6364,21 +5522,6 @@
       {
         "date": "2026-08-20",
         "price": 8.79,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 8.75,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 8.38,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 8.52,
         "source": "yahoo"
       }
     ],
@@ -6532,21 +5675,6 @@
         "date": "2026-08-20",
         "price": 103.839996,
         "source": "yahoo"
-      },
-      {
-        "date": "2026-08-21",
-        "price": 103.699997,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-24",
-        "price": 106.489998,
-        "source": "yahoo"
-      },
-      {
-        "date": "2026-08-25",
-        "price": 105.379997,
-        "source": "yahoo"
       }
     ]
   },
@@ -6574,10 +5702,7 @@
     "2026-08-17",
     "2026-08-18",
     "2026-08-19",
-    "2026-08-20",
-    "2026-08-21",
-    "2026-08-24",
-    "2026-08-25"
+    "2026-08-20"
   ],
   "schema_version": 1,
   "source": "Yahoo Finance daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV."

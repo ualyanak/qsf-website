@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-26",
+  "published_at": "2026-08-21",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1930.29,
+      "cash": 1917.04,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -68,18 +68,10 @@
           "kind": "illustrative_trade_update",
           "instrument": "BULL_C10_20261218",
           "note": "User-provided date-only test update: bought 10 BULL Dec 18 2026 $10 calls at $0.89 and sold 7.5 at $1.21 with no fees. Net cash increased from $1,899.54 to $1,917.04. Under the supplied bookkeeping convention, realized profit is $17.50 because the full $890.00 purchase cost is allocated to the sale; the remaining 2.5 contracts carry zero basis."
-        },
-        {
-          "date": "2026-08-26",
-          "as_of": "2026-08-26T09:06:00-05:00",
-          "amount": 13.25,
-          "kind": "illustrative_reallocation",
-          "instrument": "TMP",
-          "note": "User-provided 9:06 a.m. CDT test update: sold 5 SGOV shares at $100.65 for $503.25 and bought 5 Tompkins Financial Corporation (TMP) shares at $98.00 for $490.00 with no fees. Net proceeds increased cash from $1,917.04 to $1,930.29; 48 SGOV shares remain at the unchanged $100.5318867925 basis and the 5 TMP shares carry a $98.00 basis."
         }
       ],
       "positions": [
-        { "instrument": "SGOV", "quantity": 48, "basis_price": 100.5318867925 },
+        { "instrument": "SGOV", "quantity": 53, "basis_price": 100.5318867925 },
         { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
         { "instrument": "BULL_C10_20261218", "quantity": 2.5, "basis_price": 0.0 },
@@ -91,7 +83,6 @@
         { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
         { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
         { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
-        { "instrument": "TMP", "quantity": 5, "basis_price": 98.0 },
         { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
       ],
       "history": [
@@ -130,7 +121,6 @@
     "QBTS": { "symbol": "QBTS", "name": "D-Wave Quantum", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "SPY": { "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "asset_class": "Index Funds", "multiplier": 1, "mark_mode": "public_delayed" },
     "TSSI": { "symbol": "TSSI", "name": "TSS, Inc.", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
-    "TMP": { "symbol": "TMP", "quote_symbol": "TMP", "name": "Tompkins Financial Corporation", "asset_class": "Regional Banking", "multiplier": 1, "mark_mode": "public_delayed", "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "risk_level": "medium" },
     "WMT": { "symbol": "WMT", "name": "Walmart", "asset_class": "Consumer", "multiplier": 1, "mark_mode": "public_delayed" }
   }
 }

@@ -160,8 +160,6 @@ class OptionModelTests(unittest.TestCase):
         with mock.patch.object(quotes, "fetch_quote", side_effect=fake_quote):
             snapshot, missing = quotes.build_snapshot({})
         self.assertEqual(missing, [])
-        self.assertIn("TMP", quotes.SYMBOLS)
-        self.assertEqual(snapshot["quotes"]["TMP"]["quality"], "public_delayed")
         for instrument_id in quotes.OPTION_MODEL_SPECS:
             self.assertIn(instrument_id, snapshot["quotes"])
             self.assertEqual(snapshot["quotes"][instrument_id]["quality"], "model_delayed")
@@ -239,7 +237,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(525.46 + net_cash_change, 583.43, places=2)
         self.assertEqual(positions["INFQ_C25_20270115"]["quantity"], 1)
         self.assertNotIn("INFQ_C10_C17_5_20270115", positions)
-        self.assertEqual(positions["SGOV"]["quantity"], 48)
+        self.assertEqual(positions["SGOV"]["quantity"], 53)
         self.assertAlmostEqual(positions["SGOV"]["basis_price"], weighted_sgov_basis, places=10)
         self.assertEqual(data["instruments"]["SGOV"]["mark_mode"], "public_delayed")
         self.assertIn("SGOV", quotes.SYMBOLS)
@@ -270,7 +268,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(realized_pnl, -8.7, places=2)
         self.assertAlmostEqual(583.43 + proceeds, 872.93, places=2)
         self.assertNotIn("TSSI", positions)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 13)
 
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-14")
         self.assertAlmostEqual(update_note["amount"], proceeds, places=2)
@@ -287,14 +285,14 @@ class OptionModelTests(unittest.TestCase):
             if note.get("date") == "2026-08-18" and note.get("kind") == "illustrative_dividend"
         }
 
-        self.assertEqual(data["published_at"], "2026-08-26")
+        self.assertEqual(data["published_at"], "2026-08-21")
         self.assertEqual(set(dividend_notes), {"SGOV", "IVR"})
         self.assertAlmostEqual(dividend_notes["SGOV"]["amount"], 0.61, places=2)
         self.assertAlmostEqual(dividend_notes["IVR"]["amount"], 12.0, places=2)
         self.assertAlmostEqual(872.93 + 0.61 + 12.0, 885.54, places=2)
-        self.assertEqual(positions["SGOV"]["quantity"], 48)
+        self.assertEqual(positions["SGOV"]["quantity"], 53)
         self.assertEqual(positions["IVR"]["quantity"], 100)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 13)
 
     def test_august_nineteenth_bull_sale_is_converted_to_cash(self) -> None:
         repository = pathlib.Path(__file__).resolve().parents[1]
@@ -308,10 +306,10 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 1014.0, places=2)
         self.assertAlmostEqual(sold_basis, 864.0, places=2)
         self.assertAlmostEqual(realized_pnl, 150.0, places=2)
-        self.assertAlmostEqual(account["cash"], 885.54 + proceeds + 17.5 + 13.25, places=2)
+        self.assertAlmostEqual(account["cash"], 885.54 + proceeds + 17.5, places=2)
         self.assertEqual(positions["BULL"]["quantity"], 200)
         self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 13)
 
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-19")
         self.assertEqual(update_note["instrument"], "BULL")
@@ -333,7 +331,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(purchase_cost, 890.0, places=2)
         self.assertAlmostEqual(sale_proceeds, 907.5, places=2)
         self.assertAlmostEqual(supplied_realized_pnl, 17.5, places=2)
-        self.assertAlmostEqual(account["cash"], 1899.54 + supplied_realized_pnl + 13.25, places=2)
+        self.assertAlmostEqual(account["cash"], 1899.54 + supplied_realized_pnl, places=2)
         self.assertEqual(position["quantity"], 2.5)
         self.assertEqual(position["basis_price"], 0.0)
 
@@ -351,34 +349,6 @@ class OptionModelTests(unittest.TestCase):
         self.assertEqual(update_note["instrument"], instrument_id)
         self.assertAlmostEqual(update_note["amount"], supplied_realized_pnl, places=2)
         self.assertIn("remaining 2.5 contracts carry zero basis", update_note["note"])
-
-    def test_august_twenty_sixth_sgov_reallocation_adds_delayed_tmp_coverage(self) -> None:
-        repository = pathlib.Path(__file__).resolve().parents[1]
-        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
-        account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
-        instrument = data["instruments"]["TMP"]
-
-        sgov_proceeds = 5 * 100.65
-        tmp_cost = 5 * 98.0
-        net_cash = sgov_proceeds - tmp_cost
-        self.assertAlmostEqual(sgov_proceeds, 503.25, places=2)
-        self.assertAlmostEqual(tmp_cost, 490.0, places=2)
-        self.assertAlmostEqual(net_cash, 13.25, places=2)
-        self.assertAlmostEqual(account["cash"], 1917.04 + net_cash, places=2)
-        self.assertEqual(positions["SGOV"]["quantity"], 48)
-        self.assertAlmostEqual(positions["SGOV"]["basis_price"], 100.5318867925, places=10)
-        self.assertEqual(positions["TMP"]["quantity"], 5)
-        self.assertEqual(positions["TMP"]["basis_price"], 98.0)
-        self.assertEqual(len(positions), 14)
-
-        self.assertEqual(instrument["mark_mode"], "public_delayed")
-        self.assertEqual(instrument.get("quote_symbol", "TMP"), "TMP")
-        self.assertIn("TMP", quotes.SYMBOLS)
-
-        update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-26")
-        self.assertEqual(update_note["instrument"], "TMP")
-        self.assertAlmostEqual(update_note["amount"], net_cash, places=2)
 
 
 if __name__ == "__main__":
