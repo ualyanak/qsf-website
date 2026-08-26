@@ -3908,16 +3908,16 @@
             },
             {
               "date": "2026-08-25",
-              "kind": "carry_forward",
-              "market_price": 78964.484375,
-              "quality": "stale_fallback",
-              "source_date": "2026-08-24",
-              "value": 12234.04
+              "kind": "daily_close",
+              "market_price": 78564.976562,
+              "quality": "complete",
+              "source_date": "2026-08-25",
+              "value": 12172.14
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -4368,14 +4368,14 @@
       ]
     }
   },
-  "benchmark_coverage_status": "degraded",
+  "benchmark_coverage_status": "complete",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-26T02:10:51Z",
+  "generated_at": "2026-08-26T14:29:51Z",
   "last_completed_session": "2026-08-25",
   "mark_history": {
     "BULL": [
@@ -6045,6 +6045,173 @@
       {
         "date": "2026-08-25",
         "price": 765.909973,
+        "source": "yahoo"
+      }
+    ],
+    "TMP": [
+      {
+        "date": "2026-07-10",
+        "price": 91.480003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-13",
+        "price": 91.510002,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-14",
+        "price": 91.279999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-15",
+        "price": 92.93,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-16",
+        "price": 95.300003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-17",
+        "price": 94.040001,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-20",
+        "price": 93.309998,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-21",
+        "price": 94.330002,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-22",
+        "price": 93.089996,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-23",
+        "price": 92.650002,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-24",
+        "price": 101.120003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-27",
+        "price": 99.68,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-28",
+        "price": 101.25,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-29",
+        "price": 99.440002,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-30",
+        "price": 99.370003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-07-31",
+        "price": 99.839996,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-03",
+        "price": 100.919998,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-04",
+        "price": 101.540001,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-05",
+        "price": 100.800003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-06",
+        "price": 99.889999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-07",
+        "price": 98.730003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-10",
+        "price": 97.510002,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-11",
+        "price": 99.099998,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-12",
+        "price": 100.32,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-13",
+        "price": 101.129997,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-14",
+        "price": 101.209999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-17",
+        "price": 100.279999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-18",
+        "price": 100.25,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-19",
+        "price": 97.07,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-20",
+        "price": 97.120003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-21",
+        "price": 97.910004,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-24",
+        "price": 97.910004,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-25",
+        "price": 97.699997,
         "source": "yahoo"
       }
     ],
