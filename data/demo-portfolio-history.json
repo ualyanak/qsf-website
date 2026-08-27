@@ -3,7 +3,7 @@
   "accounts": {
     "ahub": {
       "analytics": {
-        "as_of": "2026-08-25",
+        "as_of": "2026-08-26",
         "contributors": [
           {
             "id": "infq",
@@ -13,14 +13,14 @@
               "INFQ_C25_20270115"
             ],
             "label": "INFQ Strategies",
-            "market_value": 189.03,
-            "portfolio_contribution_pct": 23.5761,
+            "market_value": 176.7,
+            "portfolio_contribution_pct": 23.4515,
             "realized_pnl": 2220.0,
-            "return_pct": 76.7773,
+            "return_pct": 76.3717,
             "risk_level": "high",
-            "total_pnl": 2334.03,
+            "total_pnl": 2321.7,
             "tracked_basis": 3040.0,
-            "unrealized_pnl": 114.03
+            "unrealized_pnl": 101.7
           },
           {
             "id": "bull",
@@ -30,14 +30,14 @@
               "BULL_P10_JAN2027"
             ],
             "label": "BULL \u00b7 Webull",
-            "market_value": 1591.16,
-            "portfolio_contribution_pct": 6.234,
+            "market_value": 1551.14,
+            "portfolio_contribution_pct": 5.8297,
             "realized_pnl": 150.0,
-            "return_pct": 23.5558,
+            "return_pct": 22.0281,
             "risk_level": "medium",
-            "total_pnl": 617.16,
+            "total_pnl": 577.14,
             "tracked_basis": 2620.0,
-            "unrealized_pnl": 467.16
+            "unrealized_pnl": 427.14
           },
           {
             "id": "bull-dec2026-call",
@@ -46,14 +46,14 @@
               "BULL_C10_20261218"
             ],
             "label": "BULL Dec 2026 $10 Calls",
-            "market_value": 226.63,
-            "portfolio_contribution_pct": 2.4659,
+            "market_value": 207.26,
+            "portfolio_contribution_pct": 2.2703,
             "realized_pnl": 17.5,
-            "return_pct": 27.43,
+            "return_pct": 25.2541,
             "risk_level": "high",
-            "total_pnl": 244.13,
+            "total_pnl": 224.76,
             "tracked_basis": 890.0,
-            "unrealized_pnl": 226.63
+            "unrealized_pnl": 207.26
           },
           {
             "id": "pltr",
@@ -62,14 +62,14 @@
               "PLTR"
             ],
             "label": "PLTR \u00b7 Palantir",
-            "market_value": 690.92,
-            "portfolio_contribution_pct": 1.6129,
+            "market_value": 710.0,
+            "portfolio_contribution_pct": 1.8057,
             "realized_pnl": 0.0,
-            "return_pct": 30.058,
+            "return_pct": 33.6496,
             "risk_level": "medium",
-            "total_pnl": 159.68,
+            "total_pnl": 178.76,
             "tracked_basis": 531.24,
-            "unrealized_pnl": 159.68
+            "unrealized_pnl": 178.76
           },
           {
             "id": "phys",
@@ -78,46 +78,14 @@
               "PHYS"
             ],
             "label": "PHYS \u00b7 Physical Gold Trust",
-            "market_value": 531.75,
-            "portfolio_contribution_pct": 0.7788,
+            "market_value": 523.35,
+            "portfolio_contribution_pct": 0.6939,
             "realized_pnl": 0.0,
-            "return_pct": 16.9581,
+            "return_pct": 15.1105,
             "risk_level": "low",
-            "total_pnl": 77.1,
+            "total_pnl": 68.7,
             "tracked_basis": 454.65,
-            "unrealized_pnl": 77.1
-          },
-          {
-            "id": "qbts",
-            "income": 0.0,
-            "instrument_ids": [
-              "QBTS"
-            ],
-            "label": "QBTS \u00b7 D-Wave Quantum",
-            "market_value": 387.0,
-            "portfolio_contribution_pct": 0.4687,
-            "realized_pnl": 0.0,
-            "return_pct": 13.623,
-            "risk_level": "medium",
-            "total_pnl": 46.4,
-            "tracked_basis": 340.6,
-            "unrealized_pnl": 46.4
-          },
-          {
-            "id": "ibm",
-            "income": 0.0,
-            "instrument_ids": [
-              "IBM"
-            ],
-            "label": "IBM",
-            "market_value": 234.19,
-            "portfolio_contribution_pct": 0.2067,
-            "realized_pnl": 0.0,
-            "return_pct": 9.5728,
-            "risk_level": "medium",
-            "total_pnl": 20.46,
-            "tracked_basis": 213.73,
-            "unrealized_pnl": 20.46
+            "unrealized_pnl": 68.7
           },
           {
             "id": "spy",
@@ -126,14 +94,46 @@
               "SPY"
             ],
             "label": "SPY \u00b7 S&P 500 ETF",
-            "market_value": 765.91,
-            "portfolio_contribution_pct": 0.2046,
+            "market_value": 766.08,
+            "portfolio_contribution_pct": 0.2064,
             "realized_pnl": 0.0,
-            "return_pct": 2.7171,
+            "return_pct": 2.7399,
             "risk_level": "medium",
-            "total_pnl": 20.26,
+            "total_pnl": 20.43,
             "tracked_basis": 745.65,
-            "unrealized_pnl": 20.26
+            "unrealized_pnl": 20.43
+          },
+          {
+            "id": "ibm",
+            "income": 0.0,
+            "instrument_ids": [
+              "IBM"
+            ],
+            "label": "IBM",
+            "market_value": 229.87,
+            "portfolio_contribution_pct": 0.163,
+            "realized_pnl": 0.0,
+            "return_pct": 7.5516,
+            "risk_level": "medium",
+            "total_pnl": 16.14,
+            "tracked_basis": 213.73,
+            "unrealized_pnl": 16.14
+          },
+          {
+            "id": "qbts",
+            "income": 0.0,
+            "instrument_ids": [
+              "QBTS"
+            ],
+            "label": "QBTS \u00b7 D-Wave Quantum",
+            "market_value": 350.2,
+            "portfolio_contribution_pct": 0.097,
+            "realized_pnl": 0.0,
+            "return_pct": 2.8186,
+            "risk_level": "medium",
+            "total_pnl": 9.6,
+            "tracked_basis": 340.6,
+            "unrealized_pnl": 9.6
           },
           {
             "id": "sgov",
@@ -142,14 +142,14 @@
               "SGOV"
             ],
             "label": "SGOV \u00b7 Short-Term Treasuries",
-            "market_value": 5333.92,
-            "portfolio_contribution_pct": 0.0813,
-            "realized_pnl": 1.71,
-            "return_pct": 0.104,
+            "market_value": 4831.2,
+            "portfolio_contribution_pct": 0.0867,
+            "realized_pnl": 2.3,
+            "return_pct": 0.1108,
             "risk_level": "low",
-            "total_pnl": 8.05,
+            "total_pnl": 8.58,
             "tracked_basis": 7742.11,
-            "unrealized_pnl": 5.73
+            "unrealized_pnl": 5.67
           },
           {
             "id": "nvda",
@@ -158,14 +158,30 @@
               "NVDA"
             ],
             "label": "NVDA \u00b7 NVIDIA",
-            "market_value": 213.05,
-            "portfolio_contribution_pct": 0.0785,
+            "market_value": 209.66,
+            "portfolio_contribution_pct": 0.0442,
             "realized_pnl": 0.0,
-            "return_pct": 3.7851,
+            "return_pct": 2.1337,
             "risk_level": "medium",
-            "total_pnl": 7.77,
+            "total_pnl": 4.38,
             "tracked_basis": 205.28,
-            "unrealized_pnl": 7.77
+            "unrealized_pnl": 4.38
+          },
+          {
+            "id": "tmp",
+            "income": 0.0,
+            "instrument_ids": [
+              "TMP"
+            ],
+            "label": "TMP \u00b7 Tompkins Financial",
+            "market_value": 487.7,
+            "portfolio_contribution_pct": -0.0232,
+            "realized_pnl": 0.0,
+            "return_pct": -0.4694,
+            "risk_level": "medium",
+            "total_pnl": -2.3,
+            "tracked_basis": 490.0,
+            "unrealized_pnl": -2.3
           },
           {
             "id": "tssi",
@@ -190,14 +206,14 @@
               "WMT"
             ],
             "label": "WMT \u00b7 Walmart",
-            "market_value": 526.9,
-            "portfolio_contribution_pct": -0.453,
+            "market_value": 521.7,
+            "portfolio_contribution_pct": -0.5056,
             "realized_pnl": 0.0,
-            "return_pct": -7.8443,
+            "return_pct": -8.7538,
             "risk_level": "medium",
-            "total_pnl": -44.85,
+            "total_pnl": -50.05,
             "tracked_basis": 571.75,
-            "unrealized_pnl": -44.85
+            "unrealized_pnl": -50.05
           },
           {
             "id": "ivr",
@@ -206,14 +222,14 @@
               "IVR"
             ],
             "label": "IVR \u00b7 Invesco Mortgage Capital",
-            "market_value": 744.0,
-            "portfolio_contribution_pct": -0.5454,
+            "market_value": 737.0,
+            "portfolio_contribution_pct": -0.6161,
             "realized_pnl": 0.0,
-            "return_pct": -6.6655,
+            "return_pct": -7.5297,
             "risk_level": "high",
-            "total_pnl": -53.99,
+            "total_pnl": -60.99,
             "tracked_basis": 809.99,
-            "unrealized_pnl": -65.99
+            "unrealized_pnl": -72.99
           }
         ],
         "exposure_history": {
@@ -228,6 +244,11 @@
               "color": "#56816f",
               "id": "financial-technology",
               "label": "Financial Technology"
+            },
+            {
+              "color": "#6f4f73",
+              "id": "regional-banking",
+              "label": "Regional Banking"
             },
             {
               "color": "#c9a24f",
@@ -296,6 +317,10 @@
                   "percent": 7.690752,
                   "value": 809.99
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 15.087828,
                   "value": 1589.05
@@ -336,6 +361,10 @@
                 "real-estate": {
                   "percent": 7.690752,
                   "value": 809.99
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 15.087828,
@@ -378,6 +407,10 @@
                   "percent": 7.690752,
                   "value": 809.99
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 15.087828,
                   "value": 1589.05
@@ -418,6 +451,10 @@
                 "real-estate": {
                   "percent": 7.431346,
                   "value": 790.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.697886,
@@ -460,6 +497,10 @@
                   "percent": 7.090006,
                   "value": 791.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.329968,
                   "value": 1598.73
@@ -500,6 +541,10 @@
                 "real-estate": {
                   "percent": 6.925105,
                   "value": 785.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 13.829126,
@@ -542,6 +587,10 @@
                   "percent": 6.968864,
                   "value": 764.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.275134,
                   "value": 1564.99
@@ -582,6 +631,10 @@
                 "real-estate": {
                   "percent": 7.214536,
                   "value": 758.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.542429,
@@ -624,6 +677,10 @@
                   "percent": 7.214536,
                   "value": 758.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.542429,
                   "value": 1527.91
@@ -664,6 +721,10 @@
                 "real-estate": {
                   "percent": 7.214536,
                   "value": 758.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.542429,
@@ -706,6 +767,10 @@
                   "percent": 6.717158,
                   "value": 744.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.659565,
                   "value": 1623.71
@@ -746,6 +811,10 @@
                 "real-estate": {
                   "percent": 6.888576,
                   "value": 751.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.204409,
@@ -788,6 +857,10 @@
                   "percent": 7.125616,
                   "value": 741.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.345951,
                   "value": 1491.85
@@ -828,6 +901,10 @@
                 "real-estate": {
                   "percent": 6.635559,
                   "value": 741.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 13.948285,
@@ -870,6 +947,10 @@
                   "percent": 6.679013,
                   "value": 741.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.203854,
                   "value": 1575.84
@@ -910,6 +991,10 @@
                 "real-estate": {
                   "percent": 6.679013,
                   "value": 741.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.203854,
@@ -952,6 +1037,10 @@
                   "percent": 6.679013,
                   "value": 741.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.203854,
                   "value": 1575.84
@@ -992,6 +1081,10 @@
                 "real-estate": {
                   "percent": 6.220564,
                   "value": 739.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 13.945763,
@@ -1034,6 +1127,10 @@
                   "percent": 5.908677,
                   "value": 740.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.926835,
                   "value": 1869.43
@@ -1074,6 +1171,10 @@
                 "real-estate": {
                   "percent": 6.145471,
                   "value": 743.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 15.31372,
@@ -1116,6 +1217,10 @@
                   "percent": 6.093006,
                   "value": 740.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.711315,
                   "value": 1786.7
@@ -1156,6 +1261,10 @@
                 "real-estate": {
                   "percent": 5.835482,
                   "value": 748.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.840536,
@@ -1198,6 +1307,10 @@
                   "percent": 5.835482,
                   "value": 748.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.840536,
                   "value": 1902.28
@@ -1238,6 +1351,10 @@
                 "real-estate": {
                   "percent": 5.835482,
                   "value": 748.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.840536,
@@ -1280,6 +1397,10 @@
                   "percent": 5.834847,
                   "value": 739.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 15.051221,
                   "value": 1906.28
@@ -1320,6 +1441,10 @@
                 "real-estate": {
                   "percent": 5.807551,
                   "value": 745.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.828978,
@@ -1362,6 +1487,10 @@
                   "percent": 5.625859,
                   "value": 745.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 14.516454,
                   "value": 1922.33
@@ -1402,6 +1531,10 @@
                 "real-estate": {
                   "percent": 5.575662,
                   "value": 748.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 14.57484,
@@ -1444,6 +1577,10 @@
                   "percent": 5.592623,
                   "value": 748.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.806117,
                   "value": 1579.04
@@ -1484,6 +1621,10 @@
                 "real-estate": {
                   "percent": 5.592623,
                   "value": 748.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 11.806117,
@@ -1526,6 +1667,10 @@
                   "percent": 5.592623,
                   "value": 748.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.806117,
                   "value": 1579.04
@@ -1566,6 +1711,10 @@
                 "real-estate": {
                   "percent": 5.610128,
                   "value": 752.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 11.648924,
@@ -1608,6 +1757,10 @@
                   "percent": 5.620141,
                   "value": 747.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.504887,
                   "value": 1529.17
@@ -1648,6 +1801,10 @@
                 "real-estate": {
                   "percent": 5.624597,
                   "value": 758.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 11.441232,
@@ -1690,6 +1847,10 @@
                   "percent": 5.621972,
                   "value": 755.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.336129,
                   "value": 1522.38
@@ -1730,6 +1891,10 @@
                 "real-estate": {
                   "percent": 5.460072,
                   "value": 752.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 11.457147,
@@ -1772,6 +1937,10 @@
                   "percent": 5.460072,
                   "value": 752.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.457147,
                   "value": 1577.96
@@ -1812,6 +1981,10 @@
                 "real-estate": {
                   "percent": 5.460072,
                   "value": 752.0
+                },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
                 },
                 "technology": {
                   "percent": 11.457147,
@@ -1854,6 +2027,10 @@
                   "percent": 5.494651,
                   "value": 748.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.141213,
                   "value": 1516.68
@@ -1895,9 +2072,58 @@
                   "percent": 5.412809,
                   "value": 744.0
                 },
+                "regional-banking": {
+                  "percent": 0.0,
+                  "value": 0.0
+                },
                 "technology": {
                   "percent": 11.095968,
                   "value": 1525.16
+                }
+              }
+            },
+            {
+              "date": "2026-08-26",
+              "gross_exposure": 13641.87,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-26",
+              "values": {
+                "cash-cash-equivalents": {
+                  "percent": 49.564231,
+                  "value": 6761.49
+                },
+                "consumer": {
+                  "percent": 3.824254,
+                  "value": 521.7
+                },
+                "financial-technology": {
+                  "percent": 12.872132,
+                  "value": 1756.0
+                },
+                "index-funds": {
+                  "percent": 5.615651,
+                  "value": 766.08
+                },
+                "options": {
+                  "percent": 4.316299,
+                  "value": 588.82
+                },
+                "precious-metals": {
+                  "percent": 3.83635,
+                  "value": 523.35
+                },
+                "real-estate": {
+                  "percent": 5.402484,
+                  "value": 737.0
+                },
+                "regional-banking": {
+                  "percent": 3.575022,
+                  "value": 487.7
+                },
+                "technology": {
+                  "percent": 10.993577,
+                  "value": 1499.73
                 }
               }
             }
@@ -2012,6 +2238,25 @@
             "return_pct": 0.0708
           },
           {
+            "attribution_group_id": "sgov",
+            "attribution_group_label": "SGOV \u00b7 Short-Term Treasuries",
+            "average_exit_price": 100.65,
+            "closed_basis": 502.66,
+            "closed_quantity": 5.0,
+            "closed_side": "long",
+            "closing_value": 503.25,
+            "date": "2026-08-26",
+            "event_id": "2026-08-26-sgov-to-tmp",
+            "fees": 0.0,
+            "fill_count": 1,
+            "id": "2026-08-26-sgov-to-tmp::SGOV",
+            "instrument_id": "SGOV",
+            "label": "iShares 0-3 Month Treasury Bond ETF",
+            "multiplier": 1.0,
+            "realized_pnl": 0.59,
+            "return_pct": 0.1174
+          },
+          {
             "attribution_group_id": "tssi",
             "attribution_group_label": "TSSI \u00b7 TSS, Inc.",
             "average_exit_price": 9.65,
@@ -2032,11 +2277,11 @@
           }
         ],
         "reconciliation": {
-          "attributed_pnl": 3427.5,
-          "explained_change": 3451.5,
+          "attributed_pnl": 3308.15,
+          "explained_change": 3332.15,
           "external_flows": 0.0,
-          "latest_nav": 13351.5,
-          "nav_change": 3451.5,
+          "latest_nav": 13232.15,
+          "nav_change": 3332.15,
           "opening_nav": 9900.0,
           "residual": 0.0,
           "unattributed_pnl": 24.0
@@ -2900,6 +3145,27 @@
                   "value": 4802.81
                 }
               }
+            },
+            {
+              "date": "2026-08-26",
+              "gross_exposure": 13641.87,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-08-26",
+              "values": {
+                "high": {
+                  "percent": 8.217052,
+                  "value": 1120.96
+                },
+                "low": {
+                  "percent": 53.400582,
+                  "value": 7284.84
+                },
+                "medium": {
+                  "percent": 38.382366,
+                  "value": 5236.07
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -3245,6 +3511,14 @@
               "quality": "complete",
               "source_date": "2026-08-25",
               "value": 10201.28
+            },
+            {
+              "date": "2026-08-26",
+              "kind": "daily_close",
+              "market_price": 766.080017,
+              "quality": "complete",
+              "source_date": "2026-08-26",
+              "value": 10203.54
             }
           ],
           "price_basis": "adjusted_close",
@@ -3579,6 +3853,14 @@
               "quality": "complete",
               "source_date": "2026-08-25",
               "value": 11503.2
+            },
+            {
+              "date": "2026-08-26",
+              "kind": "daily_close",
+              "market_price": 421.320007,
+              "quality": "complete",
+              "source_date": "2026-08-26",
+              "value": 11321.81
             }
           ],
           "price_basis": "adjusted_close",
@@ -3913,6 +4195,14 @@
               "quality": "complete",
               "source_date": "2026-08-25",
               "value": 12172.14
+            },
+            {
+              "date": "2026-08-26",
+              "kind": "daily_close",
+              "market_price": 79027.421875,
+              "quality": "complete",
+              "source_date": "2026-08-26",
+              "value": 12243.79
             }
           ],
           "price_basis": "close",
@@ -4364,6 +4654,17 @@
           "quality": "complete",
           "source_date": "2026-08-25",
           "value": 13351.5
+        },
+        {
+          "cash": 1930.29,
+          "date": "2026-08-26",
+          "forward_filled_symbols": [],
+          "kind": "session_close",
+          "position_count": 14,
+          "positions_value": 11301.86,
+          "quality": "complete",
+          "source_date": "2026-08-26",
+          "value": 13232.15
         }
       ]
     }
@@ -4375,8 +4676,8 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-26T14:29:51Z",
-  "last_completed_session": "2026-08-25",
+  "generated_at": "2026-08-27T10:11:20Z",
+  "last_completed_session": "2026-08-26",
   "mark_history": {
     "BULL": [
       {
@@ -4542,6 +4843,11 @@
       {
         "date": "2026-08-25",
         "price": 8.94,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 8.78,
         "source": "yahoo"
       }
     ],
@@ -4710,6 +5016,11 @@
         "date": "2026-08-25",
         "price": 234.190002,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 229.869995,
+        "source": "yahoo"
       }
     ],
     "INFQ": [
@@ -4876,6 +5187,11 @@
       {
         "date": "2026-08-25",
         "price": 13.83,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 13.53,
         "source": "yahoo"
       }
     ],
@@ -5044,6 +5360,11 @@
         "date": "2026-08-25",
         "price": 7.44,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 7.37,
+        "source": "yahoo"
       }
     ],
     "NVDA": [
@@ -5210,6 +5531,11 @@
       {
         "date": "2026-08-25",
         "price": 213.050003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 209.660004,
         "source": "yahoo"
       }
     ],
@@ -5378,6 +5704,11 @@
         "date": "2026-08-25",
         "price": 35.450001,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 34.889999,
+        "source": "yahoo"
       }
     ],
     "PLTR": [
@@ -5544,6 +5875,11 @@
       {
         "date": "2026-08-25",
         "price": 172.729996,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 177.5,
         "source": "yahoo"
       }
     ],
@@ -5712,6 +6048,11 @@
         "date": "2026-08-25",
         "price": 19.35,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 17.51,
+        "source": "yahoo"
       }
     ],
     "SGOV": [
@@ -5878,6 +6219,11 @@
       {
         "date": "2026-08-25",
         "price": 100.639999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 100.650002,
         "source": "yahoo"
       }
     ],
@@ -6046,6 +6392,11 @@
         "date": "2026-08-25",
         "price": 765.909973,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 766.080017,
+        "source": "yahoo"
       }
     ],
     "TMP": [
@@ -6212,6 +6563,11 @@
       {
         "date": "2026-08-25",
         "price": 97.699997,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 97.540001,
         "source": "yahoo"
       }
     ],
@@ -6380,6 +6736,11 @@
         "date": "2026-08-25",
         "price": 8.52,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 8.51,
+        "source": "yahoo"
       }
     ],
     "WMT": [
@@ -6547,6 +6908,11 @@
         "date": "2026-08-25",
         "price": 105.379997,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-08-26",
+        "price": 104.339996,
+        "source": "yahoo"
       }
     ]
   },
@@ -6577,7 +6943,8 @@
     "2026-08-20",
     "2026-08-21",
     "2026-08-24",
-    "2026-08-25"
+    "2026-08-25",
+    "2026-08-26"
   ],
   "schema_version": 1,
   "source": "Yahoo Finance daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV."
