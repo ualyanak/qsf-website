@@ -2171,6 +2171,51 @@
                   "value": 1568.49
                 }
               }
+            },
+            {
+              "date": "2026-08-28",
+              "gross_exposure": 13954.19,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-27",
+              "values": {
+                "cash-cash-equivalents": {
+                  "percent": 48.458358,
+                  "value": 6761.97
+                },
+                "consumer": {
+                  "percent": 3.677391,
+                  "value": 513.15
+                },
+                "financial-technology": {
+                  "percent": 13.716313,
+                  "value": 1914.0
+                },
+                "index-funds": {
+                  "percent": 5.52594,
+                  "value": 771.1
+                },
+                "options": {
+                  "percent": 4.813445,
+                  "value": 671.68
+                },
+                "precious-metals": {
+                  "percent": 3.762312,
+                  "value": 525.0
+                },
+                "real-estate": {
+                  "percent": 5.3174,
+                  "value": 742.0
+                },
+                "regional-banking": {
+                  "percent": 3.488559,
+                  "value": 486.8
+                },
+                "technology": {
+                  "percent": 11.240282,
+                  "value": 1568.49
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -3232,6 +3277,27 @@
                   "value": 5418.99
                 }
               }
+            },
+            {
+              "date": "2026-08-28",
+              "gross_exposure": 13954.19,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-08-27",
+              "values": {
+                "high": {
+                  "percent": 8.945146,
+                  "value": 1248.22
+                },
+                "low": {
+                  "percent": 52.220671,
+                  "value": 7286.98
+                },
+                "medium": {
+                  "percent": 38.834183,
+                  "value": 5418.99
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -3593,6 +3659,14 @@
               "quality": "complete",
               "source_date": "2026-08-27",
               "value": 10270.41
+            },
+            {
+              "date": "2026-08-28",
+              "kind": "carry_forward",
+              "market_price": 771.099976,
+              "quality": "carry_forward",
+              "source_date": "2026-08-27",
+              "value": 10270.41
             }
           ],
           "price_basis": "adjusted_close",
@@ -3941,6 +4015,14 @@
               "kind": "daily_close",
               "market_price": 422.600006,
               "quality": "complete",
+              "source_date": "2026-08-27",
+              "value": 11356.21
+            },
+            {
+              "date": "2026-08-28",
+              "kind": "carry_forward",
+              "market_price": 422.600006,
+              "quality": "carry_forward",
               "source_date": "2026-08-27",
               "value": 11356.21
             }
@@ -4293,11 +4375,19 @@
               "quality": "complete",
               "source_date": "2026-08-27",
               "value": 12434.37
+            },
+            {
+              "date": "2026-08-28",
+              "kind": "carry_forward",
+              "market_price": 80257.539062,
+              "quality": "stale_fallback",
+              "source_date": "2026-08-27",
+              "value": 12434.37
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "ready",
+          "status": "degraded",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -4766,18 +4856,29 @@
           "quality": "complete",
           "source_date": "2026-08-27",
           "value": 13623.28
+        },
+        {
+          "cash": 1930.29,
+          "date": "2026-08-28",
+          "forward_filled_symbols": [],
+          "kind": "carry_forward",
+          "position_count": 14,
+          "positions_value": 11692.99,
+          "quality": "carry_forward",
+          "source_date": "2026-08-27",
+          "value": 13623.28
         }
       ]
     }
   },
-  "benchmark_coverage_status": "complete",
+  "benchmark_coverage_status": "degraded",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-08-28T12:04:58Z",
+  "generated_at": "2026-08-29T07:18:29Z",
   "last_completed_session": "2026-08-27",
   "mark_history": {
     "BULL": [
