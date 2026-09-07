@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Public demonstration of the Quantum Strategy Fund investor portal.">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Public Investor Demo | Quantum Strategy Fund</title>
+  <link rel="icon" type="image/png" href="../assets/images/qsf-mark.png">
+  <link rel="stylesheet" href="../assets/css/portal.css?v=20260820-risk-history1">
+  <script defer src="../assets/js/portal-config.js?v=20260820-risk-history1"></script>
+  <script defer src="../assets/js/portal-demo.js?v=20260826-tmp1"></script>
+</head>
+<body class="portal-shell auth-page" data-page="login">
+  <a class="skip-link" href="#sign-in-title">Skip to demo access</a>
+
+  <header class="portal-masthead">
+    <a class="brand" href="../index.html" aria-label="Quantum Strategy Fund home">
+      <span class="brand-mark-wrap" aria-hidden="true">
+        <img class="brand-mark" src="../assets/images/qsf-mark.png" alt="">
+      </span>
+      <span>
+        <strong>Quantum Strategy Fund</strong>
+        <small>Public Portal Demo</small>
+      </span>
+    </a>
+    <a class="quiet-link" href="../index.html">Return to main site</a>
+  </header>
+
+  <div class="demo-alert" role="note">
+    <strong>Public demonstration - no secure investor access</strong>
+    <span>These account labels, credentials, holdings, and values are intentionally public test data. Do not enter real or confidential information.</span>
+  </div>
+
+  <main id="portal-content" class="auth-layout">
+    <section class="auth-intro" aria-labelledby="portal-title">
+      <p class="eyebrow">Investor experience prototype</p>
+      <h1 id="portal-title">A clear view of a model portfolio.</h1>
+      <p class="auth-lede">Explore illustrative account value, allocation, holdings, delayed marks, local scenario editing, and an immediately generated PDF report.</p>
+
+      <div class="trust-list" aria-label="Demo features">
+        <article>
+          <span class="feature-number" aria-hidden="true">01</span>
+          <div>
+            <h2>Illustrative portfolio access</h2>
+            <p>The usernames and access code are published for demonstration and provide no privacy or identity verification.</p>
+          </div>
+        </article>
+        <article>
+          <span class="feature-number" aria-hidden="true">02</span>
+          <div>
+            <h2>Browser-generated reporting</h2>
+            <p>Create a professionally styled PDF locally from the exact sample values displayed on the dashboard.</p>
+          </div>
+        </article>
+        <article>
+          <span class="feature-number" aria-hidden="true">03</span>
+          <div>
+            <h2>Local scenario workspace</h2>
+            <p>Simulated transactions and marks stay unencrypted in this browser and can be reset at any time.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="auth-card" aria-labelledby="sign-in-title">
+      <div class="card-rule" aria-hidden="true"></div>
+      <p class="eyebrow">Investor access</p>
+      <h2 id="sign-in-title">Open a portfolio</h2>
+      <p class="card-copy">Input your public demo code provided by administrator.</p>
+
+      <div id="portal-status" class="system-status is-pending" role="status" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span data-status-text>Loading the public demo…</span>
+      </div>
+
+      <form id="login-form" class="portal-form" novalidate>
+        <label for="login-username">Username</label>
+        <input id="login-username" name="username" type="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="Enter username" required disabled data-auth-control>
+
+        <label for="login-password">Access code</label>
+        <input id="login-password" name="demoCode" type="text" autocomplete="off" inputmode="numeric" pattern="[0-9]{7}" minlength="7" maxlength="7" placeholder="Enter access code" required disabled data-auth-control>
+
+        <button class="button button-primary button-block" type="submit" disabled data-auth-control>
+          <span>Open portfolio</span>
+          <span aria-hidden="true">→</span>
+        </button>
+        <p id="login-message" class="form-message" role="alert" aria-live="assertive"></p>
+      </form>
+
+      <p class="security-note"><strong>Prototype notice:</strong> never enter or reuse a real password here. This page does not connect to a broker, accept trade instructions, or maintain official fund books.</p>
+      <noscript><p class="form-message is-error">JavaScript is required to open this demonstration.</p></noscript>
+    </section>
+  </main>
+
+  <footer class="portal-footer">
+    <p>Quantum Strategy Fund</p>
+    <p>Public prototype · Test data only · <span data-current-year></span></p>
+  </footer>
+</body>
+</html>
