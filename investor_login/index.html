@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="../assets/css/portal.css?v=20260820-risk-history1">
   <script defer src="../assets/js/portal-config.js?v=20260820-risk-history1"></script>
   <script defer src="../assets/js/portal-demo.js?v=20260826-tmp1"></script>
+  <script defer src="../assets/js/uriel-access.js?v=20260906-1"></script>
 </head>
 <body class="portal-shell auth-page" data-page="login">
   <a class="skip-link" href="#sign-in-title">Skip to demo access</a>
@@ -86,9 +87,11 @@
           <span aria-hidden="true">→</span>
         </button>
         <p id="login-message" class="form-message" role="alert" aria-live="assertive"></p>
+        <p id="uriel-private-message" class="card-copy" hidden>Uriel opens in a separate private research workspace. Enter its password there, after signing in to your authorized ChatGPT account.</p>
       </form>
 
       <p class="security-note"><strong>Prototype notice:</strong> never enter or reuse a real password here. This page does not connect to a broker, accept trade instructions, or maintain official fund books.</p>
+      <a class="button button-block" href="https://qsf-uriel-research.pirlon.chatgpt.site" style="margin-top:20px;border:1px solid #a98c52;color:#ddc18a">Open private Uriel research <span aria-hidden="true">→</span></a>
       <noscript><p class="form-message is-error">JavaScript is required to open this demonstration.</p></noscript>
     </section>
   </main>
