@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "demo": true,
+  "published_at": "2026-08-26",
+  "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
+  "credentials": {
+    "ahub": "1234567",
+    "chue": "1234567"
+  },
+  "accounts": {
+    "ahub": {
+      "display_name": "ahub",
+      "portfolio_name": "ahub Demo Portfolio",
+      "currency": "USD",
+      "opening_as_of": "2026-07-17T09:30:00-04:00",
+      "opening_nav": 9900.0,
+      "cash": 1930.29,
+      "cash_notes": [
+        {
+          "date": "2026-07-20",
+          "amount": 24.0,
+          "kind": "illustrative_realized_pnl",
+          "note": "User-provided test adjustment added to the cash balance."
+        },
+        {
+          "date": "2026-08-04",
+          "amount": 111.63,
+          "kind": "illustrative_reallocation",
+          "note": "User-provided test reallocation: sold 23 SGOV shares at $100.65 and one SGOV share at $100.68 for $2,415.63 total proceeds, then purchased 320 BULL shares at $7.20 for $2,304.00. Two SGOV shares remained and $111.63 was added to cash."
+        },
+        {
+          "date": "2026-08-13",
+          "as_of": "2026-08-13T10:00:00-05:00",
+          "amount": 57.97,
+          "kind": "illustrative_trade_update",
+          "note": "User-provided 10:00 a.m. CDT test update: sold three INFQ $25 calls at $1.10 and all twenty INFQ $10/$17.50 call verticals (five at $2.42 and fifteen at $2.43) for $5,185.00 total proceeds; purchased 51 SGOV shares at $100.53 for $5,127.03; net proceeds of $57.97 increased cash from $525.46 to $583.43."
+        },
+        {
+          "date": "2026-08-14",
+          "amount": 289.5,
+          "kind": "illustrative_trade_update",
+          "note": "User-provided date-only test update: sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. Against the $9.94 per-share basis, the illustrative realized loss is $8.70. Proceeds increased the cash balance from $583.43 to $872.93."
+        },
+        {
+          "date": "2026-08-18",
+          "amount": 0.61,
+          "kind": "illustrative_dividend",
+          "instrument": "SGOV",
+          "note": "User-provided total cash dividend: SGOV paid $0.61 to the ahub demo portfolio; the full amount was credited to cash."
+        },
+        {
+          "date": "2026-08-18",
+          "amount": 12.0,
+          "kind": "illustrative_dividend",
+          "instrument": "IVR",
+          "note": "User-provided total cash dividend: IVR paid $12.00 to the ahub demo portfolio; the full amount was credited to cash."
+        },
+        {
+          "date": "2026-08-19",
+          "amount": 1014.0,
+          "kind": "illustrative_trade_update",
+          "instrument": "BULL",
+          "note": "User-provided date-only test update: sold 120 of 320 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. Against the $7.20 per-share basis, the illustrative realized gain is $150.00. Proceeds increased cash from $885.54 to $1,899.54; 200 BULL shares remain at the unchanged $7.20 basis."
+        },
+        {
+          "date": "2026-08-21",
+          "amount": 17.5,
+          "kind": "illustrative_trade_update",
+          "instrument": "BULL_C10_20261218",
+          "note": "User-provided date-only test update: bought 10 BULL Dec 18 2026 $10 calls at $0.89 and sold 7.5 at $1.21 with no fees. Net cash increased from $1,899.54 to $1,917.04. Under the supplied bookkeeping convention, realized profit is $17.50 because the full $890.00 purchase cost is allocated to the sale; the remaining 2.5 contracts carry zero basis."
+        },
+        {
+          "date": "2026-08-26",
+          "as_of": "2026-08-26T09:06:00-05:00",
+          "amount": 13.25,
+          "kind": "illustrative_reallocation",
+          "instrument": "TMP",
+          "note": "User-provided 9:06 a.m. CDT test update: sold 5 SGOV shares at $100.65 for $503.25 and bought 5 Tompkins Financial Corporation (TMP) shares at $98.00 for $490.00 with no fees. Net proceeds increased cash from $1,917.04 to $1,930.29; 48 SGOV shares remain at the unchanged $100.5318867925 basis and the 5 TMP shares carry a $98.00 basis."
+        }
+      ],
+      "positions": [
+        { "instrument": "SGOV", "quantity": 48, "basis_price": 100.5318867925 },
+        { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
+        { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
+        { "instrument": "BULL_C10_20261218", "quantity": 2.5, "basis_price": 0.0 },
+        { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
+        { "instrument": "INFQ_C25_20270115", "quantity": 1, "basis_price": 0.75 },
+        { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
+        { "instrument": "NVDA", "quantity": 1, "basis_price": 205.28 },
+        { "instrument": "PHYS", "quantity": 15, "basis_price": 30.31 },
+        { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
+        { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
+        { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
+        { "instrument": "TMP", "quantity": 5, "basis_price": 98.0 },
+        { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
+      ],
+      "history": [
+        { "date": "2026-07-17", "value": 9900.0, "kind": "published_test_baseline" }
+      ]
+    },
+    "chue": {
+      "display_name": "chue",
+      "portfolio_name": "chue Demo Portfolio",
+      "currency": "USD",
+      "opening_as_of": null,
+      "opening_nav": 10000.0,
+      "baseline_label": "Supplied cost basis",
+      "return_basis_label": "Gain vs supplied cost",
+      "return_basis_note": "Against 25 SPY shares at the user-supplied $400 per-share cost basis; acquisition date was not provided.",
+      "cash": 0.0,
+      "cash_notes": [],
+      "positions": [
+        { "instrument": "SPY", "quantity": 25, "basis_price": 400.0 }
+      ],
+      "history": []
+    }
+  },
+  "instruments": {
+    "SGOV": { "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "asset_class": "Short-Term Treasuries", "cash_equivalent": true, "multiplier": 1, "mark_mode": "public_delayed" },
+    "BULL": { "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "asset_class": "Financial Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "BULL_P10_JAN2027": { "symbol": "BULL Jan 15 2027 $10 Put", "quote_symbol": "BULL_P10_JAN2027", "option_symbol": "BULL270115P00010000", "underlying_symbol": "BULL", "expiry": "2027-01-15", "name": "Short one BULL $10 put", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 3.16, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
+    "BULL_C10_20261218": { "symbol": "BULL Dec 18 2026 $10 Call", "quote_symbol": "BULL_C10_20261218", "option_symbol": "BULL261218C00010000", "underlying_symbol": "BULL", "expiry": "2026-12-18", "name": "BULL Dec 18 2026 $10 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 1.21, "manual_as_of": "2026-08-21T09:30:00-04:00", "manual_source": "User-supplied Aug 21 same-day sale premium; automatic model fallback", "attribution_group_id": "bull-dec2026-call", "attribution_group_label": "BULL Dec 2026 $10 Calls", "risk_level": "high" },
+    "IBM": { "symbol": "IBM", "name": "International Business Machines", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "INFQ_C25_20270115": { "symbol": "INFQ Jan 15 2027 $25 Call", "quote_symbol": "INFQ_C25_20270115", "option_symbol": "INFQ270115C00025000", "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ $25 call contracts", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 0.75, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening premium; automatic model fallback anchor" },
+    "INFQ_C10_C17_5_20270115": { "symbol": "INFQ Jan 15 2027 $10/$17.50 Call Vertical", "quote_symbol": "INFQ_C10_C17_5_20270115", "option_symbols": ["INFQ270115C00010000", "INFQ270115C00017500"], "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ $10/$17.50 call verticals", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 1.37, "manual_as_of": "2026-07-17T09:30:00-04:00", "manual_source": "User-supplied July 17 opening net premium; automatic model fallback anchor" },
+    "IVR": { "symbol": "IVR", "name": "Invesco Mortgage Capital", "asset_class": "Real Estate", "multiplier": 1, "mark_mode": "public_delayed" },
+    "NVDA": { "symbol": "NVDA", "name": "NVIDIA", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "PHYS": { "symbol": "PHYS", "name": "Sprott Physical Gold Trust", "asset_class": "Precious Metals", "multiplier": 1, "mark_mode": "public_delayed" },
+    "PLTR": { "symbol": "PLTR", "name": "Palantir Technologies", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "QBTS": { "symbol": "QBTS", "name": "D-Wave Quantum", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "SPY": { "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "asset_class": "Index Funds", "multiplier": 1, "mark_mode": "public_delayed" },
+    "TSSI": { "symbol": "TSSI", "name": "TSS, Inc.", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
+    "TMP": { "symbol": "TMP", "quote_symbol": "TMP", "name": "Tompkins Financial Corporation", "asset_class": "Regional Banking", "multiplier": 1, "mark_mode": "public_delayed", "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "risk_level": "medium" },
+    "WMT": { "symbol": "WMT", "name": "Walmart", "asset_class": "Consumer", "multiplier": 1, "mark_mode": "public_delayed" }
+  }
+}

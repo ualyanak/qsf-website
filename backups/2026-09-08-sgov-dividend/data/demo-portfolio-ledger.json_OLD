@@ -1,0 +1,184 @@
+{
+  "schema_version": 1,
+  "demo": true,
+  "account_id": "ahub",
+  "currency": "USD",
+  "market_timezone": "America/New_York",
+  "notice": "PUBLIC DEMONSTRATION ONLY. This ledger contains intentionally public synthetic test data and is not an official investor record.",
+  "attribution_groups": {
+    "infq": { "label": "INFQ Strategies", "risk_level": "high" },
+    "bull": { "label": "BULL · Webull", "risk_level": "medium" },
+    "bull-dec2026-call": { "label": "BULL Dec 2026 $10 Calls", "risk_level": "high" },
+    "pltr": { "label": "PLTR · Palantir", "risk_level": "medium" },
+    "phys": { "label": "PHYS · Physical Gold Trust", "risk_level": "low" },
+    "qbts": { "label": "QBTS · D-Wave Quantum", "risk_level": "medium" },
+    "ibm": { "label": "IBM", "risk_level": "medium" },
+    "spy": { "label": "SPY · S&P 500 ETF", "risk_level": "medium" },
+    "nvda": { "label": "NVDA · NVIDIA", "risk_level": "medium" },
+    "wmt": { "label": "WMT · Walmart", "risk_level": "medium" },
+    "sgov": { "label": "SGOV · Short-Term Treasuries", "risk_level": "low" },
+    "tssi": { "label": "TSSI · TSS, Inc.", "risk_level": "high" },
+    "ivr": { "label": "IVR · Invesco Mortgage Capital", "risk_level": "high" },
+    "tmp": { "label": "TMP · Tompkins Financial", "risk_level": "medium" }
+  },
+  "formation": {
+    "as_of": "2026-07-17T09:30:00-04:00",
+    "nav": 9900.0,
+    "cash": 389.83,
+    "positions": [
+      { "instrument": "SGOV", "quantity": 26, "basis_price": 100.58 },
+      { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
+      { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
+      { "instrument": "INFQ_C25_20270115", "quantity": 4, "basis_price": 0.75 },
+      { "instrument": "INFQ_C10_C17_5_20270115", "quantity": 20, "basis_price": 1.37 },
+      { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
+      { "instrument": "NVDA", "quantity": 1, "basis_price": 205.28 },
+      { "instrument": "PHYS", "quantity": 15, "basis_price": 30.31 },
+      { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
+      { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
+      { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
+      { "instrument": "TSSI", "quantity": 30, "basis_price": 9.94 },
+      { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
+    ]
+  },
+  "events": [
+    {
+      "id": "2026-07-20-cash-adjustment",
+      "kind": "cash_adjustment",
+      "effective_at": "2026-07-20T09:30:00-04:00",
+      "amount": 24.0,
+      "classification": "unattributed_strategy_pnl",
+      "note": "User-provided illustrative realized-profit adjustment."
+    },
+    {
+      "id": "2026-08-04-sgov-to-bull",
+      "kind": "trade",
+      "effective_date": "2026-08-04",
+      "timing": "before_close",
+      "note": "Date-only user update; sold 23 SGOV shares at $100.65 and one SGOV share at $100.68, then purchased 320 BULL shares at $7.20. The two SGOV fills produced $2,415.63, the BULL purchase cost $2,304.00, and $111.63 remained as cash.",
+      "legs": [
+        { "instrument": "SGOV", "signed_quantity": -23, "price": 100.65 },
+        { "instrument": "SGOV", "signed_quantity": -1, "price": 100.68 },
+        { "instrument": "BULL", "signed_quantity": 320, "price": 7.2 }
+      ]
+    },
+    {
+      "id": "2026-08-13-infq-sales-and-sgov-purchase",
+      "kind": "trade",
+      "effective_at": "2026-08-13T10:00:00-05:00",
+      "note": "User-provided 10:00 a.m. CDT update; gross INFQ proceeds are $5,185.00 and the 51-share SGOV purchase costs $5,127.03.",
+      "legs": [
+        { "instrument": "INFQ_C25_20270115", "signed_quantity": -3, "price": 1.1 },
+        { "instrument": "INFQ_C10_C17_5_20270115", "signed_quantity": -5, "price": 2.42 },
+        { "instrument": "INFQ_C10_C17_5_20270115", "signed_quantity": -15, "price": 2.43 },
+        { "instrument": "SGOV", "signed_quantity": 51, "price": 100.53 }
+      ]
+    },
+    {
+      "id": "2026-08-14-tssi-sale",
+      "kind": "trade",
+      "effective_date": "2026-08-14",
+      "timing": "before_close",
+      "note": "Date-only user update; sold all 30 TSSI shares at $9.65 for $289.50 total proceeds with no reported fees. The $9.94 basis produces an illustrative realized loss of $8.70.",
+      "legs": [
+        { "instrument": "TSSI", "signed_quantity": -30, "price": 9.65 }
+      ]
+    },
+    {
+      "id": "2026-08-18-sgov-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-08-18",
+      "timing": "before_close",
+      "amount": 0.61,
+      "instrument": "SGOV",
+      "classification": "dividend",
+      "note": "User-provided total SGOV cash dividend credited to the ahub demo portfolio."
+    },
+    {
+      "id": "2026-08-18-ivr-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-08-18",
+      "timing": "before_close",
+      "amount": 12.0,
+      "instrument": "IVR",
+      "classification": "dividend",
+      "note": "User-provided total IVR cash dividend credited to the ahub demo portfolio."
+    },
+    {
+      "id": "2026-08-19-bull-sale",
+      "kind": "trade",
+      "effective_date": "2026-08-19",
+      "timing": "before_close",
+      "note": "Date-only user update; sold 120 BULL shares at $8.45 for $1,014.00 total proceeds with no reported fees. The $7.20 basis produces an illustrative realized gain of $150.00, and 200 BULL shares remain at the unchanged basis.",
+      "legs": [
+        { "instrument": "BULL", "signed_quantity": -120, "price": 8.45 }
+      ]
+    },
+    {
+      "id": "2026-08-21-bull-dec2026-call-trades",
+      "kind": "trade",
+      "effective_date": "2026-08-21",
+      "timing": "before_close",
+      "note": "Date-only user update; purchased 10 BULL Dec 18 2026 $10 calls at $0.89 and sold 7.5 at $1.21 with no fees. Under the user-specified bookkeeping convention, the full $890.00 purchase cost is allocated to the sale, producing $17.50 realized profit while the remaining 2.5 contracts carry zero basis.",
+      "legs": [
+        { "instrument": "BULL_C10_20261218", "signed_quantity": 10, "price": 0.89, "fees": 0 },
+        { "instrument": "BULL_C10_20261218", "signed_quantity": -7.5, "price": 1.21, "fees": 0 }
+      ],
+      "basis_allocation_overrides": [
+        {
+          "instrument": "BULL_C10_20261218",
+          "closed_basis": 890.0,
+          "remaining_basis_price": 0.0,
+          "reason": "User-specified bookkeeping allocates the full purchase cost to the same-day sale and zero basis to the remaining 2.5 contracts."
+        }
+      ]
+    },
+    {
+      "id": "2026-08-26-sgov-to-tmp",
+      "kind": "trade",
+      "effective_at": "2026-08-26T09:06:00-05:00",
+      "note": "User update recorded at 9:06 a.m. CDT; sold 5 SGOV shares at $100.65 for $503.25 and purchased 5 TMP shares at $98.00 for $490.00 with no fees. Net proceeds added $13.25 to cash; 48 SGOV shares remain at the unchanged $100.5318867925 basis and 5 TMP shares carry a $98.00 basis.",
+      "legs": [
+        { "instrument": "SGOV", "signed_quantity": -5, "price": 100.65, "fees": 0 },
+        { "instrument": "TMP", "signed_quantity": 5, "price": 98.0, "fees": 0 }
+      ]
+    }
+  ],
+  "instruments": {
+    "SGOV": { "kind": "equity", "symbol": "SGOV", "name": "iShares 0-3 Month Treasury Bond ETF", "multiplier": 1, "cash_equivalent": true, "attribution_group_id": "sgov", "attribution_group_label": "SGOV · Short-Term Treasuries", "exposure_group_id": "cash-cash-equivalents", "exposure_group_label": "Cash & Cash Equivalents" },
+    "BULL": { "kind": "equity", "symbol": "BULL", "name": "Webull Corporation Class A Ordinary Shares", "multiplier": 1, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "financial-technology", "exposure_group_label": "Financial Technology" },
+    "BULL_P10_JAN2027": { "kind": "option_model", "model_spec_id": "BULL_P10_JAN2027", "underlying": "BULL", "name": "Short one BULL Jan 2027 $10 put", "multiplier": 100, "attribution_group_id": "bull", "attribution_group_label": "BULL · Webull", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "BULL_C10_20261218": { "kind": "option_model", "model_spec_id": "BULL_C10_20261218", "underlying": "BULL", "name": "BULL Dec 18 2026 $10 call contracts", "multiplier": 100, "attribution_group_id": "bull-dec2026-call", "attribution_group_label": "BULL Dec 2026 $10 Calls", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "IBM": { "kind": "equity", "symbol": "IBM", "name": "International Business Machines", "multiplier": 1, "attribution_group_id": "ibm", "attribution_group_label": "IBM", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
+    "INFQ_C25_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C25_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $25 call", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "INFQ_C10_C17_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_C17_5_20270115", "underlying": "INFQ", "name": "INFQ Jan 2027 $10/$17.50 call vertical", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "IVR": { "kind": "equity", "symbol": "IVR", "name": "Invesco Mortgage Capital", "multiplier": 1, "attribution_group_id": "ivr", "attribution_group_label": "IVR · Invesco Mortgage Capital", "exposure_group_id": "real-estate", "exposure_group_label": "Real Estate" },
+    "NVDA": { "kind": "equity", "symbol": "NVDA", "name": "NVIDIA", "multiplier": 1, "attribution_group_id": "nvda", "attribution_group_label": "NVDA · NVIDIA", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
+    "PHYS": { "kind": "equity", "symbol": "PHYS", "name": "Sprott Physical Gold Trust", "multiplier": 1, "attribution_group_id": "phys", "attribution_group_label": "PHYS · Physical Gold Trust", "exposure_group_id": "precious-metals", "exposure_group_label": "Precious Metals" },
+    "PLTR": { "kind": "equity", "symbol": "PLTR", "name": "Palantir Technologies", "multiplier": 1, "attribution_group_id": "pltr", "attribution_group_label": "PLTR · Palantir", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
+    "QBTS": { "kind": "equity", "symbol": "QBTS", "name": "D-Wave Quantum", "multiplier": 1, "attribution_group_id": "qbts", "attribution_group_label": "QBTS · D-Wave Quantum", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
+    "SPY": { "kind": "equity", "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "multiplier": 1, "attribution_group_id": "spy", "attribution_group_label": "SPY · S&P 500 ETF", "exposure_group_id": "index-funds", "exposure_group_label": "Index Funds" },
+    "TSSI": { "kind": "equity", "symbol": "TSSI", "name": "TSS, Inc.", "multiplier": 1, "attribution_group_id": "tssi", "attribution_group_label": "TSSI · TSS, Inc.", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
+    "TMP": { "kind": "equity", "symbol": "TMP", "name": "Tompkins Financial Corporation", "multiplier": 1, "history_seed": { "price": 98.0, "date": "2026-08-26", "source": "User-supplied opening trade price" }, "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "exposure_group_id": "regional-banking", "exposure_group_label": "Regional Banking" },
+    "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
+  },
+  "expected_current_snapshot": {
+    "cash": 1930.29,
+    "positions": {
+      "SGOV": 48,
+      "BULL": 200,
+      "BULL_P10_JAN2027": -1,
+      "BULL_C10_20261218": 2.5,
+      "IBM": 1,
+      "INFQ_C25_20270115": 1,
+      "IVR": 100,
+      "NVDA": 1,
+      "PHYS": 15,
+      "PLTR": 4,
+      "QBTS": 20,
+      "SPY": 1,
+      "TMP": 5,
+      "WMT": 5
+    }
+  }
+}
