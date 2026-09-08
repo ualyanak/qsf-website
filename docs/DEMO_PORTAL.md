@@ -64,6 +64,13 @@ repository. They must never be reused for real investor accounts.
   mark, a Medium-Risk classification, and a Regional Banking exposure label.
   Its historical fallback seed begins on the purchase date, so the history
   engine does not invent a TMP holding or mark before August 26.
+- The September 5 date-only update, recorded September 8, credits a total
+  `$14.74` SGOV cash dividend. Raw cash increases from `$1,930.29` to
+  `$1,945.03`, with all holdings and cost bases unchanged. Cumulative tagged
+  SGOV dividend income is `$15.35`, including the earlier `$0.61` credit.
+  This is investment income, not an external contribution. Current dashboard
+  and report cash include it immediately; completed-night history includes it
+  at the next trading-session close and does not backdate it to September 4.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
   as cash equivalents. SGOV is currently the only tagged holding. SGOV remains

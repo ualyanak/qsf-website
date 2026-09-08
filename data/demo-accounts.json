@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-08-26",
+  "published_at": "2026-09-08",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1930.29,
+      "cash": 1945.03,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -76,6 +76,13 @@
           "kind": "illustrative_reallocation",
           "instrument": "TMP",
           "note": "User-provided 9:06 a.m. CDT test update: sold 5 SGOV shares at $100.65 for $503.25 and bought 5 Tompkins Financial Corporation (TMP) shares at $98.00 for $490.00 with no fees. Net proceeds increased cash from $1,917.04 to $1,930.29; 48 SGOV shares remain at the unchanged $100.5318867925 basis and the 5 TMP shares carry a $98.00 basis."
+        },
+        {
+          "date": "2026-09-05",
+          "amount": 14.74,
+          "kind": "illustrative_dividend",
+          "instrument": "SGOV",
+          "note": "User-provided total SGOV cash dividend received on September 5, 2026, recorded September 8. The full $14.74 was credited to cash, increasing the balance from $1,930.29 to $1,945.03; holdings and cost bases are unchanged."
         }
       ],
       "positions": [

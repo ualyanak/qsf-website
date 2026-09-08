@@ -287,7 +287,7 @@ class OptionModelTests(unittest.TestCase):
             if note.get("date") == "2026-08-18" and note.get("kind") == "illustrative_dividend"
         }
 
-        self.assertEqual(data["published_at"], "2026-08-26")
+        self.assertEqual(data["published_at"], "2026-09-08")
         self.assertEqual(set(dividend_notes), {"SGOV", "IVR"})
         self.assertAlmostEqual(dividend_notes["SGOV"]["amount"], 0.61, places=2)
         self.assertAlmostEqual(dividend_notes["IVR"]["amount"], 12.0, places=2)
@@ -308,7 +308,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 1014.0, places=2)
         self.assertAlmostEqual(sold_basis, 864.0, places=2)
         self.assertAlmostEqual(realized_pnl, 150.0, places=2)
-        self.assertAlmostEqual(account["cash"], 885.54 + proceeds + 17.5 + 13.25, places=2)
+        self.assertAlmostEqual(account["cash"], 885.54 + proceeds + 17.5 + 13.25 + 14.74, places=2)
         self.assertEqual(positions["BULL"]["quantity"], 200)
         self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
         self.assertEqual(len(positions), 14)
@@ -333,7 +333,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(purchase_cost, 890.0, places=2)
         self.assertAlmostEqual(sale_proceeds, 907.5, places=2)
         self.assertAlmostEqual(supplied_realized_pnl, 17.5, places=2)
-        self.assertAlmostEqual(account["cash"], 1899.54 + supplied_realized_pnl + 13.25, places=2)
+        self.assertAlmostEqual(account["cash"], 1899.54 + supplied_realized_pnl + 13.25 + 14.74, places=2)
         self.assertEqual(position["quantity"], 2.5)
         self.assertEqual(position["basis_price"], 0.0)
 
@@ -365,7 +365,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(sgov_proceeds, 503.25, places=2)
         self.assertAlmostEqual(tmp_cost, 490.0, places=2)
         self.assertAlmostEqual(net_cash, 13.25, places=2)
-        self.assertAlmostEqual(account["cash"], 1917.04 + net_cash, places=2)
+        self.assertAlmostEqual(account["cash"], 1917.04 + net_cash + 14.74, places=2)
         self.assertEqual(positions["SGOV"]["quantity"], 48)
         self.assertAlmostEqual(positions["SGOV"]["basis_price"], 100.5318867925, places=10)
         self.assertEqual(positions["TMP"]["quantity"], 5)

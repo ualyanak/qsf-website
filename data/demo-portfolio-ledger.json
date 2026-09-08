@@ -142,6 +142,16 @@
         { "instrument": "SGOV", "signed_quantity": -5, "price": 100.65, "fees": 0 },
         { "instrument": "TMP", "signed_quantity": 5, "price": 98.0, "fees": 0 }
       ]
+    },
+    {
+      "id": "2026-09-05-sgov-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-09-05",
+      "timing": "before_close",
+      "amount": 14.74,
+      "instrument": "SGOV",
+      "classification": "dividend",
+      "note": "User-provided total SGOV cash dividend received on September 5, 2026, recorded September 8. The date-only credit adds $14.74 to ahub cash without changing holdings or cost bases; completed-session history includes it at the next trading close, not the preceding September 4 close."
     }
   ],
   "instruments": {
@@ -163,7 +173,7 @@
     "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
   },
   "expected_current_snapshot": {
-    "cash": 1930.29,
+    "cash": 1945.03,
     "positions": {
       "SGOV": 48,
       "BULL": 200,
