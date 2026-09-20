@@ -1,5 +1,5 @@
 {
-  "generated_at": "2026-09-20T11:09:28Z",
+  "generated_at": "2026-09-20T14:42:42Z",
   "methodology": {
     "baseline": "Last available January 2020 observation (displayed as 0%).",
     "benchmark_frequency": "Completed calendar month-end observations plus the latest available delayed observation.",
@@ -1306,7 +1306,7 @@
       "color": "#5da9e9",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 2349.5,
+        "age_minutes_at_check": 2562.7,
         "as_of": "2026-09-18T20:00:00Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
@@ -1808,7 +1808,7 @@
         "source": "Yahoo Finance chart endpoint",
         "symbol": "SPY"
       },
-      "refresh_status": "refreshed",
+      "refresh_status": "retained_after_source_unavailable",
       "units": "cumulative_return_percent"
     },
     {
@@ -1816,7 +1816,7 @@
       "color": "#d6b35a",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 2349.5,
+        "age_minutes_at_check": 2562.7,
         "as_of": "2026-09-18T20:00:00Z",
         "max_age_minutes": 7200,
         "within_expected_window": true
@@ -2327,7 +2327,7 @@
       "default_hidden": true,
       "freshness": {
         "age_minutes_at_check": 0.1,
-        "as_of": "2026-09-20T11:09:23Z",
+        "as_of": "2026-09-20T14:42:37Z",
         "max_age_minutes": 180,
         "within_expected_window": true
       },
@@ -2335,9 +2335,9 @@
       "label": "Bitcoin (BTC-USD)",
       "latest": {
         "kind": "intraday_15m",
-        "market_price": 80325.351562,
-        "timestamp": "2026-09-20T11:09:23Z",
-        "value": 759.046
+        "market_price": 80584.1875,
+        "timestamp": "2026-09-20T14:42:37Z",
+        "value": 761.8142
       },
       "points": [
         {
@@ -2823,7 +2823,7 @@
       ],
       "provenance": {
         "adjustment": "Yahoo BTC-USD close",
-        "as_of": "2026-09-20T11:09:23Z",
+        "as_of": "2026-09-20T14:42:37Z",
         "live": true,
         "source": "Yahoo Finance chart endpoint",
         "symbol": "BTC-USD"
@@ -2836,7 +2836,7 @@
       "color": "#93a8c4",
       "default_hidden": true,
       "freshness": {
-        "age_minutes_at_check": 4989.5,
+        "age_minutes_at_check": 5202.7,
         "as_of": "2026-09-17T00:00:00Z",
         "max_age_minutes": 14400,
         "within_expected_window": true
@@ -3342,11 +3342,13 @@
     }
   ],
   "snapshot": {
-    "benchmark_as_of": "2026-09-20T11:09:23Z",
-    "benchmark_status": "current_public_sources",
-    "checked_at": "2026-09-20T11:09:28Z",
+    "benchmark_as_of": "2026-09-20T14:42:37Z",
+    "benchmark_status": "fallback_or_retained",
+    "checked_at": "2026-09-20T14:42:42Z",
     "delay_notice": "Best-effort public data and workflow runs can be delayed beyond 15 minutes. FRED generally updates once per business day; each series retains its own as-of time.",
-    "failed_sources": [],
+    "failed_sources": [
+      "spy"
+    ],
     "fund_as_of": "2025-09-30",
     "fund_status": "management_reported_not_live",
     "stale_sources": [],
