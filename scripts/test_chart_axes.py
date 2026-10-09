@@ -21,6 +21,7 @@ APPROVED_RISK_LEVELS = {
     "sgov": "low",
     "tssi": "high",
     "ivr": "high",
+    "tmp": "medium",
 }
 
 

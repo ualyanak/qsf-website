@@ -244,7 +244,12 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertAlmostEqual(august_26["cash"], 1930.29, places=2)
         self.assertEqual(history.position_quantities(august_26)["SGOV"], 48)
         self.assertEqual(history.position_quantities(august_26)["TMP"], 5)
-        self.assertEqual(history.position_quantities(august_26), self.ledger["expected_current_snapshot"]["positions"])
+        self.assertEqual(history.position_quantities(august_26), {
+            "SGOV": 48, "BULL": 200, "BULL_P10_JAN2027": -1,
+            "BULL_C10_20261218": 2.5, "IBM": 1, "INFQ_C25_20270115": 1,
+            "IVR": 100, "NVDA": 1, "PHYS": 15, "PLTR": 4, "QBTS": 20,
+            "SPY": 1, "TMP": 5, "WMT": 5,
+        })
 
     def test_august_fourteenth_tssi_sale_cash_and_loss(self) -> None:
         proceeds = 30 * 9.65
@@ -316,7 +321,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         prior_ledger = copy.deepcopy(self.ledger)
         prior_ledger["events"] = [event for event in prior_ledger["events"]
                                   if event["id"] != "2026-09-05-sgov-dividend"]
-        prior_ledger["expected_current_snapshot"]["cash"] = 1930.29
+        prior_ledger["expected_current_snapshot"]["cash"] -= 14.74
         as_of = self.after_all_daily_closes(dt.date(2026, 9, 8))
         updated = history.build_history(self.ledger, as_of=as_of, fetcher=september_fetcher)
         prior = history.build_history(prior_ledger, as_of=as_of, fetcher=september_fetcher)
@@ -341,6 +346,123 @@ class PortfolioHistoryTests(unittest.TestCase):
             latest_mix = analytics[key]["points"][-1]["values"][group]["value"]
             prior_mix = prior["accounts"]["ahub"]["analytics"][key]["points"][-1]["values"][group]["value"]
             self.assertAlmostEqual(latest_mix - prior_mix, 14.74, places=2)
+
+    def test_fall_dividends_are_dated_income_without_changing_holdings_or_realizations(self) -> None:
+        dividends = (
+            ("2026-09-09", "WMT", 1.24),
+            ("2026-09-10", "IBM", 1.69),
+            ("2026-09-16", "IVR", 12.0),
+            ("2026-10-02", "NVDA", 0.25),
+            ("2026-10-07", "SGOV", 14.43),
+        )
+        for date, instrument_id, amount in dividends:
+            with self.subTest(date=date, instrument=instrument_id):
+                matching = [event for event in self.ledger["events"]
+                            if event.get("classification") == "dividend"
+                            and event.get("instrument") == instrument_id
+                            and history.event_datetime(event).astimezone(history.MARKET_ZONE).date().isoformat() == date]
+                self.assertEqual(len(matching), 1)
+                event = matching[0]
+                self.assertEqual(event["amount"], amount)
+                without_dividend = copy.deepcopy(self.ledger)
+                without_dividend["events"] = [item for item in without_dividend["events"]
+                                              if item["id"] != event["id"]]
+                through = self.after_close(dt.date.fromisoformat(date))
+                received = history.replay_ledger(self.ledger, through)
+                prior = history.replay_ledger(without_dividend, through)
+                self.assertAlmostEqual(received["cash"] - prior["cash"], amount, places=2)
+                self.assertEqual(received["positions"], prior["positions"])
+                self.assertEqual(history.realized_trade_records(self.ledger, through),
+                                 history.realized_trade_records(without_dividend, through))
+
+        earlier, earlier_unattributed, earlier_external = history.performance_cash_adjustments(
+            self.ledger, self.after_close(dt.date(2026, 9, 8)),
+        )
+        current, current_unattributed, current_external = history.performance_cash_adjustments(
+            self.ledger, self.after_close(dt.date(2026, 10, 9)),
+        )
+        self.assertAlmostEqual(sum(current.values()) - sum(earlier.values()), 29.61, places=2)
+        self.assertEqual(current_unattributed, earlier_unattributed)
+        self.assertEqual(current_external, earlier_external)
+        self.assertEqual(current_external, 0.0)
+
+    def test_october_sales_and_purchases_reconcile_cash_basis_and_short_credit(self) -> None:
+        before_sale = history.replay_ledger(self.ledger, self.after_close(dt.date(2026, 10, 6)))
+        after_sale = history.replay_ledger(self.ledger, self.after_close(dt.date(2026, 10, 7)))
+        current = history.replay_ledger(self.ledger, self.after_close(dt.date(2026, 10, 9)))
+        self.assertEqual(history.position_quantities(before_sale)["SGOV"], 48)
+        self.assertNotIn("SGOV", history.position_quantities(after_sale))
+        self.assertAlmostEqual(after_sale["cash"] - before_sale["cash"], 48 * 100.46 + 14.43, places=2)
+        self.assertAlmostEqual(after_sale["cash"], 6796.72, places=2)
+        sgov_sale = next(record for record in history.realized_trade_records(
+            self.ledger, self.after_close(dt.date(2026, 10, 7)),
+        ) if record["instrument_id"] == "SGOV" and record["date"] == "2026-10-07")
+        self.assertEqual(sgov_sale["closed_quantity"], 48)
+        self.assertEqual(sgov_sale["closing_value"], 4822.08)
+        self.assertEqual(sgov_sale["closed_basis"], 4825.53)
+        self.assertEqual(sgov_sale["realized_pnl"], -3.45)
+
+        expected_options = {
+            "INFQ_C7_5_C15_20270617": {"quantity": 1.0, "basis_price": 2.78},
+            "INFQ_C10_20270115": {"quantity": 2.0, "basis_price": 2.30},
+            "INFQ_C12_5_20270115": {"quantity": -1.0, "basis_price": 1.30},
+        }
+        for instrument_id, expected in expected_options.items():
+            self.assertNotIn(instrument_id, history.position_quantities(after_sale))
+            self.assertEqual(current["positions"][instrument_id], expected)
+            self.assertEqual(history.instrument_multiplier(self.ledger, instrument_id), 100)
+        self.assertAlmostEqual(current["cash"] - after_sale["cash"], -278 - 460 + 130 - 569, places=2)
+        self.assertAlmostEqual(current["cash"], 5619.72, places=2)
+        self.assertEqual(current["positions"]["IVR"]["quantity"], 200)
+        self.assertAlmostEqual(current["positions"]["IVR"]["basis_price"], (100 * 8.0999 + 569) / 200, places=8)
+        for instrument_id, lot in after_sale["positions"].items():
+            if instrument_id != "IVR":
+                self.assertEqual(current["positions"][instrument_id], lot)
+        self.assertEqual(history.realized_trade_records(self.ledger, self.after_close(dt.date(2026, 10, 9))),
+                         history.realized_trade_records(self.ledger, self.after_close(dt.date(2026, 10, 7))))
+        published = {position["instrument"]: position
+                     for position in self.accounts["accounts"]["ahub"]["positions"]}
+        self.assertEqual(set(published), set(history.position_quantities(current)))
+        for instrument_id, lot in current["positions"].items():
+            self.assertAlmostEqual(published[instrument_id]["basis_price"], lot["basis_price"], places=8)
+        history.assert_current_account_snapshot(self.ledger, self.accounts)
+
+    def test_october_ninth_trades_enter_history_only_after_completed_session(self) -> None:
+        seeds = history.seed_marks(self.ledger)
+
+        def october_fetcher(symbol: str, start: dt.date, end: dt.date) -> dict[dt.date, float]:
+            base = 350.0 if symbol == "GLD" else 60000.0 if symbol == "BTC-USD" else seeds[symbol][0]
+            days = [start + dt.timedelta(days=offset) for offset in range((end - start).days + 1)]
+            return {day: base for day in days if day >= dt.date(2026, 7, 17) and (
+                symbol == "BTC-USD" or (day.weekday() < 5 and day != dt.date(2026, 9, 7))
+            )}
+
+        intraday = history.build_history(
+            self.ledger,
+            as_of=dt.datetime(2026, 10, 9, 13, 0, tzinfo=history.MARKET_ZONE),
+            fetcher=october_fetcher,
+        )
+        completed = history.build_history(
+            self.ledger,
+            as_of=self.after_all_daily_closes(dt.date(2026, 10, 9)),
+            fetcher=october_fetcher,
+        )
+        self.assertEqual(intraday["last_completed_session"], "2026-10-08")
+        self.assertEqual(self.points(intraday)[-1]["cash"], 6796.72)
+        self.assertEqual(self.points(intraday)[-1]["position_count"], 13)
+        self.assertEqual(self.points(completed)[:-1], self.points(intraday))
+        closing = self.points(completed)[-1]
+        self.assertEqual(closing["date"], "2026-10-09")
+        self.assertEqual(closing["cash"], 5619.72)
+        self.assertEqual(closing["position_count"], 16)
+        new_ids = {"INFQ_C7_5_C15_20270617", "INFQ_C10_20270115", "INFQ_C12_5_20270115"}
+        for payload, included in ((intraday, False), (completed, True)):
+            analytics = payload["accounts"]["ahub"]["analytics"]
+            infq = next(item for item in analytics["contributors"] if item["id"] == "infq")
+            self.assertEqual(new_ids.intersection(infq["instrument_ids"]), new_ids if included else set())
+            self.assertEqual(infq["risk_level"], "high")
+            self.assertEqual(analytics["reconciliation"]["external_flows"], 0.0)
+            self.assertEqual(analytics["reconciliation"]["residual"], 0.0)
 
     def test_august_nineteenth_bull_sale_increases_cash_and_reduces_shares(self) -> None:
         before = history.replay_ledger(
@@ -464,8 +586,7 @@ class PortfolioHistoryTests(unittest.TestCase):
         self.assertNotIn("timing", event)
 
         account = self.accounts["accounts"]["ahub"]
-        self.assertEqual(account["cash"], 1945.03)
-        self.assertEqual(len(account["positions"]), 14)
+        self.assertEqual(len(history.position_quantities(after)), 14)
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-26")
         self.assertEqual(update_note["as_of"], "2026-08-26T09:06:00-05:00")
         self.assertEqual(update_note["instrument"], "TMP")
@@ -1331,7 +1452,18 @@ class PortfolioHistoryTests(unittest.TestCase):
             )
 
     def test_packaged_august_twenty_fifth_analytics_match_published_fixtures(self) -> None:
-        payload = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
+        fallback = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
+
+        def failing_fetcher(_symbol: str, _start: dt.date, _end: dt.date) -> dict[dt.date, float]:
+            raise TimeoutError("offline fixture test")
+
+        payload = history.build_history(
+            self.ledger,
+            as_of=self.after_all_daily_closes(dt.date(2026, 8, 25)),
+            fetcher=failing_fetcher,
+            benchmark_fetcher=failing_fetcher,
+            fallback=fallback,
+        )
         analytics = payload["accounts"]["ahub"].get("analytics")
         self.assertIsInstance(analytics, dict, "Regenerate the packaged history after analytics changes")
         self.assertEqual(payload["last_completed_session"], "2026-08-25")
@@ -1411,6 +1543,30 @@ class PortfolioHistoryTests(unittest.TestCase):
             places=2,
         )
         self.assertAlmostEqual(sum(value["percent"] for value in risk_latest["values"].values()), 100.0, places=6)
+
+    def test_packaged_current_analytics_reconcile_to_completed_ledger_state(self) -> None:
+        payload = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")
+        last_session = dt.date.fromisoformat(payload["last_completed_session"])
+        through = self.after_close(last_session)
+        state = history.replay_ledger(self.ledger, through)
+        analytics = payload["accounts"]["ahub"]["analytics"]
+        closing = next(point for point in self.points(payload) if point["date"] == last_session.isoformat())
+        self.assertEqual(analytics["as_of"], last_session.isoformat())
+        self.assertEqual(closing["kind"], "session_close")
+        self.assertAlmostEqual(closing["cash"], state["cash"], places=2)
+        self.assertEqual(closing["position_count"], len(history.position_quantities(state)))
+        self.assertEqual(analytics["realized_trades"], history.realized_trade_records(self.ledger, through))
+        reconciliation = analytics["reconciliation"]
+        self.assertEqual(reconciliation["latest_nav"], closing["value"])
+        self.assertEqual(reconciliation["residual"], 0.0)
+        self.assertAlmostEqual(reconciliation["latest_nav"] - reconciliation["opening_nav"],
+                               reconciliation["explained_change"] + reconciliation["external_flows"], places=2)
+        exposure = analytics["exposure_history"]["points"]
+        risk = analytics["risk_history"]["points"]
+        self.assertEqual([point["date"] for point in exposure], [point["date"] for point in self.points(payload)])
+        self.assertEqual([point["date"] for point in risk], [point["date"] for point in exposure])
+        self.assertEqual(risk[-1]["gross_exposure"], exposure[-1]["gross_exposure"])
+        self.assertAlmostEqual(sum(value["percent"] for value in risk[-1]["values"].values()), 100.0, places=6)
 
     def test_packaged_fallback_before_august_twenty_first_close_excludes_trade(self) -> None:
         fallback = history.load_json(REPOSITORY / "data/demo-portfolio-history.json")

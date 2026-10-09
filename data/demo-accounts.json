@@ -1,7 +1,7 @@
 {
   "schema_version": 1,
   "demo": true,
-  "published_at": "2026-09-08",
+  "published_at": "2026-10-09",
   "notice": "PUBLIC DEMONSTRATION ONLY. These account labels, credentials, holdings, and values are intentionally public test data and are not real investor accounts or official fund records.",
   "credentials": {
     "ahub": "1234567",
@@ -14,7 +14,7 @@
       "currency": "USD",
       "opening_as_of": "2026-07-17T09:30:00-04:00",
       "opening_nav": 9900.0,
-      "cash": 1945.03,
+      "cash": 5619.72,
       "cash_notes": [
         {
           "date": "2026-07-20",
@@ -83,23 +83,72 @@
           "kind": "illustrative_dividend",
           "instrument": "SGOV",
           "note": "User-provided total SGOV cash dividend received on September 5, 2026, recorded September 8. The full $14.74 was credited to cash, increasing the balance from $1,930.29 to $1,945.03; holdings and cost bases are unchanged."
+        },
+        {
+          "date": "2026-09-09",
+          "amount": 1.24,
+          "kind": "illustrative_dividend",
+          "note": "User-provided total WMT cash dividend of $1.24, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution.",
+          "instrument": "WMT"
+        },
+        {
+          "date": "2026-09-10",
+          "amount": 1.69,
+          "kind": "illustrative_dividend",
+          "note": "User-provided total IBM cash dividend of $1.69, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution.",
+          "instrument": "IBM"
+        },
+        {
+          "date": "2026-09-16",
+          "amount": 12.0,
+          "kind": "illustrative_dividend",
+          "note": "User-provided total IVR cash dividend of $12.00, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution.",
+          "instrument": "IVR"
+        },
+        {
+          "date": "2026-10-02",
+          "amount": 0.25,
+          "kind": "illustrative_dividend",
+          "note": "User-provided total NVDA cash dividend of $0.25, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution.",
+          "instrument": "NVDA"
+        },
+        {
+          "date": "2026-10-07",
+          "amount": 14.43,
+          "kind": "illustrative_dividend",
+          "note": "User-provided total SGOV cash dividend of $14.43, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution.",
+          "instrument": "SGOV"
+        },
+        {
+          "date": "2026-10-07",
+          "amount": 4822.08,
+          "kind": "illustrative_trade_update",
+          "note": "Sold all 48 remaining SGOV shares at $100.46 for $4,822.08 with no reported fees. The position is closed; proceeds remain in cash. Against the existing average basis of $100.5318867925, realized P&L is approximately -$3.45. Recorded October 9, 2026."
+        },
+        {
+          "date": "2026-10-09",
+          "amount": -1177.0,
+          "kind": "illustrative_trade_update",
+          "note": "Date-only user fills, no reported fees: bought one INFQ Jun 17 2027 $7.50/$15 call debit vertical at $2.78 ($278); bought two INFQ Jan 15 2027 $10 calls at $2.30 each ($460); sold one INFQ Jan 15 2027 $12.50 call at $1.30 ($130 credit); bought 100 IVR shares at $5.69 ($569). Net cash debit is $1,177.00, leaving $5,619.72. IVR totals 200 shares at $6.89495 average basis. The January short-call expiry and IVR dividend ticker were confirmed by the user."
         }
       ],
       "positions": [
-        { "instrument": "SGOV", "quantity": 48, "basis_price": 100.5318867925 },
         { "instrument": "BULL", "quantity": 200, "basis_price": 7.2 },
         { "instrument": "BULL_P10_JAN2027", "quantity": -1, "basis_price": 3.16 },
         { "instrument": "BULL_C10_20261218", "quantity": 2.5, "basis_price": 0.0 },
         { "instrument": "IBM", "quantity": 1, "basis_price": 213.73 },
         { "instrument": "INFQ_C25_20270115", "quantity": 1, "basis_price": 0.75 },
-        { "instrument": "IVR", "quantity": 100, "basis_price": 8.0999 },
+        { "instrument": "IVR", "quantity": 200, "basis_price": 6.89495 },
         { "instrument": "NVDA", "quantity": 1, "basis_price": 205.28 },
         { "instrument": "PHYS", "quantity": 15, "basis_price": 30.31 },
         { "instrument": "PLTR", "quantity": 4, "basis_price": 132.81 },
         { "instrument": "QBTS", "quantity": 20, "basis_price": 17.03 },
         { "instrument": "SPY", "quantity": 1, "basis_price": 745.65 },
         { "instrument": "TMP", "quantity": 5, "basis_price": 98.0 },
-        { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 }
+        { "instrument": "WMT", "quantity": 5, "basis_price": 114.35 },
+        { "instrument": "INFQ_C7_5_C15_20270617", "quantity": 1, "basis_price": 2.78 },
+        { "instrument": "INFQ_C10_20270115", "quantity": 2, "basis_price": 2.3 },
+        { "instrument": "INFQ_C12_5_20270115", "quantity": -1, "basis_price": 1.3 }
       ],
       "history": [
         { "date": "2026-07-17", "value": 9900.0, "kind": "published_test_baseline" }
@@ -138,6 +187,9 @@
     "SPY": { "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "asset_class": "Index Funds", "multiplier": 1, "mark_mode": "public_delayed" },
     "TSSI": { "symbol": "TSSI", "name": "TSS, Inc.", "asset_class": "Technology", "multiplier": 1, "mark_mode": "public_delayed" },
     "TMP": { "symbol": "TMP", "quote_symbol": "TMP", "name": "Tompkins Financial Corporation", "asset_class": "Regional Banking", "multiplier": 1, "mark_mode": "public_delayed", "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "risk_level": "medium" },
-    "WMT": { "symbol": "WMT", "name": "Walmart", "asset_class": "Consumer", "multiplier": 1, "mark_mode": "public_delayed" }
+    "WMT": { "symbol": "WMT", "name": "Walmart", "asset_class": "Consumer", "multiplier": 1, "mark_mode": "public_delayed" },
+    "INFQ_C7_5_C15_20270617": { "symbol": "INFQ Jun 17 2027 $7.50/$15 Call Vertical", "quote_symbol": "INFQ_C7_5_C15_20270617", "underlying_symbol": "INFQ", "expiry": "2027-06-17", "name": "INFQ Jun 17 2027 $7.50/$15 Call Vertical", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 2.78, "manual_as_of": "2026-10-09T09:30:00-04:00", "manual_source": "User-supplied October 9 date-only execution premium; time is a model convention, not the actual fill time; automatic model fallback", "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "risk_level": "high", "option_symbols": ["INFQ270617C00007500", "INFQ270617C00015000"] },
+    "INFQ_C10_20270115": { "symbol": "INFQ Jan 15 2027 $10 Call", "quote_symbol": "INFQ_C10_20270115", "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ Jan 15 2027 $10 Call", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 2.3, "manual_as_of": "2026-10-09T09:30:00-04:00", "manual_source": "User-supplied October 9 date-only execution premium; time is a model convention, not the actual fill time; automatic model fallback", "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "risk_level": "high", "option_symbol": "INFQ270115C00010000" },
+    "INFQ_C12_5_20270115": { "symbol": "INFQ Jan 15 2027 $12.50 Call", "quote_symbol": "INFQ_C12_5_20270115", "underlying_symbol": "INFQ", "expiry": "2027-01-15", "name": "INFQ Jan 15 2027 $12.50 Call", "asset_class": "Options", "multiplier": 100, "mark_mode": "model_delayed", "manual_mark": 1.3, "manual_as_of": "2026-10-09T09:30:00-04:00", "manual_source": "User-supplied October 9 date-only execution premium; time is a model convention, not the actual fill time; automatic model fallback", "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "risk_level": "high", "option_symbol": "INFQ270115C00012500" }
   }
 }

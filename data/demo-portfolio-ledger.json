@@ -152,6 +152,79 @@
       "instrument": "SGOV",
       "classification": "dividend",
       "note": "User-provided total SGOV cash dividend received on September 5, 2026, recorded September 8. The date-only credit adds $14.74 to ahub cash without changing holdings or cost bases; completed-session history includes it at the next trading close, not the preceding September 4 close."
+    },
+    {
+      "id": "2026-09-09-wmt-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-09-09",
+      "timing": "before_close",
+      "amount": 1.24,
+      "instrument": "WMT",
+      "classification": "dividend",
+      "note": "User-provided total WMT cash dividend of $1.24, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution."
+    },
+    {
+      "id": "2026-09-10-ibm-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-09-10",
+      "timing": "before_close",
+      "amount": 1.69,
+      "instrument": "IBM",
+      "classification": "dividend",
+      "note": "User-provided total IBM cash dividend of $1.69, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution."
+    },
+    {
+      "id": "2026-09-16-ivr-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-09-16",
+      "timing": "before_close",
+      "amount": 12.0,
+      "instrument": "IVR",
+      "classification": "dividend",
+      "note": "User-provided total IVR cash dividend of $12.00, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution."
+    },
+    {
+      "id": "2026-10-02-nvda-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-10-02",
+      "timing": "before_close",
+      "amount": 0.25,
+      "instrument": "NVDA",
+      "classification": "dividend",
+      "note": "User-provided total NVDA cash dividend of $0.25, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution."
+    },
+    {
+      "id": "2026-10-07-sgov-dividend",
+      "kind": "cash_adjustment",
+      "effective_date": "2026-10-07",
+      "timing": "before_close",
+      "amount": 14.43,
+      "instrument": "SGOV",
+      "classification": "dividend",
+      "note": "User-provided total SGOV cash dividend of $14.43, recorded October 9, 2026. The full amount is investment income credited to ahub cash, not an external contribution."
+    },
+    {
+      "id": "2026-10-07-sgov-close",
+      "kind": "trade",
+      "effective_date": "2026-10-07",
+      "timing": "before_close",
+      "note": "Sold all 48 remaining SGOV shares at $100.46 for $4,822.08 with no reported fees. The position is closed; proceeds remain in cash. Against the existing average basis of $100.5318867925, realized P&L is approximately -$3.45. Recorded October 9, 2026.",
+      "legs": [
+        { "instrument": "SGOV", "signed_quantity": -48, "price": 100.46, "fees": 0 }
+      ]
+    },
+    {
+      "id": "2026-10-09-infq-options-and-ivr-purchase",
+      "kind": "trade",
+      "effective_date": "2026-10-09",
+      "timing": "before_close",
+      "note": "Date-only user fills, no reported fees: bought one INFQ Jun 17 2027 $7.50/$15 call debit vertical at $2.78 ($278); bought two INFQ Jan 15 2027 $10 calls at $2.30 each ($460); sold one INFQ Jan 15 2027 $12.50 call at $1.30 ($130 credit); bought 100 IVR shares at $5.69 ($569). Net cash debit is $1,177.00, leaving $5,619.72. IVR totals 200 shares at $6.89495 average basis. The January short-call expiry and IVR dividend ticker were confirmed by the user.",
+      "legs": [
+        { "instrument": "INFQ_C7_5_C15_20270617", "signed_quantity": 1, "price": 2.78, "fees": 0 },
+        { "instrument": "INFQ_C10_20270115", "signed_quantity": 2, "price": 2.3, "fees": 0 },
+        { "instrument": "INFQ_C12_5_20270115", "signed_quantity": -1, "price": 1.3, "fees": 0 },
+        { "instrument": "IVR", "signed_quantity": 100, "price": 5.69, "fees": 0 }
+      ]
     }
   ],
   "instruments": {
@@ -170,25 +243,30 @@
     "SPY": { "kind": "equity", "symbol": "SPY", "name": "SPDR S&P 500 ETF Trust", "multiplier": 1, "attribution_group_id": "spy", "attribution_group_label": "SPY · S&P 500 ETF", "exposure_group_id": "index-funds", "exposure_group_label": "Index Funds" },
     "TSSI": { "kind": "equity", "symbol": "TSSI", "name": "TSS, Inc.", "multiplier": 1, "attribution_group_id": "tssi", "attribution_group_label": "TSSI · TSS, Inc.", "exposure_group_id": "technology", "exposure_group_label": "Technology" },
     "TMP": { "kind": "equity", "symbol": "TMP", "name": "Tompkins Financial Corporation", "multiplier": 1, "history_seed": { "price": 98.0, "date": "2026-08-26", "source": "User-supplied opening trade price" }, "attribution_group_id": "tmp", "attribution_group_label": "TMP · Tompkins Financial", "exposure_group_id": "regional-banking", "exposure_group_label": "Regional Banking" },
-    "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" }
+    "WMT": { "kind": "equity", "symbol": "WMT", "name": "Walmart", "multiplier": 1, "attribution_group_id": "wmt", "attribution_group_label": "WMT · Walmart", "exposure_group_id": "consumer", "exposure_group_label": "Consumer" },
+    "INFQ_C7_5_C15_20270617": { "kind": "option_model", "model_spec_id": "INFQ_C7_5_C15_20270617", "underlying": "INFQ", "name": "INFQ Jun 17 2027 $7.50/$15 Call Vertical", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "INFQ_C10_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C10_20270115", "underlying": "INFQ", "name": "INFQ Jan 15 2027 $10 Call", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" },
+    "INFQ_C12_5_20270115": { "kind": "option_model", "model_spec_id": "INFQ_C12_5_20270115", "underlying": "INFQ", "name": "INFQ Jan 15 2027 $12.50 Call", "multiplier": 100, "attribution_group_id": "infq", "attribution_group_label": "INFQ Strategies", "exposure_group_id": "options", "exposure_group_label": "Options" }
   },
   "expected_current_snapshot": {
-    "cash": 1945.03,
+    "cash": 5619.72,
     "positions": {
-      "SGOV": 48,
       "BULL": 200,
       "BULL_P10_JAN2027": -1,
       "BULL_C10_20261218": 2.5,
       "IBM": 1,
       "INFQ_C25_20270115": 1,
-      "IVR": 100,
+      "IVR": 200,
       "NVDA": 1,
       "PHYS": 15,
       "PLTR": 4,
       "QBTS": 20,
       "SPY": 1,
       "TMP": 5,
-      "WMT": 5
+      "WMT": 5,
+      "INFQ_C7_5_C15_20270617": 1,
+      "INFQ_C10_20270115": 2,
+      "INFQ_C12_5_20270115": -1
     }
   }
 }

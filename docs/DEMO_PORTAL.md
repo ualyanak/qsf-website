@@ -71,10 +71,38 @@ repository. They must never be reused for real investor accounts.
   This is investment income, not an external contribution. Current dashboard
   and report cash include it immediately; completed-night history includes it
   at the next trading-session close and does not backdate it to September 4.
+- The October 9 update records five additional total cash dividends: WMT
+  `$1.24` on September 9, IBM `$1.69` on September 10, IVR `$12.00` on
+  September 16, NVDA `$0.25` on October 2, and SGOV `$14.43` on October 7.
+  The combined `$29.61` is tagged investment income, not an external deposit.
+- On October 7, all 48 remaining SGOV shares are sold at `$100.46` for
+  `$4,822.08`, with no reported fees. SGOV is closed and raw cash reaches
+  `$6,796.72`, including the October 7 dividend. The existing average basis
+  produces approximately `-$3.45` realized P&L on this sale.
+- On October 9, one INFQ June 17, 2027 `$7.50/$15` call debit vertical is
+  bought at `$2.78` (`$278`), two INFQ January 15, 2027 `$10` calls are bought
+  at `$2.30` each (`$460`), and one INFQ January 15, 2027 `$12.50` call is
+  sold at `$1.30` (`$130` credit). The new INFQ positions cost `$608` net.
+  The short call is stored with quantity `-1` and a positive `$1.30` premium;
+  the June vertical is one strategy with a 100x multiplier and a `$7.50`
+  maximum per-share payoff. The older January `$25` call remains unchanged.
+- The same October 9 update buys 100 additional IVR shares at `$5.69` for
+  `$569`, bringing IVR to 200 shares with `$1,378.99` total basis and
+  `$6.89495` average basis. Final raw cash is `$5,619.72`; SGOV no longer
+  contributes to Cash & Cash Equivalents. All supplied dates are date-only
+  and no fees were reported. The user confirmed the January 2027 short-call
+  expiry, IVR dividend ticker, and October 9 IVR purchase date.
+- The three new INFQ strategies are calibrated separately to their supplied
+  October 9 premiums using the October 8 completed INFQ close of `$11.16`
+  as an explicit prior-close proxy. The October 9 9:30 a.m. ET calibration
+  time is a model convention, not a claimed execution timestamp. Their exact
+  OCC contracts are `INFQ270617C00007500`, `INFQ270617C00015000`,
+  `INFQ270115C00010000`, and `INFQ270115C00012500`. These new models do not
+  alter the calibration of older INFQ positions or prior performance.
 - The displayed `Cash & Cash Equivalents` metric is the raw cash
   balance plus the signed, latest marked value of instruments explicitly tagged
-  as cash equivalents. SGOV is currently the only tagged holding. SGOV remains
-  in total positions and NAV exactly once, and the gross-allocation view combines
+  as cash equivalents. SGOV is currently the only tagged instrument. While held,
+  SGOV remains in total positions and NAV exactly once, and the gross-allocation view combines
   SGOV and positive cash into one `Cash & Cash Equivalents` category.
 - The INFQ call vertical uses the supplied `$1.37` net mark per option share
   and a 100x multiplier.
@@ -116,7 +144,7 @@ repository. They must never be reused for real investor accounts.
    close and after the prior UTC Bitcoin daily candle has closed. Both write to
    the `market-data` branch. Main-branch copies are packaged fallbacks when a
    remote snapshot is unavailable.
-5. The updater calculates the four seeded option strategy marks with a
+5. The updater calculates the seven registered option strategy marks with a
    Black-Scholes estimate calibrated to the supplied opening premium. The
    model uses a 4% annual risk-free assumption, no dividend yield, each
    contract's registered expiry, and the newest delayed underlier observation.

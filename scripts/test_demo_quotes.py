@@ -13,9 +13,18 @@ from unittest import mock
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 import update_demo_quotes as quotes  # noqa: E402
+import update_demo_portfolio_history as history  # noqa: E402
 
 
 class OptionModelTests(unittest.TestCase):
+    @staticmethod
+    def historical_state(day: str) -> dict[str, object]:
+        """Keep dated trade assertions independent of later account updates."""
+        repository = pathlib.Path(__file__).resolve().parents[1]
+        ledger = history.load_json(repository / "data/demo-portfolio-ledger.json")
+        cutoff = dt.datetime.fromisoformat(day + "T16:00:00").replace(tzinfo=history.MARKET_ZONE)
+        return history.replay_ledger(ledger, cutoff)
+
     def test_bull_december_call_has_exact_registered_model_contract(self) -> None:
         instrument_id = "BULL_C10_20261218"
         spec = quotes.OPTION_MODEL_SPECS[instrument_id]
@@ -182,6 +191,71 @@ class OptionModelTests(unittest.TestCase):
     def test_zero_option_fallback_is_valid(self) -> None:
         self.assertEqual(quotes.finite_nonnegative(0), 0.0)
 
+    def test_october_infq_fills_have_positive_marks_and_disclosed_proxy(self) -> None:
+        expected = {
+            "INFQ_C7_5_C15_20270617": (2.78, "2027-06-17T20:00:00Z"),
+            "INFQ_C10_20270115": (2.30, "2027-01-15T21:00:00Z"),
+            "INFQ_C12_5_20270115": (1.30, "2027-01-15T21:00:00Z"),
+        }
+        for instrument_id, (premium, expiry) in expected.items():
+            with self.subTest(instrument_id=instrument_id):
+                spec = quotes.OPTION_MODEL_SPECS[instrument_id]
+                self.assertEqual(spec["opening_mark"], premium)
+                self.assertEqual(spec["expiry"], expiry)
+                self.assertEqual(spec["opening_as_of"], "2026-10-09T13:30:00Z")
+                with mock.patch.object(quotes, "utc_now", return_value=quotes.parse_utc(spec["opening_as_of"])):
+                    result = quotes.build_model_quote(instrument_id, spec, {
+                        "price": 11.16,
+                        "as_of": "2026-10-08T20:00:00Z",
+                        "quality": "public_delayed",
+                    })
+                self.assertAlmostEqual(result["price"], premium, places=6)
+                self.assertEqual(result["calibration_opening_spot"], 11.16)
+                self.assertIn("Oct. 8, 2026 completed public close proxy", result["calibration_spot_source"])
+                self.assertIn("no Oct. 9 execution-time", result["calibration_spot_source"])
+                self.assertEqual(result["as_of"], "2026-10-08T20:00:00Z")
+                self.assertEqual(result["valuation_as_of"], "2026-10-09T13:30:00Z")
+
+    def test_june_infq_vertical_has_correct_expiry_payoff(self) -> None:
+        spec = quotes.OPTION_MODEL_SPECS["INFQ_C7_5_C15_20270617"]
+        volatility = quotes.calibrated_volatility(spec)
+        for spot, payoff in ((5.0, 0.0), (7.5, 0.0), (10.0, 2.5), (15.0, 7.5), (1000.0, 7.5)):
+            with self.subTest(spot=spot):
+                value = quotes.modeled_strategy_value(spec, spot, quotes.parse_utc(spec["expiry"]), volatility)
+                self.assertAlmostEqual(value, payoff, places=6)
+
+    def test_october_account_reconciles_option_signs_cash_and_ivr_basis(self) -> None:
+        repository = pathlib.Path(__file__).resolve().parents[1]
+        data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
+        account = data["accounts"]["ahub"]
+        positions = {position["instrument"]: position for position in account["positions"]}
+        expected = {
+            "INFQ_C7_5_C15_20270617": (1, 2.78),
+            "INFQ_C10_20270115": (2, 2.30),
+            "INFQ_C12_5_20270115": (-1, 1.30),
+        }
+        total_debit = 0.0
+        for instrument_id, (quantity, basis) in expected.items():
+            with self.subTest(instrument_id=instrument_id):
+                position = positions[instrument_id]
+                instrument = data["instruments"][instrument_id]
+                self.assertEqual(position["quantity"], quantity)
+                self.assertEqual(position["basis_price"], basis)
+                self.assertEqual(instrument["multiplier"], 100)
+                self.assertEqual(instrument["manual_mark"], basis)
+                self.assertEqual(instrument["mark_mode"], "model_delayed")
+                total_debit += quantity * basis * instrument["multiplier"]
+        self.assertAlmostEqual(total_debit, 608.0, places=2)
+        dividends = 1.24 + 1.69 + 12.0 + 0.25 + 14.43
+        expected_cash = 1945.03 + 48 * 100.46 + dividends - total_debit - 100 * 5.69
+        self.assertAlmostEqual(account["cash"], expected_cash, places=2)
+        self.assertAlmostEqual(account["cash"], 5619.72, places=2)
+        self.assertNotIn("SGOV", positions)
+        self.assertEqual(positions["IVR"]["quantity"], 200)
+        self.assertAlmostEqual(positions["IVR"]["basis_price"], (809.99 + 569.0) / 200, places=8)
+        self.assertEqual(len(positions), 16)
+        self.assertEqual(data["published_at"], "2026-10-09")
+
     def test_option_metadata_matches_published_instruments(self) -> None:
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
@@ -207,9 +281,10 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-04")
+        positions = state["positions"]
 
-        self.assertEqual(positions["BULL"]["quantity"], 200)
+        self.assertEqual(positions["BULL"]["quantity"], 320)
         self.assertEqual(positions["BULL"]["basis_price"], 7.2)
         sgov_sale_proceeds = 23 * 100.65 + 1 * 100.68
         bull_purchase_cost = 320 * 7.2
@@ -226,7 +301,8 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-13")
+        positions = state["positions"]
 
         infq_sale_proceeds = 3 * 100 * 1.10 + 5 * 100 * 2.42 + 15 * 100 * 2.43
         sgov_purchase_cost = 51 * 100.53
@@ -239,7 +315,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(525.46 + net_cash_change, 583.43, places=2)
         self.assertEqual(positions["INFQ_C25_20270115"]["quantity"], 1)
         self.assertNotIn("INFQ_C10_C17_5_20270115", positions)
-        self.assertEqual(positions["SGOV"]["quantity"], 48)
+        self.assertEqual(positions["SGOV"]["quantity"], 53)
         self.assertAlmostEqual(positions["SGOV"]["basis_price"], weighted_sgov_basis, places=10)
         self.assertEqual(data["instruments"]["SGOV"]["mark_mode"], "public_delayed")
         self.assertIn("SGOV", quotes.SYMBOLS)
@@ -260,7 +336,8 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-14")
+        positions = state["positions"]
         proceeds = 30 * 9.65
         basis = 30 * 9.94
         realized_pnl = proceeds - basis
@@ -270,7 +347,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(realized_pnl, -8.7, places=2)
         self.assertAlmostEqual(583.43 + proceeds, 872.93, places=2)
         self.assertNotIn("TSSI", positions)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 12)
 
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-14")
         self.assertAlmostEqual(update_note["amount"], proceeds, places=2)
@@ -280,27 +357,28 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-18")
+        positions = state["positions"]
         dividend_notes = {
             note["instrument"]: note
             for note in account["cash_notes"]
             if note.get("date") == "2026-08-18" and note.get("kind") == "illustrative_dividend"
         }
 
-        self.assertEqual(data["published_at"], "2026-09-08")
         self.assertEqual(set(dividend_notes), {"SGOV", "IVR"})
         self.assertAlmostEqual(dividend_notes["SGOV"]["amount"], 0.61, places=2)
         self.assertAlmostEqual(dividend_notes["IVR"]["amount"], 12.0, places=2)
         self.assertAlmostEqual(872.93 + 0.61 + 12.0, 885.54, places=2)
-        self.assertEqual(positions["SGOV"]["quantity"], 48)
+        self.assertEqual(positions["SGOV"]["quantity"], 53)
         self.assertEqual(positions["IVR"]["quantity"], 100)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 12)
 
     def test_august_nineteenth_bull_sale_is_converted_to_cash(self) -> None:
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-19")
+        positions = state["positions"]
         proceeds = 120 * 8.45
         sold_basis = 120 * 7.2
         realized_pnl = proceeds - sold_basis
@@ -308,10 +386,10 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(proceeds, 1014.0, places=2)
         self.assertAlmostEqual(sold_basis, 864.0, places=2)
         self.assertAlmostEqual(realized_pnl, 150.0, places=2)
-        self.assertAlmostEqual(account["cash"], 885.54 + proceeds + 17.5 + 13.25 + 14.74, places=2)
+        self.assertAlmostEqual(state["cash"], 885.54 + proceeds, places=2)
         self.assertEqual(positions["BULL"]["quantity"], 200)
         self.assertAlmostEqual(positions["BULL"]["basis_price"], 7.2, places=2)
-        self.assertEqual(len(positions), 14)
+        self.assertEqual(len(positions), 12)
 
         update_note = next(note for note in account["cash_notes"] if note["date"] == "2026-08-19")
         self.assertEqual(update_note["instrument"], "BULL")
@@ -322,7 +400,8 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-21")
+        positions = state["positions"]
         instrument_id = "BULL_C10_20261218"
         instrument = data["instruments"][instrument_id]
         position = positions[instrument_id]
@@ -333,7 +412,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(purchase_cost, 890.0, places=2)
         self.assertAlmostEqual(sale_proceeds, 907.5, places=2)
         self.assertAlmostEqual(supplied_realized_pnl, 17.5, places=2)
-        self.assertAlmostEqual(account["cash"], 1899.54 + supplied_realized_pnl + 13.25 + 14.74, places=2)
+        self.assertAlmostEqual(state["cash"], 1899.54 + supplied_realized_pnl, places=2)
         self.assertEqual(position["quantity"], 2.5)
         self.assertEqual(position["basis_price"], 0.0)
 
@@ -356,7 +435,8 @@ class OptionModelTests(unittest.TestCase):
         repository = pathlib.Path(__file__).resolve().parents[1]
         data = json.loads((repository / "data/demo-accounts.json").read_text(encoding="utf-8"))
         account = data["accounts"]["ahub"]
-        positions = {position["instrument"]: position for position in account["positions"]}
+        state = self.historical_state("2026-08-26")
+        positions = state["positions"]
         instrument = data["instruments"]["TMP"]
 
         sgov_proceeds = 5 * 100.65
@@ -365,7 +445,7 @@ class OptionModelTests(unittest.TestCase):
         self.assertAlmostEqual(sgov_proceeds, 503.25, places=2)
         self.assertAlmostEqual(tmp_cost, 490.0, places=2)
         self.assertAlmostEqual(net_cash, 13.25, places=2)
-        self.assertAlmostEqual(account["cash"], 1917.04 + net_cash + 14.74, places=2)
+        self.assertAlmostEqual(state["cash"], 1917.04 + net_cash, places=2)
         self.assertEqual(positions["SGOV"]["quantity"], 48)
         self.assertAlmostEqual(positions["SGOV"]["basis_price"], 100.5318867925, places=10)
         self.assertEqual(positions["TMP"]["quantity"], 5)

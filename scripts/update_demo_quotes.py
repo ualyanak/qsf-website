@@ -30,10 +30,10 @@ MAX_EXPECTED_QUOTE_AGE_SECONDS = 4 * 24 * 60 * 60
 MODEL_RISK_FREE_RATE = 0.04
 MODEL_MAX_VOLATILITY = 5.0
 
-# The opening spots are the 9:30 a.m. ET bars on the supplied July 17, 2026
-# baseline.  "JAN 27" is treated as January 2027; the listed Jan. 15 expiry and
-# OCC identifiers below have been verified.  Each strategy's volatility is
-# re-calibrated deterministically to its supplied opening premium.
+# Original opening spots are the 9:30 a.m. ET bars on July 17, 2026; later
+# date-only trades disclose their prior-close calibration proxies below.
+# "JAN 27" is January 2027. Each strategy's volatility is calibrated
+# deterministically to its supplied opening premium and registered expiry.
 OPTION_MODEL_SPECS: dict[str, dict[str, object]] = {
     "BULL_C10_20261218": {
         "underlying": "BULL",
@@ -83,6 +83,52 @@ OPTION_MODEL_SPECS: dict[str, dict[str, object]] = {
         ],
         "minimum_mark": 0.0,
         "maximum_mark": 7.5,
+    },
+    "INFQ_C7_5_C15_20270617": {
+        "underlying": "INFQ",
+        "expiry": "2027-06-17T20:00:00Z",
+        "opening_as_of": "2026-10-09T13:30:00Z",
+        # No execution-time underlier price was supplied with the date-only
+        # Oct. 9 fills. Use the prior completed close as a disclosed proxy.
+        "opening_spot": 11.16,
+        "opening_spot_source": (
+            "Oct. 8, 2026 completed public close proxy; "
+            "no Oct. 9 execution-time underlier spot was supplied"
+        ),
+        "opening_mark": 2.78,
+        "option_symbols": ["INFQ270617C00007500", "INFQ270617C00015000"],
+        "legs": [
+            {"type": "call", "strike": 7.5, "ratio": 1.0},
+            {"type": "call", "strike": 15.0, "ratio": -1.0},
+        ],
+        "minimum_mark": 0.0,
+        "maximum_mark": 7.5,
+    },
+    "INFQ_C10_20270115": {
+        "underlying": "INFQ",
+        "expiry": "2027-01-15T21:00:00Z",
+        "opening_as_of": "2026-10-09T13:30:00Z",
+        "opening_spot": 11.16,
+        "opening_spot_source": (
+            "Oct. 8, 2026 completed public close proxy; "
+            "no Oct. 9 execution-time underlier spot was supplied"
+        ),
+        "opening_mark": 2.30,
+        "option_symbols": ["INFQ270115C00010000"],
+        "legs": [{"type": "call", "strike": 10.0, "ratio": 1.0}],
+    },
+    "INFQ_C12_5_20270115": {
+        "underlying": "INFQ",
+        "expiry": "2027-01-15T21:00:00Z",
+        "opening_as_of": "2026-10-09T13:30:00Z",
+        "opening_spot": 11.16,
+        "opening_spot_source": (
+            "Oct. 8, 2026 completed public close proxy; "
+            "no Oct. 9 execution-time underlier spot was supplied"
+        ),
+        "opening_mark": 1.30,
+        "option_symbols": ["INFQ270115C00012500"],
+        "legs": [{"type": "call", "strike": 12.5, "ratio": 1.0}],
     },
 }
 
