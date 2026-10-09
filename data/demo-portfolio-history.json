@@ -39,6 +39,22 @@
             "unrealized_pnl": 263.88
           },
           {
+            "id": "sgov",
+            "income": 29.78,
+            "instrument_ids": [
+              "SGOV"
+            ],
+            "label": "SGOV \u00b7 Short-Term Treasuries",
+            "market_value": 0.0,
+            "portfolio_contribution_pct": 0.2892,
+            "realized_pnl": -1.15,
+            "return_pct": 0.3698,
+            "risk_level": "low",
+            "total_pnl": 28.63,
+            "tracked_basis": 7742.11,
+            "unrealized_pnl": 0.0
+          },
+          {
             "id": "spy",
             "income": 0.0,
             "instrument_ids": [
@@ -56,17 +72,17 @@
           },
           {
             "id": "nvda",
-            "income": 0.0,
+            "income": 0.25,
             "instrument_ids": [
               "NVDA"
             ],
             "label": "NVDA \u00b7 NVIDIA",
             "market_value": 230.48,
-            "portfolio_contribution_pct": 0.2545,
+            "portfolio_contribution_pct": 0.2571,
             "realized_pnl": 0.0,
-            "return_pct": 12.2759,
+            "return_pct": 12.3977,
             "risk_level": "medium",
-            "total_pnl": 25.2,
+            "total_pnl": 25.45,
             "tracked_basis": 205.28,
             "unrealized_pnl": 25.2
           },
@@ -87,20 +103,20 @@
             "unrealized_pnl": 6.9
           },
           {
-            "id": "sgov",
-            "income": 15.35,
+            "id": "ibm",
+            "income": 1.69,
             "instrument_ids": [
-              "SGOV"
+              "IBM"
             ],
-            "label": "SGOV \u00b7 Short-Term Treasuries",
-            "market_value": 4822.56,
-            "portfolio_contribution_pct": 0.1483,
-            "realized_pnl": 2.3,
-            "return_pct": 0.1896,
-            "risk_level": "low",
-            "total_pnl": 14.68,
-            "tracked_basis": 7742.11,
-            "unrealized_pnl": -2.97
+            "label": "IBM",
+            "market_value": 226.61,
+            "portfolio_contribution_pct": 0.1472,
+            "realized_pnl": 0.0,
+            "return_pct": 6.817,
+            "risk_level": "medium",
+            "total_pnl": 14.57,
+            "tracked_basis": 213.73,
+            "unrealized_pnl": 12.88
           },
           {
             "id": "phys",
@@ -117,22 +133,6 @@
             "total_pnl": 13.35,
             "tracked_basis": 454.65,
             "unrealized_pnl": 13.35
-          },
-          {
-            "id": "ibm",
-            "income": 0.0,
-            "instrument_ids": [
-              "IBM"
-            ],
-            "label": "IBM",
-            "market_value": 226.61,
-            "portfolio_contribution_pct": 0.1301,
-            "realized_pnl": 0.0,
-            "return_pct": 6.0263,
-            "risk_level": "medium",
-            "total_pnl": 12.88,
-            "tracked_basis": 213.73,
-            "unrealized_pnl": 12.88
           },
           {
             "id": "tmp",
@@ -168,17 +168,17 @@
           },
           {
             "id": "wmt",
-            "income": 0.0,
+            "income": 1.24,
             "instrument_ids": [
               "WMT"
             ],
             "label": "WMT \u00b7 Walmart",
             "market_value": 552.8,
-            "portfolio_contribution_pct": -0.1914,
+            "portfolio_contribution_pct": -0.1789,
             "realized_pnl": 0.0,
-            "return_pct": -3.3144,
+            "return_pct": -3.0975,
             "risk_level": "medium",
-            "total_pnl": -18.95,
+            "total_pnl": -17.71,
             "tracked_basis": 571.75,
             "unrealized_pnl": -18.95
           },
@@ -217,17 +217,17 @@
           },
           {
             "id": "ivr",
-            "income": 12.0,
+            "income": 24.0,
             "instrument_ids": [
               "IVR"
             ],
             "label": "IVR \u00b7 Invesco Mortgage Capital",
             "market_value": 568.0,
-            "portfolio_contribution_pct": -2.3231,
+            "portfolio_contribution_pct": -2.2019,
             "realized_pnl": 0.0,
-            "return_pct": -28.3942,
+            "return_pct": -26.9127,
             "risk_level": "high",
-            "total_pnl": -229.99,
+            "total_pnl": -217.99,
             "tracked_basis": 809.99,
             "unrealized_pnl": -241.99
           }
@@ -2714,1350 +2714,1350 @@
             },
             {
               "date": "2026-09-09",
-              "gross_exposure": 13696.03,
+              "gross_exposure": 13697.27,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-09",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 49.419801,
-                  "value": 6768.55
+                  "percent": 49.42438,
+                  "value": 6769.79
                 },
                 "consumer": {
-                  "percent": 3.863529,
+                  "percent": 3.863179,
                   "value": 529.15
                 },
                 "financial-technology": {
-                  "percent": 13.755813,
+                  "percent": 13.754568,
                   "value": 1884.0
                 },
                 "index-funds": {
-                  "percent": 5.566578,
+                  "percent": 5.566074,
                   "value": 762.4
                 },
                 "options": {
-                  "percent": 4.198648,
+                  "percent": 4.198268,
                   "value": 575.05
                 },
                 "precious-metals": {
-                  "percent": 3.642662,
+                  "percent": 3.642332,
                   "value": 498.9
                 },
                 "real-estate": {
-                  "percent": 5.176683,
+                  "percent": 5.176215,
                   "value": 709.0
                 },
                 "regional-banking": {
-                  "percent": 3.540078,
+                  "percent": 3.539757,
                   "value": 484.85
                 },
                 "technology": {
-                  "percent": 10.836208,
+                  "percent": 10.835227,
                   "value": 1484.13
                 }
               }
             },
             {
               "date": "2026-09-10",
-              "gross_exposure": 13589.89,
+              "gross_exposure": 13592.82,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-10",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 49.809299,
-                  "value": 6769.03
+                  "percent": 49.820121,
+                  "value": 6771.96
                 },
                 "consumer": {
-                  "percent": 3.890024,
+                  "percent": 3.889185,
                   "value": 528.65
                 },
                 "financial-technology": {
-                  "percent": 13.686643,
+                  "percent": 13.683693,
                   "value": 1860.0
                 },
                 "index-funds": {
-                  "percent": 5.576424,
+                  "percent": 5.575222,
                   "value": 757.83
                 },
                 "options": {
-                  "percent": 4.067816,
+                  "percent": 4.066939,
                   "value": 552.81
                 },
                 "precious-metals": {
-                  "percent": 3.605989,
+                  "percent": 3.605211,
                   "value": 490.05
                 },
                 "real-estate": {
-                  "percent": 5.084662,
+                  "percent": 5.083565,
                   "value": 691.0
                 },
                 "regional-banking": {
-                  "percent": 3.616659,
+                  "percent": 3.615879,
                   "value": 491.5
                 },
                 "technology": {
-                  "percent": 10.662484,
+                  "percent": 10.660185,
                   "value": 1449.02
                 }
               }
             },
             {
               "date": "2026-09-11",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-11",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 49.793405,
-                  "value": 6769.99
+                  "percent": 49.804224,
+                  "value": 6772.92
                 },
                 "consumer": {
-                  "percent": 3.940452,
+                  "percent": 3.939603,
                   "value": 535.75
                 },
                 "financial-technology": {
-                  "percent": 13.562656,
+                  "percent": 13.559733,
                   "value": 1844.0
                 },
                 "index-funds": {
-                  "percent": 5.621368,
+                  "percent": 5.620156,
                   "value": 764.29
                 },
                 "options": {
-                  "percent": 4.034799,
+                  "percent": 4.033929,
                   "value": 548.58
                 },
                 "precious-metals": {
-                  "percent": 3.625289,
+                  "percent": 3.624508,
                   "value": 492.9
                 },
                 "real-estate": {
-                  "percent": 5.001413,
+                  "percent": 5.000336,
                   "value": 680.0
                 },
                 "regional-banking": {
-                  "percent": 3.634483,
+                  "percent": 3.6337,
                   "value": 494.15
                 },
                 "technology": {
-                  "percent": 10.786135,
+                  "percent": 10.783811,
                   "value": 1466.5
                 }
               }
             },
             {
               "date": "2026-09-12",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-11",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 49.793405,
-                  "value": 6769.99
+                  "percent": 49.804224,
+                  "value": 6772.92
                 },
                 "consumer": {
-                  "percent": 3.940452,
+                  "percent": 3.939603,
                   "value": 535.75
                 },
                 "financial-technology": {
-                  "percent": 13.562656,
+                  "percent": 13.559733,
                   "value": 1844.0
                 },
                 "index-funds": {
-                  "percent": 5.621368,
+                  "percent": 5.620156,
                   "value": 764.29
                 },
                 "options": {
-                  "percent": 4.034799,
+                  "percent": 4.033929,
                   "value": 548.58
                 },
                 "precious-metals": {
-                  "percent": 3.625289,
+                  "percent": 3.624508,
                   "value": 492.9
                 },
                 "real-estate": {
-                  "percent": 5.001413,
+                  "percent": 5.000336,
                   "value": 680.0
                 },
                 "regional-banking": {
-                  "percent": 3.634483,
+                  "percent": 3.6337,
                   "value": 494.15
                 },
                 "technology": {
-                  "percent": 10.786135,
+                  "percent": 10.783811,
                   "value": 1466.5
                 }
               }
             },
             {
               "date": "2026-09-13",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-11",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 49.793405,
-                  "value": 6769.99
+                  "percent": 49.804224,
+                  "value": 6772.92
                 },
                 "consumer": {
-                  "percent": 3.940452,
+                  "percent": 3.939603,
                   "value": 535.75
                 },
                 "financial-technology": {
-                  "percent": 13.562656,
+                  "percent": 13.559733,
                   "value": 1844.0
                 },
                 "index-funds": {
-                  "percent": 5.621368,
+                  "percent": 5.620156,
                   "value": 764.29
                 },
                 "options": {
-                  "percent": 4.034799,
+                  "percent": 4.033929,
                   "value": 548.58
                 },
                 "precious-metals": {
-                  "percent": 3.625289,
+                  "percent": 3.624508,
                   "value": 492.9
                 },
                 "real-estate": {
-                  "percent": 5.001413,
+                  "percent": 5.000336,
                   "value": 680.0
                 },
                 "regional-banking": {
-                  "percent": 3.634483,
+                  "percent": 3.6337,
                   "value": 494.15
                 },
                 "technology": {
-                  "percent": 10.786135,
+                  "percent": 10.783811,
                   "value": 1466.5
                 }
               }
             },
             {
               "date": "2026-09-14",
-              "gross_exposure": 13532.15,
+              "gross_exposure": 13535.08,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-14",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.03247,
-                  "value": 6770.47
+                  "percent": 50.043286,
+                  "value": 6773.4
                 },
                 "consumer": {
-                  "percent": 4.030401,
+                  "percent": 4.029529,
                   "value": 545.4
                 },
                 "financial-technology": {
-                  "percent": 13.360772,
+                  "percent": 13.35788,
                   "value": 1808.0
                 },
                 "index-funds": {
-                  "percent": 5.622757,
+                  "percent": 5.62154,
                   "value": 760.88
                 },
                 "options": {
-                  "percent": 3.774064,
+                  "percent": 3.773247,
                   "value": 510.71
                 },
                 "precious-metals": {
-                  "percent": 3.587013,
+                  "percent": 3.586236,
                   "value": 485.4
                 },
                 "real-estate": {
-                  "percent": 4.929002,
+                  "percent": 4.927935,
                   "value": 667.0
                 },
                 "regional-banking": {
-                  "percent": 3.653521,
+                  "percent": 3.65273,
                   "value": 494.4
                 },
                 "technology": {
-                  "percent": 11.01,
+                  "percent": 11.007617,
                   "value": 1489.89
                 }
               }
             },
             {
               "date": "2026-09-15",
-              "gross_exposure": 13403.76,
+              "gross_exposure": 13406.69,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-15",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.51172,
-                  "value": 6770.47
+                  "percent": 50.522535,
+                  "value": 6773.4
                 },
                 "consumer": {
-                  "percent": 4.032077,
+                  "percent": 4.031196,
                   "value": 540.45
                 },
                 "financial-technology": {
-                  "percent": 12.921747,
+                  "percent": 12.918923,
                   "value": 1732.0
                 },
                 "index-funds": {
-                  "percent": 5.650579,
+                  "percent": 5.649344,
                   "value": 757.39
                 },
                 "options": {
-                  "percent": 3.653606,
+                  "percent": 3.652808,
                   "value": 489.72
                 },
                 "precious-metals": {
-                  "percent": 3.629205,
+                  "percent": 3.628412,
                   "value": 486.45
                 },
                 "real-estate": {
-                  "percent": 4.871767,
+                  "percent": 4.870702,
                   "value": 653.0
                 },
                 "regional-banking": {
-                  "percent": 3.695232,
+                  "percent": 3.694424,
                   "value": 495.3
                 },
                 "technology": {
-                  "percent": 11.034067,
+                  "percent": 11.031656,
                   "value": 1478.98
                 }
               }
             },
             {
               "date": "2026-09-16",
-              "gross_exposure": 13165.11,
+              "gross_exposure": 13180.04,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-16",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.434648,
-                  "value": 6771.43
+                  "percent": 51.489662,
+                  "value": 6786.36
                 },
                 "consumer": {
-                  "percent": 4.08276,
+                  "percent": 4.078135,
                   "value": 537.5
                 },
                 "financial-technology": {
-                  "percent": 11.68239,
+                  "percent": 11.669157,
                   "value": 1538.0
                 },
                 "index-funds": {
-                  "percent": 5.727637,
+                  "percent": 5.721149,
                   "value": 754.05
                 },
                 "options": {
-                  "percent": 3.590429,
+                  "percent": 3.586362,
                   "value": 472.68
                 },
                 "precious-metals": {
-                  "percent": 3.671066,
+                  "percent": 3.666907,
                   "value": 483.3
                 },
                 "real-estate": {
-                  "percent": 4.906908,
+                  "percent": 4.901349,
                   "value": 646.0
                 },
                 "regional-banking": {
-                  "percent": 3.706766,
+                  "percent": 3.702567,
                   "value": 488.0
                 },
                 "technology": {
-                  "percent": 11.197396,
+                  "percent": 11.184712,
                   "value": 1474.15
                 }
               }
             },
             {
               "date": "2026-09-17",
-              "gross_exposure": 13264.42,
+              "gross_exposure": 13279.35,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-17",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.053174,
-                  "value": 6771.91
+                  "percent": 51.108209,
+                  "value": 6786.84
                 },
                 "consumer": {
-                  "percent": 4.025429,
+                  "percent": 4.020903,
                   "value": 533.95
                 },
                 "financial-technology": {
-                  "percent": 11.625081,
+                  "percent": 11.61201,
                   "value": 1542.0
                 },
                 "index-funds": {
-                  "percent": 5.749213,
+                  "percent": 5.742749,
                   "value": 762.6
                 },
                 "options": {
-                  "percent": 3.782406,
+                  "percent": 3.778153,
                   "value": 501.71
                 },
                 "precious-metals": {
-                  "percent": 3.710301,
+                  "percent": 3.706129,
                   "value": 492.15
                 },
                 "real-estate": {
-                  "percent": 4.930482,
+                  "percent": 4.924938,
                   "value": 654.0
                 },
                 "regional-banking": {
-                  "percent": 3.695977,
+                  "percent": 3.691821,
                   "value": 490.25
                 },
                 "technology": {
-                  "percent": 11.427937,
+                  "percent": 11.415088,
                   "value": 1515.85
                 }
               }
             },
             {
               "date": "2026-09-18",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-18",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.759734,
-                  "value": 6773.35
+                  "percent": 50.814764,
+                  "value": 6788.28
                 },
                 "consumer": {
-                  "percent": 3.999193,
+                  "percent": 3.994723,
                   "value": 533.65
                 },
                 "financial-technology": {
-                  "percent": 12.365161,
+                  "percent": 12.351341,
                   "value": 1650.0
                 },
                 "index-funds": {
-                  "percent": 5.708133,
+                  "percent": 5.701754,
                   "value": 761.69
                 },
                 "options": {
-                  "percent": 3.623539,
+                  "percent": 3.61949,
                   "value": 483.52
                 },
                 "precious-metals": {
-                  "percent": 3.71292,
+                  "percent": 3.708771,
                   "value": 495.45
                 },
                 "real-estate": {
-                  "percent": 4.833654,
+                  "percent": 4.828252,
                   "value": 645.0
                 },
                 "regional-banking": {
-                  "percent": 3.722288,
+                  "percent": 3.718128,
                   "value": 496.7
                 },
                 "technology": {
-                  "percent": 11.275378,
+                  "percent": 11.262777,
                   "value": 1504.58
                 }
               }
             },
             {
               "date": "2026-09-19",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-18",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.759734,
-                  "value": 6773.35
+                  "percent": 50.814764,
+                  "value": 6788.28
                 },
                 "consumer": {
-                  "percent": 3.999193,
+                  "percent": 3.994723,
                   "value": 533.65
                 },
                 "financial-technology": {
-                  "percent": 12.365161,
+                  "percent": 12.351341,
                   "value": 1650.0
                 },
                 "index-funds": {
-                  "percent": 5.708133,
+                  "percent": 5.701754,
                   "value": 761.69
                 },
                 "options": {
-                  "percent": 3.623539,
+                  "percent": 3.61949,
                   "value": 483.52
                 },
                 "precious-metals": {
-                  "percent": 3.71292,
+                  "percent": 3.708771,
                   "value": 495.45
                 },
                 "real-estate": {
-                  "percent": 4.833654,
+                  "percent": 4.828252,
                   "value": 645.0
                 },
                 "regional-banking": {
-                  "percent": 3.722288,
+                  "percent": 3.718128,
                   "value": 496.7
                 },
                 "technology": {
-                  "percent": 11.275378,
+                  "percent": 11.262777,
                   "value": 1504.58
                 }
               }
             },
             {
               "date": "2026-09-20",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-18",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.759734,
-                  "value": 6773.35
+                  "percent": 50.814764,
+                  "value": 6788.28
                 },
                 "consumer": {
-                  "percent": 3.999193,
+                  "percent": 3.994723,
                   "value": 533.65
                 },
                 "financial-technology": {
-                  "percent": 12.365161,
+                  "percent": 12.351341,
                   "value": 1650.0
                 },
                 "index-funds": {
-                  "percent": 5.708133,
+                  "percent": 5.701754,
                   "value": 761.69
                 },
                 "options": {
-                  "percent": 3.623539,
+                  "percent": 3.61949,
                   "value": 483.52
                 },
                 "precious-metals": {
-                  "percent": 3.71292,
+                  "percent": 3.708771,
                   "value": 495.45
                 },
                 "real-estate": {
-                  "percent": 4.833654,
+                  "percent": 4.828252,
                   "value": 645.0
                 },
                 "regional-banking": {
-                  "percent": 3.722288,
+                  "percent": 3.718128,
                   "value": 496.7
                 },
                 "technology": {
-                  "percent": 11.275378,
+                  "percent": 11.262777,
                   "value": 1504.58
                 }
               }
             },
             {
               "date": "2026-09-21",
-              "gross_exposure": 13412.9,
+              "gross_exposure": 13427.83,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-21",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.502347,
-                  "value": 6773.83
+                  "percent": 50.557381,
+                  "value": 6788.76
                 },
                 "consumer": {
-                  "percent": 4.005099,
+                  "percent": 4.000646,
                   "value": 537.2
                 },
                 "financial-technology": {
-                  "percent": 12.301589,
+                  "percent": 12.287911,
                   "value": 1650.0
                 },
                 "index-funds": {
-                  "percent": 5.766836,
+                  "percent": 5.760424,
                   "value": 773.5
                 },
                 "options": {
-                  "percent": 3.70428,
+                  "percent": 3.700161,
                   "value": 496.85
                 },
                 "precious-metals": {
-                  "percent": 3.671465,
+                  "percent": 3.667383,
                   "value": 492.45
                 },
                 "real-estate": {
-                  "percent": 4.853536,
+                  "percent": 4.84814,
                   "value": 651.0
                 },
                 "regional-banking": {
-                  "percent": 3.671092,
+                  "percent": 3.667011,
                   "value": 492.4
                 },
                 "technology": {
-                  "percent": 11.523756,
+                  "percent": 11.510943,
                   "value": 1545.67
                 }
               }
             },
             {
               "date": "2026-09-22",
-              "gross_exposure": 13406.99,
+              "gross_exposure": 13421.92,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-22",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.528191,
-                  "value": 6774.31
+                  "percent": 50.583221,
+                  "value": 6789.24
                 },
                 "consumer": {
-                  "percent": 4.106813,
+                  "percent": 4.102245,
                   "value": 550.6
                 },
                 "financial-technology": {
-                  "percent": 12.068331,
+                  "percent": 12.054907,
                   "value": 1618.0
                 },
                 "index-funds": {
-                  "percent": 5.768483,
+                  "percent": 5.762067,
                   "value": 773.38
                 },
                 "options": {
-                  "percent": 3.68644,
+                  "percent": 3.682339,
                   "value": 494.24
                 },
                 "precious-metals": {
-                  "percent": 3.684272,
+                  "percent": 3.680174,
                   "value": 493.95
                 },
                 "real-estate": {
-                  "percent": 4.937723,
+                  "percent": 4.93223,
                   "value": 662.0
                 },
                 "regional-banking": {
-                  "percent": 3.648097,
+                  "percent": 3.644039,
                   "value": 489.1
                 },
                 "technology": {
-                  "percent": 11.57165,
+                  "percent": 11.558778,
                   "value": 1551.41
                 }
               }
             },
             {
               "date": "2026-09-23",
-              "gross_exposure": 13285.16,
+              "gross_exposure": 13300.09,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-23",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 50.995175,
-                  "value": 6774.79
+                  "percent": 51.050187,
+                  "value": 6789.72
                 },
                 "consumer": {
-                  "percent": 4.159905,
+                  "percent": 4.155235,
                   "value": 552.65
                 },
                 "financial-technology": {
-                  "percent": 11.51661,
+                  "percent": 11.503682,
                   "value": 1530.0
                 },
                 "index-funds": {
-                  "percent": 5.779457,
+                  "percent": 5.772969,
                   "value": 767.81
                 },
                 "options": {
-                  "percent": 3.636607,
+                  "percent": 3.632524,
                   "value": 483.13
                 },
                 "precious-metals": {
-                  "percent": 3.655959,
+                  "percent": 3.651855,
                   "value": 485.7
                 },
                 "real-estate": {
-                  "percent": 4.862569,
+                  "percent": 4.85711,
                   "value": 646.0
                 },
                 "regional-banking": {
-                  "percent": 3.639023,
+                  "percent": 3.634938,
                   "value": 483.45
                 },
                 "technology": {
-                  "percent": 11.754695,
+                  "percent": 11.7415,
                   "value": 1561.63
                 }
               }
             },
             {
               "date": "2026-09-24",
-              "gross_exposure": 13217.77,
+              "gross_exposure": 13232.7,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-24",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.255153,
-                  "value": 6774.79
+                  "percent": 51.31015,
+                  "value": 6789.72
                 },
                 "consumer": {
-                  "percent": 4.069899,
+                  "percent": 4.065307,
                   "value": 537.95
                 },
                 "financial-technology": {
-                  "percent": 10.985209,
+                  "percent": 10.972815,
                   "value": 1452.0
                 },
                 "index-funds": {
-                  "percent": 5.804155,
+                  "percent": 5.797606,
                   "value": 767.18
                 },
                 "options": {
-                  "percent": 3.804372,
+                  "percent": 3.80008,
                   "value": 502.85
                 },
                 "precious-metals": {
-                  "percent": 3.651901,
+                  "percent": 3.647781,
                   "value": 482.7
                 },
                 "real-estate": {
-                  "percent": 4.826834,
+                  "percent": 4.821388,
                   "value": 638.0
                 },
                 "regional-banking": {
-                  "percent": 3.712426,
+                  "percent": 3.708237,
                   "value": 490.7
                 },
                 "technology": {
-                  "percent": 11.890051,
+                  "percent": 11.876636,
                   "value": 1571.6
                 }
               }
             },
             {
               "date": "2026-09-25",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-25",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.273895,
-                  "value": 6776.71
+                  "percent": 51.328877,
+                  "value": 6791.64
                 },
                 "consumer": {
-                  "percent": 4.084988,
+                  "percent": 4.080378,
                   "value": 539.9
                 },
                 "financial-technology": {
-                  "percent": 10.880185,
+                  "percent": 10.867909,
                   "value": 1438.0
                 },
                 "index-funds": {
-                  "percent": 5.836183,
+                  "percent": 5.829597,
                   "value": 771.35
                 },
                 "options": {
-                  "percent": 3.852452,
+                  "percent": 3.848105,
                   "value": 509.17
                 },
                 "precious-metals": {
-                  "percent": 3.671495,
+                  "percent": 3.667352,
                   "value": 485.25
                 },
                 "real-estate": {
-                  "percent": 4.84993,
+                  "percent": 4.844457,
                   "value": 641.0
                 },
                 "regional-banking": {
-                  "percent": 3.766829,
+                  "percent": 3.762579,
                   "value": 497.85
                 },
                 "technology": {
-                  "percent": 11.784043,
+                  "percent": 11.770746,
                   "value": 1557.46
                 }
               }
             },
             {
               "date": "2026-09-26",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-25",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.273895,
-                  "value": 6776.71
+                  "percent": 51.328877,
+                  "value": 6791.64
                 },
                 "consumer": {
-                  "percent": 4.084988,
+                  "percent": 4.080378,
                   "value": 539.9
                 },
                 "financial-technology": {
-                  "percent": 10.880185,
+                  "percent": 10.867909,
                   "value": 1438.0
                 },
                 "index-funds": {
-                  "percent": 5.836183,
+                  "percent": 5.829597,
                   "value": 771.35
                 },
                 "options": {
-                  "percent": 3.852452,
+                  "percent": 3.848105,
                   "value": 509.17
                 },
                 "precious-metals": {
-                  "percent": 3.671495,
+                  "percent": 3.667352,
                   "value": 485.25
                 },
                 "real-estate": {
-                  "percent": 4.84993,
+                  "percent": 4.844457,
                   "value": 641.0
                 },
                 "regional-banking": {
-                  "percent": 3.766829,
+                  "percent": 3.762579,
                   "value": 497.85
                 },
                 "technology": {
-                  "percent": 11.784043,
+                  "percent": 11.770746,
                   "value": 1557.46
                 }
               }
             },
             {
               "date": "2026-09-27",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-25",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.273895,
-                  "value": 6776.71
+                  "percent": 51.328877,
+                  "value": 6791.64
                 },
                 "consumer": {
-                  "percent": 4.084988,
+                  "percent": 4.080378,
                   "value": 539.9
                 },
                 "financial-technology": {
-                  "percent": 10.880185,
+                  "percent": 10.867909,
                   "value": 1438.0
                 },
                 "index-funds": {
-                  "percent": 5.836183,
+                  "percent": 5.829597,
                   "value": 771.35
                 },
                 "options": {
-                  "percent": 3.852452,
+                  "percent": 3.848105,
                   "value": 509.17
                 },
                 "precious-metals": {
-                  "percent": 3.671495,
+                  "percent": 3.667352,
                   "value": 485.25
                 },
                 "real-estate": {
-                  "percent": 4.84993,
+                  "percent": 4.844457,
                   "value": 641.0
                 },
                 "regional-banking": {
-                  "percent": 3.766829,
+                  "percent": 3.762579,
                   "value": 497.85
                 },
                 "technology": {
-                  "percent": 11.784043,
+                  "percent": 11.770746,
                   "value": 1557.46
                 }
               }
             },
             {
               "date": "2026-09-28",
-              "gross_exposure": 13104.68,
+              "gross_exposure": 13119.61,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-28",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.71578,
-                  "value": 6777.19
+                  "percent": 51.770728,
+                  "value": 6792.12
                 },
                 "consumer": {
-                  "percent": 4.148517,
+                  "percent": 4.143796,
                   "value": 543.65
                 },
                 "financial-technology": {
-                  "percent": 10.759511,
+                  "percent": 10.747267,
                   "value": 1410.0
                 },
                 "index-funds": {
-                  "percent": 5.842262,
+                  "percent": 5.835613,
                   "value": 765.61
                 },
                 "options": {
-                  "percent": 3.764186,
+                  "percent": 3.759902,
                   "value": 493.28
                 },
                 "precious-metals": {
-                  "percent": 3.558651,
+                  "percent": 3.554601,
                   "value": 466.35
                 },
                 "real-estate": {
-                  "percent": 4.769287,
+                  "percent": 4.763859,
                   "value": 625.0
                 },
                 "regional-banking": {
-                  "percent": 3.728056,
+                  "percent": 3.723814,
                   "value": 488.55
                 },
                 "technology": {
-                  "percent": 11.71375,
+                  "percent": 11.70042,
                   "value": 1535.05
                 }
               }
             },
             {
               "date": "2026-09-29",
-              "gross_exposure": 13093.15,
+              "gross_exposure": 13108.08,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-29",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.764993,
-                  "value": 6777.67
+                  "percent": 51.819934,
+                  "value": 6792.6
                 },
                 "consumer": {
-                  "percent": 4.078468,
+                  "percent": 4.073822,
                   "value": 534.0
                 },
                 "financial-technology": {
-                  "percent": 10.952289,
+                  "percent": 10.939814,
                   "value": 1434.0
                 },
                 "index-funds": {
-                  "percent": 5.836638,
+                  "percent": 5.82999,
                   "value": 764.2
                 },
                 "options": {
-                  "percent": 3.643534,
+                  "percent": 3.639384,
                   "value": 477.05
                 },
                 "precious-metals": {
-                  "percent": 3.603028,
+                  "percent": 3.598924,
                   "value": 471.75
                 },
                 "real-estate": {
-                  "percent": 4.781125,
+                  "percent": 4.775679,
                   "value": 626.0
                 },
                 "regional-banking": {
-                  "percent": 3.702698,
+                  "percent": 3.698481,
                   "value": 484.8
                 },
                 "technology": {
-                  "percent": 11.637227,
+                  "percent": 11.623972,
                   "value": 1523.68
                 }
               }
             },
             {
               "date": "2026-09-30",
-              "gross_exposure": 13010.32,
+              "gross_exposure": 13025.25,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-30",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 52.094551,
-                  "value": 6777.67
+                  "percent": 52.149462,
+                  "value": 6792.6
                 },
                 "consumer": {
-                  "percent": 3.993751,
+                  "percent": 3.989173,
                   "value": 519.6
                 },
                 "financial-technology": {
-                  "percent": 10.714568,
+                  "percent": 10.702286,
                   "value": 1394.0
                 },
                 "index-funds": {
-                  "percent": 5.861729,
+                  "percent": 5.855011,
                   "value": 762.63
                 },
                 "options": {
-                  "percent": 3.621849,
+                  "percent": 3.617697,
                   "value": 471.21
                 },
                 "precious-metals": {
-                  "percent": 3.605214,
+                  "percent": 3.601081,
                   "value": 469.05
                 },
                 "real-estate": {
-                  "percent": 4.665526,
+                  "percent": 4.660178,
                   "value": 607.0
                 },
                 "regional-banking": {
-                  "percent": 3.698985,
+                  "percent": 3.694746,
                   "value": 481.25
                 },
                 "technology": {
-                  "percent": 11.743827,
+                  "percent": 11.730366,
                   "value": 1527.91
                 }
               }
             },
             {
               "date": "2026-10-01",
-              "gross_exposure": 13005.46,
+              "gross_exposure": 13020.39,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-01",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 52.014375,
-                  "value": 6764.71
+                  "percent": 52.069399,
+                  "value": 6779.64
                 },
                 "consumer": {
-                  "percent": 4.008316,
+                  "percent": 4.00372,
                   "value": 521.3
                 },
                 "financial-technology": {
-                  "percent": 10.810842,
+                  "percent": 10.798446,
                   "value": 1406.0
                 },
                 "index-funds": {
-                  "percent": 5.874378,
+                  "percent": 5.867642,
                   "value": 763.99
                 },
                 "options": {
-                  "percent": 3.55983,
+                  "percent": 3.555748,
                   "value": 462.97
                 },
                 "precious-metals": {
-                  "percent": 3.626169,
+                  "percent": 3.622011,
                   "value": 471.6
                 },
                 "real-estate": {
-                  "percent": 4.475043,
+                  "percent": 4.469911,
                   "value": 582.0
                 },
                 "regional-banking": {
-                  "percent": 3.729587,
+                  "percent": 3.72531,
                   "value": 485.05
                 },
                 "technology": {
-                  "percent": 11.90146,
+                  "percent": 11.887813,
                   "value": 1547.84
                 }
               }
             },
             {
               "date": "2026-10-02",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-02",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.931247,
-                  "value": 6766.15
+                  "percent": 51.987185,
+                  "value": 6781.33
                 },
                 "consumer": {
-                  "percent": 4.001058,
+                  "percent": 3.996402,
                   "value": 521.3
                 },
                 "financial-technology": {
-                  "percent": 11.267127,
+                  "percent": 11.254015,
                   "value": 1468.0
                 },
                 "index-funds": {
-                  "percent": 5.907106,
+                  "percent": 5.900232,
                   "value": 769.64
                 },
                 "options": {
-                  "percent": 3.402962,
+                  "percent": 3.399002,
                   "value": 443.37
                 },
                 "precious-metals": {
-                  "percent": 3.593123,
+                  "percent": 3.588942,
                   "value": 468.15
                 },
                 "real-estate": {
-                  "percent": 4.382513,
+                  "percent": 4.377413,
                   "value": 571.0
                 },
                 "regional-banking": {
-                  "percent": 3.79498,
+                  "percent": 3.790564,
                   "value": 494.45
                 },
                 "technology": {
-                  "percent": 11.719884,
+                  "percent": 11.706245,
                   "value": 1526.99
                 }
               }
             },
             {
               "date": "2026-10-03",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-10-02",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.931247,
-                  "value": 6766.15
+                  "percent": 51.987185,
+                  "value": 6781.33
                 },
                 "consumer": {
-                  "percent": 4.001058,
+                  "percent": 3.996402,
                   "value": 521.3
                 },
                 "financial-technology": {
-                  "percent": 11.267127,
+                  "percent": 11.254015,
                   "value": 1468.0
                 },
                 "index-funds": {
-                  "percent": 5.907106,
+                  "percent": 5.900232,
                   "value": 769.64
                 },
                 "options": {
-                  "percent": 3.402962,
+                  "percent": 3.399002,
                   "value": 443.37
                 },
                 "precious-metals": {
-                  "percent": 3.593123,
+                  "percent": 3.588942,
                   "value": 468.15
                 },
                 "real-estate": {
-                  "percent": 4.382513,
+                  "percent": 4.377413,
                   "value": 571.0
                 },
                 "regional-banking": {
-                  "percent": 3.79498,
+                  "percent": 3.790564,
                   "value": 494.45
                 },
                 "technology": {
-                  "percent": 11.719884,
+                  "percent": 11.706245,
                   "value": 1526.99
                 }
               }
             },
             {
               "date": "2026-10-04",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-10-02",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.931247,
-                  "value": 6766.15
+                  "percent": 51.987185,
+                  "value": 6781.33
                 },
                 "consumer": {
-                  "percent": 4.001058,
+                  "percent": 3.996402,
                   "value": 521.3
                 },
                 "financial-technology": {
-                  "percent": 11.267127,
+                  "percent": 11.254015,
                   "value": 1468.0
                 },
                 "index-funds": {
-                  "percent": 5.907106,
+                  "percent": 5.900232,
                   "value": 769.64
                 },
                 "options": {
-                  "percent": 3.402962,
+                  "percent": 3.399002,
                   "value": 443.37
                 },
                 "precious-metals": {
-                  "percent": 3.593123,
+                  "percent": 3.588942,
                   "value": 468.15
                 },
                 "real-estate": {
-                  "percent": 4.382513,
+                  "percent": 4.377413,
                   "value": 571.0
                 },
                 "regional-banking": {
-                  "percent": 3.79498,
+                  "percent": 3.790564,
                   "value": 494.45
                 },
                 "technology": {
-                  "percent": 11.719884,
+                  "percent": 11.706245,
                   "value": 1526.99
                 }
               }
             },
             {
               "date": "2026-10-05",
-              "gross_exposure": 13019.3,
+              "gross_exposure": 13034.48,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-05",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.973854,
-                  "value": 6766.63
+                  "percent": 52.029786,
+                  "value": 6781.81
                 },
                 "consumer": {
-                  "percent": 4.035164,
+                  "percent": 4.030465,
                   "value": 525.35
                 },
                 "financial-technology": {
-                  "percent": 11.306295,
+                  "percent": 11.293128,
                   "value": 1472.0
                 },
                 "index-funds": {
-                  "percent": 5.951397,
+                  "percent": 5.944466,
                   "value": 774.83
                 },
                 "options": {
-                  "percent": 3.241005,
+                  "percent": 3.23723,
                   "value": 421.96
                 },
                 "precious-metals": {
-                  "percent": 3.594665,
+                  "percent": 3.590478,
                   "value": 468.0
                 },
                 "real-estate": {
-                  "percent": 4.378117,
+                  "percent": 4.373018,
                   "value": 570.0
                 },
                 "regional-banking": {
-                  "percent": 3.760956,
+                  "percent": 3.756576,
                   "value": 489.65
                 },
                 "technology": {
-                  "percent": 11.758547,
+                  "percent": 11.744853,
                   "value": 1530.88
                 }
               }
             },
             {
               "date": "2026-10-06",
-              "gross_exposure": 13034.38,
+              "gross_exposure": 13049.56,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-06",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 51.917383,
-                  "value": 6767.11
+                  "percent": 51.973316,
+                  "value": 6782.29
                 },
                 "consumer": {
-                  "percent": 4.112201,
+                  "percent": 4.107418,
                   "value": 536.0
                 },
                 "financial-technology": {
-                  "percent": 11.170457,
+                  "percent": 11.157463,
                   "value": 1456.0
                 },
                 "index-funds": {
-                  "percent": 5.977192,
+                  "percent": 5.970239,
                   "value": 779.09
                 },
                 "options": {
-                  "percent": 3.215125,
+                  "percent": 3.211385,
                   "value": 419.07
                 },
                 "precious-metals": {
-                  "percent": 3.616973,
+                  "percent": 3.612765,
                   "value": 471.45
                 },
                 "real-estate": {
-                  "percent": 4.388394,
+                  "percent": 4.383289,
                   "value": 572.0
                 },
                 "regional-banking": {
-                  "percent": 3.752,
+                  "percent": 3.747635,
                   "value": 489.05
                 },
                 "technology": {
-                  "percent": 11.850275,
+                  "percent": 11.83649,
                   "value": 1544.61
                 }
               }
             },
             {
               "date": "2026-10-07",
-              "gross_exposure": 12793.92,
+              "gross_exposure": 12823.05,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-07",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 52.896905,
-                  "value": 6767.59
+                  "percent": 53.00391,
+                  "value": 6796.72
                 },
                 "consumer": {
-                  "percent": 4.227007,
+                  "percent": 4.217404,
                   "value": 540.8
                 },
                 "financial-technology": {
-                  "percent": 9.207496,
+                  "percent": 9.186579,
                   "value": 1178.0
                 },
                 "index-funds": {
-                  "percent": 6.074915,
+                  "percent": 6.061114,
                   "value": 777.22
                 },
                 "options": {
-                  "percent": 3.760802,
+                  "percent": 3.752259,
                   "value": 481.15
                 },
                 "precious-metals": {
-                  "percent": 3.629848,
+                  "percent": 3.621602,
                   "value": 464.4
                 },
                 "real-estate": {
-                  "percent": 4.39271,
+                  "percent": 4.382731,
                   "value": 562.0
                 },
                 "regional-banking": {
-                  "percent": 3.782264,
+                  "percent": 3.773672,
                   "value": 483.9
                 },
                 "technology": {
-                  "percent": 12.028053,
+                  "percent": 12.000729,
                   "value": 1538.86
                 }
               }
             },
             {
               "date": "2026-10-08",
-              "gross_exposure": 12812.67,
+              "gross_exposure": 12841.8,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-08",
               "values": {
                 "cash-cash-equivalents": {
-                  "percent": 52.819533,
-                  "value": 6767.59
+                  "percent": 52.926556,
+                  "value": 6796.72
                 },
                 "consumer": {
-                  "percent": 4.314481,
+                  "percent": 4.304694,
                   "value": 552.8
                 },
                 "financial-technology": {
-                  "percent": 9.287685,
+                  "percent": 9.266617,
                   "value": 1190.0
                 },
                 "index-funds": {
-                  "percent": 6.040351,
+                  "percent": 6.026649,
                   "value": 773.93
                 },
                 "options": {
-                  "percent": 3.63223,
+                  "percent": 3.623991,
                   "value": 465.39
                 },
                 "precious-metals": {
-                  "percent": 3.652636,
+                  "percent": 3.64435,
                   "value": 468.0
                 },
                 "real-estate": {
-                  "percent": 4.433113,
+                  "percent": 4.423057,
                   "value": 568.0
                 },
                 "regional-banking": {
-                  "percent": 3.767756,
+                  "percent": 3.75921,
                   "value": 482.75
                 },
                 "technology": {
-                  "percent": 12.052215,
+                  "percent": 12.024876,
                   "value": 1544.21
                 }
               }
@@ -4192,6 +4192,25 @@
             "return_pct": 0.1174
           },
           {
+            "attribution_group_id": "sgov",
+            "attribution_group_label": "SGOV \u00b7 Short-Term Treasuries",
+            "average_exit_price": 100.46,
+            "closed_basis": 4825.53,
+            "closed_quantity": 48.0,
+            "closed_side": "long",
+            "closing_value": 4822.08,
+            "date": "2026-10-07",
+            "event_id": "2026-10-07-sgov-close",
+            "fees": 0.0,
+            "fill_count": 1,
+            "id": "2026-10-07-sgov-close::SGOV",
+            "instrument_id": "SGOV",
+            "label": "iShares 0-3 Month Treasury Bond ETF",
+            "multiplier": 1.0,
+            "realized_pnl": -3.45,
+            "return_pct": -0.0715
+          },
+          {
             "attribution_group_id": "tssi",
             "attribution_group_label": "TSSI \u00b7 TSS, Inc.",
             "average_exit_price": 9.65,
@@ -4212,11 +4231,11 @@
           }
         ],
         "reconciliation": {
-          "attributed_pnl": 2086.99,
-          "explained_change": 2110.99,
+          "attributed_pnl": 2116.12,
+          "explained_change": 2140.12,
           "external_flows": 0.0,
-          "latest_nav": 12010.99,
-          "nav_change": 2110.99,
+          "latest_nav": 12040.12,
+          "nav_change": 2140.12,
           "opening_nav": 9900.0,
           "residual": 0.0,
           "unattributed_pnl": 24.0
@@ -5377,630 +5396,630 @@
             },
             {
               "date": "2026-09-09",
-              "gross_exposure": 13696.03,
+              "gross_exposure": 13697.27,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-09",
               "values": {
                 "high": {
-                  "percent": 8.16144,
+                  "percent": 8.160701,
                   "value": 1117.79
                 },
                 "low": {
-                  "percent": 53.062464,
-                  "value": 7267.46
+                  "percent": 53.066713,
+                  "value": 7268.7
                 },
                 "medium": {
-                  "percent": 38.776096,
+                  "percent": 38.772586,
                   "value": 5310.78
                 }
               }
             },
             {
               "date": "2026-09-10",
-              "gross_exposure": 13589.89,
+              "gross_exposure": 13592.82,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-10",
               "values": {
                 "high": {
-                  "percent": 7.89014,
+                  "percent": 7.888439,
                   "value": 1072.26
                 },
                 "low": {
-                  "percent": 53.415289,
-                  "value": 7259.08
+                  "percent": 53.425331,
+                  "value": 7262.01
                 },
                 "medium": {
-                  "percent": 38.694571,
+                  "percent": 38.68623,
                   "value": 5258.55
                 }
               }
             },
             {
               "date": "2026-09-11",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-11",
               "values": {
                 "high": {
-                  "percent": 7.748919,
+                  "percent": 7.747249,
                   "value": 1053.56
                 },
                 "low": {
-                  "percent": 53.418695,
-                  "value": 7262.89
+                  "percent": 53.428731,
+                  "value": 7265.82
                 },
                 "medium": {
-                  "percent": 38.832386,
+                  "percent": 38.82402,
                   "value": 5279.71
                 }
               }
             },
             {
               "date": "2026-09-12",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-11",
               "values": {
                 "high": {
-                  "percent": 7.748919,
+                  "percent": 7.747249,
                   "value": 1053.56
                 },
                 "low": {
-                  "percent": 53.418695,
-                  "value": 7262.89
+                  "percent": 53.428731,
+                  "value": 7265.82
                 },
                 "medium": {
-                  "percent": 38.832386,
+                  "percent": 38.82402,
                   "value": 5279.71
                 }
               }
             },
             {
               "date": "2026-09-13",
-              "gross_exposure": 13596.16,
+              "gross_exposure": 13599.09,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-11",
               "values": {
                 "high": {
-                  "percent": 7.748919,
+                  "percent": 7.747249,
                   "value": 1053.56
                 },
                 "low": {
-                  "percent": 53.418695,
-                  "value": 7262.89
+                  "percent": 53.428731,
+                  "value": 7265.82
                 },
                 "medium": {
-                  "percent": 38.832386,
+                  "percent": 38.82402,
                   "value": 5279.71
                 }
               }
             },
             {
               "date": "2026-09-14",
-              "gross_exposure": 13532.15,
+              "gross_exposure": 13535.08,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-14",
               "values": {
                 "high": {
-                  "percent": 7.352251,
+                  "percent": 7.350659,
                   "value": 994.92
                 },
                 "low": {
-                  "percent": 53.619483,
-                  "value": 7255.87
+                  "percent": 53.629523,
+                  "value": 7258.8
                 },
                 "medium": {
-                  "percent": 39.028266,
+                  "percent": 39.019818,
                   "value": 5281.36
                 }
               }
             },
             {
               "date": "2026-09-15",
-              "gross_exposure": 13403.76,
+              "gross_exposure": 13406.69,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-15",
               "values": {
                 "high": {
-                  "percent": 7.010373,
+                  "percent": 7.008841,
                   "value": 939.65
                 },
                 "low": {
-                  "percent": 54.140925,
-                  "value": 7256.92
+                  "percent": 54.150947,
+                  "value": 7259.85
                 },
                 "medium": {
-                  "percent": 38.848702,
+                  "percent": 38.840212,
                   "value": 5207.19
                 }
               }
             },
             {
               "date": "2026-09-16",
-              "gross_exposure": 13165.11,
+              "gross_exposure": 13180.04,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-16",
               "values": {
                 "high": {
-                  "percent": 6.493073,
+                  "percent": 6.485718,
                   "value": 854.82
                 },
                 "low": {
-                  "percent": 55.105714,
-                  "value": 7254.73
+                  "percent": 55.156569,
+                  "value": 7269.66
                 },
                 "medium": {
-                  "percent": 38.401213,
+                  "percent": 38.357713,
                   "value": 5055.56
                 }
               }
             },
             {
               "date": "2026-09-17",
-              "gross_exposure": 13264.42,
+              "gross_exposure": 13279.35,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-17",
               "values": {
                 "high": {
-                  "percent": 6.736483,
+                  "percent": 6.728909,
                   "value": 893.56
                 },
                 "low": {
-                  "percent": 54.763476,
-                  "value": 7264.05
+                  "percent": 54.814336,
+                  "value": 7278.98
                 },
                 "medium": {
-                  "percent": 38.500041,
+                  "percent": 38.456755,
                   "value": 5106.81
                 }
               }
             },
             {
               "date": "2026-09-18",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-18",
               "values": {
                 "high": {
-                  "percent": 6.761454,
+                  "percent": 6.753898,
                   "value": 902.24
                 },
                 "low": {
-                  "percent": 54.472654,
-                  "value": 7268.8
+                  "percent": 54.523535,
+                  "value": 7283.73
                 },
                 "medium": {
-                  "percent": 38.765892,
+                  "percent": 38.722567,
                   "value": 5172.9
                 }
               }
             },
             {
               "date": "2026-09-19",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-18",
               "values": {
                 "high": {
-                  "percent": 6.761454,
+                  "percent": 6.753898,
                   "value": 902.24
                 },
                 "low": {
-                  "percent": 54.472654,
-                  "value": 7268.8
+                  "percent": 54.523535,
+                  "value": 7283.73
                 },
                 "medium": {
-                  "percent": 38.765892,
+                  "percent": 38.722567,
                   "value": 5172.9
                 }
               }
             },
             {
               "date": "2026-09-20",
-              "gross_exposure": 13343.94,
+              "gross_exposure": 13358.87,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-18",
               "values": {
                 "high": {
-                  "percent": 6.761454,
+                  "percent": 6.753898,
                   "value": 902.24
                 },
                 "low": {
-                  "percent": 54.472654,
-                  "value": 7268.8
+                  "percent": 54.523535,
+                  "value": 7283.73
                 },
                 "medium": {
-                  "percent": 38.765892,
+                  "percent": 38.722567,
                   "value": 5172.9
                 }
               }
             },
             {
               "date": "2026-09-21",
-              "gross_exposure": 13412.9,
+              "gross_exposure": 13427.83,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-21",
               "values": {
                 "high": {
-                  "percent": 6.879647,
+                  "percent": 6.871997,
                   "value": 922.76
                 },
                 "low": {
-                  "percent": 54.173811,
-                  "value": 7266.28
+                  "percent": 54.224765,
+                  "value": 7281.21
                 },
                 "medium": {
-                  "percent": 38.946542,
+                  "percent": 38.903238,
                   "value": 5223.86
                 }
               }
             },
             {
               "date": "2026-09-22",
-              "gross_exposure": 13406.99,
+              "gross_exposure": 13421.92,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-22",
               "values": {
                 "high": {
-                  "percent": 6.871937,
+                  "percent": 6.864293,
                   "value": 921.32
                 },
                 "low": {
-                  "percent": 54.212464,
-                  "value": 7268.26
+                  "percent": 54.263396,
+                  "value": 7283.19
                 },
                 "medium": {
-                  "percent": 38.915599,
+                  "percent": 38.872311,
                   "value": 5217.41
                 }
               }
             },
             {
               "date": "2026-09-23",
-              "gross_exposure": 13285.16,
+              "gross_exposure": 13300.09,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-23",
               "values": {
                 "high": {
-                  "percent": 6.508768,
+                  "percent": 6.501461,
                   "value": 864.7
                 },
                 "low": {
-                  "percent": 54.651134,
-                  "value": 7260.49
+                  "percent": 54.702041,
+                  "value": 7275.42
                 },
                 "medium": {
-                  "percent": 38.840098,
+                  "percent": 38.796498,
                   "value": 5159.97
                 }
               }
             },
             {
               "date": "2026-09-24",
-              "gross_exposure": 13217.77,
+              "gross_exposure": 13232.7,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-24",
               "values": {
                 "high": {
-                  "percent": 6.416644,
+                  "percent": 6.409404,
                   "value": 848.14
                 },
                 "low": {
-                  "percent": 54.907055,
-                  "value": 7257.48
+                  "percent": 54.957932,
+                  "value": 7272.41
                 },
                 "medium": {
-                  "percent": 38.676301,
+                  "percent": 38.632664,
                   "value": 5112.15
                 }
               }
             },
             {
               "date": "2026-09-25",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-25",
               "values": {
                 "high": {
-                  "percent": 6.44917,
+                  "percent": 6.441893,
                   "value": 852.37
                 },
                 "low": {
-                  "percent": 54.945391,
-                  "value": 7261.96
+                  "percent": 54.996228,
+                  "value": 7276.89
                 },
                 "medium": {
-                  "percent": 38.605439,
+                  "percent": 38.561879,
                   "value": 5102.36
                 }
               }
             },
             {
               "date": "2026-09-26",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-25",
               "values": {
                 "high": {
-                  "percent": 6.44917,
+                  "percent": 6.441893,
                   "value": 852.37
                 },
                 "low": {
-                  "percent": 54.945391,
-                  "value": 7261.96
+                  "percent": 54.996228,
+                  "value": 7276.89
                 },
                 "medium": {
-                  "percent": 38.605439,
+                  "percent": 38.561879,
                   "value": 5102.36
                 }
               }
             },
             {
               "date": "2026-09-27",
-              "gross_exposure": 13216.69,
+              "gross_exposure": 13231.62,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-09-25",
               "values": {
                 "high": {
-                  "percent": 6.44917,
+                  "percent": 6.441893,
                   "value": 852.37
                 },
                 "low": {
-                  "percent": 54.945391,
-                  "value": 7261.96
+                  "percent": 54.996228,
+                  "value": 7276.89
                 },
                 "medium": {
-                  "percent": 38.605439,
+                  "percent": 38.561879,
                   "value": 5102.36
                 }
               }
             },
             {
               "date": "2026-09-28",
-              "gross_exposure": 13104.68,
+              "gross_exposure": 13119.61,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-28",
               "values": {
                 "high": {
-                  "percent": 6.183292,
+                  "percent": 6.176255,
                   "value": 810.3
                 },
                 "low": {
-                  "percent": 55.274431,
-                  "value": 7243.54
+                  "percent": 55.325329,
+                  "value": 7258.47
                 },
                 "medium": {
-                  "percent": 38.542277,
+                  "percent": 38.498416,
                   "value": 5050.84
                 }
               }
             },
             {
               "date": "2026-09-29",
-              "gross_exposure": 13093.15,
+              "gross_exposure": 13108.08,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-29",
               "values": {
                 "high": {
-                  "percent": 6.145987,
+                  "percent": 6.138986,
                   "value": 804.7
                 },
                 "low": {
-                  "percent": 55.368021,
-                  "value": 7249.42
+                  "percent": 55.418857,
+                  "value": 7264.35
                 },
                 "medium": {
-                  "percent": 38.485992,
+                  "percent": 38.442157,
                   "value": 5039.03
                 }
               }
             },
             {
               "date": "2026-09-30",
-              "gross_exposure": 13010.32,
+              "gross_exposure": 13025.25,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-09-30",
               "values": {
                 "high": {
-                  "percent": 5.874619,
+                  "percent": 5.867885,
                   "value": 764.31
                 },
                 "low": {
-                  "percent": 55.699765,
-                  "value": 7246.71
+                  "percent": 55.750544,
+                  "value": 7261.64
                 },
                 "medium": {
-                  "percent": 38.425616,
+                  "percent": 38.381571,
                   "value": 4999.3
                 }
               }
             },
             {
               "date": "2026-10-01",
-              "gross_exposure": 13005.46,
+              "gross_exposure": 13020.39,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-01",
               "values": {
                 "high": {
-                  "percent": 5.659779,
+                  "percent": 5.653289,
                   "value": 736.08
                 },
                 "low": {
-                  "percent": 55.640545,
-                  "value": 7236.31
+                  "percent": 55.691411,
+                  "value": 7251.24
                 },
                 "medium": {
-                  "percent": 38.699676,
+                  "percent": 38.6553,
                   "value": 5033.07
                 }
               }
             },
             {
               "date": "2026-10-02",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-02",
               "values": {
                 "high": {
-                  "percent": 5.601902,
+                  "percent": 5.595383,
                   "value": 729.87
                 },
                 "low": {
-                  "percent": 55.52437,
-                  "value": 7234.3
+                  "percent": 55.576127,
+                  "value": 7249.48
                 },
                 "medium": {
-                  "percent": 38.873728,
+                  "percent": 38.82849,
                   "value": 5064.88
                 }
               }
             },
             {
               "date": "2026-10-03",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-10-02",
               "values": {
                 "high": {
-                  "percent": 5.601902,
+                  "percent": 5.595383,
                   "value": 729.87
                 },
                 "low": {
-                  "percent": 55.52437,
-                  "value": 7234.3
+                  "percent": 55.576127,
+                  "value": 7249.48
                 },
                 "medium": {
-                  "percent": 38.873728,
+                  "percent": 38.82849,
                   "value": 5064.88
                 }
               }
             },
             {
               "date": "2026-10-04",
-              "gross_exposure": 13029.05,
+              "gross_exposure": 13044.23,
               "kind": "carry_forward",
               "quality": "carry_forward",
               "source_date": "2026-10-02",
               "values": {
                 "high": {
-                  "percent": 5.601902,
+                  "percent": 5.595383,
                   "value": 729.87
                 },
                 "low": {
-                  "percent": 55.52437,
-                  "value": 7234.3
+                  "percent": 55.576127,
+                  "value": 7249.48
                 },
                 "medium": {
-                  "percent": 38.873728,
+                  "percent": 38.82849,
                   "value": 5064.88
                 }
               }
             },
             {
               "date": "2026-10-05",
-              "gross_exposure": 13019.3,
+              "gross_exposure": 13034.48,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-05",
               "values": {
                 "high": {
-                  "percent": 5.45201,
+                  "percent": 5.445661,
                   "value": 709.81
                 },
                 "low": {
-                  "percent": 55.568519,
-                  "value": 7234.64
+                  "percent": 55.620264,
+                  "value": 7249.82
                 },
                 "medium": {
-                  "percent": 38.979471,
+                  "percent": 38.934075,
                   "value": 5074.85
                 }
               }
             },
             {
               "date": "2026-10-06",
-              "gross_exposure": 13034.38,
+              "gross_exposure": 13049.56,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-06",
               "values": {
                 "high": {
-                  "percent": 5.393812,
+                  "percent": 5.387537,
                   "value": 703.05
                 },
                 "low": {
-                  "percent": 55.534356,
-                  "value": 7238.56
+                  "percent": 55.586082,
+                  "value": 7253.74
                 },
                 "medium": {
-                  "percent": 39.071832,
+                  "percent": 39.026381,
                   "value": 5092.77
                 }
               }
             },
             {
               "date": "2026-10-07",
-              "gross_exposure": 12793.92,
+              "gross_exposure": 12823.05,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-07",
               "values": {
                 "high": {
-                  "percent": 4.977093,
+                  "percent": 4.965786,
                   "value": 636.77
                 },
                 "low": {
-                  "percent": 56.526753,
-                  "value": 7231.98
+                  "percent": 56.625512,
+                  "value": 7261.11
                 },
                 "medium": {
-                  "percent": 38.496154,
+                  "percent": 38.408702,
                   "value": 4925.17
                 }
               }
             },
             {
               "date": "2026-10-08",
-              "gross_exposure": 12812.67,
+              "gross_exposure": 12841.8,
               "kind": "session_close",
               "quality": "complete",
               "source_date": "2026-10-08",
               "values": {
                 "high": {
-                  "percent": 4.936899,
+                  "percent": 4.9257,
                   "value": 632.55
                 },
                 "low": {
-                  "percent": 56.472168,
-                  "value": 7235.59
+                  "percent": 56.570906,
+                  "value": 7264.72
                 },
                 "medium": {
-                  "percent": 38.590933,
+                  "percent": 38.503394,
                   "value": 4944.53
                 }
               }
@@ -8068,16 +8087,16 @@
             },
             {
               "date": "2026-10-08",
-              "kind": "carry_forward",
-              "market_price": 83275.929688,
-              "quality": "stale_fallback",
-              "source_date": "2026-10-07",
-              "value": 12902.01
+              "kind": "daily_close",
+              "market_price": 81676.335938,
+              "quality": "complete",
+              "source_date": "2026-10-08",
+              "value": 12654.19
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "degraded",
+          "status": "ready",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -8680,7 +8699,7 @@
           "value": 13460.31
         },
         {
-          "cash": 1945.03,
+          "cash": 1946.27,
           "date": "2026-09-09",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8688,10 +8707,10 @@
           "positions_value": 11418.49,
           "quality": "complete",
           "source_date": "2026-09-09",
-          "value": 13363.52
+          "value": 13364.76
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-10",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8699,10 +8718,10 @@
           "positions_value": 11301.76,
           "quality": "complete",
           "source_date": "2026-09-10",
-          "value": 13246.79
+          "value": 13249.72
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-11",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8710,10 +8729,10 @@
           "positions_value": 11301.08,
           "quality": "complete",
           "source_date": "2026-09-11",
-          "value": 13246.11
+          "value": 13249.04
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-12",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8721,10 +8740,10 @@
           "positions_value": 11301.08,
           "quality": "carry_forward",
           "source_date": "2026-09-11",
-          "value": 13246.11
+          "value": 13249.04
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-13",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8732,10 +8751,10 @@
           "positions_value": 11301.08,
           "quality": "carry_forward",
           "source_date": "2026-09-11",
-          "value": 13246.11
+          "value": 13249.04
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-14",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8743,10 +8762,10 @@
           "positions_value": 11221.53,
           "quality": "complete",
           "source_date": "2026-09-14",
-          "value": 13166.56
+          "value": 13169.49
         },
         {
-          "cash": 1945.03,
+          "cash": 1947.96,
           "date": "2026-09-15",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8754,10 +8773,10 @@
           "positions_value": 11052.6,
           "quality": "complete",
           "source_date": "2026-09-15",
-          "value": 12997.63
+          "value": 13000.56
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-16",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8765,10 +8784,10 @@
           "positions_value": 10692.36,
           "quality": "complete",
           "source_date": "2026-09-16",
-          "value": 12637.39
+          "value": 12652.32
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-17",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8776,10 +8795,10 @@
           "positions_value": 10795.08,
           "quality": "complete",
           "source_date": "2026-09-17",
-          "value": 12740.11
+          "value": 12755.04
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-18",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8787,10 +8806,10 @@
           "positions_value": 10946.36,
           "quality": "complete",
           "source_date": "2026-09-18",
-          "value": 12891.39
+          "value": 12906.32
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-19",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8798,10 +8817,10 @@
           "positions_value": 10946.36,
           "quality": "carry_forward",
           "source_date": "2026-09-18",
-          "value": 12891.39
+          "value": 12906.32
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-20",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8809,10 +8828,10 @@
           "positions_value": 10946.36,
           "quality": "carry_forward",
           "source_date": "2026-09-18",
-          "value": 12891.39
+          "value": 12906.32
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-21",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8820,10 +8839,10 @@
           "positions_value": 11017.69,
           "quality": "complete",
           "source_date": "2026-09-21",
-          "value": 12962.72
+          "value": 12977.65
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-22",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8831,10 +8850,10 @@
           "positions_value": 10992.12,
           "quality": "complete",
           "source_date": "2026-09-22",
-          "value": 12937.15
+          "value": 12952.08
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-23",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8842,10 +8861,10 @@
           "positions_value": 10811.27,
           "quality": "complete",
           "source_date": "2026-09-23",
-          "value": 12756.3
+          "value": 12771.23
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-24",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8853,10 +8872,10 @@
           "positions_value": 10687.31,
           "quality": "complete",
           "source_date": "2026-09-24",
-          "value": 12632.34
+          "value": 12647.27
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-25",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8864,10 +8883,10 @@
           "positions_value": 10676.06,
           "quality": "complete",
           "source_date": "2026-09-25",
-          "value": 12621.09
+          "value": 12636.02
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-26",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8875,10 +8894,10 @@
           "positions_value": 10676.06,
           "quality": "carry_forward",
           "source_date": "2026-09-25",
-          "value": 12621.09
+          "value": 12636.02
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-27",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8886,10 +8905,10 @@
           "positions_value": 10676.06,
           "quality": "carry_forward",
           "source_date": "2026-09-25",
-          "value": 12621.09
+          "value": 12636.02
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-28",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8897,10 +8916,10 @@
           "positions_value": 10543.69,
           "quality": "complete",
           "source_date": "2026-09-28",
-          "value": 12488.72
+          "value": 12503.65
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-29",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8908,10 +8927,10 @@
           "positions_value": 10551.42,
           "quality": "complete",
           "source_date": "2026-09-29",
-          "value": 12496.45
+          "value": 12511.38
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-09-30",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8919,10 +8938,10 @@
           "positions_value": 10437.48,
           "quality": "complete",
           "source_date": "2026-09-30",
-          "value": 12382.51
+          "value": 12397.44
         },
         {
-          "cash": 1945.03,
+          "cash": 1959.96,
           "date": "2026-10-01",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8930,10 +8949,10 @@
           "positions_value": 10442.65,
           "quality": "complete",
           "source_date": "2026-10-01",
-          "value": 12387.68
+          "value": 12402.61
         },
         {
-          "cash": 1945.03,
+          "cash": 1960.21,
           "date": "2026-10-02",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8941,10 +8960,10 @@
           "positions_value": 10515.03,
           "quality": "complete",
           "source_date": "2026-10-02",
-          "value": 12460.06
+          "value": 12475.24
         },
         {
-          "cash": 1945.03,
+          "cash": 1960.21,
           "date": "2026-10-03",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8952,10 +8971,10 @@
           "positions_value": 10515.03,
           "quality": "carry_forward",
           "source_date": "2026-10-02",
-          "value": 12460.06
+          "value": 12475.24
         },
         {
-          "cash": 1945.03,
+          "cash": 1960.21,
           "date": "2026-10-04",
           "forward_filled_symbols": [],
           "kind": "carry_forward",
@@ -8963,10 +8982,10 @@
           "positions_value": 10515.03,
           "quality": "carry_forward",
           "source_date": "2026-10-02",
-          "value": 12460.06
+          "value": 12475.24
         },
         {
-          "cash": 1945.03,
+          "cash": 1960.21,
           "date": "2026-10-05",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8974,10 +8993,10 @@
           "positions_value": 10509.98,
           "quality": "complete",
           "source_date": "2026-10-05",
-          "value": 12455.01
+          "value": 12470.19
         },
         {
-          "cash": 1945.03,
+          "cash": 1960.21,
           "date": "2026-10-06",
           "forward_filled_symbols": [],
           "kind": "session_close",
@@ -8985,41 +9004,41 @@
           "positions_value": 10513.31,
           "quality": "complete",
           "source_date": "2026-10-06",
-          "value": 12458.34
+          "value": 12473.52
         },
         {
-          "cash": 1945.03,
+          "cash": 6796.72,
           "date": "2026-10-07",
           "forward_filled_symbols": [],
           "kind": "session_close",
-          "position_count": 14,
-          "positions_value": 10036.12,
+          "position_count": 13,
+          "positions_value": 5213.56,
           "quality": "complete",
           "source_date": "2026-10-07",
-          "value": 11981.15
+          "value": 12010.28
         },
         {
-          "cash": 1945.03,
+          "cash": 6796.72,
           "date": "2026-10-08",
           "forward_filled_symbols": [],
           "kind": "session_close",
-          "position_count": 14,
-          "positions_value": 10065.96,
+          "position_count": 13,
+          "positions_value": 5243.4,
           "quality": "complete",
           "source_date": "2026-10-08",
-          "value": 12010.99
+          "value": 12040.12
         }
       ]
     }
   },
-  "benchmark_coverage_status": "degraded",
+  "benchmark_coverage_status": "complete",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-10-09T06:34:37Z",
+  "generated_at": "2026-10-09T18:04:49Z",
   "last_completed_session": "2026-10-08",
   "mark_history": {
     "BULL": [
