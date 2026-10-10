@@ -3,24 +3,27 @@
   "accounts": {
     "ahub": {
       "analytics": {
-        "as_of": "2026-10-08",
+        "as_of": "2026-10-09",
         "contributors": [
           {
             "id": "infq",
             "income": 0.0,
             "instrument_ids": [
+              "INFQ_C10_20270115",
               "INFQ_C10_C17_5_20270115",
-              "INFQ_C25_20270115"
+              "INFQ_C12_5_20270115",
+              "INFQ_C25_20270115",
+              "INFQ_C7_5_C15_20270617"
             ],
             "label": "INFQ Strategies",
-            "market_value": 57.65,
-            "portfolio_contribution_pct": 22.249,
+            "market_value": 647.44,
+            "portfolio_contribution_pct": 22.065,
             "realized_pnl": 2220.0,
-            "return_pct": 72.4555,
+            "return_pct": 55.8966,
             "risk_level": "high",
-            "total_pnl": 2202.65,
-            "tracked_basis": 3040.0,
-            "unrealized_pnl": -17.35
+            "total_pnl": 2184.44,
+            "tracked_basis": 3908.0,
+            "unrealized_pnl": -35.56
           },
           {
             "id": "pltr",
@@ -29,14 +32,46 @@
               "PLTR"
             ],
             "label": "PLTR \u00b7 Palantir",
-            "market_value": 795.12,
-            "portfolio_contribution_pct": 2.6655,
+            "market_value": 836.2,
+            "portfolio_contribution_pct": 3.0804,
             "realized_pnl": 0.0,
-            "return_pct": 49.6725,
+            "return_pct": 57.4053,
             "risk_level": "medium",
-            "total_pnl": 263.88,
+            "total_pnl": 304.96,
             "tracked_basis": 531.24,
-            "unrealized_pnl": 263.88
+            "unrealized_pnl": 304.96
+          },
+          {
+            "id": "spy",
+            "income": 0.0,
+            "instrument_ids": [
+              "SPY"
+            ],
+            "label": "SPY \u00b7 S&P 500 ETF",
+            "market_value": 778.57,
+            "portfolio_contribution_pct": 0.3325,
+            "realized_pnl": 0.0,
+            "return_pct": 4.4149,
+            "risk_level": "medium",
+            "total_pnl": 32.92,
+            "tracked_basis": 745.65,
+            "unrealized_pnl": 32.92
+          },
+          {
+            "id": "bull-dec2026-call",
+            "income": 0.0,
+            "instrument_ids": [
+              "BULL_C10_20261218"
+            ],
+            "label": "BULL Dec 2026 $10 Calls",
+            "market_value": 11.54,
+            "portfolio_contribution_pct": 0.2933,
+            "realized_pnl": 17.5,
+            "return_pct": 3.2624,
+            "risk_level": "high",
+            "total_pnl": 29.04,
+            "tracked_basis": 890.0,
+            "unrealized_pnl": 11.54
           },
           {
             "id": "sgov",
@@ -55,68 +90,20 @@
             "unrealized_pnl": 0.0
           },
           {
-            "id": "spy",
-            "income": 0.0,
-            "instrument_ids": [
-              "SPY"
-            ],
-            "label": "SPY \u00b7 S&P 500 ETF",
-            "market_value": 773.93,
-            "portfolio_contribution_pct": 0.2857,
-            "realized_pnl": 0.0,
-            "return_pct": 3.7927,
-            "risk_level": "medium",
-            "total_pnl": 28.28,
-            "tracked_basis": 745.65,
-            "unrealized_pnl": 28.28
-          },
-          {
             "id": "nvda",
             "income": 0.25,
             "instrument_ids": [
               "NVDA"
             ],
             "label": "NVDA \u00b7 NVIDIA",
-            "market_value": 230.48,
-            "portfolio_contribution_pct": 0.2571,
+            "market_value": 229.28,
+            "portfolio_contribution_pct": 0.2449,
             "realized_pnl": 0.0,
-            "return_pct": 12.3977,
+            "return_pct": 11.8131,
             "risk_level": "medium",
-            "total_pnl": 25.45,
+            "total_pnl": 24.25,
             "tracked_basis": 205.28,
-            "unrealized_pnl": 25.2
-          },
-          {
-            "id": "bull-dec2026-call",
-            "income": 0.0,
-            "instrument_ids": [
-              "BULL_C10_20261218"
-            ],
-            "label": "BULL Dec 2026 $10 Calls",
-            "market_value": 6.9,
-            "portfolio_contribution_pct": 0.2465,
-            "realized_pnl": 17.5,
-            "return_pct": 2.7418,
-            "risk_level": "high",
-            "total_pnl": 24.4,
-            "tracked_basis": 890.0,
-            "unrealized_pnl": 6.9
-          },
-          {
-            "id": "ibm",
-            "income": 1.69,
-            "instrument_ids": [
-              "IBM"
-            ],
-            "label": "IBM",
-            "market_value": 226.61,
-            "portfolio_contribution_pct": 0.1472,
-            "realized_pnl": 0.0,
-            "return_pct": 6.817,
-            "risk_level": "medium",
-            "total_pnl": 14.57,
-            "tracked_basis": 213.73,
-            "unrealized_pnl": 12.88
+            "unrealized_pnl": 24.0
           },
           {
             "id": "phys",
@@ -125,30 +112,30 @@
               "PHYS"
             ],
             "label": "PHYS \u00b7 Physical Gold Trust",
-            "market_value": 468.0,
-            "portfolio_contribution_pct": 0.1348,
+            "market_value": 475.5,
+            "portfolio_contribution_pct": 0.2106,
             "realized_pnl": 0.0,
-            "return_pct": 2.9363,
+            "return_pct": 4.5859,
             "risk_level": "low",
-            "total_pnl": 13.35,
+            "total_pnl": 20.85,
             "tracked_basis": 454.65,
-            "unrealized_pnl": 13.35
+            "unrealized_pnl": 20.85
           },
           {
-            "id": "tmp",
-            "income": 0.0,
+            "id": "ibm",
+            "income": 1.69,
             "instrument_ids": [
-              "TMP"
+              "IBM"
             ],
-            "label": "TMP \u00b7 Tompkins Financial",
-            "market_value": 482.75,
-            "portfolio_contribution_pct": -0.0732,
+            "label": "IBM",
+            "market_value": 227.13,
+            "portfolio_contribution_pct": 0.1524,
             "realized_pnl": 0.0,
-            "return_pct": -1.4796,
+            "return_pct": 7.0603,
             "risk_level": "medium",
-            "total_pnl": -7.25,
-            "tracked_basis": 490.0,
-            "unrealized_pnl": -7.25
+            "total_pnl": 15.09,
+            "tracked_basis": 213.73,
+            "unrealized_pnl": 13.4
           },
           {
             "id": "tssi",
@@ -167,20 +154,36 @@
             "unrealized_pnl": 0.0
           },
           {
+            "id": "tmp",
+            "income": 0.0,
+            "instrument_ids": [
+              "TMP"
+            ],
+            "label": "TMP \u00b7 Tompkins Financial",
+            "market_value": 478.65,
+            "portfolio_contribution_pct": -0.1146,
+            "realized_pnl": 0.0,
+            "return_pct": -2.3163,
+            "risk_level": "medium",
+            "total_pnl": -11.35,
+            "tracked_basis": 490.0,
+            "unrealized_pnl": -11.35
+          },
+          {
             "id": "wmt",
             "income": 1.24,
             "instrument_ids": [
               "WMT"
             ],
             "label": "WMT \u00b7 Walmart",
-            "market_value": 552.8,
-            "portfolio_contribution_pct": -0.1789,
+            "market_value": 556.75,
+            "portfolio_contribution_pct": -0.139,
             "realized_pnl": 0.0,
-            "return_pct": -3.0975,
+            "return_pct": -2.4066,
             "risk_level": "medium",
-            "total_pnl": -17.71,
+            "total_pnl": -13.76,
             "tracked_basis": 571.75,
-            "unrealized_pnl": -18.95
+            "unrealized_pnl": -15.0
           },
           {
             "id": "qbts",
@@ -189,14 +192,14 @@
               "QBTS"
             ],
             "label": "QBTS \u00b7 D-Wave Quantum",
-            "market_value": 292.0,
-            "portfolio_contribution_pct": -0.4909,
+            "market_value": 291.4,
+            "portfolio_contribution_pct": -0.497,
             "realized_pnl": 0.0,
-            "return_pct": -14.2689,
+            "return_pct": -14.4451,
             "risk_level": "medium",
-            "total_pnl": -48.6,
+            "total_pnl": -49.2,
             "tracked_basis": 340.6,
-            "unrealized_pnl": -48.6
+            "unrealized_pnl": -49.2
           },
           {
             "id": "bull",
@@ -206,14 +209,14 @@
               "BULL_P10_JAN2027"
             ],
             "label": "BULL \u00b7 Webull",
-            "market_value": 789.16,
-            "portfolio_contribution_pct": -1.867,
+            "market_value": 893.7,
+            "portfolio_contribution_pct": -0.8111,
             "realized_pnl": 150.0,
-            "return_pct": -7.0549,
+            "return_pct": -3.0649,
             "risk_level": "medium",
-            "total_pnl": -184.84,
+            "total_pnl": -80.3,
             "tracked_basis": 2620.0,
-            "unrealized_pnl": -334.84
+            "unrealized_pnl": -230.3
           },
           {
             "id": "ivr",
@@ -222,14 +225,14 @@
               "IVR"
             ],
             "label": "IVR \u00b7 Invesco Mortgage Capital",
-            "market_value": 568.0,
-            "portfolio_contribution_pct": -2.2019,
+            "market_value": 1140.0,
+            "portfolio_contribution_pct": -2.1716,
             "realized_pnl": 0.0,
-            "return_pct": -26.9127,
+            "return_pct": -15.5904,
             "risk_level": "high",
-            "total_pnl": -217.99,
-            "tracked_basis": 809.99,
-            "unrealized_pnl": -241.99
+            "total_pnl": -214.99,
+            "tracked_basis": 1378.99,
+            "unrealized_pnl": -238.99
           }
         ],
         "exposure_history": {
@@ -4061,6 +4064,51 @@
                   "value": 1544.21
                 }
               }
+            },
+            {
+              "date": "2026-10-09",
+              "gross_exposure": 13170.7,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-10-09",
+              "values": {
+                "cash-cash-equivalents": {
+                  "percent": 42.668352,
+                  "value": 5619.72
+                },
+                "consumer": {
+                  "percent": 4.227186,
+                  "value": 556.75
+                },
+                "financial-technology": {
+                  "percent": 9.581876,
+                  "value": 1262.0
+                },
+                "index-funds": {
+                  "percent": 5.91138,
+                  "value": 778.57
+                },
+                "options": {
+                  "percent": 9.684365,
+                  "value": 1275.5
+                },
+                "precious-metals": {
+                  "percent": 3.610287,
+                  "value": 475.5
+                },
+                "real-estate": {
+                  "percent": 8.655577,
+                  "value": 1140.0
+                },
+                "regional-banking": {
+                  "percent": 3.634204,
+                  "value": 478.65
+                },
+                "technology": {
+                  "percent": 12.026773,
+                  "value": 1584.01
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -4231,11 +4279,11 @@
           }
         ],
         "reconciliation": {
-          "attributed_pnl": 2116.12,
-          "explained_change": 2140.12,
+          "attributed_pnl": 2261.87,
+          "explained_change": 2285.87,
           "external_flows": 0.0,
-          "latest_nav": 12040.12,
-          "nav_change": 2140.12,
+          "latest_nav": 12185.87,
+          "nav_change": 2285.87,
           "opening_nav": 9900.0,
           "residual": 0.0,
           "unattributed_pnl": 24.0
@@ -6023,6 +6071,27 @@
                   "value": 4944.53
                 }
               }
+            },
+            {
+              "date": "2026-10-09",
+              "gross_exposure": 13170.7,
+              "kind": "session_close",
+              "quality": "complete",
+              "source_date": "2026-10-09",
+              "values": {
+                "high": {
+                  "percent": 15.543583,
+                  "value": 2047.2
+                },
+                "low": {
+                  "percent": 46.278638,
+                  "value": 6095.22
+                },
+                "medium": {
+                  "percent": 38.177779,
+                  "value": 5028.28
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -6720,6 +6789,14 @@
               "quality": "complete",
               "source_date": "2026-10-08",
               "value": 10333.7
+            },
+            {
+              "date": "2026-10-09",
+              "kind": "daily_close",
+              "market_price": 778.570007,
+              "quality": "complete",
+              "source_date": "2026-10-09",
+              "value": 10395.65
             }
           ],
           "price_basis": "adjusted_close",
@@ -7406,6 +7483,14 @@
               "quality": "complete",
               "source_date": "2026-10-08",
               "value": 10174.37
+            },
+            {
+              "date": "2026-10-09",
+              "kind": "daily_close",
+              "market_price": 384.579987,
+              "quality": "complete",
+              "source_date": "2026-10-09",
+              "value": 10334.52
             }
           ],
           "price_basis": "adjusted_close",
@@ -8092,11 +8177,19 @@
               "quality": "complete",
               "source_date": "2026-10-08",
               "value": 12654.19
+            },
+            {
+              "date": "2026-10-09",
+              "kind": "carry_forward",
+              "market_price": 81676.335938,
+              "quality": "stale_fallback",
+              "source_date": "2026-10-08",
+              "value": 12654.19
             }
           ],
           "price_basis": "close",
           "source": "Yahoo Finance daily chart endpoint; public comparison proxy, not an official valuation feed.",
-          "status": "ready",
+          "status": "degraded",
           "symbol": "BTC-USD",
           "units": "normalized_account_value_usd"
         }
@@ -9027,19 +9120,30 @@
           "quality": "complete",
           "source_date": "2026-10-08",
           "value": 12040.12
+        },
+        {
+          "cash": 5619.72,
+          "date": "2026-10-09",
+          "forward_filled_symbols": [],
+          "kind": "session_close",
+          "position_count": 16,
+          "positions_value": 6566.15,
+          "quality": "complete",
+          "source_date": "2026-10-09",
+          "value": 12185.87
         }
       ]
     }
   },
-  "benchmark_coverage_status": "complete",
+  "benchmark_coverage_status": "degraded",
   "benchmark_failures": [],
   "coverage_status": "complete",
   "currency": "USD",
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-10-09T18:04:49Z",
-  "last_completed_session": "2026-10-08",
+  "generated_at": "2026-10-10T06:18:16Z",
+  "last_completed_session": "2026-10-09",
   "mark_history": {
     "BULL": [
       {
@@ -9360,6 +9464,11 @@
       {
         "date": "2026-10-08",
         "price": 5.95,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 6.31,
         "source": "yahoo"
       }
     ],
@@ -9683,6 +9792,11 @@
         "date": "2026-10-08",
         "price": 226.610001,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 227.130005,
+        "source": "yahoo"
       }
     ],
     "INFQ": [
@@ -10004,6 +10118,11 @@
       {
         "date": "2026-10-08",
         "price": 11.16,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 11.04,
         "source": "yahoo"
       }
     ],
@@ -10327,6 +10446,11 @@
         "date": "2026-10-08",
         "price": 5.68,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 5.7,
+        "source": "yahoo"
       }
     ],
     "NVDA": [
@@ -10648,6 +10772,11 @@
       {
         "date": "2026-10-08",
         "price": 230.479996,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 229.279999,
         "source": "yahoo"
       }
     ],
@@ -10971,6 +11100,11 @@
         "date": "2026-10-08",
         "price": 31.200001,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 31.700001,
+        "source": "yahoo"
       }
     ],
     "PLTR": [
@@ -11292,6 +11426,11 @@
       {
         "date": "2026-10-08",
         "price": 198.779999,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 209.050003,
         "source": "yahoo"
       }
     ],
@@ -11615,6 +11754,11 @@
         "date": "2026-10-08",
         "price": 14.6,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 14.57,
+        "source": "yahoo"
       }
     ],
     "SGOV": [
@@ -11936,6 +12080,11 @@
       {
         "date": "2026-10-08",
         "price": 100.470001,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 100.510002,
         "source": "yahoo"
       }
     ],
@@ -12259,6 +12408,11 @@
         "date": "2026-10-08",
         "price": 773.929993,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 778.570007,
+        "source": "yahoo"
       }
     ],
     "TMP": [
@@ -12580,6 +12734,11 @@
       {
         "date": "2026-10-08",
         "price": 96.550003,
+        "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 95.730003,
         "source": "yahoo"
       }
     ],
@@ -12903,6 +13062,11 @@
         "date": "2026-10-08",
         "price": 9.97,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 9.7,
+        "source": "yahoo"
       }
     ],
     "WMT": [
@@ -13225,6 +13389,11 @@
         "date": "2026-10-08",
         "price": 110.559998,
         "source": "yahoo"
+      },
+      {
+        "date": "2026-10-09",
+        "price": 111.349998,
+        "source": "yahoo"
       }
     ]
   },
@@ -13286,7 +13455,8 @@
     "2026-10-05",
     "2026-10-06",
     "2026-10-07",
-    "2026-10-08"
+    "2026-10-08",
+    "2026-10-09"
   ],
   "schema_version": 1,
   "source": "Yahoo Finance daily closes plus the published QSF synthetic ledger and calibrated option models; not an official NAV."
