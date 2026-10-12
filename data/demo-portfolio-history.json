@@ -4154,6 +4154,51 @@
                   "value": 1584.01
                 }
               }
+            },
+            {
+              "date": "2026-10-11",
+              "gross_exposure": 13170.7,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-10-09",
+              "values": {
+                "cash-cash-equivalents": {
+                  "percent": 42.668352,
+                  "value": 5619.72
+                },
+                "consumer": {
+                  "percent": 4.227186,
+                  "value": 556.75
+                },
+                "financial-technology": {
+                  "percent": 9.581876,
+                  "value": 1262.0
+                },
+                "index-funds": {
+                  "percent": 5.91138,
+                  "value": 778.57
+                },
+                "options": {
+                  "percent": 9.684365,
+                  "value": 1275.5
+                },
+                "precious-metals": {
+                  "percent": 3.610287,
+                  "value": 475.5
+                },
+                "real-estate": {
+                  "percent": 8.655577,
+                  "value": 1140.0
+                },
+                "regional-banking": {
+                  "percent": 3.634204,
+                  "value": 478.65
+                },
+                "technology": {
+                  "percent": 12.026773,
+                  "value": 1584.01
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -6158,6 +6203,27 @@
                   "value": 5028.28
                 }
               }
+            },
+            {
+              "date": "2026-10-11",
+              "gross_exposure": 13170.7,
+              "kind": "carry_forward",
+              "quality": "carry_forward",
+              "source_date": "2026-10-09",
+              "values": {
+                "high": {
+                  "percent": 15.543583,
+                  "value": 2047.2
+                },
+                "low": {
+                  "percent": 46.278638,
+                  "value": 6095.22
+                },
+                "medium": {
+                  "percent": 38.177779,
+                  "value": 5028.28
+                }
+              }
             }
           ],
           "units": "percent_of_gross_marked_value"
@@ -6871,6 +6937,14 @@
               "quality": "carry_forward",
               "source_date": "2026-10-09",
               "value": 10395.65
+            },
+            {
+              "date": "2026-10-11",
+              "kind": "carry_forward",
+              "market_price": 778.570007,
+              "quality": "carry_forward",
+              "source_date": "2026-10-09",
+              "value": 10395.65
             }
           ],
           "price_basis": "adjusted_close",
@@ -7573,6 +7647,14 @@
               "quality": "carry_forward",
               "source_date": "2026-10-09",
               "value": 10334.52
+            },
+            {
+              "date": "2026-10-11",
+              "kind": "carry_forward",
+              "market_price": 384.579987,
+              "quality": "carry_forward",
+              "source_date": "2026-10-09",
+              "value": 10334.52
             }
           ],
           "price_basis": "adjusted_close",
@@ -8270,11 +8352,19 @@
             },
             {
               "date": "2026-10-10",
+              "kind": "daily_close",
+              "market_price": 82912.226562,
+              "quality": "complete",
+              "source_date": "2026-10-10",
+              "value": 12845.66
+            },
+            {
+              "date": "2026-10-11",
               "kind": "carry_forward",
-              "market_price": 82546.320312,
+              "market_price": 82912.226562,
               "quality": "stale_fallback",
-              "source_date": "2026-10-09",
-              "value": 12788.97
+              "source_date": "2026-10-10",
+              "value": 12845.66
             }
           ],
           "price_basis": "close",
@@ -9232,6 +9322,17 @@
           "quality": "carry_forward",
           "source_date": "2026-10-09",
           "value": 12185.87
+        },
+        {
+          "cash": 5619.72,
+          "date": "2026-10-11",
+          "forward_filled_symbols": [],
+          "kind": "carry_forward",
+          "position_count": 16,
+          "positions_value": 6566.15,
+          "quality": "carry_forward",
+          "source_date": "2026-10-09",
+          "value": 12185.87
         }
       ]
     }
@@ -9243,7 +9344,7 @@
   "demo": true,
   "failures": [],
   "formation_date": "2026-07-17",
-  "generated_at": "2026-10-11T06:18:25Z",
+  "generated_at": "2026-10-12T06:24:58Z",
   "last_completed_session": "2026-10-09",
   "mark_history": {
     "BULL": [
