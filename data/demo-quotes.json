@@ -1,17 +1,17 @@
 {
   "demo": true,
   "failures": [],
-  "generated_at": "2026-10-26T07:01:57Z",
+  "generated_at": "2026-10-26T14:06:00Z",
   "missing": [],
   "quotes": {
     "BULL": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 5.65,
+      "as_of": "2026-10-26T14:05:52Z",
+      "price": 5.505,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "BULL_C10_20261218": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:52Z",
       "calibrated_volatility": 0.631054,
       "calibration_as_of": "2026-08-21T13:30:00Z",
       "calibration_opening_mark": 0.89,
@@ -23,16 +23,16 @@
       "option_symbols": [
         "BULL261218C00010000"
       ],
-      "price": 0.005914,
+      "price": 0.004126,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
-      "underlying_price": 5.65,
+      "underlying_price": 5.505,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "BULL_P10_JAN2027": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:52Z",
       "calibrated_volatility": 0.63219,
       "calibration_as_of": "2026-07-17T13:30:00Z",
       "calibration_opening_mark": 3.16,
@@ -44,28 +44,28 @@
       "option_symbols": [
         "BULL270115P00010000"
       ],
-      "price": 4.286787,
+      "price": 4.426356,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
-      "underlying_price": 5.65,
+      "underlying_price": 5.505,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "IBM": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 253.559998,
+      "as_of": "2026-10-26T14:05:42Z",
+      "price": 254.100204,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "INFQ": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 8.75,
+      "as_of": "2026-10-26T14:05:57Z",
+      "price": 8.485,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "INFQ_C10_20270115": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:57Z",
       "calibrated_volatility": 0.73324,
       "calibration_as_of": "2026-10-09T13:30:00Z",
       "calibration_opening_mark": 2.3,
@@ -77,16 +77,16 @@
       "option_symbols": [
         "INFQ270115C00010000"
       ],
-      "price": 0.784528,
+      "price": 0.674019,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
-      "underlying_price": 8.75,
+      "underlying_price": 8.485,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "INFQ_C10_C17_5_20270115": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:57Z",
       "calibrated_volatility": 1.255504,
       "calibration_as_of": "2026-07-17T13:30:00Z",
       "calibration_opening_mark": 1.37,
@@ -99,16 +99,16 @@
         "INFQ270115C00010000",
         "INFQ270115C00017500"
       ],
-      "price": 1.222424,
+      "price": 1.130941,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
-      "underlying_price": 8.75,
+      "underlying_price": 8.485,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "INFQ_C12_5_20270115": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:57Z",
       "calibrated_volatility": 0.76128,
       "calibration_as_of": "2026-10-09T13:30:00Z",
       "calibration_opening_mark": 1.3,
@@ -120,16 +120,16 @@
       "option_symbols": [
         "INFQ270115C00012500"
       ],
-      "price": 0.329479,
+      "price": 0.273951,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
-      "underlying_price": 8.75,
+      "underlying_price": 8.485,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "INFQ_C25_20270115": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:57Z",
       "calibrated_volatility": 1.260822,
       "calibration_as_of": "2026-07-17T13:30:00Z",
       "calibration_opening_mark": 0.75,
@@ -141,16 +141,16 @@
       "option_symbols": [
         "INFQ270115C00025000"
       ],
-      "price": 0.138559,
+      "price": 0.118739,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
-      "underlying_price": 8.75,
+      "underlying_price": 8.485,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "INFQ_C7_5_C15_20270617": {
-      "as_of": "2026-10-23T20:00:00Z",
+      "as_of": "2026-10-26T14:05:57Z",
       "calibrated_volatility": 0.882258,
       "calibration_as_of": "2026-10-09T13:30:00Z",
       "calibration_opening_mark": 2.78,
@@ -163,71 +163,71 @@
         "INFQ270617C00007500",
         "INFQ270617C00015000"
       ],
-      "price": 1.952086,
+      "price": 1.852958,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
-      "underlying_price": 8.75,
+      "underlying_price": 8.485,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T07:01:57Z"
+      "valuation_as_of": "2026-10-26T14:06:00Z"
     },
     "IVR": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 5.54,
+      "as_of": "2026-10-26T14:05:27Z",
+      "price": 5.465,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "NVDA": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 210.960007,
+      "as_of": "2026-10-26T14:05:57Z",
+      "price": 214.580002,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "PHYS": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 30.200001,
+      "as_of": "2026-10-26T14:05:56Z",
+      "price": 30.205,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "PLTR": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 196.75,
+      "as_of": "2026-10-26T14:05:57Z",
+      "price": 194.149994,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "QBTS": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 11.66,
+      "as_of": "2026-10-26T14:05:58Z",
+      "price": 11.37,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "SGOV": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 100.660004,
+      "as_of": "2026-10-26T14:05:57Z",
+      "price": 100.675003,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "SPY": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 759.969971,
+      "as_of": "2026-10-26T14:05:59Z",
+      "price": 763.309998,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "TMP": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 101.199997,
+      "as_of": "2026-10-26T14:01:01Z",
+      "price": 103.589996,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "TSSI": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 6.93,
+      "as_of": "2026-10-26T14:05:38Z",
+      "price": 6.7856,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     },
     "WMT": {
-      "as_of": "2026-10-23T20:00:00Z",
-      "price": 119.889999,
+      "as_of": "2026-10-26T14:05:59Z",
+      "price": 121.379997,
       "quality": "public_delayed",
       "source": "Yahoo Finance chart snapshot"
     }
