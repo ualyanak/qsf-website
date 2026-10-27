@@ -1,7 +1,7 @@
 {
   "demo": true,
   "failures": [],
-  "generated_at": "2026-10-26T23:23:30Z",
+  "generated_at": "2026-10-27T02:21:31Z",
   "missing": [],
   "quotes": {
     "BULL": {
@@ -23,13 +23,13 @@
       "option_symbols": [
         "BULL261218C00010000"
       ],
-      "price": 0.003673,
+      "price": 0.003635,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
       "underlying_price": 5.47,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "BULL_P10_JAN2027": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -44,13 +44,13 @@
       "option_symbols": [
         "BULL270115P00010000"
       ],
-      "price": 4.460317,
+      "price": 4.460359,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed BULL; not an option-market quote",
       "underlying_price": 5.47,
       "underlying_symbol": "BULL",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "IBM": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -77,13 +77,13 @@
       "option_symbols": [
         "INFQ270115C00010000"
       ],
-      "price": 0.729239,
+      "price": 0.728317,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 8.63,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "INFQ_C10_C17_5_20270115": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -99,13 +99,13 @@
         "INFQ270115C00010000",
         "INFQ270115C00017500"
       ],
-      "price": 1.178453,
+      "price": 1.177919,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 8.63,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "INFQ_C12_5_20270115": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -120,13 +120,13 @@
       "option_symbols": [
         "INFQ270115C00012500"
       ],
-      "price": 0.300447,
+      "price": 0.299759,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 8.63,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "INFQ_C25_20270115": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -141,13 +141,13 @@
       "option_symbols": [
         "INFQ270115C00025000"
       ],
-      "price": 0.12697,
+      "price": 0.126442,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 8.63,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "INFQ_C7_5_C15_20270617": {
       "as_of": "2026-10-26T20:00:00Z",
@@ -163,13 +163,13 @@
         "INFQ270617C00007500",
         "INFQ270617C00015000"
       ],
-      "price": 1.907422,
+      "price": 1.907459,
       "quality": "model_delayed",
       "risk_free_rate": 0.04,
       "source": "Automatic Black-Scholes estimate from delayed INFQ; not an option-market quote",
       "underlying_price": 8.63,
       "underlying_symbol": "INFQ",
-      "valuation_as_of": "2026-10-26T23:23:30Z"
+      "valuation_as_of": "2026-10-27T02:21:31Z"
     },
     "IVR": {
       "as_of": "2026-10-26T20:00:00Z",
